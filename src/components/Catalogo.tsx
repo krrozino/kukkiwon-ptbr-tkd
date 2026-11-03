@@ -1,23 +1,69 @@
-import {useEffect,useMemo,useState} from 'react';
-type Term = {id:string;slug:string;category:string;hangul:string|null;romanization:string;translation_pt:string|null;definition_pt:string|null};
-export default function Catalogo(){
-  const [entries,setEntries]=useState<Term[]>([]);
-  const [filter,setFilter]=useState('');
-  const [error,setError]=useState('');
-  const [loading,setLoading]=useState(true);
-  useEffect(()=>{
+import { useEffect, useMemo, useState } from 'react';
+import { fetchPublishedTerms, isCatalogConfigured, type TechnicalTerm } from '../lib/catalog-api';
+
+const normalize = (input: string) =>
+  input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR').trim();
+
+export default function Catalogo() {
+  const [terms, setTerms] = useState<TechnicalTerm[]>([]);
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('all');
+  const [loading, setLoading] = useState(isCatalogConfigured());
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!isCatalogConfigured()) return;
     const controller = new AbortController();
-    const base = import.meta.env.PUBLIC_SUPABASE_URL;
-    const key = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-    if(!base || !key || base.includes('SEU-PROJETO')){setLoading(false);return;}
-    const params = new URLSearchParams({select:'id,slug,category,hangul,romanization,translation_pt,definition_pt',publication_status:'eq.published',order:'romanization.asc',limit:'500'});
-    fetch(base.replace(/\/$/,'')+'/rest/v1/technical_terms?'+params.toString(),{headers:{apikey:key,Accept:'application/json'},signal:controller.signal,cache:'no-store'})
-      .then(async r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json() as Promise<Term[]>})
-      .then(setEntries)
-      .catch(e=>{if(e.name!=='AbortError')setError('Erro ao carregar catálogo.')})
-      .finally(()=>{if(!controller.signal.aborted)setLoading(false)});
-    return ()=>controller.abort();
-  },[]);
-  const visible=useMemo(()=>entries.filter(x=>(x.romanization+' '+(x.hangul||'')+' '+(x.translation_pt||'')).toLocaleLowerCase('pt-BR').includes(filter.toLocaleLowerCase('pt-BR'))),[entries,filter]);
-  return <div><label className="field">Buscar técnica, tradução ou Hangul<input type="search" value={filter} placeholder="Ex.: chagi, 차기, chute" onChange={e=>setFilter(e.target.value)} /></label>{loading?<p role="status">Carregando...</p>:error?<p role="alert">{error}</p>:visible.length===0?<div className="empty"><strong>Nenhuma técnica publicada.</strong><p>A pesquisa está em andamento. Publicaremos apenas itens verificados.</p></div>:<div className="grid" style={{marginTop:24}}>{visible.map(x=><article className="card" key={x.id}><small>{x.category}</small><h2>{x.romanization}</h2><p lang="ko">{x.hangul}</p><p>{x.translation_pt||'Tradução em revisão'}</p>{x.definition_pt&&<p>{x.definition_pt}</p>}</article>)}</div>}</div>;
+    fetchPublishedTerms(controller.signal)
+      .then(setTerms)
+      .catch((reason: unknown) => {
+        if (!controller.signal.aborted) {
+          setError(reason instanceof Error ? reason.message : 'Erro ao consultar o catálogo.');
+        }
+      })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, []);
+
+  const categories = useMemo(() => [...new Set(terms.map(item => item.category))].sort(), [terms]);
+  const filtered = useMemo(() => terms.filter(term => {
+    const searchable = [term.romanization, term.hangul, term.translation_pt, term.pronunciation_pt,
+      ...(term.term_aliases || []).map(alias => alias.alias)].filter(Boolean).join(' ');
+    return (category === 'all' || category === term.category) && normalize(searchable).includes(normalize(query));
+  }), [terms, category, query]);
+
+  return <div className="catalog">
+    <div className="catalog-filters">
+      <label className="field">Buscar por nome, Hangul ou nome alternativo
+        <input type="search" value={query} onChange={event => setQuery(event.target.value)}
+          placeholder="Nome da técnica, coreano ou tradução" autoComplete="off" />
+      </label>
+      <label className="field">Categoria
+        <select value={category} onChange={event => setCategory(event.target.value)}>
+          <option value="all">Todas as categorias</option>
+          {categories.map(value => <option key={value} value={value}>{value}</option>)}
+        </select>
+      </label>
+    </div>
+    {!isCatalogConfigured() ? <div className="empty" role="status"><strong>Catálogo ainda não conectado nesta versão.</strong>
+      <p>A estrutura está pronta. A conexão com o banco será ativada na publicação definitiva.</p></div>
+      : loading ? <p role="status">Consultando registros publicados...</p>
+      : error ? <div className="empty" role="alert"><strong>Não foi possível carregar o catálogo.</strong><p>{error}</p></div>
+      : terms.length === 0 ? <div className="empty" role="status"><strong>Nenhuma técnica publicada ainda.</strong>
+          <p>Aguardamos conferência de fonte, tradução e validação por especialista. As fichas preliminares não são exibidas.</p></div>
+      : <>
+        <p className="results-count" role="status">{filtered.length} de {terms.length} registros encontrados</p>
+        {filtered.length === 0 ? <div className="empty">Nenhuma técnica corresponde aos filtros.</div> :
+          <div className="grid">
+            {filtered.map(item => <a className="card term-card" key={item.id}
+              href={'/tecnica?slug=' + encodeURIComponent(item.slug)}>
+              <span className="tag">{item.category}</span>
+              <h2>{item.romanization}</h2>
+              {item.hangul && <p lang="ko" className="hangul">{item.hangul}</p>}
+              <p>{item.translation_pt || 'Tradução em revisão'}</p>
+              <span className="inline-link">Abrir ficha técnica →</span>
+            </a>)}
+          </div>}
+      </>}
+  </div>;
 }

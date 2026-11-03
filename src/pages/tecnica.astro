@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import FichaTecnica from '../components/FichaTecnica';
+---
+<Base title="Ficha técnica — Taekwondo para Todos">
+  <section class="shell section">
+    <p><a href="/catalogo">← Voltar ao catálogo</a></p>
+    <FichaTecnica client:load />
+  </section>
+</Base>
