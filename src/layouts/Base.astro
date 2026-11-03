@@ -1,0 +1,13 @@
+---
+import '../styles/global.css';
+const { title = 'Taekwondo para Todos' } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Enciclopédia comunitária de Taekwondo com fontes técnicas verificáveis."/><title>{title}</title></head>
+<body>
+<header><nav class="shell"><a class="logo" href="/">TKD · Para Todos</a><a href="/catalogo">Catálogo</a><a href="/fontes">Fontes</a></nav></header>
+<main><slot /></main>
+<footer class="shell"><p>Iniciativa educacional independente e sem fins lucrativos. Não afiliada nem homologada pela Kukkiwon.</p></footer>
+</body>
+</html>
