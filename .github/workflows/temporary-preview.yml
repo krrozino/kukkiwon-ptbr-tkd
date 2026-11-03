@@ -1,0 +1,51 @@
+name: Prévia Cloudflare temporária (somente esta branch)
+
+on:
+  push:
+    branches:
+      - preview/cloudflare-20261103
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Compilar site estático
+        run: npm run build
+      - name: Verificar arquivos estáticos
+        run: |
+          test -f dist/index.html
+          test -f dist/catalogo/index.html
+          test -f dist/fontes/index.html
+      - name: Publicar prévia temporária uma única vez
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEPLOY_LOG="$RUNNER_TEMP/taekwondo-cloudflare-deploy.log"
+          if ! npx wrangler deploy --temporary --config wrangler.jsonc --name kukkiwon-ptbr-tkd-preview > "$DEPLOY_LOG" 2>&1; then
+            echo "::error::Falha no deploy temporário. Saída do Wrangler foi preservada apenas no runner, para impedir vazamento do token de reivindicação."
+            rm -f "$DEPLOY_LOG"
+            exit 1
+          fi
+          PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' "$DEPLOY_LOG" | tail -n 1 || true)"
+          rm -f "$DEPLOY_LOG"
+          if [[ -z "$PREVIEW_URL" ]]; then
+            echo "::error::O deploy não retornou URL pública."
+            exit 1
+          fi
+          echo "Prévia Cloudflare: $PREVIEW_URL"
+          echo "## Prévia Cloudflare" >> "$GITHUB_STEP_SUMMARY"
+          echo "$PREVIEW_URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Deploy temporário: expira aproximadamente 60 minutos após a criação." >> "$GITHUB_STEP_SUMMARY"
