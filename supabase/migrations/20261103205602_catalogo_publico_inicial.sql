@@ -1,4 +1,4 @@
--- Proposta inicial. NÃO aplicar sem revisão e sem projeto novo exclusivo.
+-- Migração aplicada ao projeto Supabase dedicado acbostnsohltuaegfkwl; revisar antes de reutilizar em outro ambiente.
 create table public.content_sources (
  id uuid primary key default gen_random_uuid(),
  institution text not null, title text not null, edition text,
