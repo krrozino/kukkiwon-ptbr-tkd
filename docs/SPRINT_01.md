@@ -1,6 +1,7 @@
 # Sprint 01 — conteúdo, catálogo e atlas
 
 Especificação: [Issue #8](https://github.com/krrozino/kukkiwon-ptbr-tkd/issues/8).
+Entrega: [PR Draft #9](https://github.com/krrozino/kukkiwon-ptbr-tkd/pull/9), com testes locais aprovados e revisão humana pendente.
 Base: `feat/first-20-kukkiwon-2012`. As PRs #1, #4 e #7 permanecem encadeadas.
 
 ## Conteúdo e contagens
