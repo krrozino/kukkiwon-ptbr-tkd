@@ -2,7 +2,7 @@
 -- Tradução pt-BR provisória; não publicado. Reexecutável (on conflict do nothing).
 begin;
 insert into public.content_sources (institution,title,edition,publication_year,official_url)
-select 'Kukkiwon','Taekwondo Technical Terminology','English edition, preface 2012',2012,'https://research.kukkiwon.or.kr/homepage/boardMedia/11621'
+select 'Kukkiwon','Taekwondo Technical Terminology','English first published 2011; preface 2012',2011,'https://research.kukkiwon.or.kr/homepage/boardMedia/11621'
 where not exists (select 1 from public.content_sources where official_url='https://research.kukkiwon.or.kr/homepage/boardMedia/11621');
 insert into public.technical_terms (slug,category,romanization,hangul,translation_pt,definition_pt,editorial_status,publication_status)
 select v.slug,v.category,v.romanization,v.hangul,v.translation_pt,v.definition_pt,'document_checked','draft'
@@ -56,4 +56,7 @@ from (values
 join public.technical_terms t on t.slug=v.slug
 join public.content_sources s on s.official_url='https://research.kukkiwon.or.kr/homepage/boardMedia/11621'
 on conflict (term_id,source_id,source_locator) do nothing;
+update public.content_sources
+set edition='English first published 2011; preface 2012',publication_year=2011
+where official_url='https://research.kukkiwon.or.kr/homepage/boardMedia/11621';
 commit;
