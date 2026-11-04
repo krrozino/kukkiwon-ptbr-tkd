@@ -19,7 +19,8 @@ export default function Atlas() {
   useEffect(()=>{
     let controller:AbortController;
     async function sync() {
-      controller?.abort();controller=new AbortController();
+      controller?.abort();
+      const currentController=new AbortController();controller=currentController;
       const p=new URLSearchParams(window.location.search),region=p.get('region'),view=p.get('view')==='back'?'back':'front';
       setNotice('');setReady(false);
       if(!region||isArea(region)) {
@@ -28,11 +29,13 @@ export default function Atlas() {
       }
       if(!isCatalogConfigured()) {setLocation({...initial,view});setNotice('Região não encontrada ou ainda não publicada.');setReady(true);return;}
       try {
-        const data=await fetchRegion(region,controller.signal);if(controller.signal.aborted)return;
-        if(data&&isArea(data.atlas_area))setLocation({area:data.atlas_area,region:data.slug,view,zoom:true,detailView:data.detail_view==='back'?'back':'front'});
+        const data=await fetchRegion(region,currentController.signal);if(currentController.signal.aborted)return;
+        const detail=p.get('detail');
+        if(data&&isArea(data.atlas_area))setLocation({area:data.atlas_area,region:data.slug,view,zoom:true,
+          detailView:detail==='front'||detail==='back'?detail:data.detail_view==='back'?'back':'front'});
         else {setLocation({...initial,view});setNotice('Região não encontrada ou ainda não publicada.');}
-      } catch {if(!controller.signal.aborted){setLocation({...initial,view});setNotice('Não foi possível carregar o link da região.');}}
-      finally {if(!controller.signal.aborted)setReady(true);}
+      } catch {if(!currentController.signal.aborted){setLocation({...initial,view});setNotice('Não foi possível carregar o link da região.');}}
+      finally {if(!currentController.signal.aborted)setReady(true);}
     }
     void sync();window.addEventListener('popstate',sync);
     return()=>{controller?.abort();window.removeEventListener('popstate',sync);};
@@ -40,7 +43,7 @@ export default function Atlas() {
   const navigate=(next:Location)=>{
     setLocation(next);setHovered(null);setNotice('');
     const p=new URLSearchParams({region:next.region||next.area,view:next.view});
-    if(next.zoom)p.set('zoom','1');if(next.detailView==='back')p.set('detail','back');
+    if(next.zoom){p.set('zoom','1');p.set('detail',next.detailView);}
     window.history.pushState(null,'',window.location.pathname+'?'+p);
   };
   useEffect(()=>{

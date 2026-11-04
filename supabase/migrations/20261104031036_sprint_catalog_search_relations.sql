@@ -139,3 +139,17 @@ $$;
 revoke all on function public.catalog_facets() from public;
 grant execute on function public.catalog_facets() to anon,authenticated;
 -- Não há carga de dados, mudança de status editorial ou política de escrita pública.
+
+-- Corrige a correlação de id da política herdada sem remover objetos existentes.
+-- A política permissiva permite os documentos usados; a restritiva impede que a
+-- condição legada não correlacionada exponha documentos sem termo publicado.
+create policy "Documentos com vínculo público explícito" on public.content_sources
+ for select to anon,authenticated using (
+  exists(select 1 from public.term_sources ts join public.technical_terms t on t.id=ts.term_id
+   where ts.source_id=public.content_sources.id and t.publication_status='published')
+ );
+create policy "Restringir documentos aos vínculos públicos" on public.content_sources
+ as restrictive for select to anon,authenticated using (
+  exists(select 1 from public.term_sources ts join public.technical_terms t on t.id=ts.term_id
+   where ts.source_id=public.content_sources.id and t.publication_status='published')
+ );

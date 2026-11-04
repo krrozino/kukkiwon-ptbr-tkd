@@ -102,3 +102,35 @@ test('atlas: captura das vistas e detalhes com fixtures isoladas',async({page},t
   await page.getByRole('button',{name:'Ampliar região'}).click();
   await page.screenshot({path:'test-results/previews/atlas-'+testInfo.project.name+'-detail.png',fullPage:true});
 });
+test('atlas: histórico preserva o lado do detalhe técnico',async({page})=>{
+  await api(page);await page.goto('/atlas?region=apchuk&detail=back');
+  await expect(page.getByRole('img',{name:'Detalhe original do pé — dorso'})).toBeVisible();
+  await page.getByRole('button',{name:'Planta',exact:true}).click();
+  await page.goBack();
+  await expect(page.getByRole('img',{name:'Detalhe original do pé — dorso'})).toBeVisible();
+});
+test('atlas: navegação cancelada não altera a região que está carregando',async({page})=>{
+  await api(page);await page.goto('/atlas?region=hands');
+  await expect(page.getByText(/Nenhuma região técnica validada e publicada/)).toBeVisible();
+  let release!:()=>void;
+  const held=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/rest/v1/body_regions?**',async route=>{
+    if(new URL(route.request().url()).searchParams.has('slug')) {
+      await held;
+      try {await route.fulfill({json:[]});}catch{/* a requisição anterior foi cancelada */}
+    } else await route.fallback();
+  });
+  const first=page.waitForRequest(r=>r.url().includes('slug=eq.apchuk'));
+  await page.evaluate(()=>{
+    history.pushState(null,'','/atlas?region=apchuk');dispatchEvent(new PopStateEvent('popstate'));
+  });await first;
+  const second=page.waitForRequest(r=>r.url().includes('slug=eq.inexistente'));
+  await page.evaluate(()=>{
+    history.pushState(null,'','/atlas?region=inexistente');dispatchEvent(new PopStateEvent('popstate'));
+  });await second;
+  try {
+    await expect(page.getByRole('region',{name:'Explorar o mapa corporal'})).toHaveAttribute('aria-busy','true');
+    await expect(page.getByText('Não foi possível carregar o link da região.')).toHaveCount(0);
+  } finally {release();}
+  await expect(page.getByText('Região não encontrada ou ainda não publicada.')).toBeVisible();
+});

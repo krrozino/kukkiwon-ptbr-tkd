@@ -62,6 +62,12 @@ describe('PostgreSQL isolado: busca, permissões e fontes', () => {
   it('bloqueia publicação sem revisão técnica', async () => {
     await expect(db.exec("insert into public.technical_terms(slug,category,romanization,publication_status,published_at) values('bad','x','x','published',now())")).rejects.toThrow();
   });
+  it('expõe somente o documento de uma técnica publicada, com correlação correta de RLS', async () => {
+    await published('source-visible');
+    await db.exec("insert into public.content_sources(institution,title,official_url) values('Private','Unpublished document','https://example.org/private'); set local role anon;");
+    const {rows}=await db.query('select title from public.content_sources');
+    expect(rows).toEqual([{title:'Fixture isolada'}]);
+  });
   it('RLS protege regiões, mídias e relações de rascunhos', async () => {
     const a=await published('parent'), b=await published('variant');
     await db.query("insert into public.term_relations(term_id,related_term_id,relation_kind,source_id,source_locator,publication_status,checked_at) select $1,$2,'variant_of',id,'§1 > Fixture','published',now() from public.content_sources limit 1",[a.id,b.id]);
@@ -108,5 +114,12 @@ describe('SQL gerado executado em PostgreSQL', () => {
     const changed = structuredClone(expansion);
     changed.records[0].translation_pt = 'Divergência';
     await expect(db.exec(generateImportSql(changed))).rejects.toThrow(/Conflitos de importação/);
+  });
+  it.each(['relação de variante','vínculo anatômico'])('rejeita divergência de fonte em %s',async(kind)=>{
+    const changed=structuredClone(expansion);
+    const r=changed.records.find(r=>r.slug==='palgup-dollyeo-chigi');
+    if(kind==='relação de variante')r.source_locator+=' > divergência';
+    else r.anatomical_links[0].source_locator+=' > divergência';
+    await expect(db.exec(generateImportSql(changed))).rejects.toThrow(/Conflitos/);
   });
 });

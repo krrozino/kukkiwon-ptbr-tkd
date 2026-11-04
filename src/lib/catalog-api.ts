@@ -23,10 +23,25 @@ const termFields = 'id,slug,category,hangul,romanization,translation_pt,pronunci
 const regionFields = 'id,slug,region_group,atlas_area,name_pt,detail_view,detail_x,detail_y';
 const validSlug = (s: string) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s) && s.length <= 120;
 const isObject = (v: unknown): v is Record<string,unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
+const nullableText = (v:unknown) => v===null || typeof v==='string';
+const namedSlug = (v:unknown,label:string) => isObject(v) && typeof v.slug==='string' && validSlug(v.slug) && typeof v[label]==='string';
 function assertTerm(v: unknown): asserts v is TechnicalTerm {
   if (!isObject(v) || v.publication_status !== 'published' ||
       !['id','slug','category','romanization'].every(k => typeof v[k] === 'string') ||
-      !validSlug(v.slug as string)) throw new Error('Resposta inválida do catálogo.');
+      !validSlug(v.slug as string) ||
+      !['hangul','translation_pt','pronunciation_pt','definition_pt'].every(k=>nullableText(v[k])) ||
+      (v.term_aliases!==undefined && (!Array.isArray(v.term_aliases) || !v.term_aliases.every(a=>
+        isObject(a) && typeof a.alias==='string' && typeof a.alias_kind==='string' && typeof a.is_official==='boolean')))) {
+    throw new Error('Resposta inválida do catálogo.');
+  }
+}
+function assertRegion(v:unknown):asserts v is BodyRegion {
+  if(!namedSlug(v,'name_pt') || !isObject(v) || typeof v.id!=='string' || typeof v.region_group!=='string' ||
+     !['hands','feet','head','torso','arms','legs'].includes(v.atlas_area as string) ||
+     ![null,'front','back','both'].includes(v.detail_view as null|string) ||
+     !['detail_x','detail_y'].every(k=>v[k]===null || (typeof v[k]==='number' && Number.isFinite(v[k]) && v[k]>=5 && v[k]<=98))) {
+    throw new Error('Resposta inválida do atlas.');
+  }
 }
 function configuration(): Configuration {
   return {url:import.meta.env.PUBLIC_SUPABASE_URL || '',key:import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY || ''};
@@ -84,17 +99,21 @@ export async function fetchCatalogPage(options:CatalogOptions={},signal?:AbortSi
 }
 export async function fetchCatalogFacets(signal?:AbortSignal):Promise<CatalogFacets> {
   const result=await createCatalogClient(configuration()).request<CatalogFacets>('rpc/catalog_facets',new URLSearchParams(),signal,{});
-  if(!result||!Array.isArray(result.categories)||!result.categories.every(v=>typeof v==='string')||!Array.isArray(result.regions)||!Array.isArray(result.families)) throw new Error('Resposta inválida dos filtros.');
+  if(!result||!Array.isArray(result.categories)||!result.categories.every(v=>typeof v==='string')||
+    !Array.isArray(result.regions)||!result.regions.every(v=>namedSlug(v,'name_pt'))||
+    !Array.isArray(result.families)||!result.families.every(v=>namedSlug(v,'romanization'))) throw new Error('Resposta inválida dos filtros.');
   return result;
 }
 export async function fetchRegions(group:string,signal?:AbortSignal):Promise<BodyRegion[]> {
   if(!['hands','feet','head','torso','arms','legs'].includes(group)) throw new Error('Área inválida.');
-  return allPages<BodyRegion>('body_regions',new URLSearchParams({select:regionFields,atlas_area:'eq.'+group,publication_status:'eq.published',order:'name_pt.asc,slug.asc'}),signal);
+  const regions=await allPages<BodyRegion>('body_regions',new URLSearchParams({select:regionFields,atlas_area:'eq.'+group,publication_status:'eq.published',order:'name_pt.asc,slug.asc'}),signal);
+  regions.forEach(assertRegion);return regions;
 }
 export async function fetchRegion(slug:string,signal?:AbortSignal):Promise<BodyRegion|null> {
   if(!validSlug(slug)) return null;
   const result=await fetchPublic<BodyRegion[]>('body_regions',new URLSearchParams({select:regionFields,slug:'eq.'+slug,publication_status:'eq.published',limit:'1'}),signal);
-  if(!Array.isArray(result)) throw new Error('Resposta inválida do atlas.'); return result[0]||null;
+  if(!Array.isArray(result)) throw new Error('Resposta inválida do atlas.');
+  result.forEach(assertRegion);return result[0]||null;
 }
 export async function fetchRegionTerms(regionId:string,signal?:AbortSignal) {
   return allPages<RegionTerm>('body_region_terms',new URLSearchParams({

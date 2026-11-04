@@ -1,5 +1,5 @@
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
-import { fetchCatalogPage, fetchRegions, fetchTermDetails, createCatalogClient } from '../src/lib/catalog-api';
+import { fetchCatalogPage, fetchCatalogFacets, fetchRegions, fetchTermDetails, createCatalogClient } from '../src/lib/catalog-api';
 beforeEach(() => {
   vi.stubEnv('PUBLIC_SUPABASE_URL','https://acbostnsohltuaegfkwl.supabase.co');
   vi.stubEnv('PUBLIC_SUPABASE_PUBLISHABLE_KEY','sb_publishable_test');
@@ -47,4 +47,13 @@ it('busca regiões com limite explícito e resolve somente ficha publicada', asy
   });
   expect(await fetchRegions('feet')).toEqual([]);
   expect(await fetchTermDetails('ap-chagi')).toBeNull();
+});
+it.each([
+  ['tradução inválida',()=>fetchCatalogPage({}),{items:[{id:'t1',slug:'ap-chagi',category:'chute',romanization:'Ap-chagi',hangul:'앞차기',translation_pt:{},pronunciation_pt:null,definition_pt:null,publication_status:'published'}],total:1}],
+  ['região nula',()=>fetchRegions('feet'),[null]],
+  ['filtro de região nulo',()=>fetchCatalogFacets(),{categories:[],regions:[null],families:[]}],
+  ['filtro de família inválido',()=>fetchCatalogFacets(),{categories:[],regions:[],families:[{slug:'x',romanization:{}}]}],
+])('rejeita %s antes da renderização',async(_,request,data)=>{
+  vi.stubGlobal('fetch',async()=>Response.json(data));
+  await expect(request()).rejects.toThrow(/resposta/i);
 });

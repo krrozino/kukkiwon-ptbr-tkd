@@ -79,6 +79,24 @@ begin
  or (br.name_pt,br.atlas_area,br.detail_view,br.detail_x,br.detail_y)
  is distinct from (r.translation_pt,r.atlas->>'area',r.atlas->>'view',(r.atlas->>'x')::numeric,(r.atlas->>'y')::numeric));
  if conflicts is not null then raise exception 'Conflitos de regiões (nenhuma alteração aplicada): %', conflicts; end if;
+ select string_agg(distinct t.slug, ', ' order by t.slug) into conflicts
+ from import_records r join public.technical_terms t using(slug)
+ join public.technical_terms parent on parent.slug=r.variant_of
+ join public.term_relations tr on tr.term_id=t.id and tr.related_term_id=parent.id and tr.relation_kind='variant_of'
+ cross join import_batch b left join public.content_sources s on s.official_url=b.data->'source'->>'url'
+ where (tr.source_id,tr.source_locator) is distinct from (s.id,r.source_locator)
+ or tr.publication_status <> 'draft' or tr.checked_at is not null;
+ if conflicts is not null then raise exception 'Conflitos de relações (nenhuma alteração aplicada): %', conflicts; end if;
+ select string_agg(distinct t.slug, ', ' order by t.slug) into conflicts
+ from import_records r join public.technical_terms t using(slug)
+ cross join lateral jsonb_array_elements(coalesce(r.anatomical_links,'[]'::jsonb)) a
+ join public.body_regions region on region.slug=a->>'region_slug'
+ join public.body_region_terms link on link.term_id=t.id and link.region_id=region.id
+  and link.usage_context=case when a->>'relation_type'='anatomy' then 'other' else a->>'relation_type' end
+ cross join import_batch b left join public.content_sources s on s.official_url=b.data->'source'->>'url'
+ where (link.anatomical_role,link.source_id,link.source_locator)
+ is distinct from (a->>'relation_type',s.id,a->>'source_locator');
+ if conflicts is not null then raise exception 'Conflitos de vínculos (nenhuma alteração aplicada): %', conflicts; end if;
  if (select count(*) from public.content_sources s, import_batch b where s.official_url=b.data->'source'->>'url') > 1
  then raise exception 'Fonte duplicada: resolver manualmente antes de importar'; end if;
 end $import$;
