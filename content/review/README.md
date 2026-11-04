@@ -1,5 +1,7 @@
 # Primeiro lote de 20 termos — Kukkiwon: edição inglesa 2011, prefácio 2012
 
+O lote original abaixo foi preservado. A sprint #8 acrescenta 85 candidatos em `kukkiwon-2012-expansion.json`, todos `research` / `draft`, com evidência de extração automatizada e revisão humana pendente. Consulte [o relatório](../../docs/SPRINT_01.md) e [o pipeline](../../docs/DATA_PIPELINE.md). Não interpretar as contagens dos novos candidatos como novas conferências humanas.
+
 Fonte: https://research.kukkiwon.or.kr/homepage/boardMedia/11621
 
 **Situação:** nomes e Hangul encontrados na seção identificada do edição inglesa publicada em 31/12/2011, com prefácio datado de 01/03/2012. As traduções e definições PT-BR são adaptações editoriais *provisórias*. Todos os registros permanecem como `draft` no Supabase, sem visibilidade pública.
