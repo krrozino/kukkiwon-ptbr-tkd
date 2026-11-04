@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lote de pesquisa editorial, nunca conteúdo público",
+  "type": "object",
+  "required": ["batch", "source", "records"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "batch": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "source": {
+      "type": "object",
+      "required": ["institution", "title", "edition", "year", "url"],
+      "properties": {
+        "institution": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "edition": { "type": "string", "minLength": 1 },
+        "year": { "type": "integer", "minimum": 1900 },
+        "url": { "type": "string", "pattern": "^https://" }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } },
+    "records": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slug", "hangul", "romanization", "category", "translation_pt", "definition_pt", "source_locator", "editorial_status", "publication_status", "translation_review", "technical_review"],
+        "properties": {
+          "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 120 },
+          "hangul": { "type": "string", "pattern": "[가-힣]" },
+          "romanization": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "translation_pt": { "type": "string", "minLength": 1 },
+          "definition_pt": { "type": "string", "minLength": 1 },
+          "source_locator": { "type": "string", "pattern": "^(§[0-9]+|Appendix) >? ?.*> .+" },
+          "editorial_status": { "enum": ["research", "document_checked"] },
+          "publication_status": { "const": "draft" },
+          "translation_review": { "const": "pending" },
+          "technical_review": { "const": "pending" },
+          "record_kind": { "enum": ["technique", "family", "variant", "surface", "anatomy"] },
+          "variant_of": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "atlas": {
+            "type": "object", "additionalProperties": false,
+            "required": ["area", "view", "x", "y"],
+            "properties": {
+              "area": { "enum": ["hands", "feet", "head", "torso", "arms", "legs"] },
+              "view": { "enum": ["front", "back", "both"] },
+              "x": { "type": ["number", "null"], "minimum": 5, "maximum": 95 },
+              "y": { "type": ["number", "null"], "minimum": 5, "maximum": 98 }
+            }
+          },
+          "anatomical_links": {
+            "type": "array", "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["region_slug", "relation_type", "source_locator"],
+              "properties": {
+                "region_slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+                "relation_type": { "enum": ["surface", "target", "anatomy", "movement"] },
+                "source_locator": { "type": "string", "minLength": 5 }
+              }
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "required": ["method", "human_checked"],
+            "properties": { "method": { "type": "string" }, "human_checked": { "const": false } }
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["alias", "alias_kind", "source_locator"],
+              "properties": {
+                "alias": { "type": "string", "minLength": 1 },
+                "alias_kind": { "enum": ["historical", "school_usage", "search", "alternate_romanization"] },
+                "source_locator": { "type": "string", "minLength": 5 }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [{
+    "if": { "required": ["schema_version"] },
+    "then": { "properties": { "records": { "items": {
+      "required": ["record_kind", "evidence", "documentary_confidence", "comparison_with_2022"],
+      "properties": {
+        "editorial_status": { "const": "research" },
+        "documentary_confidence": { "const": "primary_text_located_automatically" },
+        "comparison_with_2022": { "enum": ["pending", "not_accessible"] }
+      }
+    } } } }
+  }]
+}
