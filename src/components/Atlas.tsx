@@ -1,84 +1,116 @@
-import { useEffect, useState } from 'react';
-import { fetchRegions, isCatalogConfigured, type BodyRegion } from '../lib/catalog-api';
-
-type Zone = { id: string; title: string; help: string };
-const zones: Zone[] = [
-  { id: 'hands', title: 'Mãos', help: 'Passe o mouse ou toque na mão para ampliar a região.' },
-  { id: 'feet', title: 'Pés', help: 'Toque nos pés para explorar as regiões que serão catalogadas.' },
-  { id: 'head', title: 'Cabeça', help: 'Selecione a cabeça para consultar os termos publicados.' },
-  { id: 'torso', title: 'Tronco', help: 'Selecione o tronco para consultar os termos publicados.' }
-];
-
+import { useEffect, useRef, useState } from 'react';
+import { fetchRegion, fetchRegions, fetchRegionTerms, isCatalogConfigured, type BodyRegion, type RegionTerm } from '../lib/catalog-api';
+import BodyMap, { areas, isArea, type Area, type View } from './atlas/BodyMap';
+import DetailMap from './atlas/DetailMap';
+type Location={area:Area;region:string|null;view:View;detailView:View;zoom:boolean};
+const initial:Location={area:'hands',region:null,view:'front',detailView:'front',zoom:false};
+const relationLabels={surface:'Superfície de contato',target:'Alvo',movement:'Movimento',anatomy:'Parte anatômica',other:'Outro vínculo'};
 export default function Atlas() {
-  const [chosen, setChosen] = useState('hands');
-  const [hovered, setHovered] = useState<string | null>(null);
-  const current = hovered || chosen;
-  const [regions, setRegions] = useState<BodyRegion[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [failed, setFailed] = useState(false);
-  useEffect(() => {
-    if (!isCatalogConfigured()) return;
-    const controller = new AbortController();
-    setLoading(true); setFailed(false);
-    fetchRegions(current, controller.signal).then(setRegions)
-      .catch(() => { if (!controller.signal.aborted) setFailed(true); })
-      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
-    return () => controller.abort();
-  }, [current]);
-  const active = zones.find(zone => zone.id === current) || zones[0];
-  const interactive = (id: string) => ({
-    onMouseEnter: () => setHovered(id),
-    onMouseLeave: () => setHovered(null),
-    onClick: () => { setChosen(id); setHovered(null); }
-  });
-  return <div className="atlas-layout">
-    <div className="card atlas-figure">
-      <p className="fine-print">Mapa conceitual 2D · regiões gerais do corpo, não uma ilustração anatômica oficial</p>
-      <svg viewBox="0 0 260 480" className="body-svg" aria-label="Corpo humano esquemático com áreas clicáveis">
-        <g {...interactive('head')} className={'atlas-zone ' + (current === 'head' ? 'active' : '')}>
-          <ellipse cx="130" cy="57" rx="37" ry="42" />
-        </g>
-        <g {...interactive('torso')} className={'atlas-zone ' + (current === 'torso' ? 'active' : '')}>
-          <path d="M92 111 L168 111 L180 240 L80 240 Z" />
-          <path d="M90 245 L129 245 L122 395 L82 395 Z" />
-          <path d="M132 245 L170 245 L179 395 L137 395 Z" />
-        </g>
-        <g className="body-limb" aria-hidden="true"><path d="M83 126 L58 272" /><path d="M176 126 L201 272" /></g>
-        <g {...interactive('hands')} className={'atlas-zone ' + (current === 'hands' ? 'active' : '')}>
-          <ellipse cx="52" cy="298" rx="17" ry="28" transform="rotate(12 52 298)" />
-          <ellipse cx="209" cy="298" rx="17" ry="28" transform="rotate(-12 209 298)" />
-        </g>
-        <g {...interactive('feet')} className={'atlas-zone ' + (current === 'feet' ? 'active' : '')}>
-          <path d="M82 389 L121 389 L117 450 L64 450 Z" />
-          <path d="M139 389 L179 389 L197 450 L145 450 Z" />
-        </g>
-      </svg>
-      <div className="atlas-controls" role="group" aria-label="Escolher região do corpo">
-        {zones.map(zone => <button type="button" aria-pressed={chosen === zone.id} className={chosen === zone.id ? 'selected' : ''}
-          key={zone.id} onClick={() => { setChosen(zone.id); setHovered(null); }}>{zone.title}</button>)}
+  const [location,setLocation]=useState<Location>(initial),[ready,setReady]=useState(false);
+  const [hovered,setHovered]=useState<Area|null>(null),[regions,setRegions]=useState<BodyRegion[]>([]);
+  const [links,setLinks]=useState<RegionTerm[]>([]),[loading,setLoading]=useState(false),[linksLoading,setLinksLoading]=useState(false);
+  const [error,setError]=useState(''),[linkError,setLinkError]=useState(''),[notice,setNotice]=useState(''),[retry,setRetry]=useState(0);
+  const zoomButton=useRef<HTMLButtonElement>(null);
+  const previousZoom=useRef(false);
+  useEffect(()=>{
+    if(previousZoom.current&&!location.zoom)zoomButton.current?.focus();
+    previousZoom.current=location.zoom;
+  },[location.zoom]);
+  useEffect(()=>{
+    let controller:AbortController;
+    async function sync() {
+      controller?.abort();controller=new AbortController();
+      const p=new URLSearchParams(window.location.search),region=p.get('region'),view=p.get('view')==='back'?'back':'front';
+      setNotice('');setReady(false);
+      if(!region||isArea(region)) {
+        setLocation({...initial,area:region&&isArea(region)?region:'hands',view,zoom:p.get('zoom')==='1',detailView:p.get('detail')==='back'?'back':'front'});
+        setReady(true);return;
+      }
+      if(!isCatalogConfigured()) {setLocation({...initial,view});setNotice('Região não encontrada ou ainda não publicada.');setReady(true);return;}
+      try {
+        const data=await fetchRegion(region,controller.signal);if(controller.signal.aborted)return;
+        if(data&&isArea(data.atlas_area))setLocation({area:data.atlas_area,region:data.slug,view,zoom:true,detailView:data.detail_view==='back'?'back':'front'});
+        else {setLocation({...initial,view});setNotice('Região não encontrada ou ainda não publicada.');}
+      } catch {if(!controller.signal.aborted){setLocation({...initial,view});setNotice('Não foi possível carregar o link da região.');}}
+      finally {if(!controller.signal.aborted)setReady(true);}
+    }
+    void sync();window.addEventListener('popstate',sync);
+    return()=>{controller?.abort();window.removeEventListener('popstate',sync);};
+  },[retry]);
+  const navigate=(next:Location)=>{
+    setLocation(next);setHovered(null);setNotice('');
+    const p=new URLSearchParams({region:next.region||next.area,view:next.view});
+    if(next.zoom)p.set('zoom','1');if(next.detailView==='back')p.set('detail','back');
+    window.history.pushState(null,'',window.location.pathname+'?'+p);
+  };
+  useEffect(()=>{
+    if(!ready||!isCatalogConfigured())return;
+    const c=new AbortController();setLoading(true);setError('');setRegions([]);setLinks([]);
+    fetchRegions(location.area,c.signal).then(data=>{if(!c.signal.aborted)setRegions(data);})
+      .catch(()=>{if(!c.signal.aborted)setError('Não foi possível carregar as regiões publicadas.');})
+      .finally(()=>{if(!c.signal.aborted)setLoading(false);});
+    return()=>c.abort();
+  },[location.area,ready,retry]);
+  const selected=regions.find(r=>r.slug===location.region)||null;
+  useEffect(()=>{
+    setLinks([]);setLinkError('');setLinksLoading(false);if(!selected)return;
+    const c=new AbortController();setLinksLoading(true);
+    fetchRegionTerms(selected.id,c.signal).then(data=>{if(!c.signal.aborted)setLinks(data);})
+      .catch(()=>{if(!c.signal.aborted)setLinkError('Não foi possível carregar as técnicas associadas.');})
+      .finally(()=>{if(!c.signal.aborted)setLinksLoading(false);});
+    return()=>c.abort();
+  },[selected?.id,retry]);
+  const close=()=>navigate({...location,zoom:false,region:null});
+  const choose=(area:Area)=>navigate({...location,area,region:null,zoom:false});
+  const chooseRegion=(region:BodyRegion)=>navigate({...location,region:region.slug,zoom:true,detailView:region.detail_view==='back'?'back':region.detail_view==='front'?'front':location.detailView});
+  const area=areas.find(a=>a.id===location.area)!;
+  const preview=areas.find(a=>a.id===(hovered||location.area))!;
+  return <div className="atlas-layout" onKeyDown={e=>{if(e.key==='Escape'&&(location.zoom||location.region)){e.preventDefault();close();}}}>
+    <section className="card atlas-figure" aria-label="Explorar o mapa corporal" inert={!ready} aria-busy={!ready}>
+      <div className="atlas-controls" role="group" aria-label="Vista do corpo">
+        <button aria-label="Vista anterior" aria-pressed={location.view==='front'} onClick={()=>navigate({...location,view:'front'})}>Frente</button>
+        <button aria-label="Vista posterior" aria-pressed={location.view==='back'} onClick={()=>navigate({...location,view:'back'})}>Costas</button>
       </div>
-    </div>
-    <section className="card atlas-information">
-      <p className="tag">Exploração corporal</p>
-      <h2>{active.title}</h2>
-      <p>{active.help}</p>
-      <div className={'atlas-zoom atlas-zoom-' + current} aria-hidden="true">
-        <div className="zoom-symbol">{current === 'hands' ? '✋' : current === 'feet' ? '◁' : current === 'head' ? '◯' : '▣'}</div>
-        <span>Área em destaque</span>
+      <p className="fine-print">Ilustração esquemática original · orientação didática</p>
+      {location.zoom&&(location.area==='hands'||location.area==='feet')?<>
+        <div className="atlas-controls" role="group" aria-label="Vista do detalhe">
+          <button aria-pressed={location.detailView==='front'} onClick={()=>navigate({...location,detailView:'front'})}>{location.area==='hands'?'Palma':'Planta'}</button>
+          <button aria-pressed={location.detailView==='back'} onClick={()=>navigate({...location,detailView:'back'})}>Dorso</button>
+        </div>
+        <DetailMap area={location.area} view={location.detailView} regions={regions} selected={location.region} onSelect={chooseRegion}/>
+      </>:<BodyMap view={location.view} selected={location.area} hovered={hovered} zoom={location.zoom} onSelect={choose} onHover={setHovered}/>}
+      <p className="atlas-preview" aria-live="polite"><strong>{preview.title}</strong> · {preview.summary}</p>
+      <div className="atlas-controls" role="group" aria-label="Ampliação">
+        <button ref={zoomButton} onClick={()=>navigate({...location,zoom:true})} hidden={location.zoom}>Ampliar região</button>
+        {location.zoom&&<button onClick={close}>Voltar ao corpo inteiro</button>}
       </div>
-      <h3>Regiões e termos técnicos</h3>
-      {!isCatalogConfigured() ? <p>O atlas será conectado ao banco na publicação definitiva.</p>
-        : loading ? <p role="status">Consultando...</p>
-        : failed ? <p role="alert">Não foi possível carregar os registros.</p>
-        : regions.length === 0 ? <p>Nenhum termo corporal validado e publicado nesta área ainda.</p>
-        : <ul>{regions.map(region => <li key={region.id}><strong>{region.name_pt}</strong>
-          <ul>{(region.body_region_terms || []).filter(link => link.technical_terms).map(link =>
-            <li key={link.technical_terms!.slug}>
-              <a href={'/tecnica?slug=' + encodeURIComponent(link.technical_terms!.slug)}>
-                {link.technical_terms!.romanization}</a>
-              {link.technical_terms!.translation_pt && ' — ' + link.technical_terms!.translation_pt}
-            </li>)}</ul></li>)}</ul>}
-      <p className="fine-print">Os nomes técnicos e suas partes específicas só serão exibidos após revisão documental. Esta silhueta é uma representação de interface.</p>
+      <div className="atlas-controls area-list" role="group" aria-label="Escolher área do corpo">
+        {areas.map(a=><button key={a.id} aria-pressed={location.area===a.id} onClick={()=>choose(a.id)}>{a.title}</button>)}
+      </div>
+      <p className="fine-print">Tab navega; Enter ou Espaço selecionam. Escape retorna ao corpo inteiro. No celular, toque nas áreas ou nos botões.</p>
+    </section>
+    <section className="card atlas-information" aria-label="Informações da região" aria-busy={loading||linksLoading}>
+      <p className="tag">Exploração corporal</p><h2>{selected?.name_pt||area.title}</h2>
+      <p>{area.summary}</p>
+      {notice&&<p role="status">{notice}</p>}
+      {!isCatalogConfigured()?<div className="empty" role="status">Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é exibido sem dados publicados.</div>:
+        !ready||loading?<p role="status">Carregando regiões publicadas...</p>:
+        error?<div role="alert"><p>{error}</p><button onClick={()=>setRetry(n=>n+1)}>Tentar novamente</button></div>:
+        regions.length===0?<p>Nenhuma região técnica validada e publicada nesta área ainda.</p>:<>
+          <h3>Regiões publicadas</h3>
+          <ul className="region-list">{regions.map(r=><li key={r.id}><button aria-pressed={location.region===r.slug} onClick={()=>chooseRegion(r)}>{r.name_pt}</button></li>)}</ul>
+          {selected?<section aria-label="Técnicas associadas"><h3>Relações com o catálogo</h3>
+            {linksLoading?<p role="status">Carregando técnicas associadas...</p>:linkError?<div role="alert"><p>{linkError}</p><button onClick={()=>setRetry(n=>n+1)}>Tentar novamente</button></div>:
+            links.filter(l=>l.technical_terms).length===0?<p>Nenhuma técnica publicada associada a esta região ainda.</p>:
+            <ul>{links.filter(l=>l.technical_terms).map(l=><li key={l.term_id+l.usage_context}>
+              <a href={'/tecnica?slug='+encodeURIComponent(l.technical_terms!.slug)}>{l.technical_terms!.romanization}</a>
+              {l.technical_terms!.translation_pt&&' — '+l.technical_terms!.translation_pt}
+              <span className="relationship-label">{relationLabels[l.anatomical_role||l.usage_context]}</span>
+            </li>)}</ul>}
+            <a href={'/catalogo?region='+encodeURIComponent(selected.slug)}>Consultar catálogo desta região</a>
+          </section>:<p>Selecione uma região para consultar seus vínculos com técnicas.</p>}
+        </>}
+      <p className="fine-print">Os nomes técnicos vêm do catálogo publicado. Áreas sem revisão permanecem vazias. A posição gráfica é aproximada e não representa uma ilustração oficial da Kukkiwon.</p>
     </section>
   </div>;
 }
