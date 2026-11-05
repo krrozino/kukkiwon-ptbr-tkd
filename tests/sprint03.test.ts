@@ -1,17 +1,21 @@
 import { describe, it, expect } from "vitest";
-import { demoCurriculum, parseCurriculum } from "../src/lib/curriculum";
+import { initialCurriculum, parseCurriculum } from "../src/lib/curriculum";
 import { validateSchoolImage } from "../src/lib/school-images";
 import { schoolError } from "../src/lib/school-api";
 
 describe("piloto da escola", () => {
-  it("oferece cinco requisitos editáveis de bases, chute, defesa e teoria sem depender de rascunhos", () => {
-    const c = parseCurriculum(structuredClone(demoCurriculum));
-    expect(c.grades[0].requirements.length).toBeGreaterThanOrEqual(5);
-    expect(c.grades[0].requirements.every(r => !r.termSlug)).toBe(true);
-    expect(c.grades[0].requirements.map(r => r.title).join(" ")).toMatch(/base/i);
-    expect(c.grades[0].requirements.map(r => r.title).join(" ")).toMatch(/defesa/i);
-    c.grades[0].requirements[0].notes = "Orientação adaptada pelo professor";
+  it("inicia com currículo editável sem inventar requisitos ou graduações homologadas", () => {
+    const c = parseCurriculum(structuredClone(initialCurriculum));
+    expect(c.grades).toHaveLength(1);
+    expect(c.grades[0].requirements).toHaveLength(0);
+    c.grades[0].name = "Faixa inicial da escola";
+    c.grades[0].requirements.push({
+      id: "pratica", title: "Prática definida pelo professor",
+      kind: "tecnica", termSlug: "", mediaId: "",
+      notes: "Orientação adaptada pelo professor",
+    });
     expect(parseCurriculum(c).grades[0].requirements[0].notes).toMatch(/adaptada/);
+    expect(parseCurriculum(initialCurriculum).grades[0].requirements).toHaveLength(0);
   });
   it("recusa arquivos vazios, vídeo, SVG, conteúdo incompatível e imagem acima de 5 MiB", async () => {
     for (const file of [
