@@ -3,12 +3,14 @@ import { pg_trgm } from '@electric-sql/pglite/contrib/pg_trgm';
 import { beforeAll, afterAll, beforeEach, afterEach, describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { generateImportSql } from '../scripts/content.mjs';
+import { storageSchema } from './helpers/storage-schema.mjs';
 let db;
 const expansion = JSON.parse(readFileSync(new URL('../content/review/kukkiwon-2012-expansion.json', import.meta.url)));
 beforeAll(async () => {
   db = new PGlite({extensions:{pg_trgm}});
   await db.exec('create role anon; create role authenticated; grant usage on schema public to anon, authenticated;');
   await db.exec("create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to anon,authenticated;");
+  await db.exec(storageSchema);
   for (const file of readdirSync('supabase/migrations').filter(f => f.endsWith('.sql')).sort()) {
     await db.exec(readFileSync('supabase/migrations/' + file, 'utf8'));
   }

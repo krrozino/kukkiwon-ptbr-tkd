@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { safeMediaUrl } from "../lib/curriculum";
+import { downloadSchoolImage } from "../lib/school-images";
 export type SchoolMedia = {
   id: string;
   school_id: string;
@@ -8,17 +9,29 @@ export type SchoolMedia = {
   term_slug: string | null;
   creator: string;
   media_kind: "video" | "image";
-  media_url: string;
+  media_url: string | null;
+  storage_path?: string | null;
+  license_name?: string;
   caption: string;
   credits: string;
   visibility: "private" | "public";
 };
-export default function MediaPlayer({ media }: { media: SchoolMedia }) {
+export default function MediaPlayer({ media, ownerAccess = false }: { media: SchoolMedia; ownerAccess?: boolean }) {
   const [open, setOpen] = useState(false);
-  const url = safeMediaUrl(media.media_url);
-  if (!url) return <p>Mídia indisponível.</p>;
+  const [imageUrl, setImageUrl] = useState(""), [error, setError] = useState("");
+  useEffect(() => {
+    if (!open || !media.storage_path) return;
+    let live = true, objectUrl = "";
+    setError(""); setImageUrl("");
+    downloadSchoolImage(media.storage_path, ownerAccess).then(blob => {
+      if (live) { objectUrl = URL.createObjectURL(blob); setImageUrl(objectUrl); }
+    }).catch(() => { if (live) setError("Imagem privada, indisponível ou compartilhamento revogado."); });
+    return () => { live = false; if (objectUrl) URL.revokeObjectURL(objectUrl); };
+  }, [open, media.storage_path, ownerAccess]);
+  const url = media.storage_path ? imageUrl : safeMediaUrl(media.media_url || "");
+  if (!media.storage_path && !url) return <p>Mídia indisponível.</p>;
   let embed = "";
-  const u = new URL(url);
+  const u = new URL(url || "https://example.invalid");
   if (["www.youtube.com", "youtube.com", "youtu.be"].includes(u.hostname)) {
     const id =
       u.hostname === "youtu.be" ? u.pathname.slice(1) : u.searchParams.get("v");
@@ -38,7 +51,7 @@ export default function MediaPlayer({ media }: { media: SchoolMedia }) {
       </figcaption>
       {!open ? (
         <button onClick={() => setOpen(true)}>Carregar demonstração</button>
-      ) : media.media_kind === "image" ? (
+      ) : error ? <p role="alert">{error}</p> : !url ? <p role="status">Carregando imagem…</p> : media.media_kind === "image" ? (
         <img
           src={url}
           alt={media.caption || media.title}
@@ -62,7 +75,7 @@ export default function MediaPlayer({ media }: { media: SchoolMedia }) {
       <p className="fine-print">
         {media.caption} · {media.creator}
         {media.credits && " · " + media.credits} · Demonstração própria da
-        escola
+        escola {media.license_name && " · " + media.license_name}
       </p>
     </figure>
   );

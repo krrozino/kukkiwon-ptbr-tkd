@@ -10,7 +10,9 @@ export function schoolClient() {
       key: import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY || "",
     };
     createCatalogClient(config);
-    instance = createClient(config.url, config.key);
+    instance = createClient(config.url, config.key, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+    });
   }
   return instance;
 }
@@ -40,12 +42,26 @@ export type SavedCurriculum = {
   updated_at: string;
 };
 export const mediaFields =
-  "id,school_id,title,description,term_slug,creator,media_kind,media_url,caption,credits,visibility";
+  "id,school_id,title,description,term_slug,creator,media_kind,media_url,caption,credits,visibility" +
+  (import.meta.env.PUBLIC_SPRINT03_STORAGE === "true" ? ",storage_path,license_name" : "");
+export const schoolStorageEnabled = import.meta.env.PUBLIC_SPRINT03_STORAGE === "true";
 export function schoolError(error: unknown) {
   const e = error as { message?: string; code?: string };
   if (["42P01", "PGRST205"].includes(e?.code || ""))
     return "A estrutura de escolas ainda não foi aplicada ao Supabase. A migração da Sprint 02 aguarda autorização.";
-  return e?.message || "Não foi possível concluir a operação.";
+  const messages: Record<string, string> = {
+    email_not_confirmed: "Confirme seu email antes de entrar. Você pode reenviar a confirmação abaixo.",
+    invalid_credentials: "Email ou senha incorretos. Confira os dados ou recupere a senha.",
+    over_email_send_rate_limit: "Aguarde alguns minutos antes de solicitar outro email.",
+    over_request_rate_limit: "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+    refresh_token_not_found: "Sua sessão expirou. Entre novamente para continuar.",
+    refresh_token_already_used: "Sua sessão expirou. Entre novamente para continuar.",
+    session_not_found: "Sua sessão expirou. Entre novamente para continuar.",
+    otp_expired: "Este link expirou ou já foi usado. Solicite um novo email.",
+    weak_password: "Escolha uma senha mais forte, com pelo menos 8 caracteres.",
+    "23505": "Este identificador já está em uso. Escolha outro para sua escola.",
+  };
+  return messages[e?.code || ""] || e?.message || "Não foi possível concluir a operação.";
 }
 export async function saveSchoolCurriculum(
   schoolId: string,

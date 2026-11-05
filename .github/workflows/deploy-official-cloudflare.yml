@@ -47,6 +47,7 @@ jobs:
         env:
           PUBLIC_CONTENT_REVIEW: "false"
           PUBLIC_SPRINT02_SCHEMA: "true"
+          PUBLIC_SPRINT03_STORAGE: "true"
           PUBLIC_SUPABASE_URL: https://acbostnsohltuaegfkwl.supabase.co
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
           ASTRO_TELEMETRY_DISABLED: "1"
