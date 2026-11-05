@@ -1,3 +1,4 @@
+type ScheduledController = { cron: string; scheduledTime: number };
 interface Env { SUPABASE_URL: string; SUPABASE_PUBLISHABLE_KEY: string; }
 export default {
   async scheduled(_event: ScheduledController, env: Env): Promise<void> {

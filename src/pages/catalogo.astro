@@ -2,4 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Catalogo from '../components/Catalogo';
 ---
-<Base title="Catálogo — Taekwondo para Todos"><section class="shell section"><p class="tag">Enciclopédia</p><h1>Catálogo técnico</h1><p>Somente técnicas publicadas após conferência documental e revisão especializada são exibidas.</p><Catalogo client:load /></section></Base>
+<Base title="Catálogo — Taekwondo para Todos">
+  <section class="shell section">
+    <p class="tag">Enciclopédia</p>
+    <h1>Catálogo técnico</h1>
+    <p>Consulte técnicas, nomes alternativos, traduções e fontes verificadas. Apenas conteúdo aprovado é exibido.</p>
+    <Catalogo client:load />
+  </section>
+</Base>
