@@ -129,3 +129,23 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .surface-canvas .surface-cutout:focus-visible path{stroke-width:1.5}
 @media(max-width:750px){.surface-canvas.placement-side{grid-template-columns:1fr}.surface-canvas .detail-svg{max-height:410px}.surface-canvas.placement-side .surface-tooltip{grid-column:1;grid-row:auto}}
 @media(prefers-reduced-motion:reduce){.surface-canvas .surface-tooltip>*{animation:none!important}.surface-canvas .surface-connector{animation:none!important}}
+
+
+/* Navegação V2.1 — marca legível, estado ativo e rolagem horizontal segura no celular. */
+.site-header{position:relative;z-index:5;background:rgba(255,255,255,.97);border-bottom:1px solid #dce5e6;box-shadow:0 2px 14px #17233208}
+.site-navigation{display:flex;align-items:center;gap:16px;padding-top:13px!important;padding-bottom:13px!important;max-width:1180px}
+.site-navigation .logo{display:flex;align-items:center;gap:11px;flex-shrink:0;margin-right:auto;color:#14292c}
+.logo-mark{display:grid;place-items:center;width:45px;height:45px;background:#a72834;color:white;border-radius:12px;font-size:1.45rem;font-weight:900;box-shadow:0 3px 11px #a728342e}
+.logo-name{display:block;font-weight:800;font-size:.98rem;line-height:1.17;letter-spacing:-.015em}
+.logo-name b{color:#a72834}
+.logo-name small{display:block;font-size:.66rem;font-weight:550;color:#617079;letter-spacing:.005em;margin-top:5px}
+.site-links{display:flex;align-items:center;gap:3px;min-width:0;flex-wrap:wrap}
+.site-links a{padding:9px 11px;border-radius:9px;font-size:.83rem;min-height:40px;display:inline-flex;align-items:center;white-space:nowrap;color:#44535a}
+.site-links a:hover{background:#eff5f4;color:#1a5655}
+.site-links a.active{background:#e7f4f0;color:#196968;font-weight:800}
+@media(max-width:900px){
+  .site-navigation{flex-direction:column;align-items:stretch;gap:9px}
+  .site-navigation .logo{margin-right:0;flex-basis:auto}
+  .site-links{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:4px}
+  .site-links a{flex-shrink:0}
+}
