@@ -1,0 +1,38 @@
+# Validação local de integração
+
+Ferramentas de teste, separadas das dependências do aplicativo. Não são enviadas ao site e não usam credenciais remotas.
+
+Esta execução usa PostgreSQL portátil **17.11.0-beta.19** e PostgREST **16.5**. O código sobe um cluster novo em porta aleatória de **127.0.0.1**, cria roles locais e aplica:
+
+1. As duas migrações anteriores.
+2. Os seeds herdados de 20 termos e cinco regiões em rascunho.
+3. A migração aditiva da Sprint 01.
+4. O importador dos 85 candidatos, duas vezes.
+
+Os testes conferem que os 105 registros continuam em rascunho e invisíveis por REST. Para exercitar busca, paginação e atlas, criam separadamente fixtures sintéticas prefixadas com `qa-`, somente no cluster local. Os testes Playwright encaminham o transporte HTTP para o PostgREST real: não substituem respostas por JSON fixo.
+
+O runner não recebe URL de banco nem projeto Supabase por argumento. Banco, serviços e senhas temporárias são criados localmente. Não instala serviços de sistema, não cria usuários do Windows/Linux e encerra seus processos no final. Os clusters ficam em `.local-validation/runs/`, ignorados pelo Git.
+
+## Repetir a validação
+
+```sh
+npm ci --ignore-scripts
+npm ci --prefix tools/local-validation --ignore-scripts
+npm run test:integration
+```
+
+Instale antes o binário oficial PostgREST 16.5 em `.local-validation/bin/postgrest.exe` (Windows) ou informe `KUKKIWON_POSTGREST_BIN`. O arquivo não é versionado. O operador/assistente pode fazer essa preparação; não exige criar projeto remoto.
+
+Arquivo oficial usado: [PostgREST v16.5 Windows x86-64](https://github.com/PostgREST/postgrest/releases/download/v16.5/postgrest-v16.5-windows-x86-64.zip).
+
+SHA-256 do ZIP: `17f595b0d8dd37473d0231417dea07c5ac9f791282ff5b017fae51ff29e5de2f`.
+
+A origem e o digest foram conferidos nos metadados oficiais da release. Os DLLs do PostgreSQL portátil são acrescentados ao PATH **somente do subprocesso** PostgREST. Em outras plataformas, use o binário oficial correspondente; esta execução foi validada no Windows x64.
+
+Resultado resumido: `.local-validation/latest.json`. Logs sem credenciais de produção: `.local-validation/runs/<id>/services.log`. Se um teste falhar, o runner encerra os serviços e preserva o log para diagnóstico.
+
+## Limites
+
+Isso valida PostgreSQL, PostgREST e a integração real do catálogo/atlas. Não é uma instância completa do Supabase: não há Kong, Auth, Storage, Realtime ou ambiente hospedado. O full stack Supabase local ainda depende de Docker/WSL, ausentes nesta máquina. A comparação com o projeto hospedado depende de autorização explícita e não foi executada.
+
+Referências: [PostgREST — configuração](https://docs.postgrest.org/en/v14/references/configuration.html), [PostgreSQL portátil](https://github.com/leinelissen/embedded-postgres), [Supabase — desenvolvimento local](https://supabase.com/docs/guides/local-development).

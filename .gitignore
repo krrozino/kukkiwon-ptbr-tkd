@@ -10,3 +10,5 @@ test-results/
 playwright-report/
 supabase/.temp/
 review-output/
+.local-validation/
+.preview-build/
