@@ -76,58 +76,14 @@ export function safeMediaUrl(input: string): string | null {
     return null;
   }
 }
-export const demoCurriculum: Curriculum = {
-  title: "Primeiros passos · faixa branca",
-  description:
-    "Exemplo didático independente. Requisitos demonstrativos; o professor define o currículo da escola. Não representa graduação oficial da Kukkiwon.",
+export const initialCurriculum: Curriculum = {
+  title: "Currículo da escola",
+  description: "Conteúdos e critérios definidos pelo professor responsável.",
   grades: [
     {
-      id: "white",
-      name: "Faixa branca · exemplo",
-      requirements: [
-        {
-          id: "etiquette",
-          title: "Combinar regras de convivência e segurança com o professor",
-          kind: "teoria",
-          termSlug: "",
-          notes:
-            "Conheça o espaço, respeite os colegas e siga a orientação presencial.",
-          mediaId: "",
-        },
-        {
-          id: "sonnal",
-          title: "Explorar superfícies da mão",
-          kind: "tecnica",
-          termSlug: "",
-          notes:
-            "Requisito demonstrativo da escola: reconhecer a posição das mãos com orientação do professor.",
-          mediaId: "",
-        },
-        {
-          id: "ap-chagi",
-          title: "Conhecer o chute frontal",
-          kind: "tecnica",
-          termSlug: "",
-          notes: "Requisito demonstrativo da escola: praticar o movimento sem contato, com apoio e supervisão. O professor adapta a prática ao nível do aluno.",
-          mediaId: "",
-        },
-        {
-          id: "base",
-          title: "Reconhecer a base e o equilíbrio",
-          kind: "tecnica",
-          termSlug: "",
-          notes: "Requisito demonstrativo da escola: experimentar uma base confortável, com joelhos alinhados e deslocamento controlado, sob orientação presencial.",
-          mediaId: "",
-        },
-        {
-          id: "defense",
-          title: "Introduzir uma defesa básica sem contato",
-          kind: "tecnica",
-          termSlug: "",
-          notes: "Requisito demonstrativo da escola: reconhecer a trajetória indicada pelo professor, sem impacto e respeitando os limites do aluno.",
-          mediaId: "",
-        },
-      ],
+      id: "primeira-graduacao",
+      name: "Primeira graduação",
+      requirements: [],
     },
   ],
 };

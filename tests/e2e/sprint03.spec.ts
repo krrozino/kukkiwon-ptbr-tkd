@@ -86,7 +86,9 @@ test("professor salva, recarrega, vincula imagem e técnica própria, compartilh
   await expect(page.getByText("Responsável conectado:")).toBeVisible();
   await page.getByRole("button", { name: "Escola Piloto", exact: true }).click();
   await page.getByLabel("Abrir currículo salvo").selectOption(curriculumId);
-  await expect(page.getByLabel("Conteúdo", { exact: true })).toHaveCount(5);
+  await expect(page.getByLabel("Conteúdo", { exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "Adicionar conteúdo", exact: true }).first().click();
+  await page.getByLabel("Conteúdo", { exact: true }).first().fill("Prática inicial da escola");
 
   await page.getByText("Técnicas próprias da escola", { exact: true }).click();
   await page.getByLabel("Nome da técnica própria").fill("Base adaptada da escola");
@@ -123,7 +125,7 @@ test("professor salva, recarrega, vincula imagem e técnica própria, compartilh
   try {
     const phone = await student.newPage();
     await phone.goto(link);
-    await expect(phone.getByRole("heading", { name: /Primeiros passos/ })).toBeVisible();
+    await expect(phone.getByRole("heading", { name: "Currículo da escola", level: 2 })).toBeVisible();
     await expect(phone.getByText("Execução adaptada pelo professor.", { exact: true })).toBeVisible();
     await phone.getByRole("button", { name: "Carregar demonstração" }).click();
     await expect(phone.getByRole("img", { name: "Imagem autorizada" })).toBeVisible();

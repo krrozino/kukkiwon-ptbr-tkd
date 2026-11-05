@@ -336,7 +336,7 @@ export default function Atlas() {
             </button>
           </div>
         ) : regions.length === 0 ? (
-          <p>Nenhuma região técnica validada e publicada nesta área ainda.</p>
+          <p>As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.</p>
         ) : (
           <>
             <h3>Superfícies e regiões</h3>
@@ -367,7 +367,7 @@ export default function Atlas() {
                   </div>
                 ) : links.filter((l) => l.technical_terms).length === 0 ? (
                   <p>
-                    Nenhuma técnica publicada associada a esta região ainda.
+                    As técnicas associadas a esta região aparecerão após a conferência das referências.
                   </p>
                 ) : (
                   <ul>

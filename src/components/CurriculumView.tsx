@@ -5,8 +5,8 @@ import MediaPlayer, { type SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
 export default function CurriculumView({
   value,
-  school = "Exemplo didático independente",
-  identity = "demo",
+  school = "Currículo pessoal",
+  identity = "local",
   media = [],
   schoolTerms = [],
   ownerAccess = false,
@@ -71,6 +71,7 @@ export default function CurriculumView({
             }{" "}
             de {g.requirements.length} conteúdos estudados
           </p>
+          {g.requirements.length === 0 && <p className="fine-print">Esta graduação ainda não possui conteúdos definidos pelo professor.</p>}
           <ul className="requirements">
             {g.requirements.map((r) => (
               <li key={r.id}>

@@ -221,9 +221,13 @@ export default function Catalogo() {
                 filters.region ||
                 filters.family
                   ? "Nenhum resultado para os filtros escolhidos."
-                  : "Nenhuma técnica publicada ainda."}
+                  : "Biblioteca técnica em preparação."}
               </strong>
-              <p>A pesquisa e os rascunhos aguardam revisão humana.</p>
+              <p>Novas fichas serão incluídas após conferência das referências e orientações técnicas. Enquanto isso, explore o atlas ou os currículos compartilhados pelas escolas.</p>
+              <div className="actions">
+                <a href="/atlas" className="inline-link">Explorar atlas corporal →</a>
+                <a href="/curriculos" className="inline-link">Consultar currículos →</a>
+              </div>
               {filters.page > 1 && (
                 <button onClick={() => move(1)}>
                   Voltar à primeira página
