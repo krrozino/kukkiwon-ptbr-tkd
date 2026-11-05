@@ -24,3 +24,14 @@ export const surfaces:Record<string,Surface>={
  dwichuk:{path:'M30 108 Q49 121 65 108 L65 121 Q57 133 37 128 Q27 123 30 108 Z',color:'#b56d64',view:'front',anchor:[49,123]},
  dwikkumchi:{path:'M30 114 Q49 124 65 114 L64 124 Q51 135 36 128 Z',color:'#b56d64',view:'back',anchor:[48,126]},
 };
+
+// Geometria do atlas independente do estado editorial no banco.
+// Os nomes técnicos não são publicados por estas listas.
+export const handSurfaceSlugs = [
+  "sonbadak", "batangson", "sonnal", "sonnaldeung", "ageumson",
+  "sondeung", "jumeok", "deungjumeok", "mejumeok",
+] as const;
+export const footSurfaceSlugs = [
+  "balbadak", "apchuk", "baldeung", "balkkeut",
+  "balnal", "balnaldeung", "dwichuk", "dwikkumchi",
+] as const;

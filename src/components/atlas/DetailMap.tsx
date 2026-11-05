@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { BodyRegion } from "../../lib/catalog-api";
 import type { View } from "./BodyMap";
-import { handOutline, footOutline, fistOutline, surfaces } from "./surfaces";
+import { handOutline, footOutline, fistOutline, surfaces, handSurfaceSlugs, footSurfaceSlugs } from "./surfaces";
 import { useTermDetail } from "../TermContext";
 type Props = {
   area: "hands" | "feet";
@@ -21,15 +21,22 @@ export default function DetailMap({
   const canvasRef=useRef<HTMLDivElement>(null);
   const [placement,setPlacement]=useState<"side"|"below">("below");
   const [hover, setHover] = useState<BodyRegion | null>(null),
+    [visualSelection, setVisualSelection] = useState<string | null>(null),
     [fist, setFist] = useState(false);
   const exitTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
   );
-  const { detail } = useTermDetail(hover?.slug || null);
+  const published = new Set(regions.map(r => r.slug));
+  // Fetch the technical ficha only for a region explicitly published via RLS.
+  const { detail } = useTermDetail(hover && published.has(hover.slug) ? hover.slug : null);
   useEffect(() => {
     if (selected) setFist(!!surfaces[selected]?.posture);
   }, [selected]);
   useEffect(() => () => clearTimeout(exitTimer.current), []);
+  useEffect(() => {
+    setHover(null);
+    setVisualSelection(null);
+  }, [area, view]);
   // Reserve a separate region for the tooltip: never cover the anatomical surface.
   useEffect(()=>{
     const update=()=>{
@@ -42,14 +49,26 @@ export default function DetailMap({
     window.addEventListener("resize",update);
     return ()=>{observer?.disconnect();window.removeEventListener("resize",update);};
   },[]);
-  const visible = regions.filter((r) => {
-    const s = surfaces[r.slug];
-    return (
-      s &&
-      (s.view === view || s.view === "both") &&
-      (!hand || !!s.posture === fist)
-    );
-  }).sort((a,b)=>Number(a.slug===selected)-Number(b.slug===selected));
+  // Always draw the original colored anatomical zones, regardless of the
+  // editorial status of the related term. Unpublished zones are illustrative
+  // only: no Hangul, romanization, translation or technical ficha is exposed.
+  const illustratedSlugs: readonly string[] = hand ? handSurfaceSlugs : footSurfaceSlugs;
+  const visible = illustratedSlugs
+    .filter(slug => {
+      const s = surfaces[slug];
+      return (s.view === view || s.view === "both") && (!hand || !!s.posture === fist);
+    })
+    .map(slug => regions.find(r => r.slug === slug) ?? ({
+      id: "illustration-" + slug,
+      slug,
+      region_group: area,
+      atlas_area: area,
+      name_pt: "Recorte anatômico ilustrativo",
+      detail_view: surfaces[slug].view,
+      detail_x: null,
+      detail_y: null,
+    } satisfies BodyRegion))
+    .sort((a, b) => Number(a.slug === (selected || visualSelection)) - Number(b.slug === (selected || visualSelection)));
   const leave = () => {
     clearTimeout(exitTimer.current);
     exitTimer.current = setTimeout(() => setHover(null), 160);
@@ -143,13 +162,13 @@ export default function DetailMap({
               data-region={r.slug}
               role="button"
               tabIndex={0}
-              aria-label={r.name_pt}
-              aria-pressed={selected === r.slug}
+              aria-label={published.has(r.slug) ? r.name_pt : "Recorte anatômico ilustrativo da " + (hand ? "mão" : "região do pé")}
+              aria-pressed={(selected || visualSelection) === r.slug}
               aria-describedby={
                 hover?.slug === r.slug ? "surface-tooltip" : undefined
               }
               className={
-                "surface-cutout " + (selected === r.slug ? "selected" : "")
+                "surface-cutout " + ((selected || visualSelection) === r.slug ? "selected" : "")
               }
               style={{ "--surface-color": s.color } as CSSProperties}
               onPointerEnter={(e) => {
@@ -159,13 +178,15 @@ export default function DetailMap({
               onBlur={leave}
               onClick={() => {
                 enter(r);
-                onSelect(r);
+                if (published.has(r.slug)) onSelect(r);
+                else setVisualSelection(r.slug);
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
                   enter(r);
-                  onSelect(r);
+                  if (published.has(r.slug)) onSelect(r);
+                  else setVisualSelection(r.slug);
                 }
               }}
             >
@@ -193,21 +214,33 @@ export default function DetailMap({
           className="surface-tooltip"
           data-placement={placement}
         >
-          <strong>{hover.name_pt}</strong>
-          <span>{detail?.term.romanization || hover.slug}</span>
-          <span lang="ko">{detail?.term.hangul || "Consultando Hangul…"}</span>
-          <span>
-            Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}
-            {detail?.term.pronunciation_pt &&
-            detail.term.pronunciation_status !== "verified"
-              ? " · provisória"
-              : ""}
-          </span>
-          <small>
-            {detail?.term.definition_pt?.slice(0, 140) ||
-              "Consulte os dados e vínculos desta superfície."}
-          </small>
-          <small>Toque ou clique para explorar ↓</small>
+          {published.has(hover.slug) ? (
+            <>
+              <strong>{hover.name_pt}</strong>
+              <span>{detail?.term.romanization || "Identificação em consulta"}</span>
+              <span lang="ko">{detail?.term.hangul || "Hangul em consulta"}</span>
+              <span>
+                Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}
+                {detail?.term.pronunciation_pt &&
+                detail.term.pronunciation_status !== "verified"
+                  ? " · provisória"
+                  : ""}
+              </span>
+              <small>
+                {detail?.term.definition_pt?.slice(0, 140) ||
+                  "Consulte os dados e vínculos desta superfície."}
+              </small>
+              <small>Toque ou clique para explorar ↓</small>
+            </>
+          ) : (
+            <>
+              <strong>Região anatômica ilustrativa</strong>
+              <span>Superfície de contato destacada</span>
+              <small>O recorte, a cor e suas divisões são esquemáticos.</small>
+              <small>O nome técnico e a ficha serão exibidos após a revisão do conteúdo.</small>
+              <small>Toque ou clique para destacar esta área.</small>
+            </>
+          )}
         </div>
       ) : <div className="surface-tooltip-placeholder" aria-hidden="true" />}
     </div>

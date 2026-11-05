@@ -84,6 +84,8 @@ test('catálogo: rede indisponível não aparece como catálogo vazio',async({pa
 test('atlas: hover preserva seleção e histórico restaura a região',async({page,isMobile})=>{
   await api(page);await page.goto('/atlas?region=hands');
   await expect(page.getByText(/As nomenclaturas desta área serão adicionadas/)).toBeVisible();
+  // A consulta inicial precisa terminar antes de contar requisições provocadas pelo hover.
+  await expect(page.locator('.atlas-information')).toHaveAttribute('aria-busy','false');
   let requests=0;page.on('request',r=>{if(r.url().includes('/rest/v1/'))requests++;});
   if(!isMobile) {
     await page.getByRole('button',{name:'Pés — selecionar região'}).locator('path').first().hover();

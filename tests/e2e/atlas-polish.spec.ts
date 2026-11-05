@@ -43,3 +43,28 @@ test("corpo integral mostra ilustração com detalhes de uniforme, sem números 
   await page.getByRole("button",{name:"Vista posterior"}).click();
   await expect(page.getByRole("img",{name:"Corpo humano — vista posterior"})).toBeVisible();
 });
+
+
+test("recortes coloridos persistem em produção mesmo sem regiões técnicas publicadas",async({page,isMobile})=>{
+  // Reproduz a produção: consulta anônima retorna zero regiões (todas em draft).
+  await page.route("**/rest/v1/**",route=>route.fulfill({json:[]}));
+  await page.goto("/atlas?region=hands&zoom=1");
+  const cutouts=page.locator(".detail-svg .surface-cutout");
+  await expect(cutouts.first()).toBeVisible();
+  expect(await cutouts.count()).toBeGreaterThanOrEqual(5);
+  const color=await cutouts.first().locator("path").evaluate(el=>getComputedStyle(el).fill);
+  expect(color).not.toBe("none");
+  expect(color).not.toBe("transparent");
+  if(isMobile)await cutouts.first().tap();else await cutouts.first().hover();
+  await expect(page.getByRole("tooltip")).toContainText("Região anatômica ilustrativa");
+  await expect(page.getByRole("tooltip")).not.toContainText("Sonnal");
+  await page.getByRole("button",{name:"Dorso",exact:true}).click();
+  await expect(cutouts.first()).toBeVisible();
+  await page.getByRole("button",{name:"Punho",exact:true}).click();
+  await expect(cutouts.first()).toBeVisible();
+  await page.getByRole("button",{name:"Pés",exact:true}).click();
+  await page.getByRole("button",{name:"Ampliar região"}).click();
+  await expect(cutouts.first()).toBeVisible();
+  expect(await cutouts.count()).toBeGreaterThanOrEqual(3);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
