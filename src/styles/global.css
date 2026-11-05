@@ -91,3 +91,61 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .grade-editor{min-width:0;border:1px solid #d9e4e4;border-radius:12px;padding:18px}.grade-editor legend{font-weight:700;color:#247778;padding:0 8px}.requirement-editor{padding:18px;background:#f7f8f8;border-radius:9px}.curriculum-editor{margin:24px 0}.grade-view{margin-top:30px}.grade-view h3{display:flex;gap:14px;align-items:center;font-size:1.35rem}.belt-mark{width:40px;height:17px;border:1px solid #b9bfc5;border-radius:3px;background:#fff;box-shadow:0 3px 0 #eef0f2}.requirements{padding:0;list-style:none;display:grid;gap:14px}.requirements>li{border:1px solid #e1e7e5;border-radius:12px;padding:20px}.requirements label{display:flex;align-items:center;line-height:1.5}.pill{display:inline-block;background:#eef4f2;color:#3d7067;padding:4px 8px;border-radius:6px;font-size:.75rem;margin-top:12px}.share-box{border:1px solid #c9dfdb;border-radius:10px;padding:18px;background:#f3f8f6}.auth-form{max-width:520px;margin:30px auto}.school-app details{border-top:1px solid #e4e7ec;padding-top:20px}.school-app summary{cursor:pointer;font-weight:700;min-height:44px}.school-app details[open]>summary{margin-bottom:16px}.media-player{margin:18px 0;padding:16px;border:1px solid #dde4e4;border-radius:10px}.media-player iframe,.media-player video,.media-player img{width:100%;border:0;border-radius:8px}.media-player iframe,.media-player video{aspect-ratio:16/9}.media-player img{max-height:500px;object-fit:contain}.school-technique{background:#f9f4e9;padding:15px;margin-top:12px;border-radius:8px}.school-technique small{color:#805723}
 @media(max-width:750px){.learning-layout{grid-template-columns:1fr}.school-app .card{padding:18px}.grade-editor,.requirement-editor{padding:13px}nav{gap:12px;font-size:.9rem}.logo{flex-basis:100%}.surface-tooltip{max-width:100%}}
 .inline-ref{display:inline;min-height:0;text-decoration:underline;text-underline-offset:3px;line-height:inherit}
+
+
+/* Atlas V2.1 — desenho corporal e tooltip sempre fora do alvo. */
+.body-illustration{stroke-linejoin:round;stroke-linecap:round;pointer-events:none}
+.body-illustration .figure-skin,.body-illustration .figure-neck,.body-illustration .figure-foot{fill:#edcbb3;stroke:#9b8073;stroke-width:1}
+.body-illustration .figure-hair{fill:#28323a;stroke:#28323a;stroke-width:.8}
+.body-illustration .figure-hair-lines,.body-illustration .figure-face,.body-illustration .figure-ear,.body-illustration .figure-hand-lines,.body-illustration .figure-foot-detail{fill:none;stroke:#876e66;stroke-width:.9;opacity:.76}
+.body-illustration .figure-hair-lines{stroke:#53606a}
+.body-illustration .figure-gi{fill:url(#dobok-fabric);stroke:#a2aeae;stroke-width:1.35}
+.body-illustration .figure-shadow{fill:#d6e0e0;opacity:.65}
+.body-illustration .figure-lapel{fill:#fff;stroke:#9faeae;stroke-width:1.3}
+.body-illustration .figure-lapel-seam,.body-illustration .figure-seam,.body-illustration .figure-pants-lines{fill:none;stroke:#b3bcbc;stroke-width:1.2}
+.body-illustration .figure-belt{fill:#24313c;stroke:#24313c;stroke-width:.7}
+.body-illustration .figure-belt-knot{fill:#303f49;stroke:#24313c;stroke-width:.7}
+.body-illustration .figure-pants{fill:url(#dobok-shadow);stroke:#a2aeae;stroke-width:1.35}
+.body-svg .atlas-zone{fill:rgba(151,169,166,.055);stroke:rgba(79,115,111,.23);stroke-width:1.2}
+.body-svg .atlas-zone:hover,.body-svg .atlas-zone.active{fill:rgba(36,140,139,.19);stroke:#258c8b;stroke-width:1.8}
+.body-svg .atlas-zone:focus-visible{stroke:#254bbb;stroke-width:2.8}
+.body-svg .body-markings{display:none}
+.surface-canvas{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:center;isolation:isolate}
+.surface-canvas.placement-side{grid-template-columns:minmax(0,1.05fr) minmax(216px,.9fr);gap:14px}
+.surface-canvas .posture-switch{grid-column:1/-1;margin:0 0 6px}
+.surface-canvas .detail-svg{grid-column:1;width:100%;height:auto;max-height:460px;min-height:220px;aspect-ratio:5/7;margin:0;justify-self:center}
+.surface-canvas.placement-below .detail-svg{max-width:340px}
+.surface-canvas.placement-side .detail-svg{max-width:265px}
+.surface-canvas .surface-tooltip,.surface-canvas .surface-tooltip-placeholder{grid-column:1;grid-row:auto;min-width:0;max-width:none;width:100%;margin:0;align-self:center}
+.surface-canvas.placement-side .surface-tooltip,.surface-canvas.placement-side .surface-tooltip-placeholder{grid-column:2;grid-row:2}
+.surface-canvas.placement-below .surface-tooltip,.surface-canvas.placement-below .surface-tooltip-placeholder{grid-column:1;grid-row:auto}
+.surface-canvas .surface-tooltip-placeholder{min-height:0}
+.surface-canvas .surface-tooltip{padding:18px 20px;min-height:175px;box-shadow:0 10px 30px #17233216;pointer-events:none}
+.surface-canvas .surface-tooltip:before{content:"";position:absolute;width:13px;height:13px;background:white;transform:rotate(45deg);border-left:1px solid #d7e5e1;border-bottom:1px solid #d7e5e1}
+.surface-canvas.placement-side .surface-tooltip:before{left:-7px;top:calc(50% - 7px)}
+.surface-canvas.placement-below .surface-tooltip:before{top:-7px;left:calc(50% - 7px);border-left:1px solid #d7e5e1;border-top:1px solid #d7e5e1;border-bottom:0}
+.surface-canvas .surface-cutout path{stroke-width:.45;stroke-linejoin:round;fill-opacity:.43}
+.surface-canvas .surface-cutout.selected path{fill-opacity:.78;stroke-width:.9}
+.surface-canvas .surface-cutout:focus-visible path{stroke-width:1.5}
+@media(max-width:750px){.surface-canvas.placement-side{grid-template-columns:1fr}.surface-canvas .detail-svg{max-height:410px}.surface-canvas.placement-side .surface-tooltip{grid-column:1;grid-row:auto}}
+@media(prefers-reduced-motion:reduce){.surface-canvas .surface-tooltip>*{animation:none!important}.surface-canvas .surface-connector{animation:none!important}}
+
+
+/* Navegação V2.1 — marca legível, estado ativo e rolagem horizontal segura no celular. */
+.site-header{position:relative;z-index:5;background:rgba(255,255,255,.97);border-bottom:1px solid #dce5e6;box-shadow:0 2px 14px #17233208}
+.site-navigation{display:flex;align-items:center;gap:16px;padding-top:13px!important;padding-bottom:13px!important;max-width:1180px}
+.site-navigation .logo{display:flex;align-items:center;gap:11px;flex-shrink:0;margin-right:auto;color:#14292c}
+.logo-mark{display:grid;place-items:center;width:45px;height:45px;background:#a72834;color:white;border-radius:12px;font-size:1.45rem;font-weight:900;box-shadow:0 3px 11px #a728342e}
+.logo-name{display:block;font-weight:800;font-size:.98rem;line-height:1.17;letter-spacing:-.015em}
+.logo-name b{color:#a72834}
+.logo-name small{display:block;font-size:.66rem;font-weight:550;color:#617079;letter-spacing:.005em;margin-top:5px}
+.site-links{display:flex;align-items:center;gap:3px;min-width:0;flex-wrap:wrap}
+.site-links a{padding:9px 11px;border-radius:9px;font-size:.83rem;min-height:40px;display:inline-flex;align-items:center;white-space:nowrap;color:#44535a}
+.site-links a:hover{background:#eff5f4;color:#1a5655}
+.site-links a.active{background:#e7f4f0;color:#196968;font-weight:800}
+@media(max-width:900px){
+  .site-navigation{flex-direction:column;align-items:stretch;gap:9px}
+  .site-navigation .logo{margin-right:0;flex-basis:auto}
+  .site-links{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:4px}
+  .site-links a{flex-shrink:0}
+}

@@ -1,14 +1,34 @@
 ---
 import '../styles/global.css';
 const { title = 'Taekwondo para Todos' } = Astro.props;
+const links=[
+  {label:'Catálogo',href:'/catalogo'},
+  {label:'Atlas corporal',href:'/atlas'},
+  {label:'Currículos',href:'/curriculos'},
+  {label:'Meus estudos',href:'/estudos'},
+  {label:'Escolas',href:'/escolas'},
+  {label:'Fontes',href:'/fontes'},
+];
+const path=Astro.url.pathname.replace(/\/$/,'')||'/';
 ---
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Enciclopédia comunitária de Taekwondo com fontes técnicas verificáveis."/><title>{title}</title></head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Plataforma educacional independente de Taekwondo com atlas interativo, currículos e referências documentais."/><title>{title}</title></head>
 <body>
 {import.meta.env.PUBLIC_CONTENT_REVIEW==='true'&&<aside class="review-banner">PRÉVIA DE REVISÃO · 108 rascunhos não validados. Traduções e técnicas aguardam revisão humana.</aside>}
-<header><nav class="shell"><a class="logo" href="/">TKD · Para Todos</a><a href="/catalogo">Catálogo</a><a href="/atlas">Atlas corporal</a><a href="/curriculos">Currículos</a><a href="/estudos">Meus estudos</a><a href="/escolas">Escolas</a><a href="/fontes">Fontes</a></nav></header>
+<header class="site-header">
+  <nav class="shell site-navigation" aria-label="Menu principal">
+    <a class="logo" href="/" aria-label="Taekwondo para Todos — página inicial">
+      <span class="logo-mark" aria-hidden="true">태</span>
+      <span class="logo-name">Taekwondo <b>para Todos</b><small>Biblioteca educacional independente</small></span>
+    </a>
+    <div class="site-links">
+      {links.map(link=><a href={link.href} class={path===link.href?'active':''}
+        aria-current={path===link.href?'page':undefined}>{link.label}</a>)}
+    </div>
+  </nav>
+</header>
 <main><slot /></main>
-<footer class="shell"><p>Iniciativa educacional independente e sem fins lucrativos. Não afiliada nem homologada pela Kukkiwon.</p></footer>
+<footer class="shell"><p>Iniciativa educacional independente. Não afiliada nem homologada pela Kukkiwon. Conteúdos e requisitos de graduação podem variar por escola.</p></footer>
 </body>
 </html>

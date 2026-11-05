@@ -20,6 +20,10 @@ jobs:
       - run: npm run preview:prepare
       - run: npx playwright install --with-deps chromium
       - run: npm run test:ui
+      - name: Exibir contexto de erro se falhar teste de interface
+        if: failure()
+        run: |
+          find test-results -name error-context.md -print -exec sed -n '1,100p' {} \; || true
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
