@@ -1,0 +1,70 @@
+name: Prévia temporária do catálogo e atlas em revisão
+
+on:
+  push:
+    branches:
+      - preview/catalog-content-review-20261104
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Instalar dependências
+        run: npm ci --ignore-scripts --no-fund --no-audit
+      - name: Validar conteúdo, código e testes
+        run: |
+          npm run content:check
+          npm run check
+          npm test
+      - name: Compilar revisão isolada sem credenciais
+        env:
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+          PUBLIC_REVIEW_MODE: "1"
+          ASTRO_TELEMETRY_DISABLED: "1"
+          WRANGLER_SEND_METRICS: "false"
+        run: |
+          npm run preview:prepare
+          test -f .preview-build/site/index.html
+          test -f .preview-build/site/catalogo/index.html
+          test -f .preview-build/site/atlas/index.html
+          test -f .preview-build/site/tecnica/index.html
+          node -e "const f=require('./.preview-build/release.json');if(f.mode!=='research_review_preview_only'||f.reviewCandidateCount!==105||f.publishedResearchRecords!==0)process.exit(1)"
+      - name: Publicar somente prévia temporária na Cloudflare
+        env:
+          WRANGLER_SEND_METRICS: "false"
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOG="$RUNNER_TEMP/tkd-review-temporary.log"
+          if ! npx wrangler deploy --temporary --autoconfig=false --config wrangler.preview.jsonc --name kukkiwon-ptbr-tkd-preview > "$LOG" 2>&1; then
+            echo "::error::Falha ao enviar prévia temporária; detalhes privados do Wrangler ocultados."
+            rm -f "$LOG"
+            exit 1
+          fi
+          URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' "$LOG" | tail -n 1 || true)"
+          rm -f "$LOG"
+          if [[ -z "$URL" ]]; then
+            echo "::error::Nenhum endereço público devolvido pelo Wrangler."
+            exit 1
+          fi
+          echo "SITE_DE_REVISAO=$URL"
+          {
+            echo "## Prévia temporária de revisão"
+            echo ""
+            echo "$URL"
+            echo ""
+            echo "- Duração aproximada: 60 minutos"
+            echo "- 105 registros exclusivamente como rascunhos em ambiente temporário"
+            echo "- Nenhuma conexão remota ao Supabase, sem merge, sem importação pública"
+          } >> "$GITHUB_STEP_SUMMARY"
