@@ -156,56 +156,25 @@ test("estudos: pasta, checklist, anotação e técnica contextual sobrevivem ao 
     fullPage: true,
   });
 });
-test("currículo: editor ordena graduações, salva localmente e mantém checklist do aluno", async ({
-  page,
-  isMobile,
-}) => {
+test("currículo: cria um plano real sem dados de exemplo, salva localmente e mantém checklist", async ({page,isMobile}) => {
   await page.goto("/curriculos");
+  await expect(page.getByRole("heading",{name:"O caminho da sua escola, no seu celular"})).toBeVisible();
+  await expect(page.getByText("Faixa branca · exemplo")).toHaveCount(0);
+  await page.getByRole("button",{name:"Montar currículo neste navegador"}).click();
+  await page.getByLabel("Nome do currículo",{exact:true}).fill("Plano da escola");
+  await expect(page.getByLabel("Conteúdo",{exact:true})).toHaveCount(0);
+  await page.getByRole("button",{name:"Adicionar graduação",exact:true}).click();
+  const grade=page.locator(".grade-editor").last();
+  await grade.getByLabel("Nome da graduação",{exact:true}).fill("Segunda etapa");
+  await grade.getByRole("button",{name:"Adicionar conteúdo",exact:true}).click();
+  await grade.getByLabel("Conteúdo",{exact:true}).fill("Revisão com o professor");
+  await page.getByRole("button",{name:"Salvar currículo neste navegador",exact:true}).click();
+  await expect(page.getByRole("heading",{name:"Plano da escola",exact:true})).toBeVisible();
   await page.getByRole("checkbox").first().check();
   await page.reload();
   await expect(page.getByRole("checkbox").first()).toBeChecked();
-  await page
-    .getByRole("button", { name: "Modo professor · editar exemplo" })
-    .click();
-  await page
-    .getByLabel("Nome do currículo", { exact: true })
-    .fill("Plano da escola");
-  await page
-    .getByRole("button", { name: "Adicionar graduação", exact: true })
-    .click();
-  const grade = page.locator(".grade-editor").last();
-  await grade
-    .getByLabel("Nome da graduação", { exact: true })
-    .fill("Segunda etapa");
-  await grade
-    .getByRole("button", { name: "Adicionar conteúdo", exact: true })
-    .click();
-  await grade
-    .getByLabel("Conteúdo", { exact: true })
-    .fill("Revisão com o professor");
-  await page
-    .getByRole("button", { name: "Salvar rascunho local", exact: true })
-    .click();
-  await page.reload();
-  await expect(
-    page.getByRole("heading", { name: "Plano da escola", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Segunda etapa", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByText("Revisão com o professor", { exact: true }),
-  ).toBeVisible();
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBe(true);
-  await page.screenshot({
-    path:
-      "test-results/previews/sprint02-curriculum-" +
-      (isMobile ? "mobile" : "desktop") +
-      ".png",
-    fullPage: true,
-  });
+  await expect(page.getByRole("heading",{name:"Segunda etapa",exact:true})).toBeVisible();
+  await expect(page.getByText("Revisão com o professor",{exact:true})).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:"test-results/previews/sprint02-curriculum-"+(isMobile?"mobile":"desktop")+".png",fullPage:true});
 });
