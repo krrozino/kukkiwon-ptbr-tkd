@@ -19,6 +19,7 @@
     "test:schools": "node tools/local-validation/sprint02.mjs",
     "preview:prepare": "node scripts/prepare-preview.mjs",
     "preview:review": "node scripts/prepare-preview.mjs --review",
+    "preview:connected": "node scripts/prepare-preview.mjs --review --connected",
     "preview:check": "node tools/local-validation/check-preview.mjs"
   },
   "dependencies": {

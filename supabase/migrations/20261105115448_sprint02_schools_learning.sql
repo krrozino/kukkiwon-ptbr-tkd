@@ -1,4 +1,4 @@
--- Sprint 02: proposta aditiva. Aplicar remotamente somente após aprovação.
+-- Sprint 02: migração aditiva aplicada ao Supabase dedicado após autorização em 05/11/2026.
 alter table public.technical_terms add column pronunciation_status text not null default 'unverified' check(pronunciation_status in ('unverified','provisional','verified'));
 alter table public.technical_terms add column pronunciation_notes text;
 alter table public.technical_terms add column pronunciation_audio_url text check(pronunciation_audio_url ~ '^https://');

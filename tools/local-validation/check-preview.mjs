@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {createServer} from 'node:net';
 import {launchService} from './process.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..'),require=createRequire(new URL('../../package.json',import.meta.url));
-const review=JSON.parse(readFileSync(resolve(root,'.preview-build/release.json'),'utf8')).mode==='editorial_review_opt_in';
+const review=JSON.parse(readFileSync(resolve(root,'.preview-build/release.json'),'utf8')).mode.startsWith('editorial_review');
 const {chromium,devices}=require('@playwright/test');
 const listener=createServer();await new Promise(done=>listener.listen(0,'127.0.0.1',done));
 const port=listener.address().port;await new Promise(done=>listener.close(done));

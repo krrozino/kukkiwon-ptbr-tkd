@@ -70,7 +70,7 @@ export async function startLocalRuntime() {
       await client.query(readFileSync(join(root,'supabase/seeds',file),'utf8'));
     }
     await client.query(readFileSync(join(root,'supabase/migrations/20261105020254_sprint_catalog_search_relations.sql'),'utf8'));
-    await client.query(readFileSync(join(root,'supabase/migrations/20261105030951_sprint02_schools_learning.sql'),'utf8'));
+    await client.query(readFileSync(join(root,'supabase/migrations/20261105115448_sprint02_schools_learning.sql'),'utf8'));
     const expansion=JSON.parse(readFileSync(join(root,'content/review/kukkiwon-2012-expansion.json'),'utf8'));
     await client.query(generateImportSql(expansion));await client.query(generateImportSql(expansion));
     const first=JSON.parse(readFileSync(join(root,'content/review/kukkiwon-2012-first20.json'),'utf8'));
