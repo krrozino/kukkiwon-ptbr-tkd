@@ -49,8 +49,8 @@ export function validateBatches(batches) {
   return result;
 }
 const sqlString = value => value == null ? 'null' : "'" + String(value).replaceAll("'", "''") + "'";
-export function generateImportSql(batch) {
-  const report = validateBatches([batch]);
+export function generateImportSql(batch, dependencies=[]) {
+  const report = validateBatches([...dependencies,batch]);
   if (report.errors.length) throw new Error(report.errors.join('\n'));
   const payload = sqlString(JSON.stringify(batch));
   // The database is never contacted. Reviewed/published or divergent rows stop the whole transaction.
@@ -67,6 +67,15 @@ create temporary table import_records on commit drop as
 do $import$
 declare conflicts text;
 begin
+ select string_agg(r.variant_of, ', ') into conflicts from import_records r
+ where r.variant_of is not null and not exists(select 1 from import_records p where p.slug=r.variant_of)
+ and not exists(select 1 from public.technical_terms p where p.slug=r.variant_of);
+ if conflicts is not null then raise exception 'Dependências de famílias ausentes: %',conflicts; end if;
+ select string_agg(a->>'region_slug', ', ') into conflicts from import_records r
+ cross join lateral jsonb_array_elements(coalesce(r.anatomical_links,'[]'::jsonb)) a
+ where not exists(select 1 from public.body_regions br where br.slug=a->>'region_slug')
+ and not exists(select 1 from import_records p where p.slug=a->>'region_slug' and p.atlas is not null);
+ if conflicts is not null then raise exception 'Dependências de regiões ausentes: %',conflicts; end if;
  select string_agg(t.slug, ', ' order by t.slug) into conflicts
  from public.technical_terms t join import_records r using(slug)
  where t.publication_status <> 'draft' or t.editorial_status <> r.editorial_status
@@ -144,7 +153,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     else if (process.argv[2] === '--sql') {
       const batch = batches.find(b => b.batch === process.argv[3]);
       if (!batch) throw new Error('Informe um identificador de lote existente após --sql');
-      process.stdout.write(generateImportSql(batch));
+      process.stdout.write(generateImportSql(batch,batches.filter(b=>b.batch!==batch.batch)));
     } else if (process.argv.length > 2) { throw new Error('Uso: node scripts/content.mjs [--sql nome-do-lote]'); }
     else process.stdout.write(JSON.stringify({ mode:'dry_run', ...report }, null, 2) + '\n');
   } catch (e) { process.stderr.write(e.message + '\n'); process.exitCode = 1; }

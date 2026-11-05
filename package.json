@@ -16,11 +16,14 @@
     "validate": "npm run content:check && npm run check && npm test && npm run build",
     "content:review": "node scripts/review-export.mjs",
     "test:integration": "node tools/local-validation/verify.mjs",
+    "test:schools": "node tools/local-validation/sprint02.mjs",
     "preview:prepare": "node scripts/prepare-preview.mjs",
+    "preview:review": "node scripts/prepare-preview.mjs --review",
     "preview:check": "node tools/local-validation/check-preview.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",
+    "@supabase/supabase-js": "2.119.0",
     "astro": "7.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1"

@@ -8,6 +8,7 @@ const expansion = JSON.parse(readFileSync(new URL('../content/review/kukkiwon-20
 beforeAll(async () => {
   db = new PGlite({extensions:{pg_trgm}});
   await db.exec('create role anon; create role authenticated; grant usage on schema public to anon, authenticated;');
+  await db.exec("create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to anon,authenticated;");
   for (const file of readdirSync('supabase/migrations').filter(f => f.endsWith('.sql')).sort()) {
     await db.exec(readFileSync('supabase/migrations/' + file, 'utf8'));
   }
@@ -85,7 +86,7 @@ describe('PostgreSQL isolado: busca, permissões e fontes', () => {
       const {rows}=await db.query(`select c.relname,c.relrowsecurity,
         has_table_privilege($1,c.oid,'INSERT,UPDATE,DELETE,TRUNCATE') as writable
         from pg_class c join pg_namespace n on n.oid=c.relnamespace
-        where n.nspname='public' and c.relkind='r'`,[role]);
+        where n.nspname='public' and c.relkind='r' and c.relname not in ('schools','school_curricula','school_terms','school_media')`,[role]);
       expect(rows).toHaveLength(8);
       expect(rows.every(r=>r.relrowsecurity&&!r.writable)).toBe(true);
     }

@@ -60,6 +60,7 @@ export async function startLocalRuntime() {
     if(!connected)throw new Error('Timeout ao iniciar PostgreSQL local.');
     await client.connect();
     await client.query("create role anon nologin; create role authenticated nologin; grant usage on schema public to anon,authenticated;");
+    await client.query("create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select coalesce(nullif(current_setting('request.jwt.claim.sub',true),''),nullif(current_setting('request.jwt.claims',true),'')::jsonb->>'sub')::uuid$$;grant usage on schema auth to anon,authenticated;");
     await client.query("create role authenticator noinherit login password '"+pwd+"'; grant anon,authenticated to authenticator;");
     // Reproduz o estado legado do projeto dedicado antes da migração da Sprint 01.
     for(const file of ['20261103205602_catalogo_publico_inicial.sql','20261103220044_atlas_media_e_integridade_de_fontes.sql']) {
@@ -68,9 +69,13 @@ export async function startLocalRuntime() {
     for(const file of ['kukkiwon_2012_first20_drafts.sql','atlas_maos_2012_drafts.sql']) {
       await client.query(readFileSync(join(root,'supabase/seeds',file),'utf8'));
     }
-    await client.query(readFileSync(join(root,'supabase/migrations/20261104031036_sprint_catalog_search_relations.sql'),'utf8'));
+    await client.query(readFileSync(join(root,'supabase/migrations/20261105020254_sprint_catalog_search_relations.sql'),'utf8'));
+    await client.query(readFileSync(join(root,'supabase/migrations/20261105030951_sprint02_schools_learning.sql'),'utf8'));
     const expansion=JSON.parse(readFileSync(join(root,'content/review/kukkiwon-2012-expansion.json'),'utf8'));
     await client.query(generateImportSql(expansion));await client.query(generateImportSql(expansion));
+    const first=JSON.parse(readFileSync(join(root,'content/review/kukkiwon-2012-first20.json'),'utf8'));
+    const sonnal=JSON.parse(readFileSync(join(root,'content/review/sprint02-sonnal-variants.json'),'utf8'));
+    await client.query(generateImportSql(sonnal,[first,expansion]));
     const version=(await client.query('select version()')).rows[0].version;
     return {client,secret,runDir,logFile,version,apiUrl:'http://127.0.0.1:'+apiPort,stop,
       get postgrestVersion(){return postgrestVersion;},

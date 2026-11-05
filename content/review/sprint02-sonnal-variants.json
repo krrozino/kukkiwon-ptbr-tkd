@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "batch": "sprint02-sonnal-variants",
+  "source": {
+    "institution": "Kukkiwon",
+    "title": "Taekwondo Technical Terminology",
+    "year": 2011,
+    "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+    "edition": "English first published 2011-12-31; prefácio de 2012-03-01"
+  },
+  "notes": [
+    "Três candidatos localizados no texto primário Kukkiwon; não são nomes genéricos equivalentes a Sonnal-makgi.",
+    "Traduções e descrições propostas com auxílio de IA, aguardando revisão humana e comparação com edição posterior.",
+    "Dependências para importação: lotes first20 e expansion. Nenhuma pronúncia foi inventada."
+  ],
+  "records": [
+    {
+      "slug": "sonnal-an-chigi",
+      "romanization": "Sonnal-an-chigi",
+      "hangul": "손날 안치기",
+      "translation_pt": "Golpe para dentro com a borda da mão",
+      "category": "chigi",
+      "variant_of": "an-chigi",
+      "source_locator": "§2 Chigi > An-chigi > Sonnal-an-chigi (use; página 22 do PDF)",
+      "definition_pt": "Variante de golpe para dentro que utiliza a borda externa da mão.",
+      "record_kind": "variant",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "pending",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "sonnal",
+          "relation_type": "surface",
+          "source_locator": "§2 Chigi > An-chigi > Sonnal-an-chigi (use; página 22 do PDF)"
+        }
+      ]
+    },
+    {
+      "slug": "sonnal-an-makgi",
+      "romanization": "Sonnal-an-makgi",
+      "hangul": "손날 안막기",
+      "translation_pt": "Defesa para dentro com a borda da mão",
+      "category": "makgi",
+      "variant_of": "an-makgi",
+      "source_locator": "§10 Makgi > An-makgi > Sonnal-an-makgi (use; página 43 do PDF)",
+      "definition_pt": "Variante de defesa para dentro que utiliza a borda externa da mão.",
+      "record_kind": "variant",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "pending",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "sonnal",
+          "relation_type": "surface",
+          "source_locator": "§10 Makgi > An-makgi > Sonnal-an-makgi (use; página 43 do PDF)"
+        }
+      ]
+    },
+    {
+      "slug": "sonnal-bakkat-makgi",
+      "romanization": "Sonnal-bakkat-makgi",
+      "hangul": "손날 바깥막기",
+      "translation_pt": "Defesa para fora com a borda da mão",
+      "category": "makgi",
+      "variant_of": "bakkat-makgi",
+      "source_locator": "§10 Makgi > Bakkat-makgi > Sonnal-bakkat-makgi (use; páginas 44–45 do PDF)",
+      "definition_pt": "Variante de defesa para fora que utiliza a borda externa da mão.",
+      "record_kind": "variant",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "pending",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "sonnal",
+          "relation_type": "surface",
+          "source_locator": "§10 Makgi > Bakkat-makgi > Sonnal-bakkat-makgi (use; páginas 44–45 do PDF)"
+        }
+      ]
+    }
+  ]
+}
