@@ -1,0 +1,72 @@
+name: Prévia temporária Cloudflare do atlas (2026-11-04)
+
+on:
+  push:
+    branches:
+      - preview/cloudflare-20261104-atlas
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baixar versão aprovada para prévia
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências sem scripts externos
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verificar conteúdo não publicado
+        run: npm run content:check
+      - name: Preparar pacote isolado sem conexão com Supabase
+        env:
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+          ASTRO_TELEMETRY_DISABLED: "1"
+          WRANGLER_SEND_METRICS: "false"
+        run: |
+          npm run preview:prepare
+          test -f .preview-build/site/index.html
+          test -f .preview-build/site/atlas/index.html
+          test -f .preview-build/site/catalogo/index.html
+          test -f .preview-build/site/tecnica/index.html
+          test -f .preview-build/release.json
+          if grep -Eq 'sb_secret_|SUPABASE_SERVICE_ROLE|service_role' .preview-build/site/index.html; then
+            echo "::error::Conteúdo não esperado no pacote."
+            exit 1
+          fi
+      - name: Publicar apenas prévia temporária sem login Cloudflare
+        shell: bash
+        env:
+          WRANGLER_SEND_METRICS: "false"
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+        run: |
+          set -euo pipefail
+          DEPLOY_LOG="$RUNNER_TEMP/kukkiwon-temporary-preview.log"
+          if ! npx wrangler deploy --temporary --autoconfig=false --config wrangler.preview.jsonc --name kukkiwon-ptbr-tkd-preview > "$DEPLOY_LOG" 2>&1; then
+            echo "::error::A prévia temporária falhou. Os detalhes privados do Wrangler não serão impressos."
+            rm -f "$DEPLOY_LOG"
+            exit 1
+          fi
+          PREVIEW_URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' "$DEPLOY_LOG" | tail -n 1 || true)"
+          rm -f "$DEPLOY_LOG"
+          if [[ -z "$PREVIEW_URL" ]]; then
+            echo "::error::Wrangler não devolveu URL pública para a prévia."
+            exit 1
+          fi
+          echo "Prévia temporária: $PREVIEW_URL"
+          {
+            echo "## Prévia Cloudflare do atlas (temporária)"
+            echo ""
+            echo "$PREVIEW_URL"
+            echo ""
+            echo "- Expiração aproximada: 60 minutos após a publicação."
+            echo "- Interface sem catálogo remoto: nenhum rascunho ou dado pessoal foi publicado."
+            echo "- Nenhuma alteração no Supabase, PRs ou main."
+          } >> "$GITHUB_STEP_SUMMARY"
