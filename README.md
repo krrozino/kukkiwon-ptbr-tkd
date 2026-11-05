@@ -31,5 +31,9 @@ O novo catálogo depende da migração proposta nesta sprint; ela não é aplica
 - [Relatório da sprint e pendências humanas](docs/SPRINT_01.md)
 - [Pipeline offline, esquema, testes e operação](docs/DATA_PIPELINE.md)
 - [Política editorial](docs/CONTENT_POLICY.md)
+- [Revisão humana das 105 fichas](docs/EDITORIAL_REVIEW.md)
+- [Integração das PRs e próxima prévia](docs/INTEGRATION_READINESS.md)
 
 O comando `content:check` valida todos os lotes de pesquisa. `node scripts/content.mjs --sql kukkiwon-2012-expansion` gera SQL para revisão, sem conectar ao banco. A CI verifica dados, permissões, busca e interface; não importa rascunhos nem faz deploy.
+
+`npm run preview:prepare` gera uma prévia sem conexão remota em `.preview-build/` e executa Wrangler apenas em dry run. `npm run preview:check` valida esse pacote em um Worker local. Para a validação adicional PostgreSQL/PostgREST, consulte [as ferramentas isoladas](tools/local-validation/README.md). A ferramenta não aceita uma conexão de banco remoto.

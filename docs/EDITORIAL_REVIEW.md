@@ -2,6 +2,8 @@
 
 Este é o procedimento **offline** para encaminhar os 105 registros versionados à revisão de professores e pessoas qualificadas em coreano. Não altera o Supabase, o site nem o estado editorial do conteúdo.
 
+A ferramenta foi revisada independentemente e sua recusa de sobrescrita foi testada com arquivos reais. Já foram gerados os pacotes `review-output/revisao-geral-integracao-2026-11-04.csv` (105 fichas) e `review-output/chutes-expansao-integracao-2026-11-04.csv` (12 fichas), com todas as avaliações pendentes. Esses arquivos ficam somente no workspace, fora do Git.
+
 ## Gerar planilha sem sobrescrever revisões
 
 Na pasta do repositório:
@@ -43,3 +45,5 @@ Três termos merecem inspeção visual prioritária: `jebipum-chigi`, `sewo-jiru
 - A comparação com os livros Kukkiwon 2022 depende de acesso legítimo à obra.
 - Só depois da devolutiva, da verificação independente e da aprovação do responsável editorial será criado um processo separado de promoção/publicação com histórico de revisão.
 - Não inclua emails pessoais, telefones ou documentos dos revisores no repositório público.
+
+O estado de integração das PRs e as autorizações para banco/deploy estão em [INTEGRATION_READINESS.md](INTEGRATION_READINESS.md).
