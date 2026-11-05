@@ -1,0 +1,2204 @@
+{
+  "schema_version": 1,
+  "batch": "kukkiwon-2012-expansion",
+  "source": {
+    "institution": "Kukkiwon",
+    "title": "Taekwondo Technical Terminology",
+    "year": 2011,
+    "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+    "edition": "English first published 2011-12-31; preface 2012-03-01"
+  },
+  "notes": [
+    "Nomes localizados no texto oficial por extração automatizada; conferência humana de cada par Hangul/romanização pendente.",
+    "Traduções e definições em PT-BR são propostas editoriais geradas com auxílio de IA, não traduções oficiais.",
+    "Nenhum registro está document_checked, technical_reviewed ou publicado. Não foi atribuído checked_at.",
+    "Seções e cabeçalhos são localizadores; paginação do extrator não é tratada como página impressa.",
+    "Sem associação de graduação universal; sem mídia copiada."
+  ],
+  "records": [
+    {
+      "slug": "bada-chagi",
+      "category": "chute",
+      "romanization": "Bada-chagi",
+      "hangul": "받아차기",
+      "translation_pt": "Chute de contra-ataque",
+      "definition_pt": "Designação para chutes usados em resposta ao ataque do oponente.",
+      "record_kind": "family",
+      "source_locator": "§1 Chagi > Bada-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "bandal-chagi",
+      "category": "chute",
+      "romanization": "Bandal-chagi",
+      "hangul": "반달차기",
+      "translation_pt": "Chute em meia-lua",
+      "definition_pt": "Chute com a perna voltada para dentro, descrito sem pivô da perna de apoio.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Bandal-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "biteureo-chagi",
+      "category": "chute",
+      "romanization": "Biteureo-chagi",
+      "hangul": "비틀어차기",
+      "translation_pt": "Chute com torção",
+      "definition_pt": "Chute com o peito do pé em trajetória de dentro para fora.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Biteureo-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dwi-chagi",
+      "category": "chute",
+      "romanization": "Dwi-chagi",
+      "hangul": "뒤차기",
+      "translation_pt": "Chute para trás",
+      "definition_pt": "Chute que projeta o calcanhar para trás após a flexão do joelho.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Dwi-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "gawi-chagi",
+      "category": "chute",
+      "romanization": "Gawi-chagi",
+      "hangul": "가위차기",
+      "translation_pt": "Chute em tesoura",
+      "definition_pt": "Chute em salto com as pernas separadas para atingir dois alvos.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Gawi-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "huryeo-chagi",
+      "category": "chute",
+      "romanization": "Huryeo-chagi",
+      "hangul": "후려차기",
+      "translation_pt": "Chute de chicote",
+      "definition_pt": "Chute em arco amplo com a planta ou o calcanhar.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Huryeo-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "mireo-chagi",
+      "category": "chute",
+      "romanization": "Mireo-chagi",
+      "hangul": "밀어차기",
+      "translation_pt": "Chute de empurrar",
+      "definition_pt": "Uso do pé para empurrar e controlar a distância.",
+      "record_kind": "family",
+      "source_locator": "§1 Chagi > Mireo-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "naeryeo-chagi",
+      "category": "chute",
+      "romanization": "Naeryeo-chagi",
+      "hangul": "내려차기",
+      "translation_pt": "Chute descendente",
+      "definition_pt": "Chute que dirige a planta do pé ou o calcanhar de cima para baixo.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Naeryeo-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "nakka-chagi",
+      "category": "chute",
+      "romanization": "Nakka-chagi",
+      "hangul": "낚아차기",
+      "translation_pt": "Chute de gancho",
+      "definition_pt": "Chute com o calcanhar no qual a flexão do joelho produz o movimento de gancho.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Nakka-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "narae-chagi",
+      "category": "chute",
+      "romanization": "Narae-chagi",
+      "hangul": "나래차기",
+      "translation_pt": "Chutes circulares alternados no ar",
+      "definition_pt": "Sequência aérea de chutes circulares, com o primeiro preparando o segundo.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Narae-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "pyojeok-chagi",
+      "category": "chute",
+      "romanization": "Pyojeok-chagi",
+      "hangul": "표적차기",
+      "translation_pt": "Chute em alvo indicado pela mão",
+      "definition_pt": "Chute dirigido à própria mão aberta como referência de alvo no poomsae.",
+      "record_kind": "technique",
+      "source_locator": "§1 Chagi > Pyojeok-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "ttwieo-chagi",
+      "category": "chute",
+      "romanization": "Ttwieo-chagi",
+      "hangul": "뛰어차기",
+      "translation_pt": "Chute em salto",
+      "definition_pt": "Designação de chutes executados durante um salto.",
+      "record_kind": "family",
+      "source_locator": "§1 Chagi > Ttwieo-chagi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "an-chigi",
+      "category": "ataque-mao",
+      "romanization": "An-chigi",
+      "hangul": "안치기",
+      "translation_pt": "Golpe para dentro",
+      "definition_pt": "Golpe com trajetória de fora para dentro do executante.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > An-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "ap-chigi",
+      "category": "ataque-mao",
+      "romanization": "Ap-chigi",
+      "hangul": "앞치기",
+      "translation_pt": "Golpe à frente",
+      "definition_pt": "Golpe dirigido à frente, com superfícies de mão especificadas nas variantes.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Ap-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "bakkat-chigi",
+      "category": "ataque-mao",
+      "romanization": "Bakkat-chigi",
+      "hangul": "바깥치기",
+      "translation_pt": "Golpe para fora",
+      "definition_pt": "Golpe que parte do interior e se desloca para fora do corpo.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Bakkat-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "biteureo-chigi",
+      "category": "ataque-mao",
+      "romanization": "Biteureo-chigi",
+      "hangul": "비틀어치기",
+      "translation_pt": "Golpe com torção",
+      "definition_pt": "Golpe em que a perna que avança e o braço que ataca trabalham em oposição.",
+      "record_kind": "technique",
+      "source_locator": "§2 Chigi > Biteureo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "danggyeo-chigi",
+      "category": "ataque-mao",
+      "romanization": "Danggyeo-chigi",
+      "hangul": "당겨치기",
+      "translation_pt": "Golpe com puxada",
+      "definition_pt": "Golpe combinado com a puxada do oponente pela outra mão.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Danggyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dollyeo-chigi",
+      "category": "ataque",
+      "romanization": "Dollyeo-chigi",
+      "hangul": "돌려치기",
+      "translation_pt": "Golpe com rotação",
+      "definition_pt": "Golpe horizontal que utiliza a rotação do corpo, incluindo variantes de cotovelo e joelho.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Dollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dwi-chigi",
+      "category": "cotovelo",
+      "romanization": "Dwi-chigi",
+      "hangul": "뒤치기",
+      "translation_pt": "Golpe de cotovelo para trás",
+      "definition_pt": "Golpe de cotovelo direcionado a um oponente atrás do executante.",
+      "record_kind": "technique",
+      "source_locator": "§2 Chigi > Dwi-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "geodeureo-chigi",
+      "category": "ataque-mao",
+      "romanization": "Geodeureo-chigi",
+      "hangul": "거들어치기",
+      "translation_pt": "Golpe com apoio",
+      "definition_pt": "Golpe em que a outra mão presta apoio ao membro que ataca.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Geodeureo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "jebipum-chigi",
+      "category": "ataque-mao",
+      "romanization": "Jebipum‐chigi",
+      "hangul": "제비품치기",
+      "translation_pt": "Golpe em postura de andorinha",
+      "definition_pt": "Combinação simultânea de defesa ascendente com uma mão e ataque com a outra.",
+      "record_kind": "technique",
+      "source_locator": "§2 Chigi > Jebipum‐chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [],
+      "review_notes": [
+        "O cabeçalho contém hífen Unicode U+2010. Slug normalizado para ASCII; romanização preservada como extraída. Conferência visual pendente."
+      ]
+    },
+    {
+      "slug": "naeryeo-chigi",
+      "category": "ataque",
+      "romanization": "Naeryeo-chigi",
+      "hangul": "내려치기",
+      "translation_pt": "Golpe descendente",
+      "definition_pt": "Golpe dirigido de um nível mais alto para um mais baixo.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Naeryeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "ollyeo-chigi",
+      "category": "ataque",
+      "romanization": "Ollyeo-chigi",
+      "hangul": "올려치기",
+      "translation_pt": "Golpe ascendente",
+      "definition_pt": "Golpe que se desloca verticalmente de baixo para cima.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Ollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "pyojeok-chigi",
+      "category": "ataque",
+      "romanization": "Pyojeok-chigi",
+      "hangul": "표적치기",
+      "translation_pt": "Golpe em alvo indicado pela mão",
+      "definition_pt": "Golpe que usa a própria mão aberta para representar o alvo no poomsae.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Pyojeok-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "yeop-chigi",
+      "category": "ataque",
+      "romanization": "Yeop-chigi",
+      "hangul": "옆치기",
+      "translation_pt": "Golpe lateral",
+      "definition_pt": "Golpe direcionado a um alvo ao lado do executante.",
+      "record_kind": "family",
+      "source_locator": "§2 Chigi > Yeop-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "palgup-dollyeo-chigi",
+      "category": "cotovelo",
+      "romanization": "Palgup-dollyeo-chigi",
+      "hangul": "팔굽 돌려치기",
+      "translation_pt": "Golpe circular de cotovelo",
+      "definition_pt": "Variante do golpe com rotação executada com o cotovelo.",
+      "record_kind": "variant",
+      "source_locator": "§2 Chigi > Dollyeo-chigi > <use> > Palgup-dollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "variant_of": "dollyeo-chigi",
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "palgup",
+          "relation_type": "surface",
+          "source_locator": "§2 Chigi > Dollyeo-chigi > <use> > Palgup-dollyeo-chigi"
+        }
+      ]
+    },
+    {
+      "slug": "mureup-dollyeo-chigi",
+      "category": "joelho",
+      "romanization": "Mureup-dollyeo-chigi",
+      "hangul": "무릎 돌려치기",
+      "translation_pt": "Golpe circular de joelho",
+      "definition_pt": "Variante do golpe com rotação executada com o joelho.",
+      "record_kind": "variant",
+      "source_locator": "§2 Chigi > Dollyeo-chigi > <use> > Mureup-dollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "variant_of": "dollyeo-chigi",
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "mureup",
+          "relation_type": "surface",
+          "source_locator": "§2 Chigi > Dollyeo-chigi > <use> > Mureup-dollyeo-chigi"
+        }
+      ]
+    },
+    {
+      "slug": "palgup-ollyeo-chigi",
+      "category": "cotovelo",
+      "romanization": "Palgup-ollyeo-chigi",
+      "hangul": "팔굽 올려치기",
+      "translation_pt": "Golpe ascendente de cotovelo",
+      "definition_pt": "Variante de golpe ascendente que utiliza o cotovelo.",
+      "record_kind": "variant",
+      "source_locator": "§2 Chigi > Ollyeo-chigi > <use> > Palgup-ollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "variant_of": "ollyeo-chigi",
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "palgup",
+          "relation_type": "surface",
+          "source_locator": "§2 Chigi > Ollyeo-chigi > <use> > Palgup-ollyeo-chigi"
+        }
+      ]
+    },
+    {
+      "slug": "mureup-ollyeo-chigi",
+      "category": "joelho",
+      "romanization": "Mureup-ollyeo-chigi",
+      "hangul": "무릎 올려치기",
+      "translation_pt": "Golpe ascendente de joelho",
+      "definition_pt": "Variante de golpe ascendente que utiliza o joelho.",
+      "record_kind": "variant",
+      "source_locator": "§2 Chigi > Ollyeo-chigi > <use> > Mureup-ollyeo-chigi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "variant_of": "ollyeo-chigi",
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "mureup",
+          "relation_type": "surface",
+          "source_locator": "§2 Chigi > Ollyeo-chigi > <use> > Mureup-ollyeo-chigi"
+        }
+      ]
+    },
+    {
+      "slug": "chetdari-jireugi",
+      "category": "soco",
+      "romanization": "Chetdari-jireugi",
+      "hangul": "쳇다리지르기",
+      "translation_pt": "Soco em garfo",
+      "definition_pt": "Soco com os dois braços estendidos em uma disposição comparada a um garfo.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Chetdari-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "chi-jireugi",
+      "category": "soco",
+      "romanization": "Chi-jireugi",
+      "hangul": "치지르기",
+      "translation_pt": "Soco ascendente",
+      "definition_pt": "Soco que segue uma trajetória vertical de baixo para cima.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Chi-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "danggyeo-jireugi",
+      "category": "soco",
+      "romanization": "Danggyeo-jireugi",
+      "hangul": "당겨지르기",
+      "translation_pt": "Soco com puxada",
+      "definition_pt": "Soco combinado com a puxada do oponente pela outra mão.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Danggyeo-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dollyeo-jireugi",
+      "category": "soco",
+      "romanization": "Dollyeo-jireugi",
+      "hangul": "돌려지르기",
+      "translation_pt": "Soco circular",
+      "definition_pt": "Soco em curva para atingir a lateral de um alvo à frente.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Dollyeo-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dwi-jireugi",
+      "category": "soco",
+      "romanization": "Dwi-jireugi",
+      "hangul": "뒤지르기",
+      "translation_pt": "Soco para trás",
+      "definition_pt": "Soco em trajetória circular dirigido a um alvo atrás do executante.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Dwi-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "geumgang-jireugi",
+      "category": "soco",
+      "romanization": "Geumgang-jireugi",
+      "hangul": "금강지르기",
+      "translation_pt": "Soco Geumgang",
+      "definition_pt": "Soco combinado com defesa ascendente do outro braço.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Geumgang-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "jeocheo-jireugi",
+      "category": "soco",
+      "romanization": "Jeocheo-jireugi",
+      "hangul": "젖혀지르기",
+      "translation_pt": "Soco com punho voltado para cima",
+      "definition_pt": "Soco executado com o punho invertido, descrito para curta distância.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Jeocheo-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "naeryeo-jireugi",
+      "category": "soco",
+      "romanization": "Naeryeo-jireugi",
+      "hangul": "내려지르기",
+      "translation_pt": "Soco descendente",
+      "definition_pt": "Soco dirigido verticalmente a um alvo em posição mais baixa.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Naeryeo-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "pyojeok-jireugi",
+      "category": "soco",
+      "romanization": "Pyojeok-jireugi",
+      "hangul": "표적지르기",
+      "translation_pt": "Soco em alvo indicado pela mão",
+      "definition_pt": "Soco dirigido a um alvo imaginário indicado pela outra mão.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Pyojeok-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "sewo-jiruegi",
+      "category": "soco",
+      "romanization": "Sewo-jiruegi",
+      "hangul": "세워지르기",
+      "translation_pt": "Soco com punho vertical",
+      "definition_pt": "Soco que mantém o punho orientado verticalmente.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Sewo-jiruegi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [],
+      "review_notes": [
+        "A extração e o cabeçalho trazem 'Sewo-jiruegi'. Preservado sem corrigir silenciosamente para 'Sewo-jireugi'; conferir tipografia do original."
+      ]
+    },
+    {
+      "slug": "yeop-jireugi",
+      "category": "soco",
+      "romanization": "Yeop-jireugi",
+      "hangul": "옆지르기",
+      "translation_pt": "Soco lateral",
+      "definition_pt": "Soco em linha reta para o lado, acompanhado pela rotação do corpo.",
+      "record_kind": "technique",
+      "source_locator": "§5 Jireugi > Yeop-jireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "eopeo-jjireugi",
+      "category": "ataque-dedos",
+      "romanization": "Eopeo-jjireugi",
+      "hangul": "엎어찌르기",
+      "translation_pt": "Ataque com dedos voltados para baixo",
+      "definition_pt": "Ataque com as pontas dos dedos em orientação horizontal voltada para baixo.",
+      "record_kind": "technique",
+      "source_locator": "§6 Jjireugi > Eopeo-jjireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "jeocheo-jjireugi",
+      "category": "ataque-dedos",
+      "romanization": "Jeocheo-jjireugi",
+      "hangul": "젖혀찌르기",
+      "translation_pt": "Ataque com dedos voltados para cima",
+      "definition_pt": "Ataque com as pontas dos dedos em orientação invertida.",
+      "record_kind": "technique",
+      "source_locator": "§6 Jjireugi > Jeocheo-jjireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "sewo-jjireugi",
+      "category": "ataque-dedos",
+      "romanization": "Sewo-jjireugi",
+      "hangul": "세워찌르기",
+      "translation_pt": "Ataque com dedos em orientação vertical",
+      "definition_pt": "Ataque com as pontas dos dedos dispostas verticalmente.",
+      "record_kind": "technique",
+      "source_locator": "§6 Jjireugi > Sewo-jjireugi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "bada-makgi",
+      "category": "defesa",
+      "romanization": "Bada-makgi",
+      "hangul": "받아막기",
+      "translation_pt": "Defesa de absorção",
+      "definition_pt": "Defesa que procura amortecer o impacto do ataque.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Bada-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "biteureo-makgi",
+      "category": "defesa",
+      "romanization": "Biteureo‐makgi",
+      "hangul": "비틀어막기",
+      "translation_pt": "Defesa com torção",
+      "definition_pt": "Defesa com o braço oposto à perna que avança, acompanhada de torção do corpo.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Biteureo‐makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [],
+      "review_notes": [
+        "O cabeçalho contém hífen Unicode U+2010. Slug normalizado para ASCII; romanização preservada como extraída. Conferência visual pendente."
+      ]
+    },
+    {
+      "slug": "cha-makgi",
+      "category": "defesa",
+      "romanization": "Cha-makgi",
+      "hangul": "차막기",
+      "translation_pt": "Defesa com chute",
+      "definition_pt": "Defesa que utiliza a perna ou o pé para interceptar o ataque.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Cha-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "cheo-makgi",
+      "category": "defesa",
+      "romanization": "Cheo-makgi",
+      "hangul": "쳐막기",
+      "translation_pt": "Defesa por golpe",
+      "definition_pt": "Defesa que confronta o ataque por um golpe da mão ou do braço.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Cheo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "gawi-makgi",
+      "category": "defesa",
+      "romanization": "Gawi-makgi",
+      "hangul": "가위막기",
+      "translation_pt": "Defesa em tesoura",
+      "definition_pt": "Combinação simultânea de defesa para fora com a parte interna do antebraço e defesa descendente.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Gawi-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "geodeo-makgi",
+      "category": "defesa",
+      "romanization": "Geodeo-makgi",
+      "hangul": "걷어막기",
+      "translation_pt": "Defesa de desvio",
+      "definition_pt": "Defesa que afasta o ataque para a lateral do corpo.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Geodeo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "geodeureo-makgi",
+      "category": "defesa",
+      "romanization": "Geodeureo-makgi",
+      "hangul": "거들어막기",
+      "translation_pt": "Defesa com apoio",
+      "definition_pt": "Defesa de uma mão com apoio da outra.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Geodeureo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "georeo-makgi",
+      "category": "defesa",
+      "romanization": "Georeo-makgi",
+      "hangul": "걸어막기",
+      "translation_pt": "Defesa de interceptação",
+      "definition_pt": "Defesa que obstrui antecipadamente o membro atacante.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Georeo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "geumgang-makgi",
+      "category": "defesa",
+      "romanization": "Geumgang-makgi",
+      "hangul": "금강막기",
+      "translation_pt": "Defesa Geumgang",
+      "definition_pt": "Combinação de defesa ascendente com defesa descendente lateral ou para fora.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Geumgang-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "hecheo-makgi",
+      "category": "defesa",
+      "romanization": "Hecheo-makgi",
+      "hangul": "헤쳐막기",
+      "translation_pt": "Defesa de abertura",
+      "definition_pt": "Defesa que parte dos punhos cruzados e abre os braços em sentidos opostos.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Hecheo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "hwangso-makgi",
+      "category": "defesa",
+      "romanization": "Hwangso-makgi",
+      "hangul": "황소막기",
+      "translation_pt": "Defesa em chifres de boi",
+      "definition_pt": "Defesa com ambos os braços elevados obliquamente acima da cabeça.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Hwangso-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "nulleo-makgi",
+      "category": "defesa",
+      "romanization": "Nulleo-makgi",
+      "hangul": "눌러막기",
+      "translation_pt": "Defesa por pressão descendente",
+      "definition_pt": "Defesa que pressiona o ataque para baixo.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Nulleo-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "oesanteul-makgi",
+      "category": "defesa",
+      "romanization": "Oesanteul-makgi",
+      "hangul": "외산틀막기",
+      "translation_pt": "Defesa de montanha simples",
+      "definition_pt": "Combinação de defesa para fora com parte interna do antebraço e defesa descendente do outro braço.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Oesanteul-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "santeul-makgi",
+      "category": "defesa",
+      "romanization": "Santeul-makgi",
+      "hangul": "산틀막기",
+      "translation_pt": "Defesa de montanha",
+      "definition_pt": "Defesa simultânea para os dois lados com os braços dispostos como uma montanha.",
+      "record_kind": "technique",
+      "source_locator": "§10 Makgi > Santeul-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "yeop-makgi",
+      "category": "defesa",
+      "romanization": "Yeop-makgi",
+      "hangul": "옆막기",
+      "translation_pt": "Defesa lateral",
+      "definition_pt": "Defesa dirigida a um ataque que chega pela lateral.",
+      "record_kind": "family",
+      "source_locator": "§10 Makgi > Yeop-makgi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "beom-seogi",
+      "category": "base",
+      "romanization": "Beom-seogi",
+      "hangul": "범서기",
+      "translation_pt": "Base de tigre",
+      "definition_pt": "Base flexionada com o calcanhar da frente elevado e maior apoio na perna de trás.",
+      "record_kind": "technique",
+      "source_locator": "§15 Seogi > Beom-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "gyeotdari-seogi",
+      "category": "base",
+      "romanization": "Gyeotdari-seogi",
+      "hangul": "곁다리서기",
+      "translation_pt": "Base com pé auxiliar",
+      "definition_pt": "Base em que um pé sustenta o peso e o outro auxilia o equilíbrio.",
+      "record_kind": "technique",
+      "source_locator": "§15 Seogi > Gyeotdari-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "hakdari-seogi",
+      "category": "base",
+      "romanization": "Hakdari-seogi",
+      "hangul": "학다리서기",
+      "translation_pt": "Base de garça",
+      "definition_pt": "Base de apoio em uma perna, com o outro pé junto ao joelho da perna de sustentação.",
+      "record_kind": "technique",
+      "source_locator": "§15 Seogi > Hakdari-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "kkoa-seogi",
+      "category": "base",
+      "romanization": "Kkoa-seogi",
+      "hangul": "꼬아서기",
+      "translation_pt": "Base cruzada",
+      "definition_pt": "Base com os pés cruzados durante deslocamento ou mudança de direção.",
+      "record_kind": "family",
+      "source_locator": "§15 Seogi > Kkoa-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "mo-seogi",
+      "category": "base",
+      "romanization": "Mo-seogi",
+      "hangul": "모서기",
+      "translation_pt": "Base diagonal",
+      "definition_pt": "Base orientada diagonalmente com distribuição do peso entre as duas pernas.",
+      "record_kind": "technique",
+      "source_locator": "§15 Seogi > Mo-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "yeop-seogi",
+      "category": "base",
+      "romanization": "Yeop-seogi",
+      "hangul": "옆서기",
+      "translation_pt": "Base lateral",
+      "definition_pt": "Base em que um pé gira para formar um ângulo reto em relação ao outro.",
+      "record_kind": "technique",
+      "source_locator": "§15 Seogi > Yeop-seogi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "bojumeok-junbi",
+      "category": "poomsae",
+      "romanization": "Bojumeok-junbi",
+      "hangul": "보주먹준비",
+      "translation_pt": "Preparação com punho coberto",
+      "definition_pt": "Postura de preparação em que a mão esquerda envolve o punho direito.",
+      "record_kind": "technique",
+      "source_locator": "§8 Junbi-jase > Bojumeok-junbi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "dujumeok-heori-junbi",
+      "category": "poomsae",
+      "romanization": "Dujumeok-heori-junbi",
+      "hangul": "두주먹허리준비",
+      "translation_pt": "Preparação com punhos na cintura",
+      "definition_pt": "Postura de preparação com os dois punhos colocados junto à cintura.",
+      "record_kind": "technique",
+      "source_locator": "§8 Junbi-jase > Dujumeok-heori-junbi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "gibon-junbi",
+      "category": "poomsae",
+      "romanization": "Gibon-junbi",
+      "hangul": "기본준비",
+      "translation_pt": "Preparação básica",
+      "definition_pt": "Postura inicial de poomsae com abertura lateral do pé e condução dos punhos ao baixo ventre.",
+      "record_kind": "technique",
+      "source_locator": "§8 Junbi-jase > Gibon-junbi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "gyeopson-junbi",
+      "category": "poomsae",
+      "romanization": "Gyeopson-junbi",
+      "hangul": "겹손준비",
+      "translation_pt": "Preparação com mãos sobrepostas",
+      "definition_pt": "Postura de preparação com a mão esquerda sobre a direita diante do baixo ventre.",
+      "record_kind": "technique",
+      "source_locator": "§8 Junbi-jase > Gyeopson-junbi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "tongmilgi-junbi",
+      "category": "poomsae",
+      "romanization": "Tongmilgi-junbi",
+      "hangul": "통밀기준비",
+      "translation_pt": "Preparação de empurrar um tronco",
+      "definition_pt": "Postura em que as mãos avançam como se empurrassem um tronco.",
+      "record_kind": "technique",
+      "source_locator": "§8 Junbi-jase > Tongmilgi-junbi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": []
+    },
+    {
+      "slug": "ageumson",
+      "category": "regiao-corporal",
+      "romanization": "Ageumson",
+      "hangul": "아금손",
+      "translation_pt": "Mão em arco",
+      "definition_pt": "Configuração de mão aberta com polegar e indicador afastados em forma de arco.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Ageumson",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "ageumson",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Ageumson"
+        }
+      ],
+      "atlas": {
+        "area": "hands",
+        "view": "front",
+        "x": 30,
+        "y": 58
+      }
+    },
+    {
+      "slug": "anpalmok",
+      "category": "regiao-corporal",
+      "romanization": "Anpalmok",
+      "hangul": "안팔목",
+      "translation_pt": "Parte interna da região do punho",
+      "definition_pt": "Superfície interna da região do punho definida no documento a partir da posição de soco.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Anpalmok",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "anpalmok",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Anpalmok"
+        }
+      ],
+      "atlas": {
+        "area": "arms",
+        "view": "front",
+        "x": null,
+        "y": null
+      }
+    },
+    {
+      "slug": "apchuk",
+      "category": "regiao-corporal",
+      "romanization": "Apchuk",
+      "hangul": "앞축",
+      "translation_pt": "Parte anterior da planta do pé",
+      "definition_pt": "Região frontal da planta do pé quando os dedos estão recolhidos.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Apchuk",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "apchuk",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Apchuk"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "front",
+        "x": 48,
+        "y": 28
+      }
+    },
+    {
+      "slug": "bakkatpalmok",
+      "category": "regiao-corporal",
+      "romanization": "Bakkatpalmok",
+      "hangul": "바깥팔목",
+      "translation_pt": "Parte externa da região do punho",
+      "definition_pt": "Superfície externa da região do punho definida a partir da posição de soco.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Bakkatpalmok",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "bakkatpalmok",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Bakkatpalmok"
+        }
+      ],
+      "atlas": {
+        "area": "arms",
+        "view": "back",
+        "x": null,
+        "y": null
+      }
+    },
+    {
+      "slug": "balbadak",
+      "category": "regiao-corporal",
+      "romanization": "Balbadak",
+      "hangul": "발바닥",
+      "translation_pt": "Planta do pé",
+      "definition_pt": "Superfície inferior do pé.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Balbadak",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "balbadak",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Balbadak"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "front",
+        "x": 48,
+        "y": 58
+      }
+    },
+    {
+      "slug": "baldeung",
+      "category": "regiao-corporal",
+      "romanization": "Baldeung",
+      "hangul": "발등",
+      "translation_pt": "Peito do pé",
+      "definition_pt": "Superfície superior do pé.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Baldeung",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "baldeung",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Baldeung"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "back",
+        "x": 50,
+        "y": 55
+      }
+    },
+    {
+      "slug": "balkkeut",
+      "category": "regiao-corporal",
+      "romanization": "Balkkeut",
+      "hangul": "발끝",
+      "translation_pt": "Pontas dos dedos do pé",
+      "definition_pt": "Extremidades dos dedos quando o pé está estendido.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Balkkeut",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "balkkeut",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Balkkeut"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "both",
+        "x": 47,
+        "y": 13
+      }
+    },
+    {
+      "slug": "balnal",
+      "category": "regiao-corporal",
+      "romanization": "Balnal",
+      "hangul": "발날",
+      "translation_pt": "Borda externa do pé",
+      "definition_pt": "Borda do lado do dedo mínimo, entre a planta e o peito do pé.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Balnal",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "balnal",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Balnal"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "both",
+        "x": 72,
+        "y": 53
+      }
+    },
+    {
+      "slug": "balnaldeung",
+      "category": "regiao-corporal",
+      "romanization": "Balnaldeung",
+      "hangul": "발날등",
+      "translation_pt": "Borda interna do pé",
+      "definition_pt": "Borda do pé oposta à sua borda externa.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Balnaldeung",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "balnaldeung",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Balnaldeung"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "both",
+        "x": 30,
+        "y": 58
+      }
+    },
+    {
+      "slug": "deungjumeok",
+      "category": "regiao-corporal",
+      "romanization": "Deungjumeok",
+      "hangul": "등주먹",
+      "translation_pt": "Dorso do punho fechado",
+      "definition_pt": "Área dorsal das primeiras articulações do indicador e do dedo médio no punho fechado.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Deungjumeok",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "deungjumeok",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Deungjumeok"
+        }
+      ],
+      "atlas": {
+        "area": "hands",
+        "view": "back",
+        "x": 44,
+        "y": 40
+      }
+    },
+    {
+      "slug": "dwichuk",
+      "category": "regiao-corporal",
+      "romanization": "Dwichuk",
+      "hangul": "뒤축",
+      "translation_pt": "Base do calcanhar",
+      "definition_pt": "Parte posterior da planta do pé.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Dwichuk",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "dwichuk",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Dwichuk"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "front",
+        "x": 45,
+        "y": 95
+      }
+    },
+    {
+      "slug": "dwikkumchi",
+      "category": "regiao-corporal",
+      "romanization": "Dwikkumchi",
+      "hangul": "뒤꿈치",
+      "translation_pt": "Parte posterior do calcanhar",
+      "definition_pt": "Borda posterior do calcanhar junto ao tendão de Aquiles.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Dwikkumchi",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "dwikkumchi",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Dwikkumchi"
+        }
+      ],
+      "atlas": {
+        "area": "feet",
+        "view": "back",
+        "x": 50,
+        "y": 98
+      }
+    },
+    {
+      "slug": "mejumeok",
+      "category": "regiao-corporal",
+      "romanization": "Mejumeok",
+      "hangul": "메주먹",
+      "translation_pt": "Borda do punho fechado",
+      "definition_pt": "Borda externa da mão fechada.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Mejumeok",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "mejumeok",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Mejumeok"
+        }
+      ],
+      "atlas": {
+        "area": "hands",
+        "view": "both",
+        "x": 68,
+        "y": 68
+      }
+    },
+    {
+      "slug": "mureup",
+      "category": "regiao-corporal",
+      "romanization": "Mureup",
+      "hangul": "무릎",
+      "translation_pt": "Joelho",
+      "definition_pt": "Região da patela entre as partes superior e inferior da perna.",
+      "record_kind": "anatomy",
+      "source_locator": "Appendix > Applicable Parts of the Body > Mureup",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "mureup",
+          "relation_type": "anatomy",
+          "source_locator": "Appendix > Applicable Parts of the Body > Mureup"
+        }
+      ],
+      "atlas": {
+        "area": "legs",
+        "view": "front",
+        "x": null,
+        "y": null
+      }
+    },
+    {
+      "slug": "palgup",
+      "category": "regiao-corporal",
+      "romanization": "Palgup",
+      "hangul": "팔굽",
+      "translation_pt": "Cotovelo",
+      "definition_pt": "Parte externa da articulação que une braço e antebraço.",
+      "record_kind": "anatomy",
+      "source_locator": "Appendix > Applicable Parts of the Body > Palgup",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "palgup",
+          "relation_type": "anatomy",
+          "source_locator": "Appendix > Applicable Parts of the Body > Palgup"
+        }
+      ],
+      "atlas": {
+        "area": "arms",
+        "view": "back",
+        "x": null,
+        "y": null
+      }
+    },
+    {
+      "slug": "sondeung",
+      "category": "regiao-corporal",
+      "romanization": "Sondeung",
+      "hangul": "손등",
+      "translation_pt": "Dorso da mão",
+      "definition_pt": "Face da mão oposta à palma.",
+      "record_kind": "surface",
+      "source_locator": "Appendix > Applicable Parts of the Body > Sondeung",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "comparison_with_2022": "not_accessible",
+      "documentary_confidence": "primary_text_located_automatically",
+      "evidence": {
+        "method": "official_text_extraction",
+        "name_pair_located": true,
+        "human_checked": false
+      },
+      "aliases": [],
+      "anatomical_links": [
+        {
+          "region_slug": "sondeung",
+          "relation_type": "surface",
+          "source_locator": "Appendix > Applicable Parts of the Body > Sondeung"
+        }
+      ],
+      "atlas": {
+        "area": "hands",
+        "view": "back",
+        "x": 50,
+        "y": 70
+      }
+    }
+  ]
+}

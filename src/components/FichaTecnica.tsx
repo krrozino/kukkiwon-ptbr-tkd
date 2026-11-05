@@ -25,7 +25,7 @@ export default function FichaTecnica() {
       'Não foi possível consultar esta técnica.'}
   </div>;
 
-  const { term, sources, media } = detail;
+  const { term, sources, media, regions, relations } = detail;
   return <article className="technique-detail">
     <p className="tag">{term.category} · Ficha técnica publicada</p>
     <h1>{term.romanization}</h1>
@@ -59,9 +59,23 @@ export default function FichaTecnica() {
           <span className="fine-print"> · Seção: {record.source_locator}</span>
         </li>)}</ul>}
     </section>
+    <section className="section-inner"><h2>Atlas e técnicas relacionadas</h2>
+      {regions.filter(r=>r.body_regions).length===0?<p>Nenhuma região corporal publicada associada.</p>:
+        <ul>{regions.filter(r=>r.body_regions).map(r=><li key={r.body_regions!.id+r.usage_context}>
+          <a href={'/atlas?region='+encodeURIComponent(r.body_regions!.slug)}>{r.body_regions!.name_pt}</a>
+          <span className="fine-print"> · {r.usage_context==='surface'?'Superfície de contato':r.usage_context==='target'?'Alvo':r.usage_context==='movement'?'Movimento':'Vínculo anatômico'}</span>
+        </li>)}</ul>}
+      {relations.filter(r=>r.technical_terms).length>0&&<ul>{relations.filter(r=>r.technical_terms).map(r=><li key={r.technical_terms!.slug+r.relation_kind}>
+        {r.relation_kind==='variant_of'?'Variante de: ':'Relacionada: '}
+        <a href={'/tecnica?slug='+encodeURIComponent(r.technical_terms!.slug)}>{r.technical_terms!.romanization}</a>
+      </li>)}</ul>}
+      {term.record_kind==='family'&&<a href={'/catalogo?family='+encodeURIComponent(term.slug)}>Consultar variantes documentadas desta família</a>}
+    </section>
     <section className="section-inner"><h2>Mídia autorizada</h2>
       {media.length === 0 ? <p>Vídeos e imagens serão incluídos após conferência de autoria e permissões.</p> :
-        <ul>{media.map(item => <li key={item.id}><a href={item.media_url} rel="noopener noreferrer" target="_blank">{item.caption_pt || item.media_kind}</a></li>)}</ul>}
+        <ul>{media.map(item => <li key={item.id}><a href={item.media_url} rel="noopener noreferrer" target="_blank">{item.caption_pt || item.media_kind}</a>
+          {item.creator&&' · '+item.creator}{item.license_name&&' · '+item.license_name}
+        </li>)}</ul>}
     </section>
   </article>;
 }
