@@ -146,6 +146,6 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 @media(max-width:900px){
   .site-navigation{flex-direction:column;align-items:stretch;gap:9px}
   .site-navigation .logo{margin-right:0;flex-basis:auto}
-  .site-links{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:4px}
+  .site-links{width:100%;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:4px}
   .site-links a{flex-shrink:0}
 }
