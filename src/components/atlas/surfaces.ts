@@ -8,7 +8,7 @@ export const fistOutline='M26 114 L25 93 C16 85 13 74 13 61 L15 43 C16 35 27 34 
 export const surfaces:Record<string,Surface>={
  sonbadak:{path:'M29 73 Q47 64 67 73 L64 99 Q49 109 34 100 L30 84 Z',color:'#d6a541',view:'front',anchor:[48,86]},
  batangson:{path:'M34 100 Q49 109 64 99 L61 125 L32 125 Z',color:'#ad699b',view:'front',anchor:[49,107]},
- sonnal:{path:'M67 73 L75 31 L70 83 Q69 97 64 99 L60 97 Q64 86 63 76 Z',color:'#258c8b',view:'both',anchor:[69,88]},
+ sonnal:{path:'M63 50 L75 38 L71 83 Q70 99 62 114 L55 108 Q63 93 62 78 Z',color:'#258c8b',view:'both',anchor:[69,88]},
  sonnaldeung:{path:'M25 35 L32 33 L39 64 L30 77 L25 76 Z',color:'#cf7549',view:'both',anchor:[32,64]},
  ageumson:{path:'M9 65 Q18 65 27 77 L39 64 L44 71 L30 87 L23 84 Z',color:'#598bc0',view:'front',anchor:[28,80]},
  sondeung:{path:'M29 73 Q49 63 67 73 L64 99 Q50 108 34 100 Z',color:'#859753',view:'back',anchor:[49,86]},
