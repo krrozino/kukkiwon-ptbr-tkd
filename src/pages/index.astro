@@ -1,19 +1,51 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Taekwondo para Todos — Conhecimento verificável">
-<section class="shell hero">
-  <p class="tag">Biblioteca comunitária de Taekwondo</p>
-  <h1>Aprenda com fontes, não com suposições.</h1>
-  <p>Enciclopédia em português de terminologia, técnicas, poomsae e fundamentos com referências documentais e revisão técnica.</p>
-  <a class="button" href="/catalogo">Explorar catálogo</a>
-</section>
-<section class="shell section">
-  <div class="notice"><strong>Pesquisa em andamento.</strong> O catálogo só apresentará registros aprovados. Nenhuma das nomenclaturas preliminares foi publicada automaticamente.</div>
-  <div class="grid" style="margin-top:28px">
-    <a class="card link-card" href="/catalogo"><h2>Conhecimento técnico</h2><p>Coreano, romanização, significado, nomes alternativos e referências rastreáveis.</p><span class="inline-link">Abrir catálogo →</span></a>
-    <a class="card link-card" href="/atlas"><h2>Atlas corporal</h2><p>Explore áreas do corpo em um mapa interativo. As nomenclaturas são incluídas após validação.</p><span class="inline-link">Abrir atlas →</span></a>
-    <div class="card"><h2>Escolas da comunidade</h2><p>Currículos personalizados e recursos didáticos serão uma etapa posterior.</p></div>
-  </div>
-</section>
+<Base title="Taekwondo para Todos — Aprenda, explore e compartilhe">
+  <section class="shell hero community-hero">
+    <p class="tag">Conhecimento e ensino de Taekwondo</p>
+    <h1>Seu Taekwondo, mais perto do aprendizado.</h1>
+    <p>Explore o corpo humano, organize seus estudos e acompanhe os conteúdos da sua escola em qualquer dispositivo. Um espaço independente para alunos e professores.</p>
+    <div class="hero-actions">
+      <a class="button" href="/atlas">Explorar atlas corporal</a>
+      <a class="button button-outline" href="/curriculos">Acessar currículos</a>
+    </div>
+  </section>
+  <section class="shell section">
+    <p class="tag">Para aprender e ensinar</p>
+    <h2>Conhecimento que acompanha você</h2>
+    <div class="grid community-features">
+      <a class="card link-card" href="/atlas">
+        <span class="feature-index" aria-hidden="true">01</span>
+        <h3>Atlas interativo</h3>
+        <p>Explore mãos, pés e outras áreas do corpo por meio de regiões visuais selecionáveis.</p>
+        <span class="inline-link">Explorar regiões →</span>
+      </a>
+      <a class="card link-card" href="/estudos">
+        <span class="feature-index" aria-hidden="true">02</span>
+        <h3>Meu espaço de estudos</h3>
+        <p>Organize pastas, salve favoritos, registre anotações e acompanhe seus conteúdos.</p>
+        <span class="inline-link">Organizar estudos →</span>
+      </a>
+      <a class="card link-card" href="/curriculos">
+        <span class="feature-index" aria-hidden="true">03</span>
+        <h3>Currículo da sua escola</h3>
+        <p>Abra no celular o plano de aprendizado compartilhado pelo professor, com orientações e mídias.</p>
+        <span class="inline-link">Consultar currículos →</span>
+      </a>
+    </div>
+  </section>
+  <section class="shell section community-schools">
+    <div>
+      <p class="tag">Para professores</p>
+      <h2>Organize o conhecimento da sua escola</h2>
+      <p>Monte graduações, reúna técnicas e demonstrações autorizadas e compartilhe materiais com os alunos por link.</p>
+      <a class="button" href="/escolas">Acessar área do professor</a>
+    </div>
+    <div class="community-aside">
+      <strong>Terminologia com referência</strong>
+      <p>O catálogo técnico reúne apenas conteúdo liberado após conferência. As pesquisas em revisão não são apresentadas como técnicas homologadas.</p>
+      <a href="/catalogo" class="inline-link">Conhecer a biblioteca técnica →</a>
+    </div>
+  </section>
 </Base>

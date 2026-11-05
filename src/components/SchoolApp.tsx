@@ -12,7 +12,7 @@ import {
   type SchoolTerm,
 } from "../lib/school-api";
 import {
-  demoCurriculum,
+  initialCurriculum,
   parseCurriculum,
   safeMediaUrl,
   type Curriculum,
@@ -42,7 +42,7 @@ export default function SchoolApp() {
     [slug, setSlug] = useState("");
   const [curricula, setCurricula] = useState<SavedCurriculum[]>([]),
     [saved, setSaved] = useState<SavedCurriculum | null>(null),
-    [value, setValue] = useState<Curriculum>(demoCurriculum),
+    [value, setValue] = useState<Curriculum>(initialCurriculum),
     [visibility, setVisibility] = useState<"private" | "public">("private"),
     [editing, setEditing] = useState(true);
   const [media, setMedia] = useState<SchoolMedia[]>([]),
@@ -106,7 +106,7 @@ export default function SchoolApp() {
       setMedia([]);
       setTerms([]);
       setSaved(null);
-      setValue(demoCurriculum);
+      setValue(initialCurriculum);
     });
     return () => {
       live = false;
@@ -205,13 +205,13 @@ export default function SchoolApp() {
     setTerms([]);
     setSchool(s);
     setSaved(null);
-    setValue(demoCurriculum);
+    setValue(initialCurriculum);
     setVisibility("private");
     setEditing(true);
     setImageFile(null);
     setUploadKey(n => n + 1);
   };
-  const dirty = JSON.stringify(value) !== JSON.stringify(saved?.content || demoCurriculum);
+  const dirty = JSON.stringify(value) !== JSON.stringify(saved?.content || initialCurriculum);
   useEffect(() => {
     if (!dirty) return;
     const warn = (event: BeforeUnloadEvent) => { event.preventDefault(); };
@@ -226,7 +226,7 @@ export default function SchoolApp() {
           Esta versão ainda não tem configuração pública do Supabase Auth. O
           atlas e os estudos locais continuam disponíveis.
         </p>
-        <a href="/curriculos">Testar o editor demonstrativo</a>
+        <a href="/curriculos">Abrir currículos</a>
       </div>
     );
   if (!authReady) return <p role="status">Verificando acesso…</p>;
@@ -398,7 +398,7 @@ export default function SchoolApp() {
                       onClick={() => {
                         setSaved(null);
                         setValue({
-                          ...demoCurriculum,
+                          ...initialCurriculum,
                           title: "Novo currículo",
                         });
                         setVisibility("private");
@@ -491,6 +491,9 @@ export default function SchoolApp() {
                     disabled={busy}
                     onClick={() =>
                       void run(async () => {
+                        if (visibility === "public" && !value.grades.some(g => g.requirements.length > 0)) {
+                          throw new Error("Adicione pelo menos um conteúdo ao currículo antes de compartilhar.");
+                        }
                         const row = await saveSchoolCurriculum(
                           school.id,
                           value,
