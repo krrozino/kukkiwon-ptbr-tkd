@@ -125,7 +125,7 @@ test("professor salva, recarrega, vincula imagem e técnica própria, compartilh
   try {
     const phone = await student.newPage();
     await phone.goto(link);
-    await expect(phone.getByRole("heading", { name: "Currículo da escola" })).toBeVisible();
+    await expect(phone.getByRole("heading", { name: "Currículo da escola", level: 2 })).toBeVisible();
     await expect(phone.getByText("Execução adaptada pelo professor.", { exact: true })).toBeVisible();
     await phone.getByRole("button", { name: "Carregar demonstração" }).click();
     await expect(phone.getByRole("img", { name: "Imagem autorizada" })).toBeVisible();
