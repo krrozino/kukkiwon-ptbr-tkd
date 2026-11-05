@@ -1,4 +1,11 @@
 import { test, expect } from "@playwright/test";
+test('currículo: controles aguardam hidratação antes de aceitar interação',async({page})=>{
+ let release!:()=>void;const held=new Promise<void>(done=>{release=done;});
+ await page.route('**/CurriculumApp.*.js',async route=>{await held;await route.continue();});
+ try{await page.goto('/curriculos',{waitUntil:'domcontentloaded'});await expect(page.getByRole('button',{name:'Modo professor · editar exemplo',exact:true})).toBeDisabled();await expect(page.getByRole('checkbox').first()).toBeDisabled();}
+ finally{release();}
+ const edit=page.getByRole('button',{name:'Modo professor · editar exemplo',exact:true});await expect(edit).toBeEnabled();await edit.click();await expect(page.getByLabel('Nome do currículo',{exact:true})).toBeVisible();
+});
 const term = {
   id: "sonnal",
   slug: "sonnal",

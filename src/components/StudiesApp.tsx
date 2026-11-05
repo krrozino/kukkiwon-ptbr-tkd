@@ -88,7 +88,7 @@ export default function StudiesApp() {
     }
   };
   return (
-    <div className="learning-layout">
+    <div className="learning-layout" inert={!ready} aria-busy={!ready}>
       <aside className="card study-sidebar">
         <p className="tag">Caderno pessoal</p>
         <h2>Meus estudos</h2>
@@ -135,6 +135,7 @@ export default function StudiesApp() {
             {folder ? "Nova subpasta" : "Nova pasta"}
             <input
               value={name}
+                  disabled={!ready}
               maxLength={120}
               onChange={(e) => setName(e.target.value)}
               required

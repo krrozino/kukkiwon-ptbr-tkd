@@ -26,17 +26,18 @@ A migração aditiva foi autorizada pelo usuário e aplicada ao Supabase dedicad
 
 Ainda dependem de trabalho posterior: upload via Storage, sincronização do caderno entre aparelhos, membros/alunos vinculados a uma escola, várias pessoas responsáveis pela mesma escola, produção de áudio e revisão humana dos conteúdos. O MVP usa um responsável por escola e links públicos para alunos; não guarda dados pessoais de alunos.
 
-O usuário autorizou a migração dedicada e a prévia externa. O deploy ainda depende da autenticação da ferramenta de publicação. Importação dos três candidatos adicionais, merge na main e publicação editorial continuam fora dessa autorização.
+O usuário autorizou a migração dedicada e a prévia externa. O Worker separado `kukkiwon-ptbr-tkd-preview` foi publicado na conta Cloudflare autorizada: https://kukkiwon-ptbr-tkd-preview.kukkiwon-ptbr-tkd.workers.dev. A autenticação do Wrangler foi concluída com leitura de conta/perfil e escrita de scripts Workers. Importação dos três candidatos adicionais, merge na main e publicação editorial continuam fora dessa autorização.
 
 ## Evidência de entrega
 
-- Conteúdo: 108 registros válidos, todos draft; 88 research e 20 document_checked. Zero alterações remotas.
+- Conteúdo: 108 registros versionados válidos, todos draft; 88 research e 20 document_checked. Os 105 registros remotos continuam draft, sem alteração editorial.
 - Astro/TypeScript: zero erros, avisos ou hints. Build de nove rotas.
 - Vitest: 45 testes aprovados, incluindo isolamento entre responsáveis, grants públicos, evidências privadas, pastas, corrupção de estado e configuração da prévia conectada.
-- Playwright: 28 testes aprovados, desktop/mobile, incluindo regressão de histórico e notas contextuais.
+- Playwright: 28 testes originais aprovados, desktop/mobile, incluindo regressão de histórico e notas contextuais. Foram acrescentados dois casos para interação antes da hidratação; a suíte tem 30 casos. Os seis testes das telas afetadas passaram após proteger controles, checklist e restauração de estudos.
 - PostgreSQL 17.11/PostgREST 16.5: sete verificações do catálogo e seis testes de navegador aprovados.
 - Escolas: seis verificações REST/navegador aprovadas; cria escola, cadastra demonstração autorizada, compartilha currículo e o abre em uma segunda sessão móvel sem login. Revogação verificada. Resposta de salvamento retida para verificar bloqueio de troca de currículo e evitar sobrescritas.
-- Cloudflare: Wrangler dry run e Workerd local desktop/mobile aprovados; zero requisições externas no pacote editorial. `wrangler whoami` informa ausência de autenticação. Nenhum deploy foi tentado.
+- Cloudflare: Wrangler dry run e Workerd local desktop/mobile aprovados. Deploy permanente do Worker de prévia autorizado e concluído; o Worker principal não foi alterado. `npm run preview:external:check` verifica a versão externa em desktop/mobile, com screenshots e relatório em `.preview-build/external/`, sem criar contas ou dados remotos. O catálogo editorial do pacote continua offline; fichas podem consultar mídias públicas e escolas usam o Supabase dedicado.
 - Revisão independente focada, com correção dos achados e regressões. Não foi executada outra auditoria geral.
 - Supabase hospedado: smoke transacional com dois responsáveis/anônimo aprovado; RLS, owner spoofing, evidências privadas e revogação verificados sem manter fixtures. Auth com cadastro por email habilitado, confirmação exigida e contas anônimas desabilitadas. O formulário conectado recebeu e exibiu a resposta real `invalid_credentials` com credenciais fictícias; nenhuma conta ou email foi criado. Isso valida a conexão, sem alegar login bem-sucedido de conta real.
 - Cloudflare Agent Setup oficial executado: 19 skills em `~/.agents/skills`, servidor MCP `cloudflare` em `~/.codex/config.toml`, OAuth do MCP concluído. As ferramentas MCP novas exigem reiniciar o agente. Wrangler mantém autenticação própria.
+- A validação com uma conta real e retorno da confirmação de email foi deixada para a avaliação posterior do usuário, conforme sua escolha. Não foi alegado login bem-sucedido de uma conta real pela automação.

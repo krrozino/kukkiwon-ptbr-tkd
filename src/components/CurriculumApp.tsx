@@ -23,12 +23,12 @@ export default function CurriculumApp() {
     setReady(true);
   }, []);
   return (
-    <div className="card">
+    <div className="card" aria-busy={!ready}>
       <div className="actions">
-        <button aria-pressed={!editing} onClick={() => setEditing(false)}>
+        <button disabled={!ready} aria-pressed={!editing} onClick={() => setEditing(false)}>
           Modo aluno · visualizar
         </button>
-        <button aria-pressed={editing} onClick={() => setEditing(true)}>
+        <button disabled={!ready} aria-pressed={editing} onClick={() => setEditing(true)}>
           Modo professor · editar exemplo
         </button>
         <a href="/escolas">Entrar e salvar na escola →</a>

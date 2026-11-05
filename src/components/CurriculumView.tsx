@@ -18,6 +18,7 @@ export default function CurriculumView({
 }) {
   const [preview, setPreview] = useState<string | null>(null),
     [checked, setChecked] = useState<string[]>([]),
+    [loadedKey, setLoadedKey] = useState<string|null>(null),
     [error, setError] = useState("");
   const key = "tkd:checklist:" + identity;
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function CurriculumView({
       setChecked([]);
       setError("Não foi possível ler o checklist deste navegador.");
     }
+    setLoadedKey(key);
   }, [key]);
   const toggle = (id: string) => {
     const next = checked.includes(id)
@@ -44,7 +46,7 @@ export default function CurriculumView({
     }
   };
   return (
-    <div className="curriculum-view">
+    <div className="curriculum-view" aria-busy={loadedKey!==key}>
       <p className="tag">{school}</p>
       <h2>{value.title}</h2>
       <p>{value.description}</p>
@@ -72,6 +74,7 @@ export default function CurriculumView({
                 <label>
                   <input
                     type="checkbox"
+                    disabled={loadedKey!==key}
                     checked={checked.includes(g.id + ":" + r.id)}
                     onChange={() => toggle(g.id + ":" + r.id)}
                   />
@@ -106,6 +109,7 @@ export default function CurriculumView({
                 {r.termSlug && (
                   <button
                     className="text-button"
+                    disabled={loadedKey!==key}
                     onClick={() => setPreview(r.termSlug)}
                   >
                     Consultar {r.termSlug} aqui ↗
