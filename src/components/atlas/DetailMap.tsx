@@ -18,6 +18,8 @@ export default function DetailMap({
   onSelect,
 }: Props) {
   const hand = area === "hands";
+  const canvasRef=useRef<HTMLDivElement>(null);
+  const [placement,setPlacement]=useState<"side"|"below">("below");
   const [hover, setHover] = useState<BodyRegion | null>(null),
     [fist, setFist] = useState(false);
   const exitTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
@@ -28,6 +30,18 @@ export default function DetailMap({
     if (selected) setFist(!!surfaces[selected]?.posture);
   }, [selected]);
   useEffect(() => () => clearTimeout(exitTimer.current), []);
+  // Reserve a separate region for the tooltip: never cover the anatomical surface.
+  useEffect(()=>{
+    const update=()=>{
+      const width=canvasRef.current?.getBoundingClientRect().width ?? 0;
+      setPlacement(width>=465 && window.innerWidth>=900 ? "side" : "below");
+    };
+    update();
+    const observer=typeof ResizeObserver!=="undefined" ? new ResizeObserver(update) : null;
+    if(canvasRef.current)observer?.observe(canvasRef.current);
+    window.addEventListener("resize",update);
+    return ()=>{observer?.disconnect();window.removeEventListener("resize",update);};
+  },[]);
   const visible = regions.filter((r) => {
     const s = surfaces[r.slug];
     return (
@@ -47,7 +61,8 @@ export default function DetailMap({
   const anchor = hover && surfaces[hover.slug]?.anchor;
   return (
     <div
-      className="surface-canvas"
+      ref={canvasRef}
+      className={"surface-canvas placement-"+placement}
       onPointerLeave={leave}
       onPointerEnter={() => clearTimeout(exitTimer.current)}
     >
@@ -88,6 +103,9 @@ export default function DetailMap({
             <stop offset=".55" stopColor="#e9d9cc" />
             <stop offset="1" stopColor="#f8eee4" />
           </linearGradient>
+          <clipPath id={"contact-clip-"+area}>
+            <path d={hand ? (fist ? fistOutline : handOutline) : footOutline}/>
+          </clipPath>
         </defs>
         <g
           role="img"
@@ -120,6 +138,7 @@ export default function DetailMap({
             )}
           </g>
         </g>
+        <g clipPath={"url(#contact-clip-"+area+")"}>
         {visible.map((r) => {
           const s = surfaces[r.slug];
           return (
@@ -158,22 +177,26 @@ export default function DetailMap({
             </g>
           );
         })}
+        </g>
         {anchor && (
           <path
             key={hover?.slug}
             className="surface-connector"
-            d={`M${anchor[0]} ${anchor[1]} L94 ${anchor[1]} L94 136`}
+            d={placement==="side"
+              ? `M${anchor[0]} ${anchor[1]} L99 ${anchor[1]}`
+              : `M${anchor[0]} ${anchor[1]} L${anchor[0]} 139`}
             pathLength="1"
             aria-hidden="true"
           />
         )}
       </svg>
-      {hover && (
+      {hover ? (
         <div
           id="surface-tooltip"
           key={hover.slug}
           role="tooltip"
           className="surface-tooltip"
+          data-placement={placement}
         >
           <strong>{hover.name_pt}</strong>
           <span>{detail?.term.romanization || hover.slug}</span>
@@ -191,7 +214,7 @@ export default function DetailMap({
           </small>
           <small>Toque ou clique para explorar ↓</small>
         </div>
-      )}
+      ) : <div className="surface-tooltip-placeholder" aria-hidden="true" />}
     </div>
   );
 }
