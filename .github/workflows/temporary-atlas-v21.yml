@@ -1,0 +1,62 @@
+name: Prévia visual Atlas V2.1 — revisão temporária
+
+on:
+  push:
+    branches:
+      - preview/atlas-v21-review-20261105
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Instalar
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validar código e conteúdo
+        run: |
+          npm run content:check
+          npm run check
+          npm test
+      - name: Preparar somente prévia editorial (sem Supabase)
+        env:
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+          ASTRO_TELEMETRY_DISABLED: "1"
+          WRANGLER_SEND_METRICS: "false"
+        run: |
+          npm run preview:review
+          node -e "const r=require('./.preview-build/release.json');if(r.mode!=='editorial_review_opt_in'||r.includedDrafts!==108||r.publishedResearchRecords!==0)process.exit(1)"
+          test -f .preview-build/site/atlas/index.html
+          test -f .preview-build/site/fontes/index.html
+      - name: Publicar uma prévia Cloudflare temporária
+        env:
+          WRANGLER_SEND_METRICS: "false"
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ""
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOG="$RUNNER_TEMP/tkd-atlas-review-v21.log"
+          if ! npx wrangler deploy --temporary --autoconfig=false --config wrangler.preview.jsonc --name kukkiwon-ptbr-tkd-preview > "$LOG" 2>&1; then
+            echo "::error::Deploy temporário falhou; credenciais não serão exibidas."
+            rm -f "$LOG"
+            exit 1
+          fi
+          URL="$(grep -Eo 'https://[A-Za-z0-9.-]+\.workers\.dev' "$LOG" | tail -n 1 || true)"
+          rm -f "$LOG"
+          if [[ -z "$URL" ]]; then echo "::error::Cloudflare não forneceu URL";exit 1;fi
+          echo "ATLAS_V21_PREVIEW=$URL"
+          {
+            echo "## Atlas V2.1 — prévia de avaliação"
+            echo "$URL"
+            echo ""
+            echo "Expira aproximadamente 60 minutos depois de criada."
+            echo "108 candidatos em modo editorial não homologado; sem conexão remota, sem merge, sem publicação oficial."
+          } >> "$GITHUB_STEP_SUMMARY"
