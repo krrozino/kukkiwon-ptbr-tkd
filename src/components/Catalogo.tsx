@@ -109,6 +109,7 @@ export default function Catalogo() {
           Buscar por nome, Hangul ou nome alternativo
           <input
             type="search"
+          disabled={!ready}
             maxLength={200}
             value={filters.query}
             onChange={(e) => change("query", e.target.value)}
@@ -119,6 +120,7 @@ export default function Catalogo() {
         <label className="field">
           Categoria
           <select
+            disabled={!ready}
             value={filters.category}
             onChange={(e) => change("category", e.target.value)}
           >
@@ -137,6 +139,7 @@ export default function Catalogo() {
         <label className="field">
           Região corporal
           <select
+            disabled={!ready}
             value={filters.region}
             onChange={(e) => change("region", e.target.value)}
           >
@@ -155,6 +158,7 @@ export default function Catalogo() {
         <label className="field">
           Família técnica
           <select
+            disabled={!ready}
             value={filters.family}
             onChange={(e) => change("family", e.target.value)}
           >

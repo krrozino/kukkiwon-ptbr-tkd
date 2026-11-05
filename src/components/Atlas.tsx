@@ -54,6 +54,7 @@ export default function Atlas() {
   useEffect(() => {
     let controller: AbortController;
     async function sync() {
+      setContextSlug(null);
       controller?.abort();
       const currentController = new AbortController();
       controller = currentController;

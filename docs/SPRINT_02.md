@@ -25,3 +25,14 @@ A migração `20261105030951_sprint02_schools_learning.sql` é aditiva e ainda n
 Ainda dependem de trabalho posterior: upload via Storage, sincronização do caderno entre aparelhos, membros/alunos vinculados a uma escola, várias pessoas responsáveis pela mesma escola, produção de áudio e revisão humana dos conteúdos. O MVP usa um responsável por escola e links públicos para alunos; não guarda dados pessoais de alunos.
 
 Deploy externo, migração remota/importação e merge na main exigem autorização do usuário. Publicar editorialmente qualquer técnica ou mídia de terceiros continua sendo uma decisão distinta.
+
+## Evidência de entrega
+
+- Conteúdo: 108 registros válidos, todos draft; 88 research e 20 document_checked. Zero alterações remotas.
+- Astro/TypeScript: zero erros, avisos ou hints. Build de nove rotas.
+- Vitest: 42 testes aprovados, incluindo isolamento entre responsáveis, grants públicos, evidências privadas, pastas e corrupção de estado.
+- Playwright: 28 testes aprovados, desktop/mobile, incluindo regressão de histórico e notas contextuais.
+- PostgreSQL 17.11/PostgREST 16.5: sete verificações do catálogo e seis testes de navegador aprovados.
+- Escolas: seis verificações REST/navegador aprovadas; cria escola, cadastra demonstração autorizada, compartilha currículo e o abre em uma segunda sessão móvel sem login. Revogação verificada. Resposta de salvamento retida para verificar bloqueio de troca de currículo e evitar sobrescritas.
+- Cloudflare: Wrangler dry run e Workerd local desktop/mobile aprovados; zero requisições externas no pacote editorial. `wrangler whoami` informa ausência de autenticação. Nenhum deploy foi tentado.
+- Revisão independente focada, com correção dos achados e regressões. Não foi executada outra auditoria geral.

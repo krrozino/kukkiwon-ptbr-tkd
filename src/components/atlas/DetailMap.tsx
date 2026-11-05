@@ -35,7 +35,7 @@ export default function DetailMap({
       (s.view === view || s.view === "both") &&
       (!hand || !!s.posture === fist)
     );
-  });
+  }).sort((a,b)=>Number(a.slug===selected)-Number(b.slug===selected));
   const leave = () => {
     clearTimeout(exitTimer.current);
     exitTimer.current = setTimeout(() => setHover(null), 160);

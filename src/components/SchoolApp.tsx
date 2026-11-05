@@ -326,6 +326,7 @@ export default function SchoolApp() {
                   <h2>{school.name}</h2>
                   <div className="actions">
                     <button
+                      disabled={busy}
                       onClick={() => {
                         setSaved(null);
                         setValue({
@@ -341,6 +342,7 @@ export default function SchoolApp() {
                     <label className="field">
                       Abrir currículo salvo
                       <select
+                        disabled={busy}
                         value={saved?.id || ""}
                         onChange={(e) => {
                           const c = curricula.find(

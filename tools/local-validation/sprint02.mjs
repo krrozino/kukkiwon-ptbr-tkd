@@ -213,6 +213,8 @@ try {
     user_metadata: {},
     created_at: new Date().toISOString(),
   };
+  let holdSave=false,releaseSave;
+  const heldSave=new Promise(done=>{releaseSave=done;});
   const attach = async (context) =>
     context.route(
       "https://acbostnsohltuaegfkwl.supabase.co/**",
@@ -245,6 +247,7 @@ try {
             ...(r.postData() ? { body: r.postData() } : {}),
           },
         );
+        if(holdSave&&url.pathname.endsWith('/school_curricula')&&r.method()==='POST')await heldSave;
         await route.fulfill({
           status: response.status,
           headers: { "content-type": "application/json" },
@@ -323,9 +326,14 @@ try {
     .getByLabel("Nome do currículo", { exact: true })
     .fill("Currículo criado no navegador");
   await page.getByLabel("Permitir link público para este currículo").check();
+  holdSave=true;
   await page
     .getByRole("button", { name: "Salvar currículo na escola", exact: true })
     .click();
+  const newDisabled=await page.getByRole('button',{name:'Novo currículo',exact:true}).isDisabled();
+  const selectDisabled=await page.locator('select').filter({has:page.locator('option[value=""]',{hasText:'Escolha um currículo'})}).isDisabled();
+  releaseSave();
+  assert.ok(newDisabled&&selectDisabled,'Uma gravação pendente deve bloquear a troca de currículo para evitar sobrescrita.');
   const share = page.getByLabel("Link da última versão salva");
   await share.waitFor();
   const link = await share.inputValue();

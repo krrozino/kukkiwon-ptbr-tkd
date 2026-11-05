@@ -38,8 +38,9 @@ test("atlas v2: recorte Sonnal, cascata e ficha na mesma tela", async ({
           anatomical_role: "surface",
           technical_terms: term,
         },
+        {term_id:'related',usage_context:'surface',anatomical_role:'surface',technical_terms:{...term,slug:'sonnal-an-makgi',romanization:'Sonnal-an-makgi'}},
       ];
-    if (table === "technical_terms") data = [term];
+    if (table === "technical_terms") data = [new URL(route.request().url()).searchParams.get('slug')==='eq.sonnal-an-makgi'?{...term,slug:'sonnal-an-makgi',romanization:'Sonnal-an-makgi'}:term];
     if (table === "term_sources")
       data = [
         {
@@ -81,6 +82,10 @@ test("atlas v2: recorte Sonnal, cascata e ficha na mesma tela", async ({
       ".png",
     fullPage: true,
   });
+  await page.getByRole('button',{name:'Ver aqui: Sonnal-an-makgi',exact:true}).click();
+  await expect(page.getByRole('region',{name:'Ficha contextual'}).getByRole('heading',{name:'Sonnal-an-makgi',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Pés',exact:true}).click();await page.goBack();
+  await expect(page.getByRole('region',{name:'Ficha contextual'}).getByRole('heading',{name:'Sonnal',exact:true})).toBeVisible();
 });
 test("estudos: pasta, checklist, anotação e técnica contextual sobrevivem ao recarregamento", async ({
   page,
