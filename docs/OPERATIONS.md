@@ -1,0 +1,11 @@
+# Operação e segurança
+- Projeto comunitário, independente, sem fins lucrativos.
+- Repositório de código público. Não enviar credenciais nem dados privados.
+- Pesquisa preliminar nunca vira conteúdo publicado automaticamente.
+- Conteúdo técnico requer fonte individual, localização na edição, tradução validada e revisão por especialista.
+- Banco separado do EloDo e de outros serviços.
+- RLS habilitado em toda tabela exposta no Supabase; escrita pública negada.
+- Arquivos de migração propostos exigem revisão e teste antes de aplicar.
+- CI e revisão de código não executam deploys. Deploy de site e cron é manual e intencional.
+- Verificar restauração de backup fora do Supabase Free antes de depender de dados de alunos.
+- Monitoramento por consultas leves não garante evitar pausa no plano Free.
