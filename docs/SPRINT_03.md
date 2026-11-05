@@ -12,16 +12,18 @@ Implementação da [Issue #16](https://github.com/krrozino/kukkiwon-ptbr-tkd/iss
 
 `npm run validate`: conteúdo, tipos, 49 testes unitários/PostgreSQL e build aprovados. `npm run test:ui`: 46 testes desktop/mobile aprovados, incluindo cinco cenários da sprint em cada dispositivo. Auth e Storage HTTP são simulados nesses testes de interface; a RLS executa em PostgreSQL local (PGlite). Revisão independente focada sem achados bloqueantes.
 
-**Ainda não homologado:** entrega de emails/conta real e upload/download no Storage hospedado. Nenhuma credencial de professor foi criada, persistida no repositório ou registrada em logs. Os dados de autenticação dos testes são sintéticos.
+**Homologação real na prévia:** cadastro aceito pelo Supabase, confirmação de email feita pelo usuário, login real por senha, escola criada, técnica própria e imagem original cadastradas pela interface. Edição/salvamento, reabertura após recarregar, persistência da sessão, cópia do link e logout conferidos no navegador autenticado. Recuperação e nova senha realizadas pelo usuário; novo login observado. Renovação de sessão expirada coberta pelo teste automatizado, sem esperar uma expiração real de uma hora.
+
+Dois navegadores sem sessão (desktop/mobile) abriram o currículo e a imagem no Storage real (HTTP 200), sem erro de JavaScript ou overflow. A revogação pela interface bloqueou o currículo e novos downloads (HTTP 400 do Storage). Consulta anônima às evidências privadas foi negada (HTTP 401). O exemplo foi compartilhado novamente ao final. Senhas e tokens de professor não foram gravados no repositório, relatórios ou logs.
 
 ## Prévia e homologação
 
 Prévia: https://kukkiwon-ptbr-tkd-sprint03.kukkiwon-ptbr-tkd.workers.dev. Conecta ao projeto dedicado existente; escolas e currículos salvos pela interface são dados reais desse projeto. O exemplo local está em `/curriculos` e o professor entra por `/escolas`. O pacote usa `PUBLIC_CONTENT_REVIEW=false`: os 105 rascunhos e os três candidatos adicionais não são publicados.
 
-1. Em Supabase → Authentication → URL Configuration, permitir o retorno exato da prévia: `https://kukkiwon-ptbr-tkd-sprint03.kukkiwon-ptbr-tkd.workers.dev/escolas`. Preservar a URL oficial e a confirmação obrigatória por email. Verificar SMTP se o email de teste não receber mensagens.
-2. Na prévia, criar conta com email acessível, confirmar o email e retornar a `/escolas`; criar escola, salvar o exemplo, recarregar, abrir o currículo salvo e compartilhar. Abrir o link em janela anônima/celular; revogar e recarregar essa janela.
-3. Sair, usar “Esqueci minha senha”, abrir o email, definir a nova senha e conferir novo login. Não enviar senhas, tokens ou links de recuperação no chat.
-4. Upload hospedado exige autorização para aplicar `supabase/migrations/20261105201718_sprint03_school_images.sql` ao projeto dedicado. A migração foi testada localmente e ainda não foi aplicada remotamente. Até isso acontecer a prévia mantém `PUBLIC_SPRINT03_STORAGE=false`, funciona com o schema atual e oferece mídia por URL.
-5. Após a migração aprovada, preparar novamente com `npm run preview:pilot -- --storage`, atualizar somente a prévia e homologar imagem autorizada → vínculo em requisito → mídia pública → salvar currículo público → download sem login → revogar. O deploy oficial manual compila com o flag de Storage ativo; aplicar e validar a migração antes de acioná-lo.
+1. Entrar em `/escolas`, escolher **Escola Piloto · Demonstração**, abrir **Piloto demonstrativo · faixa branca** e editar. O usuário define sua senha pessoal; não enviar senhas, tokens ou links de recuperação no chat.
+2. [Abrir o currículo piloto sem login](https://kukkiwon-ptbr-tkd-sprint03.kukkiwon-ptbr-tkd.workers.dev/curriculo?id=c47bf8db-1d26-4733-9909-43afdf03cb40). Usar “Carregar demonstração” para ver o cartão didático original, licenciado CC BY 4.0 e sem pessoas retratadas.
+3. Testar editar → salvar → copiar link → abrir em janela anônima/celular → revogar → recarregar a janela anônima. Para nova mídia, enviar imagem autorizada, marcar sua visibilidade, selecioná-la no requisito e salvar o currículo.
+4. A migração `supabase/migrations/20261105203201_sprint03_school_images.sql` foi aplicada ao projeto dedicado em 05/11/2026 após autorização expressa do usuário. O arquivo foi alinhado à versão registrada pelo Supabase. Bucket privado, limite 5 MiB e quatro políticas conferidos; Security Advisors sem avisos. Prévia recompilada com `npm run preview:pilot -- --storage`.
+5. O retorno exato `/escolas` da prévia foi acrescentado ao Supabase Auth, mantendo a Site URL e o retorno oficial. O deploy oficial manual já compila com `PUBLIC_SPRINT03_STORAGE=true`; ainda depende da aprovação do usuário e da integração desta PR.
 
-Nenhum merge, deploy no Worker oficial ou alteração persistente no banco de produção foi realizado nesta entrega. A publicação oficial depende de aprovação expressa do usuário.
+Nenhum merge ou deploy no Worker oficial foi realizado nesta entrega. A migração do banco e a prévia foram autorizadas separadamente; a publicação oficial continua pendente de aprovação expressa do usuário.

@@ -1,4 +1,4 @@
--- Sprint 03: proposed migration. Apply only with the approved release.
+-- Sprint 03: applied to the dedicated Supabase after user approval on 2026-11-05.
 alter table public.school_media alter column media_url drop not null;
 alter table public.school_media add column storage_path text;
 alter table public.school_media add column license_name text not null default '' check(length(license_name)<=200);
