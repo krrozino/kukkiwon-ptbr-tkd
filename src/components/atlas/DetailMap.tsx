@@ -183,8 +183,8 @@ export default function DetailMap({
             key={hover?.slug}
             className="surface-connector"
             d={placement==="side"
-              ? `M${anchor[0]} ${anchor[1]} L99 ${anchor[1]}`
-              : `M${anchor[0]} ${anchor[1]} L${anchor[0]} 139`}
+              ? `M82 ${anchor[1]} L99 ${anchor[1]}`
+              : `M${anchor[0]} 130 L${anchor[0]} 139`}
             pathLength="1"
             aria-hidden="true"
           />
