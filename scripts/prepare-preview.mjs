@@ -15,7 +15,7 @@ const run=(file,args,env={})=>{
 // Prévia sem conexão: permite testar a interface e os vazios sem depender de uma
 // migração remota ainda não autorizada. Não incorpora chaves reais nem rascunhos.
 run(executableFor('astro'),['build','--outDir','.preview-build/site'],{
-  PUBLIC_SUPABASE_URL:'',PUBLIC_SUPABASE_PUBLISHABLE_KEY:'',ASTRO_TELEMETRY_DISABLED:'1',
+  PUBLIC_SUPABASE_URL:'',PUBLIC_SUPABASE_PUBLISHABLE_KEY:'',PUBLIC_REVIEW_MODE:'1',ASTRO_TELEMETRY_DISABLED:'1',
 });
 run(executableFor('wrangler'),['deploy','--dry-run','--autoconfig=false','--config','wrangler.preview.jsonc','--outdir','.preview-build/worker'],{
   WRANGLER_SEND_METRICS:'false',
@@ -23,7 +23,7 @@ run(executableFor('wrangler'),['deploy','--dry-run','--autoconfig=false','--conf
 mkdirSync(resolve(root,'.preview-build'),{recursive:true});
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:root,windowsHide:true,encoding:'utf8'}).stdout.trim();
 writeFileSync(resolve(root,'.preview-build/release.json'),JSON.stringify({
-  revision,mode:'interface_without_remote_catalog',uploaded:false,publishedResearchRecords:0,
+  revision,mode:'research_review_preview_only',uploaded:false,publishedResearchRecords:0,reviewCandidateCount:105,
   approvalRequired:['Cloudflare preview deploy','remote database migration/import','human editorial publication'],
 },null,2));
 process.stdout.write('Prévia preparada localmente em .preview-build/. Nenhum envio à Cloudflare.\n');

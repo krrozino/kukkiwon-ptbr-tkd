@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { fetchRegion, fetchRegions, fetchRegionTerms, isCatalogConfigured, type BodyRegion, type RegionTerm } from '../lib/catalog-api';
+import { fetchRegion, fetchRegions, fetchRegionTerms, isCatalogConfigured, isReviewMode, type BodyRegion, type RegionTerm } from '../lib/catalog-api';
 import BodyMap, { areas, isArea, type Area, type View } from './atlas/BodyMap';
 import DetailMap from './atlas/DetailMap';
 type Location={area:Area;region:string|null;view:View;detailView:View;zoom:boolean};
@@ -100,7 +100,7 @@ export default function Atlas() {
         !ready||loading?<p role="status">Carregando regiões publicadas...</p>:
         error?<div role="alert"><p>{error}</p><button onClick={()=>setRetry(n=>n+1)}>Tentar novamente</button></div>:
         regions.length===0?<p>Nenhuma região técnica validada e publicada nesta área ainda.</p>:<>
-          <h3>Regiões publicadas</h3>
+          <h3>{isReviewMode()?'Regiões em revisão':'Regiões publicadas'}</h3>
           <ul className="region-list">{regions.map(r=><li key={r.id}><button aria-pressed={location.region===r.slug} onClick={()=>chooseRegion(r)}>{r.name_pt}</button></li>)}</ul>
           {selected?<section aria-label="Técnicas associadas"><h3>Relações com o catálogo</h3>
             {linksLoading?<p role="status">Carregando técnicas associadas...</p>:linkError?<div role="alert"><p>{linkError}</p><button onClick={()=>setRetry(n=>n+1)}>Tentar novamente</button></div>:
@@ -113,7 +113,7 @@ export default function Atlas() {
             <a href={'/catalogo?region='+encodeURIComponent(selected.slug)}>Consultar catálogo desta região</a>
           </section>:<p>Selecione uma região para consultar seus vínculos com técnicas.</p>}
         </>}
-      <p className="fine-print">Os nomes técnicos vêm do catálogo publicado. Áreas sem revisão permanecem vazias. A posição gráfica é aproximada e não representa uma ilustração oficial da Kukkiwon.</p>
+      <p className="fine-print">{isReviewMode()?'Prévia experimental: todas as regiões e técnicas estão em pesquisa e não foram homologadas.':'Os nomes técnicos vêm do catálogo publicado. Áreas sem revisão permanecem vazias.'} A posição gráfica é aproximada e não representa uma ilustração oficial da Kukkiwon.</p>
     </section>
   </div>;
 }

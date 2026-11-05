@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchTermDetails, isCatalogConfigured } from '../lib/catalog-api';
+import { fetchTermDetails, isCatalogConfigured, isReviewMode } from '../lib/catalog-api';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof fetchTermDetails>>>;
 
@@ -27,8 +27,9 @@ export default function FichaTecnica() {
 
   const { term, sources, media, regions, relations } = detail;
   return <article className="technique-detail">
-    <p className="tag">{term.category} · Ficha técnica publicada</p>
+    <p className="tag">{term.category} · {isReviewMode()?'RASCUNHO SEM REVISÃO TÉCNICA':'Ficha técnica publicada'}</p>
     <h1>{term.romanization}</h1>
+    {isReviewMode()&&<div className="review-disclaimer" role="status">Conteúdo provisório em pesquisa: Hangul, romanização, tradução, descrição e aplicação técnica dependem de revisão humana. Não é uma publicação oficial da Kukkiwon.</div>}
     {term.hangul && <p lang="ko" className="hangul">{term.hangul}</p>}
     {term.translation_pt && <p className="lead">{term.translation_pt}</p>}
     <div className="detail-grid">

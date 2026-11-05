@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { fetchCatalogPage, fetchCatalogFacets, isCatalogConfigured, type CatalogPage, type CatalogFacets } from '../lib/catalog-api';
+import { fetchCatalogPage, fetchCatalogFacets, isCatalogConfigured, isReviewMode, type CatalogPage, type CatalogFacets } from '../lib/catalog-api';
 const emptyFacets:CatalogFacets={categories:[],regions:[],families:[]};
 const readFilters=()=>{
   const p=new URLSearchParams(window.location.search), n=Number(p.get('page'));
@@ -65,7 +65,7 @@ export default function Catalogo() {
         {error?<div className="empty" role="alert"><strong>Não foi possível carregar o catálogo.</strong><p>{error}</p><button onClick={()=>setRetry(n=>n+1)}>Tentar novamente</button></div>:
         !loading&&result.items.length===0?<div className="empty"><strong>{filters.query||filters.category||filters.region||filters.family?'Nenhum resultado para os filtros escolhidos.':'Nenhuma técnica publicada ainda.'}</strong><p>A pesquisa e os rascunhos aguardam revisão humana.</p>{filters.page>1&&<button onClick={()=>move(1)}>Voltar à primeira página</button>}</div>:
         !loading&&<div className="grid" aria-label="Resultados do catálogo">{result.items.map(t=><a className="card term-card" key={t.id} href={'/tecnica?slug='+encodeURIComponent(t.slug)}>
-          <small>{t.category}</small><h2>{t.romanization}</h2>{t.hangul&&<p lang="ko">{t.hangul}</p>}<p>{t.translation_pt||'Tradução em revisão'}</p><span className="inline-link">Consultar ficha e fontes →</span>
+          <small>{isReviewMode()?'RASCUNHO NÃO VALIDADO · '+t.category:t.category}</small><h2>{t.romanization}</h2>{t.hangul&&<p lang="ko">{t.hangul}</p>}<p>{t.translation_pt||'Tradução em revisão'}</p><span className="inline-link">Consultar ficha e fontes →</span>
         </a>)}</div>}
         {!error&&result.total>24&&<nav className="pagination" aria-label="Paginação do catálogo">
           <button disabled={loading||filters.page<=1} onClick={()=>move(filters.page-1)}>Página anterior</button>

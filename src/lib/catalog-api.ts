@@ -1,8 +1,9 @@
+import {previewCatalogPage,previewCatalogFacets,previewRegions,previewRegion,previewRegionTerms,previewTermDetails} from './review-data';
 export type TermAlias = { alias: string; alias_kind: string; is_official: boolean };
 export type TechnicalTerm = {
   id: string; slug: string; category: string; hangul: string | null;
   romanization: string; translation_pt: string | null; pronunciation_pt: string | null;
-  definition_pt: string | null; publication_status: 'published'; record_kind?: string;
+  definition_pt: string | null; publication_status: 'published' | 'draft'; record_kind?: string;
   term_aliases?: TermAlias[];
 };
 export type TermSource = { source_locator: string; checked_at: string | null; content_sources: {
@@ -71,7 +72,8 @@ export function createCatalogClient(config: Configuration) {
     return response.json() as Promise<T>;
   }};
 }
-export function isCatalogConfigured() { try { createCatalogClient(configuration()); return true; } catch { return false; } }
+export function isReviewMode() { return import.meta.env.PUBLIC_REVIEW_MODE === '1'; }
+export function isCatalogConfigured() { if(isReviewMode())return true; try { createCatalogClient(configuration()); return true; } catch { return false; } }
 export function fetchPublic<T>(table: string, params: URLSearchParams, signal?: AbortSignal): Promise<T> {
   return createCatalogClient(configuration()).request<T>(table,params,signal);
 }
@@ -86,6 +88,7 @@ async function allPages<T>(table: string,params: URLSearchParams,signal?: AbortS
   }
 }
 export async function fetchCatalogPage(options:CatalogOptions={},signal?:AbortSignal):Promise<CatalogPage> {
+  if(isReviewMode()) return previewCatalogPage(options);
   const {page=1,pageSize=24}=options;
   if(!Number.isSafeInteger(page)||page<1||!Number.isSafeInteger(pageSize)||pageSize<1||pageSize>100||!Number.isSafeInteger((page-1)*pageSize)) throw new Error('Página inválida.');
   if((options.query?.length||0)>200) throw new Error('Busca limitada a 200 caracteres.');
@@ -98,6 +101,7 @@ export async function fetchCatalogPage(options:CatalogOptions={},signal?:AbortSi
   result.items.forEach(assertTerm); return result as CatalogPage;
 }
 export async function fetchCatalogFacets(signal?:AbortSignal):Promise<CatalogFacets> {
+  if(isReviewMode())return previewCatalogFacets();
   const result=await createCatalogClient(configuration()).request<CatalogFacets>('rpc/catalog_facets',new URLSearchParams(),signal,{});
   if(!result||!Array.isArray(result.categories)||!result.categories.every(v=>typeof v==='string')||
     !Array.isArray(result.regions)||!result.regions.every(v=>namedSlug(v,'name_pt'))||
@@ -105,22 +109,26 @@ export async function fetchCatalogFacets(signal?:AbortSignal):Promise<CatalogFac
   return result;
 }
 export async function fetchRegions(group:string,signal?:AbortSignal):Promise<BodyRegion[]> {
+  if(isReviewMode())return previewRegions(group);
   if(!['hands','feet','head','torso','arms','legs'].includes(group)) throw new Error('Área inválida.');
   const regions=await allPages<BodyRegion>('body_regions',new URLSearchParams({select:regionFields,atlas_area:'eq.'+group,publication_status:'eq.published',order:'name_pt.asc,slug.asc'}),signal);
   regions.forEach(assertRegion);return regions;
 }
 export async function fetchRegion(slug:string,signal?:AbortSignal):Promise<BodyRegion|null> {
+  if(isReviewMode())return previewRegion(slug);
   if(!validSlug(slug)) return null;
   const result=await fetchPublic<BodyRegion[]>('body_regions',new URLSearchParams({select:regionFields,slug:'eq.'+slug,publication_status:'eq.published',limit:'1'}),signal);
   if(!Array.isArray(result)) throw new Error('Resposta inválida do atlas.');
   result.forEach(assertRegion);return result[0]||null;
 }
 export async function fetchRegionTerms(regionId:string,signal?:AbortSignal) {
+  if(isReviewMode())return previewRegionTerms(regionId);
   return allPages<RegionTerm>('body_region_terms',new URLSearchParams({
     select:'term_id,usage_context,anatomical_role,technical_terms(slug,romanization,translation_pt)',region_id:'eq.'+regionId,order:'term_id.asc,usage_context.asc',
   }),signal);
 }
 export async function fetchTermDetails(slug:string,signal?:AbortSignal) {
+  if(isReviewMode())return previewTermDetails(slug);
   if(!validSlug(slug)) return null;
   const records=await fetchPublic<TechnicalTerm[]>('technical_terms',new URLSearchParams({select:termFields,publication_status:'eq.published',slug:'eq.'+slug,limit:'1'}),signal);
   if(!Array.isArray(records)) throw new Error('Resposta inválida da ficha.'); if(!records.length) return null;
