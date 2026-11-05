@@ -13,7 +13,11 @@
     "test:ui": "playwright test",
     "content:check": "node scripts/content.mjs",
     "content:sql": "node scripts/content.mjs --sql",
-    "validate": "npm run content:check && npm run check && npm test && npm run build"
+    "validate": "npm run content:check && npm run check && npm test && npm run build",
+    "content:review": "node scripts/review-export.mjs",
+    "test:integration": "node tools/local-validation/verify.mjs",
+    "preview:prepare": "node scripts/prepare-preview.mjs",
+    "preview:check": "node tools/local-validation/check-preview.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",
