@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync, unlinkSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
+import { resolve } from 'node:path';
 import { createReviewEntries, escapeSpreadsheetCell, serializeReviewCsv,
   parseReviewOptions } from '../scripts/review-export.mjs';
 
@@ -61,5 +64,21 @@ describe('Pacote de revisão editorial', () => {
     expect(() => parseReviewOptions(['--output','planilha.xlsx'])).toThrow();
     expect(() => parseReviewOptions(['--output','x.csv','--output','y.csv'])).toThrow();
     expect(() => parseReviewOptions(['--invalid','x'])).toThrow();
+  });
+  it('CLI cria o CSV e recusa sobrescrever respostas existentes no disco', () => {
+    const name='test-review-'+randomUUID()+'.csv';
+    const destination=resolve('review-output',name);
+    const run=()=>spawnSync(process.execPath,['scripts/review-export.mjs','--output',name],{
+      cwd:resolve('.'),encoding:'utf8',windowsHide:true,
+    });
+    try {
+      const first=run();expect(first.status,first.stderr).toBe(0);
+      const original=readFileSync(destination,'utf8');
+      expect(original.startsWith('\ufeff')).toBe(true);
+      expect(first.stdout).toContain('105 registros');
+      const second=run();expect(second.status).toBe(1);
+      expect(readFileSync(destination,'utf8')).toBe(original);
+      expect(second.stderr).toMatch(/EEXIST/);
+    } finally {if(existsSync(destination))unlinkSync(destination);}
   });
 });
