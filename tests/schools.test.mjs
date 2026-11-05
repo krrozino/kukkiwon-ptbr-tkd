@@ -2,10 +2,12 @@ import { PGlite } from '@electric-sql/pglite';
 import { pg_trgm } from '@electric-sql/pglite/contrib/pg_trgm';
 import { beforeAll,afterAll,it,expect } from 'vitest';
 import { readFileSync,readdirSync } from 'node:fs';
+import { storageSchema } from './helpers/storage-schema.mjs';
 let db;
 const a='11111111-1111-4111-8111-111111111111',b='22222222-2222-4222-8222-222222222222';
 beforeAll(async()=>{
  db=new PGlite({extensions:{pg_trgm}});await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema public,auth to anon,authenticated;grant execute on function auth.uid() to anon,authenticated;insert into auth.users values('${a}'),('${b}');`);
+ await db.exec(storageSchema);
  for(const f of readdirSync('supabase/migrations').filter(f=>f.endsWith('.sql')).sort())await db.exec(readFileSync('supabase/migrations/'+f,'utf8'));
 });
 afterAll(async()=>db?.close());

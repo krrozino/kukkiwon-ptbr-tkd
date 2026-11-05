@@ -20,6 +20,7 @@
     "preview:prepare": "node scripts/prepare-preview.mjs",
     "preview:review": "node scripts/prepare-preview.mjs --review",
     "preview:connected": "node scripts/prepare-preview.mjs --review --connected",
+    "preview:pilot": "node scripts/prepare-preview.mjs --connected",
     "preview:external:check": "node tools/local-validation/check-deployed.mjs",
     "preview:check": "node tools/local-validation/check-preview.mjs"
   },

@@ -9,12 +9,14 @@ export default function CurriculumView({
   identity = "demo",
   media = [],
   schoolTerms = [],
+  ownerAccess = false,
 }: {
   value: Curriculum;
   school?: string;
   identity?: string;
   media?: SchoolMedia[];
   schoolTerms?: SchoolTerm[];
+  ownerAccess?: boolean;
 }) {
   const [preview, setPreview] = useState<string | null>(null),
     [checked, setChecked] = useState<string[]>([]),
@@ -50,6 +52,7 @@ export default function CurriculumView({
       <p className="tag">{school}</p>
       <h2>{value.title}</h2>
       <p>{value.description}</p>
+      <p className="fine-print">Requisitos da escola · conteúdo e avaliação definidos pelo professor, sem equivalência com exigências oficiais da Kukkiwon.</p>
       <p className="fine-print">
         O checklist registra seu estudo neste navegador; a graduação é avaliada
         pelo professor.
@@ -119,6 +122,7 @@ export default function CurriculumView({
                   (media.find((m) => m.id === r.mediaId) ? (
                     <MediaPlayer
                       media={media.find((m) => m.id === r.mediaId)!}
+                      ownerAccess={ownerAccess}
                     />
                   ) : (
                     <p className="fine-print">

@@ -14,7 +14,7 @@ const run=(file,args,env={})=>{
   if(result.status!==0)throw new Error('Preparação local falhou; nenhum deploy foi realizado.');
 };
 // O catálogo editorial continua offline; escolas podem conectar ao projeto dedicado.
-const review=process.argv.includes('--review'),connected=process.argv.includes('--connected');
+const review=process.argv.includes('--review'),connected=process.argv.includes('--connected'),storage=process.argv.includes('--storage');
 const publicCredentials={};
 if(connected&&existsSync(resolve(root,'.env.preview.local'))) {
   for(const line of readFileSync(resolve(root,'.env.preview.local'),'utf8').split(/\r?\n/)) {
@@ -23,7 +23,7 @@ if(connected&&existsSync(resolve(root,'.env.preview.local'))) {
   }
 }
 for(const field of ['PUBLIC_SUPABASE_URL','PUBLIC_SUPABASE_PUBLISHABLE_KEY'])if(process.env[field])publicCredentials[field]=process.env[field];
-const config=previewConfiguration({review,connected},publicCredentials);
+const config=previewConfiguration({review,connected,storage},publicCredentials);
 run(executableFor('astro'),['build','--outDir','.preview-build/site'],config.env);
 run(executableFor('wrangler'),['deploy','--dry-run','--autoconfig=false','--config','wrangler.preview.jsonc','--outdir','.preview-build/worker'],{
   WRANGLER_SEND_METRICS:'false',

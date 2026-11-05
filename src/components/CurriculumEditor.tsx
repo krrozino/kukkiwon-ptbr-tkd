@@ -2,14 +2,17 @@ import { useState } from "react";
 import type { Curriculum, Grade, Requirement } from "../lib/curriculum";
 import TermPicker from "./TermPicker";
 import type { SchoolMedia } from "./MediaPlayer";
+import type { SchoolTerm } from "../lib/school-api";
 export default function CurriculumEditor({
   value,
   onChange,
   media = [],
+  schoolTerms = [],
 }: {
   value: Curriculum;
   onChange: (c: Curriculum) => void;
   media?: SchoolMedia[];
+  schoolTerms?: SchoolTerm[];
 }) {
   const [pick, setPick] = useState<string | null>(null);
   const grade = (id: string, fn: (g: Grade) => Grade) =>
@@ -137,12 +140,27 @@ export default function CurriculumEditor({
                   onPick={(t) => {
                     req(g.id, r.id, {
                       termSlug: t.slug,
+                      schoolTermId: undefined,
                       title: t.romanization + " · " + (t.translation_pt || ""),
                     });
                     setPick(null);
                   }}
                 />
               )}
+              <label className="field">
+                Técnica da biblioteca da escola
+                <select
+                  value={r.schoolTermId || ""}
+                  onChange={(e) => {
+                    const t = schoolTerms.find(t => t.id === e.target.value);
+                    req(g.id, r.id, t ? { schoolTermId: t.id, termSlug: "", title: t.title } : { schoolTermId: undefined });
+                  }}
+                >
+                  <option value="">Sem técnica própria vinculada</option>
+                  {schoolTerms.map(t => <option key={t.id} value={t.id}>{t.title} · {t.visibility === "public" ? "compartilhável" : "privada"}</option>)}
+                </select>
+              </label>
+              {!schoolTerms.length && <p className="fine-print">Você pode criar técnicas próprias em “Técnicas próprias da escola” abaixo, mesmo sem registros publicados no catálogo.</p>}
               <label className="field">
                 Demonstração da escola
                 <select
