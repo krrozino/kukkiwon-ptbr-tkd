@@ -103,9 +103,6 @@ export default function DetailMap({
             <stop offset=".55" stopColor="#e9d9cc" />
             <stop offset="1" stopColor="#f8eee4" />
           </linearGradient>
-          <clipPath id={"contact-clip-"+area}>
-            <path d={hand ? (fist ? fistOutline : handOutline) : footOutline}/>
-          </clipPath>
         </defs>
         <g
           role="img"
@@ -138,7 +135,6 @@ export default function DetailMap({
             )}
           </g>
         </g>
-        <g clipPath={"url(#contact-clip-"+area+")"}>
         {visible.map((r) => {
           const s = surfaces[r.slug];
           return (
@@ -177,7 +173,6 @@ export default function DetailMap({
             </g>
           );
         })}
-        </g>
         {anchor && (
           <path
             key={hover?.slug}
