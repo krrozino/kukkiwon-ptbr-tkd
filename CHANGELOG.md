@@ -10,7 +10,10 @@ As versões **realmente publicadas** são registradas em [GitHub Releases](https
 - Notion como base interna para decisões ADR, roadmap e riscos; implementações e contratos permanecem no GitHub.
 - Mudanças somente documentais não geram deploy ou tag por si. Incluir no próximo PATCH de distribuição, se aplicável.
 
-## v0.2.0 — atlas explicativo e aprendizado introdutório (candidato)
+## v0.2.0 — atlas explicativo e aprendizado introdutório (prerelease publicada em 06/11/2026)
+
+- Release: https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.2.0
+- Deploy: https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42296206029 — SHA `d0b3a9db76257350a11043da3c3bc0a5f6088470`; Worker e cinco rotas HTTP aprovados.
 
 - Atlas anatômico: polígonos curvos para cabeça, tronco, braços e pernas; explicação em português para todas as 50 zonas ilustradas, inclusive mãos e pés.
 - Legendas com nomes de áreas no lugar de números e mensagens genéricas. Textos anatômicos não são traduções técnicas homologadas.
@@ -35,4 +38,4 @@ As versões **realmente publicadas** são registradas em [GitHub Releases](https
 - PR #24: laboratório editorial local e barreira contra publicação de pesquisa não homologada.
 - Governança: tags/Releases após deploy, templates de Issues e PRs, notas geradas e Dependabot agrupado.
 
-As seções de candidatas descrevem código ainda não publicado. Releases oficiais e seus links de Actions comprovam o histórico de produção confirmado.
+Seções de documentação ainda não integradas são propostas até a PR respectiva ser mesclada. Releases oficiais e seus links de Actions comprovam o histórico de produção confirmado.
