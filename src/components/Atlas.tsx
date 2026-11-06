@@ -9,6 +9,7 @@ import {
 } from "../lib/catalog-api";
 import BodyMap, { areas, isArea, type Area, type View } from "./atlas/BodyMap";
 import DetailMap from "./atlas/DetailMap";
+import BodyRegionMap from "./atlas/BodyRegionMap";
 import TermContext from "./TermContext";
 import { surfaces } from "./atlas/surfaces";
 type Location = {
@@ -183,7 +184,7 @@ export default function Atlas() {
       region: region.slug,
       zoom: true,
       view:
-        ["arms", "legs"].includes(location.area) && view !== "both" && view
+        !["hands", "feet"].includes(location.area) && view !== "both" && view
           ? view
           : location.view,
       detailView:
@@ -212,7 +213,7 @@ export default function Atlas() {
         inert={!ready}
         aria-busy={!ready}
       >
-        <div
+        {!(location.zoom && ["hands","feet"].includes(location.area)) && <div
           className="atlas-controls"
           role="group"
           aria-label="Vista do corpo"
@@ -231,7 +232,7 @@ export default function Atlas() {
           >
             Costas
           </button>
-        </div>
+        </div>}
         <p className="fine-print">
           Ilustração esquemática original · orientação didática
         </p>
@@ -264,6 +265,8 @@ export default function Atlas() {
               onSelect={chooseRegion}
             />
           </>
+        ) : location.zoom ? (
+          <BodyRegionMap area={location.area} view={location.view} regions={regions} selected={location.region} onSelect={chooseRegion}/>
         ) : (
           <BodyMap
             view={location.view}
