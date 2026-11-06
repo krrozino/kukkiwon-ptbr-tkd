@@ -8,6 +8,8 @@
 
 ## O que você encontra
 
+Esta tabela resume os recursos presentes no **código da candidata v0.2.0**. A disponibilidade no site oficial depende da versão efetivamente publicada, consultável em [GitHub Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases).
+
 | Área | O que faz | Limitação atual |
 | --- | --- | --- |
 | [Atlas corporal](https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev/atlas) | Seleção de cabeça, tronco, braços, pernas, mãos e pés; vistas e descrições anatômicas | O desenho é ilustrativo; nomes técnicos não verificados não são homologados |
