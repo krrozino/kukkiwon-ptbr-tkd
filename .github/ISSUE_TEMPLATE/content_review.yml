@@ -1,0 +1,30 @@
+name: "Revisão técnica / terminologia"
+description: "Proponha correções com evidência, sem aprovação automática."
+title: "[Editorial] "
+labels: ["editorial"]
+body:
+  - type: input
+    id: term
+    attributes:
+      label: "Técnica, palavra, região ou slug"
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: "Texto atual, proposta e divergências"
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: "Fontes, edição e página/seção"
+    validations:
+      required: true
+  - type: checkboxes
+    id: draft
+    attributes:
+      label: "Segurança editorial"
+      options:
+        - label: "O registro permanece draft até revisão humana."
+          required: true
