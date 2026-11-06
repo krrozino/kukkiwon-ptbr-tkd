@@ -1,0 +1,25 @@
+# Categorias do gerador automático de notas do GitHub.
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: "Segurança e correções"
+      labels:
+        - security
+        - bug
+    - title: "Novas funcionalidades"
+      labels:
+        - enhancement
+        - feature
+    - title: "Conteúdo e documentação"
+      labels:
+        - documentation
+        - editorial
+    - title: "Dependências e infraestrutura"
+      labels:
+        - dependencies
+        - ci
+    - title: "Outras alterações"
+      labels:
+        - "*"
