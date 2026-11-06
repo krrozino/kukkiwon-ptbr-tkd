@@ -1,0 +1,550 @@
+{
+  "version": 1,
+  "batchId": "glossary-pilot-review-001",
+  "words": [
+    {
+      "id": "arae",
+      "romanization": "Arae",
+      "hangul": "아래",
+      "meaning_pt": "Parte inferior",
+      "context_pt": "Referência baixa no contexto de alvos; não determina sozinha uma variante de defesa.",
+      "kind": "height",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §10 — Target areas",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "eolgul",
+      "romanization": "Eolgul",
+      "hangul": "얼굴",
+      "meaning_pt": "Rosto",
+      "context_pt": "Pode indicar a referência alta em uma expressão técnica. O significado da palavra e o contexto são distintos.",
+      "kind": "height",
+      "aliases": [
+        "oelgul"
+      ],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §10 — Target areas",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "momtong",
+      "romanization": "Momtong",
+      "hangul": "몸통",
+      "meaning_pt": "Tronco",
+      "context_pt": "Pode indicar a referência média em uma expressão técnica; não é uma zona única do atlas.",
+      "kind": "height",
+      "aliases": [
+        "montong"
+      ],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §10 — Target areas",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "makgi",
+      "romanization": "Makgi",
+      "hangul": "막기",
+      "meaning_pt": "Defesa ou bloqueio",
+      "context_pt": "Designa a família de ações de defesa; superfície, método e variante precisam ser identificados.",
+      "kind": "action",
+      "aliases": [
+        "makki"
+      ],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§10 Makgi — Blocking",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "ap",
+      "romanization": "Ap",
+      "hangul": "앞",
+      "meaning_pt": "Frente",
+      "context_pt": "Indica posição ou direção frontal conforme a expressão.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §6 — Direction",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "dwi",
+      "romanization": "Dwi",
+      "hangul": "뒤",
+      "meaning_pt": "Trás",
+      "context_pt": "Indica posição ou direção posterior conforme a expressão.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §6 — Direction",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "an",
+      "romanization": "An",
+      "hangul": "안",
+      "meaning_pt": "Dentro",
+      "context_pt": "Indica interior ou direção para dentro conforme a expressão.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §6 — Direction",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "bakkat",
+      "romanization": "Bakkat",
+      "hangul": "바깥",
+      "meaning_pt": "Fora",
+      "context_pt": "Indica exterior ou direção para fora conforme a expressão.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §6 — Direction",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "son",
+      "romanization": "Son",
+      "hangul": "손",
+      "meaning_pt": "Mão",
+      "context_pt": "Componente de nomes de superfícies e ações da mão; a expressão completa precisa ser conferida.",
+      "kind": "anatomy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Appendix — Applicable Parts of the Body",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "bal",
+      "romanization": "Bal",
+      "hangul": "발",
+      "meaning_pt": "Pé",
+      "context_pt": "Componente de nomes de superfícies e ações do pé; a expressão completa precisa ser conferida.",
+      "kind": "anatomy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Appendix — Applicable Parts of the Body",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "mok",
+      "romanization": "Mok",
+      "hangul": "목",
+      "meaning_pt": "Pescoço",
+      "context_pt": "Parte anatômica; a associação a uma zona do atlas depende de conferência própria.",
+      "kind": "anatomy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §10 — Detailed target: neck",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "teok",
+      "romanization": "Teok",
+      "hangul": "턱",
+      "meaning_pt": "Queixo",
+      "context_pt": "Parte anatômica; tok é uma grafia de busca proposta, não uma equivalência oficial já aprovada.",
+      "kind": "anatomy",
+      "aliases": [
+        "tok"
+      ],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §10 — Detailed target: chin / underneath the jaws",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "chagi",
+      "romanization": "Chagi",
+      "hangul": "차기",
+      "meaning_pt": "Chute",
+      "context_pt": "Família de ações realizadas com os pés; direção e superfície variam.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi — Kicking",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "jireugi",
+      "romanization": "Jireugi",
+      "hangul": "지르기",
+      "meaning_pt": "Soco",
+      "context_pt": "Não confundir com Jjireugi, outra categoria na terminologia consultada.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§5 Jireugi — Punching",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "seogi",
+      "romanization": "Seogi",
+      "hangul": "서기",
+      "meaning_pt": "Base ou postura em pé",
+      "context_pt": "Identifica a família de bases; não define uma graduação escolar.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§15 Seogi — Stance",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    }
+  ],
+  "expressions": [
+    {
+      "id": "arae-makgi",
+      "romanization": "Arae-makgi",
+      "hangul": "아래막기",
+      "translation_pt": "Defesa com referência baixa",
+      "context_pt": "Expressão de estudo: altura + ação. A fonte relaciona o nome de uso a uma variante específica de Naeryeo-makgi; não declarar equivalência genérica entre técnicas.",
+      "technicalSlug": null,
+      "segments": [
+        {
+          "wordId": "arae",
+          "romanization": "Arae",
+          "hangul": "아래"
+        },
+        {
+          "wordId": "makgi",
+          "romanization": "makgi",
+          "hangul": "막기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §4 e §10; §10 Makgi > Naeryeo-makgi",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "eolgul-makgi",
+      "romanization": "Eolgul-makgi",
+      "hangul": "얼굴막기",
+      "translation_pt": "Defesa com referência alta",
+      "context_pt": "Expressão de estudo: altura + ação. A fonte relaciona o nome de uso a uma variante específica de Ollyeo-makgi; não declarar equivalência genérica entre técnicas.",
+      "technicalSlug": null,
+      "segments": [
+        {
+          "wordId": "eolgul",
+          "romanization": "Eolgul",
+          "hangul": "얼굴"
+        },
+        {
+          "wordId": "makgi",
+          "romanization": "makgi",
+          "hangul": "막기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §4 e §10; §10 Makgi > Ollyeo-makgi",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "momtong-makgi",
+      "romanization": "Momtong-makgi",
+      "hangul": "몸통막기",
+      "translation_pt": "Defesa com referência média",
+      "context_pt": "Expressão de estudo: altura + ação. A fonte relaciona o nome de uso a uma variante específica de An-makgi; não declarar equivalência genérica entre técnicas.",
+      "technicalSlug": null,
+      "segments": [
+        {
+          "wordId": "momtong",
+          "romanization": "Momtong",
+          "hangul": "몸통"
+        },
+        {
+          "wordId": "makgi",
+          "romanization": "makgi",
+          "hangul": "막기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011; prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introductory remarks §4 e §10; §10 Makgi > An-makgi",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import GlossaryApp from '../components/GlossaryApp';
+---
+<Base title="Glossário interativo — Taekwondo para Todos">
+ <section class="shell section"><p class="tag">Palavras que ajudam a aprender</p><h1>Entenda o coreano do Taekwondo</h1>
+ <p class="lead">Explore o significado das palavras e descubra como elas se combinam nos nomes. Passe o mouse, use o teclado ou toque para aprofundar.</p>
+ <GlossaryApp client:load/>
+ </section>
+</Base>
