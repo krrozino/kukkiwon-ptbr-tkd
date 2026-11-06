@@ -25,6 +25,6 @@ export default function ResearchCandidateView({ record: r }: Readonly<{ record: 
     <h4>Campos incompletos e alertas de extração</h4>
     <p>{r.incomplete_fields.length ? r.incomplete_fields.join(', ') : 'Os campos esperados estão preenchidos. Isso não comprova sua correção.'}</p>
     {r.original.normalization_issues.length ? <ul>{r.original.normalization_issues.map((flag, i) => <li key={i}>{flag}</li>)}</ul> : <p>Sem alertas automáticos de fragmentação.</p>}
-    <details><summary>Ver todas as colunas originais</summary><ol>{r.original.raw_columns.map((cell, i) => <li key={r.candidate_id + ":original-column:" + i}><pre className="research-raw">{cell || '—'}</pre></li>)}</ol></details>
+    <details><summary>Ver todas as colunas originais</summary><ol>{Object.entries(r.original.raw_columns).map(([position, cell]) => <li key={r.candidate_id + ":original-column:" + position}><pre className="research-raw">{cell || '—'}</pre></li>)}</ol></details>
   </article>;
 }
