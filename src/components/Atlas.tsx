@@ -308,8 +308,7 @@ export default function Atlas() {
           ))}
         </div>
         <p className="fine-print">
-          Tab navega; Enter ou Espaço selecionam. Escape retorna ao corpo
-          inteiro. No celular, toque nas áreas ou nos botões.
+          Use a legenda colorida para encontrar uma zona, ou toque diretamente no desenho. No teclado, use Tab e Enter ou Espaço; Escape retorna ao corpo inteiro.
         </p>
       </section>
       <section
@@ -418,9 +417,10 @@ export default function Atlas() {
           </>
         )}
         <p className="fine-print">
-          Os nomes técnicos vêm do catálogo publicado. Áreas sem revisão
-          permanecem vazias. A posição gráfica é aproximada e não representa uma
-          ilustração oficial da Kukkiwon.
+          As áreas coloridas são ilustrações de estudo e permanecem visíveis
+          independentemente do estado editorial das fichas. Nomes técnicos,
+          traduções e relações com técnicas só aparecem após publicação
+          específica. A geometria é aproximada, não uma ilustração oficial da Kukkiwon.
         </p>
       </section>
     </div>
