@@ -1,4 +1,4 @@
-name: Publicação oficial Cloudflare — manual
+name: Publicação oficial Cloudflare — manual + GitHub Release
 
 on:
   workflow_dispatch:
@@ -7,6 +7,21 @@ on:
         description: "Digite PUBLICAR para liberar o deploy oficial"
         required: true
         type: string
+      versao:
+        description: "Tag da release (deve coincidir com package.json)"
+        required: true
+        default: "v0.1.0"
+        type: string
+      criar_release:
+        description: "Registrar GitHub Release após deploy e teste HTTP"
+        required: true
+        default: true
+        type: boolean
+      prerelease:
+        description: "Marcar como pré-lançamento"
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   contents: read
@@ -19,12 +34,36 @@ jobs:
   publicar:
     if: github.ref == 'refs/heads/main' && inputs.confirmacao == 'PUBLICAR'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev/
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Validar versão e evitar release duplicada
+        env:
+          RELEASE_TAG: ${{ inputs.versao }}
+          CREATE_RELEASE: ${{ inputs.criar_release }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./package.json').version")"
+          if [[ ! "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Use tag SemVer vMAJOR.MINOR.PATCH, com sufixo opcional."
+            exit 1
+          fi
+          if [[ "$RELEASE_TAG" != "v$VERSION" ]]; then
+            echo "::error::A tag deve corresponder à versão do package.json (v$VERSION)."
+            exit 1
+          fi
+          if [[ "$CREATE_RELEASE" == "true" ]] && git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "::error::Tag já existente: $RELEASE_TAG. Não repetir o deploy para a mesma versão."
+            exit 1
+          fi
+          echo "Versão: $RELEASE_TAG; commit: $GITHUB_SHA"
       - name: Exigir credenciais oficiais para Cloudflare e projeto dedicado
         env:
           CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -33,10 +72,10 @@ jobs:
         shell: bash
         run: |
           if [[ -z "$CF_ACCOUNT" || -z "$CF_TOKEN" || "$SUPABASE_PUBLISHABLE" != sb_publishable_* ]]; then
-            echo "::error::Configure CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN e SUPABASE_PUBLISHABLE_KEY em GitHub Actions secrets."
+            echo "::error::Secrets ausentes: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN e SUPABASE_PUBLISHABLE_KEY."
             exit 1
           fi
-      - name: Dependências
+      - name: Instalar dependências
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Validar release
         run: |
@@ -57,20 +96,76 @@ jobs:
           test -f dist/atlas/index.html
           test -f dist/escolas/index.html
           test -f dist/curriculos/index.html
+          test -f dist/glossario/index.html
           if grep -R -n 'PRÉVIA DE REVISÃO · 108 rascunhos' dist/*.html; then
-            echo "::error::A produção não pode ser compilada com o banner editorial de prévia."
+            echo "::error::Build contém banner editorial de prévia."
             exit 1
           fi
-      - name: Publicar somente Worker oficial
+      - name: Conferir isolamento editorial
+        run: node tools/local-validation/glossary-public.mjs
+      - name: Publicar somente Worker oficial (um deploy)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           WRANGLER_SEND_METRICS: "false"
         run: npx wrangler deploy --config wrangler.jsonc --name kukkiwon-ptbr-tkd
-      - name: Link da publicação
+      - name: Smoke test público após deploy
         shell: bash
         run: |
-          echo "## Primeiro deploy oficial" >> "$GITHUB_STEP_SUMMARY"
-          echo "Worker: kukkiwon-ptbr-tkd" >> "$GITHUB_STEP_SUMMARY"
-          echo "Commit: $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
-          echo "Publicação de fichas técnicas: nenhuma; dados não revisados permanecem protegidos pelo Supabase." >> "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          BASE="https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev"
+          for path in / /atlas /catalogo /glossario /fundamentos/alturas-e-direcoes; do
+            curl --fail --silent --show-error --location --retry 4 --retry-delay 4 --connect-timeout 10 --max-time 30 --output /dev/null "$BASE$path"
+            echo "HTTP OK: $path"
+          done
+          echo "As cinco rotas responderam sem erro. Revisão visual continua obrigatória."
+      - name: Resumo
+        env:
+          RELEASE_TAG: ${{ inputs.versao }}
+        run: |
+          {
+            echo "## Deploy oficial Cloudflare"
+            echo "Worker: kukkiwon-ptbr-tkd"
+            echo "Commit: $GITHUB_SHA"
+            echo "Tag: $RELEASE_TAG"
+            echo "URL: https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev/"
+            echo "Conteúdo técnico não revisado: não publicado."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  release:
+    name: GitHub Release (somente após publicação)
+    needs: publicar
+    if: needs.publicar.result == 'success' && inputs.criar_release == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Criar tag e release sem executar deploy novamente
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.versao }}
+          IS_PRERELEASE: ${{ inputs.prerelease }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./package.json').version")"
+          if [[ "$RELEASE_TAG" != "v$VERSION" ]]; then
+            echo "::error::Tag diverge de package.json; release interrompida."
+            exit 1
+          fi
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "::error::Release já existe: $RELEASE_TAG"
+            exit 1
+          fi
+          NOTES="Deploy no Worker oficial após build, validações e smoke HTTP.
+          Commit: $GITHUB_SHA
+          Site: https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev/
+          Conteúdo técnico sujeito à revisão editorial; projeto independente da Kukkiwon."
+          ARGS=(--repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Taekwondo para Todos $RELEASE_TAG" --generate-notes --notes "$NOTES")
+          if [[ "$IS_PRERELEASE" == "true" ]]; then
+            ARGS+=(--prerelease --latest=false)
+          fi
+          gh release create "$RELEASE_TAG" "${ARGS[@]}"
+          echo "Release: https://github.com/$GITHUB_REPOSITORY/releases/tag/$RELEASE_TAG" >> "$GITHUB_STEP_SUMMARY"
