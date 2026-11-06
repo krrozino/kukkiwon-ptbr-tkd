@@ -4,12 +4,16 @@ Ferramentas de teste, separadas das dependências do aplicativo. Não são envia
 
 Esta execução usa PostgreSQL portátil **17.11.0-beta.19** e PostgREST **16.5**. O código sobe um cluster novo em porta aleatória de **127.0.0.1**, cria roles locais e aplica:
 
-1. As duas migrações anteriores.
+1. As duas migrações iniciais do catálogo e do atlas.
 2. Os seeds herdados de 20 termos e cinco regiões em rascunho.
 3. A migração aditiva da Sprint 01.
-4. O importador dos 85 candidatos, duas vezes.
+4. A migração da Sprint 02, o importador dos 85 candidatos duas vezes e as três variantes adicionais em rascunho.
+5. A migração da Sprint 03, com o mesmo esquema mínimo de Storage usado pelos testes SQL.
+6. A migração local de conhecimento/Poomsae. Fotografias de todas as oito tabelas do catálogo antes e depois devem ser idênticas.
 
-Os testes conferem que os 105 registros continuam em rascunho e invisíveis por REST. Para exercitar busca, paginação e atlas, criam separadamente fixtures sintéticas prefixadas com `qa-`, somente no cluster local. Os testes Playwright encaminham o transporte HTTP para o PostgREST real: não substituem respostas por JSON fixo.
+Os testes conferem que os 108 registros continuam em rascunho e invisíveis por REST. Para exercitar busca, paginação, atlas e Poomsae, criam separadamente fixtures sintéticas prefixadas com `qa-`, somente no cluster local. Os testes Playwright encaminham o transporte HTTP para o PostgREST real: não substituem respostas por JSON fixo. As relações e os vínculos do atlas usam fontes exclusivas, permitindo conferir sua projeção pela RLS real.
+
+O bloco de Poomsae verifica rascunhos ocultos, recusa publicação sem identidade de revisor e usa uma identidade sintética cadastrada apenas no cluster efêmero para publicar uma forma e um movimento de teste. Confere os joins de técnica e fonte para `anon` e `authenticated`, a exclusão de `approved_by` da projeção pública e a retirada de visibilidade quando um termo dependente volta a rascunho. Os registros de pesquisa e os dados reais existentes não são publicados.
 
 O runner não recebe URL de banco nem projeto Supabase por argumento. Banco, serviços e senhas temporárias são criados localmente. Não instala serviços de sistema, não cria usuários do Windows/Linux e encerra seus processos no final. Os clusters ficam em `.local-validation/runs/`, ignorados pelo Git.
 
@@ -20,6 +24,8 @@ npm ci --ignore-scripts
 npm ci --prefix tools/local-validation --ignore-scripts
 npm run test:integration
 ```
+
+O navegador usa Astro em modo de desenvolvimento na porta **4347**, com configuração temporária dentro da pasta ignorada da execução. Isso permite executar a integração paralelamente aos testes da prévia em 4321, sem reescrever `dist`. A variável `KUKKIWON_INTEGRATION_PORT` permite escolher outra porta local válida. PostgreSQL e PostgREST continuam em portas de loopback aleatórias.
 
 Instale antes o binário oficial PostgREST 16.5 em `.local-validation/bin/postgrest.exe` (Windows) ou informe `KUKKIWON_POSTGREST_BIN`. O arquivo não é versionado. O operador/assistente pode fazer essa preparação; não exige criar projeto remoto.
 
