@@ -25,7 +25,7 @@ Uma decisão técnica aprovada no Notion deve ganhar Issue/PR, testes e atualiza
 5. **Verificação:** CI PASS não basta para UX; validar produção quando aplicável e registrar lançamento.
 6. **Revisão:** se a decisão mudar, criar sucessora e indicar qual ADR foi substituída. Preservar histórico.
 
-O Notion contém a base interna **Decisões & ADRs**, com entradas iniciais ADR-001 a ADR-008 e a política de versões registrada na ADR-006. Não adicionar links privados a essa base em materiais públicos sem autorização explícita de compartilhamento.
+O Notion contém a base interna **Decisões & ADRs**, com entradas iniciais ADR-001 a ADR-008 e a política de versões registrada na ADR-006. O [índice público de ADRs](DECISIONS.md) expõe somente decisões e referências adequadas à documentação aberta. Não adicionar links privados a essa base em materiais públicos sem autorização explícita de compartilhamento.
 
 ## Responsabilidades
 
