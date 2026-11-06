@@ -20,6 +20,7 @@ Esta é a porta de entrada para a documentação **pública e versionada**. Os d
 | [Começar localmente](GETTING_STARTED.md) | Dependências, .env, scripts e testes |
 | [Arquitetura](ARCHITECTURE.md) | Stack, fronteiras de dados, fluxos e ambientes |
 | [Política de versões](VERSIONING.md) | MAJOR / MINOR / PATCH e exemplos |
+| [Índice público de decisões (ADRs)](DECISIONS.md) | Decisões aceitas, propostas e links de implementação |
 | [Release oficial](GITHUB_RELEASES.md) | Gatilhos manuais, pré-condições, smoke e rollback |
 | [Operação](OPERATIONS.md) | Proteções e cuidados operacionais |
 | [Segurança](../SECURITY.md) | Reportes de vulnerabilidade e segredos |
