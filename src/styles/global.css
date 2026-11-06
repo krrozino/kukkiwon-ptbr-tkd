@@ -197,6 +197,12 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .surface-swatch{width:17px;height:17px;border:1px solid #455e5b54;border-radius:5px;flex:0 0 17px}
 .detail-svg .anatomy-outline{filter:drop-shadow(0 1.3px 1.2px #76675c4f)}
 .detail-svg .anatomy-lines{opacity:.82;stroke-width:.7}
+.detail-svg .anatomy-edge{fill:none;stroke:#87786c;stroke-width:.7;stroke-linejoin:round;pointer-events:none}
+.surface-inspector .surface-tooltip{pointer-events:auto}
+.surface-inspector .surface-tooltip-compact{gap:8px}
+.surface-inspector .surface-tooltip-compact strong{font-size:.95rem;color:#243e42}
+.surface-inspector .surface-tooltip-compact>span{font-size:.8rem;line-height:1.5;color:#647577}
+.surface-inspector .surface-tooltip a{font-size:.8rem;line-height:1.5}
 .detail-svg .surface-cutout path{stroke-width:.85;stroke-opacity:.92;fill-opacity:.48;transition:fill-opacity .16s,stroke-width .16s}
 .detail-svg .surface-cutout:hover path,.detail-svg .surface-cutout.selected path{stroke-width:1.35;fill-opacity:.77}
 .detail-svg .surface-cutout:focus-visible path{stroke:#173c9c;stroke-width:1.6}
