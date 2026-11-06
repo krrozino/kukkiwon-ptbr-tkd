@@ -8,7 +8,7 @@
 
 ## O que você encontra
 
-Esta tabela resume os recursos presentes no **código da candidata v0.2.0**. A disponibilidade no site oficial depende da versão efetivamente publicada, consultável em [GitHub Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases).
+Esta tabela descreve os recursos da **v0.2.0 publicada em 06/11/2026**. A presença de páginas no site não significa que todas as fichas técnicas ou os fluxos escolares estejam homologados; consulte [Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases) para o histórico.
 
 | Área | O que faz | Limitação atual |
 | --- | --- | --- |
@@ -28,8 +28,8 @@ Esta tabela resume os recursos presentes no **código da candidata v0.2.0**. A d
 
 ## Estado do projeto e transparência
 
-- A primeira versão oficial publicada é a **[v0.1.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.1.0)**. A versão efetivamente no ar deve ser verificada em [Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases) e em [Actions](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/workflows/deploy-official-cloudflare.yml), não apenas pelo conteúdo da branch `main`.
-- Em 06/11/2026, a candidata **v0.2.0** estava integrada à `main`, mas **sem Release confirmada** no checkpoint documental. O avanço da branch não significa publicação automática.
+- A versão oficial **[v0.2.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.2.0)** foi publicada como prerelease em 06/11/2026 após o workflow [#42296206029](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42296206029) passar. A primeira versão oficial foi a [v0.1.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.1.0). A versão de produção deve ser verificada em Releases e Actions, não apenas na `main`.
+- A tag `v0.2.0` aponta para `d0b3a9db76257350a11043da3c3bc0a5f6088470`. Publicação de software **não substitui** homologação visual do atlas, de fluxos escolares ou de técnicas.
 - No último diagnóstico remoto havia **105 registros técnicos em `draft` e nenhum `published`**. Registros preliminares de Git e pesquisas externas são conjuntos distintos e não devem ser somados ou contados como técnicas aprovadas.
 - A migração de pesquisa privada e de relações de Poomsae permanece proposta e **não aplicada ao Supabase remoto** até autorização/homologação próprias.
 - O software publicado não certifica, homologa ou chancela técnicas da Kukkiwon.
