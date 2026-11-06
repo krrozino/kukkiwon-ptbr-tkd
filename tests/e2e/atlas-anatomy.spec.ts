@@ -102,7 +102,7 @@ test('primeiro toque e legenda continuam estáveis nas duas vistas do pé',async
     const before=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     if(isMobile)await target.locator('path').tap();else await target.locator('path').click();
     await expect(target).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText('Planta do pé');
+    await expect(page.getByRole('tooltip')).toContainText(view==='Planta'?'Planta do pé':'Dorso do pé');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
     expect(Math.abs(after.height-before.height)).toBeLessThan(1);
