@@ -7,7 +7,7 @@ Este documento registra **prioridades e critérios de aceitação**, não datas 
 **Referência de auditoria: 06/11/2026.**
 
 - `v0.1.0` foi publicada como prerelease, Worker e cinco rotas HTTP conferidos.
-- `v0.2.0` foi integrada à `main` com atlas revisado, textos de 50 regiões e material educativo introdutório; publicação oficial **não confirmada** no momento deste checkpoint.
+- **`v0.2.0` publicada em 06/11/2026** como prerelease, no SHA `d0b3a9db76257350a11043da3c3bc0a5f6088470`: [run #42296206029](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42296206029) e [Release v0.2.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.2.0). A homologação visual/funcional continua separada.
 - 105 registros do catálogo no Supabase dedicado permaneciam em `draft`, zero `published`. A liberação de conteúdo está bloqueada por revisão humana e fontes individuais.
 - Migração de `knowledge_research`/Poomsae permanece uma proposta local, não aplicada ao projeto remoto.
 
@@ -15,7 +15,7 @@ Este documento registra **prioridades e critérios de aceitação**, não datas 
 
 | Prioridade | Frente | Trabalho necessário | Critério para concluir |
 | --- | --- | --- | --- |
-| P0 | Publicação | Concluir CI, deploy e Release da candidata `v0.2.0` | GitHub Actions de release PASS; tag no SHA; Worker acessível; smoke HTTP e visual real |
+| Concluído (deploy) / P0 (homologação) | Publicação e UX | `v0.2.0` já implantada; **homologar visualmente** atlas e telas | Run #42296206029 e tag PASS; inspeção real de desktop/mobile ainda pendente |
 | P0 | Editorial | Organizar primeiro lote de revisão documental e técnica | Pacotes, localizadores, revisão humana por campo, direitos; **nenhuma promoção por atalho** |
 | P1 | Atlas | Conferir visual e geometria das regiões em desktop/mobile | Limites corretos nas duas vistas, seleção sem deslocamento, teclado/touch, feedback do mantenedor |
 | P1 | Poomsae | Homologar estrutura e fonte dos primeiros movimentos | Migração aprovada/aplicada separadamente; fontes e passos individualmente revisados |
