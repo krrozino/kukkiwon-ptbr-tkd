@@ -62,7 +62,7 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     </section>
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
       <div className="surface-legend-heading"><strong>Mapa das áreas</strong><small>{zones.length} zonas nesta vista</small></div>
-      <div className="surface-legend-items">{zones.map((z,i)=><button key={z.id} data-legend-zone={z.id}
+      <div className="surface-legend-items">{zones.map(z=><button key={z.id} data-legend-zone={z.id}
         className={'surface-legend-button'+(active===z.id?' selected':'')} aria-label={label(z.id)} aria-pressed={active===z.id}
         onFocus={()=>{if(!active)setHover(z.id);else setHover(null);}} onMouseEnter={()=>setHover(z.id)} onClick={()=>choose(z.id)}>
         <span className="surface-swatch" aria-hidden="true" style={{backgroundColor:z.color}}/><span>{label(z.id)}</span>
