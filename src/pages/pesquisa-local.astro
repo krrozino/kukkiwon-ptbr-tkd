@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import ResearchWorkbench from "../components/ResearchWorkbench";
+const available = import.meta.env.DEV;
+---
+<Base title="Laboratório editorial — Taekwondo para Todos">
+  <section class="shell section">
+    <h1>Laboratório de pesquisa</h1>
+    {available ? (
+      <ResearchWorkbench client:load />
+    ) : (
+      <div class="card" role="status">
+        <p>Disponível apenas no desenvolvimento local. O catálogo público não contém arquivos de pesquisa pendentes.</p>
+      </div>
+    )}
+  </section>
+</Base>
