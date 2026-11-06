@@ -129,7 +129,7 @@ test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados
   const legend=page.getByRole("navigation",{name:"Selecionar zona ilustrada"});
   await expect(legend).toBeVisible();
   const buttons=legend.getByRole("button");
-  await expect(buttons).toHaveCount(10);
+  await expect(buttons).toHaveCount(11);
   await buttons.nth(1).click();
   await expect(buttons.nth(1)).toHaveAttribute("aria-pressed","true");
   await expect(page.getByRole("tooltip")).toHaveText("Zona ilustrativaNome técnico em revisão");
@@ -140,7 +140,7 @@ test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados
   const after=await inspector.boundingBox();
   expect(Math.abs((before?.height||0)-(after?.height||0))).toBeLessThan(1);
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
-  await expect(buttons).toHaveCount(10);
+  await expect(buttons).toHaveCount(11);
   await page.getByRole("button",{name:"Punho",exact:true}).click();
   // Dorso do punho: punho, dorso do punho e borda do punho.
   await expect(buttons).toHaveCount(4);

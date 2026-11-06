@@ -40,7 +40,7 @@ SVG local em `surfaces.ts` e estilos do inspetor.
 - [x] `npm run check` e `npm test`: sem erros.
 - [x] `npm run test:ui`: todos os cenários desktop/mobile aprovados.
 - [x] Revisão independente do diff; corrigir problemas bloqueantes.
-- [ ] Commit, push da branch e uma PR para `main`; observar resultado da CI.
+- [x] Commit, push da branch e uma PR para `main`; observar resultado da CI.
 
 Expected: configurações, credenciais, banco, registros editoriais e publicação
 oficial permanecem intocados. Nenhuma execução do workflow manual de deploy.
@@ -49,8 +49,8 @@ oficial permanecem intocados. Nenhuma execução do workflow manual de deploy.
 ## Evidências
 
 - Cinco cenários novos falharam antes da implementação.
-- 66 testes de interface aprovados em desktop/celular; 49 testes locais aprovados.
+- 68 testes de interface aprovados em desktop/celular; 49 testes locais aprovados.
 - Revisão independente verificou cobertura sem lacunas/sobreposições nas seis combinações de mão/punho/pé e vista.
 - O problema de Tab identificado na revisão ganhou regressão RED e correção: foco por teclado preserva a ficha selecionada.
 - O conector lateral permanece no espaço externo reservado; a linha inferior acompanha o espelhamento.
-
+- A revisão automática da PR identificou deslocamento da borda técnica do polegar; o path original foi preservado e o hit testing nas duas vistas ganhou regressão RED→GREEN.

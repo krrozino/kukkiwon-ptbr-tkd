@@ -4,6 +4,31 @@ async function emptyCatalog(page:Page) {
   await page.route('**/rest/v1/**',route=>route.fulfill({json:[]}));
 }
 
+test('região técnica da borda do polegar mantém posição ao refinar os dedos',async({page})=>{
+  await page.route('**/rest/v1/**',route=>{
+    const table=new URL(route.request().url()).pathname.split('/').pop();
+    return route.fulfill({json:table==='body_regions'?[{
+      id:'edge',slug:'sonnaldeung',name_pt:'Borda da mão do lado do polegar',
+      region_group:'hands',atlas_area:'hands',detail_view:'both',detail_x:28,detail_y:50,
+    }]:[]});
+  });
+  await page.goto('/atlas?region=hands&zoom=1');
+  await expect(page.locator('.detail-svg [data-region="sonnaldeung"]')).toHaveAttribute('aria-label','Borda da mão do lado do polegar');
+  for(const view of ['Palma','Dorso']){
+    await page.getByRole('button',{name:view,exact:true}).click();
+    await page.locator('.detail-svg').scrollIntoViewIfNeeded();
+    const hits=await page.locator('.anatomy-geometry').evaluate(group=>{
+      const matrix=(group as SVGGraphicsElement).getScreenCTM()!;
+      return [[27,50],[28,96]].map(([x,y])=>{
+        const point=new DOMPoint(x,y).matrixTransform(matrix);
+        return document.elementFromPoint(point.x,point.y)?.closest('[data-region]')?.getAttribute('data-region');
+      });
+    });
+    expect(hits[0]).toBe('sonnaldeung');
+    expect(hits[1]).toBe('illustration-hand-side');
+  }
+});
+
 test('zona em revisão tem apenas duas linhas e não consulta ficha técnica',async({page})=>{
   await emptyCatalog(page);
   const queries:string[]=[];
