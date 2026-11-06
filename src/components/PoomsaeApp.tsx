@@ -23,14 +23,14 @@ export function PoomsaeSequence({form,steps}:{form:PoomsaeForm;steps:PoomsaeStep
 // Índice educativo com nomes e simbolismo resumidos a partir das descrições
 // públicas da Kukkiwon, separado do banco de sequências técnicas homologadas.
 const taegeukIndex = [
-  { number: 1, symbol: "Céu", note: "Primeiros fundamentos e início da prática." },
-  { number: 2, symbol: "Lago", note: "Calma e controle da respiração e das emoções." },
-  { number: 3, symbol: "Fogo", note: "Clareza, energia e movimentos decididos." },
-  { number: 4, symbol: "Trovão", note: "Movimento e expressão dinâmica de força." },
-  { number: 5, symbol: "Vento", note: "Alternância de suavidade e intensidade." },
-  { number: 6, symbol: "Água", note: "Continuidade e adaptação do movimento." },
-  { number: 7, symbol: "Montanha", note: "Estabilidade e uso consciente das articulações." },
-  { number: 8, symbol: "Terra", note: "Integração dos fundamentos desenvolvidos nas formas anteriores." },
+  { number: 1, boardNo: 1347, symbol: "Céu", note: "Primeiros fundamentos e início da prática." },
+  { number: 2, boardNo: 1349, symbol: "Lago", note: "Calma e controle da respiração e das emoções." },
+  { number: 3, boardNo: 1350, symbol: "Fogo", note: "Clareza, energia e movimentos decididos." },
+  { number: 4, boardNo: 1351, symbol: "Trovão", note: "Movimento e expressão dinâmica de força." },
+  { number: 5, boardNo: 1352, symbol: "Vento", note: "Alternância de suavidade e intensidade." },
+  { number: 6, boardNo: 1353, symbol: "Água", note: "Continuidade e adaptação do movimento." },
+  { number: 7, boardNo: 1354, symbol: "Montanha", note: "Estabilidade e uso consciente das articulações." },
+  { number: 8, boardNo: 1355, symbol: "Terra", note: "Integração dos fundamentos desenvolvidos nas formas anteriores." },
 ] as const;
 const kukkiwonPoomsaeSource = "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72";
 
@@ -69,6 +69,7 @@ export default function PoomsaeApp() {
           <h3>Taegeuk {form.number} Jang</h3>
           <p><strong>Símbolo: {form.symbol}</strong></p>
           <p>{form.note}</p>
+          <a className="inline-link" target="_blank" rel="noreferrer" href={`https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=${form.boardNo}&menuLevel=3&menuNo=72`}>Ler a descrição original na Kukkiwon →</a>
         </article>)}
       </div>
       <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
