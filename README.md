@@ -100,7 +100,7 @@ O repositório está público, **mas a licença de código, a licença da base t
 - [Catálogo, Poomsae e recursos](docs/FEATURES.md)
 - [Política de versões](docs/VERSIONING.md) e [changelog](CHANGELOG.md)
 - [Releases e deploy](docs/GITHUB_RELEASES.md)
-- [Governança e decisões](docs/GOVERNANCE.md)
+- [Governança e decisões](docs/GOVERNANCE.md) · [Índice de ADRs](docs/DECISIONS.md)
 - [Política editorial](docs/CONTENT_POLICY.md) e [revisão humana](docs/EDITORIAL_REVIEW.md)
 - [Roadmap e limites conhecidos](docs/ROADMAP.md)
 - [Segurança](SECURITY.md), [conduta](CODE_OF_CONDUCT.md) e [contribuição](CONTRIBUTING.md)
