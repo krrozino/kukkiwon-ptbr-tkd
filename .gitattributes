@@ -4,4 +4,4 @@ content/research/**/original/** -text whitespace=cr-at-eol
 # Human findings remain in document-audit.json and the Markdown audit reports.
 content/research/**/audit.json linguist-generated=true
 content/research/**/inventory.json linguist-generated=true
-content/research/**/candidates.csv linguist-generated=true
+content/research/**/candidates.csv -text whitespace=cr-at-eol linguist-generated=true
