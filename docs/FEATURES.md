@@ -4,7 +4,7 @@ Este documento diferencia **funcionalidade desenvolvida**, **dados efetivamente 
 
 ## Recursos educativos
 
-| Módulo | Funcionalidade no código (candidata 0.2.0) | Restrições atuais |
+| Módulo | Recurso da v0.2.0 publicada | Restrições atuais |
 | --- | --- | --- |
 | Página inicial | Acesso ao atlas, currículos, estudos, Poomsae e categorias de movimentos | Verificar Release implantada |
 | Atlas corporal | Silhueta com vistas, zoom, regiões selecionáveis, recortes de mãos/pés e textos anatômicos em PT-BR | Ilustrativo; alguns ajustes de recorte dependem de homologação humana |
@@ -26,7 +26,7 @@ Este documento diferencia **funcionalidade desenvolvida**, **dados efetivamente 
 
 ## Por que ainda há fichas vazias?
 
-Na conferência de 06/11/2026 havia 105 `technical_terms` com `publication_status='draft'` e zero com `published` no Supabase remoto. É uma escolha deliberada de proteção editorial — não uma falha genérica de conexão. A pesquisa na pasta `content/` e os registros no banco têm históricos e contagens diferentes. O conteúdo introdutório da candidata 0.2.0 busca permitir aprendizado sem atribuir validação a esses rascunhos.
+Na conferência de 06/11/2026 havia 105 `technical_terms` com `publication_status='draft'` e zero com `published` no Supabase remoto. É uma escolha deliberada de proteção editorial — não uma falha genérica de conexão. A pesquisa na pasta `content/` e os registros no banco têm históricos e contagens diferentes. O conteúdo introdutório publicado na v0.2.0 permite aprendizado sem atribuir validação a esses rascunhos.
 
 ## Critérios de aceitação para declarar recurso funcional
 
