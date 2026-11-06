@@ -24,7 +24,7 @@ export default function ResearchWorkbench() {
   const loadVersion = useRef(0);
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
-  const categories = useMemo(() => [...new Set(bundle?.records.map(r => r.normalized.category) || [])].sort(), [bundle]);
+  const categories = useMemo(() => [...new Set(bundle?.records.map(r => r.normalized.category) || [])].sort((a, b) => a.localeCompare(b, "pt-BR")), [bundle]);
   const matches = useMemo(() => (bundle?.records || []).filter((r, i) =>
     (!category || r.normalized.category === category) && (!status || r.audit_status === status) &&
     (!batch || Math.floor(i / 20) === Number(batch) - 1) && searchResearchRecord(r, query) &&
@@ -75,7 +75,7 @@ export default function ResearchWorkbench() {
     {error && <p role="alert" className="research-alert">{error}</p>}
     {notice && <p className="fine-print" aria-live="polite">{notice}</p>}
     {bundle && <>
-      <p role="status"><strong>{bundle.records.length} candidatos em pesquisa. Nenhum aprovado.</strong> PDF: {bundle.metadata.pdf_pages} páginas. Comparação: {bundle.existing_terms.length} registros existentes.</p>
+      <p><output><strong>{bundle.records.length} candidatos em pesquisa. Nenhum aprovado.</strong> PDF: {bundle.metadata.pdf_pages} páginas. Comparação: {bundle.existing_terms.length} registros existentes.</output></p>
       <details className="research-session" open={!session}>
         <summary>Sessão de revisão {session ? `· ${session.actor_name} · ${session.events.length} eventos` : "· iniciar ou reabrir"}</summary>
         <p>Use sua identificação real. Este registro local é uma declaração do autor das observações; não autentica identidade nem concede aprovação. O histórico existe nesta aba até você exportá-lo.</p>

@@ -1,6 +1,6 @@
 import { safeResearchUrl, type AuditedResearchRecord } from "../../lib/research-audit";
 
-export default function ResearchCandidateView({ record: r }: { record: AuditedResearchRecord }) {
+export default function ResearchCandidateView({ record: r }: Readonly<{ record: AuditedResearchRecord }>) {
   return <article>
     <p className="tag">Pesquisa · {r.audit_status} · não publicável</p>
     <h3>{r.normalized.romanization || r.normalized.slug}</h3><p lang="ko">{r.normalized.hangul}</p>
@@ -20,11 +20,11 @@ export default function ResearchCandidateView({ record: r }: { record: AuditedRe
     </section>)}
     {!!r.duplicate_candidate_ids.length && <p className="research-alert">Possíveis duplicatas internas: {r.duplicate_candidate_ids.join(', ')}. Nenhum candidato foi removido.</p>}
     <h4>Evidências documentais</h4>
-    {r.evidence.length ? <ul>{r.evidence.map((e, i) => <li key={i}><strong>{e.fields.join(', ')}</strong>: {e.finding}<br/>{safeResearchUrl(e.url) && <a href={e.url} target="_blank" rel="noopener noreferrer">{e.source_id}</a>} · {e.locator}</li>)}</ul> : <p>Sem evidência individual acessada registrada. O rótulo {String(r.original.evidence_label_in_pdf || '—')} veio do PDF e não comprova a informação.</p>}
-    {!!r.proposed_corrections.length && <><h4>Propostas documentais de correção</h4><ul>{r.proposed_corrections.map((p, i) => <li key={i}><strong>{p.field}</strong><pre>{p.original}</pre><span>Proposta:</span><pre>{p.proposed}</pre><p>{p.reason} · {p.source_id} · {p.locator}</p></li>)}</ul></>}
+    {r.evidence.length ? <ul>{r.evidence.map(e => <li key={[e.source_id, e.locator, ...e.fields, e.finding].join("|")}><strong>{e.fields.join(', ')}</strong>: {e.finding}<br/>{safeResearchUrl(e.url) && <a href={e.url} target="_blank" rel="noopener noreferrer">{e.source_id}</a>} · {e.locator}</li>)}</ul> : <p>Sem evidência individual acessada registrada. O rótulo {(typeof r.original.evidence_label_in_pdf === "string" ? r.original.evidence_label_in_pdf : "—")} veio do PDF e não comprova a informação.</p>}
+    {!!r.proposed_corrections.length && <><h4>Propostas documentais de correção</h4><ul>{r.proposed_corrections.map(p => <li key={[p.field, p.source_id, p.locator, p.original, p.proposed].join("|")}><strong>{p.field}</strong><pre>{p.original}</pre><span>Proposta:</span><pre>{p.proposed}</pre><p>{p.reason} · {p.source_id} · {p.locator}</p></li>)}</ul></>}
     <h4>Campos incompletos e alertas de extração</h4>
     <p>{r.incomplete_fields.length ? r.incomplete_fields.join(', ') : 'Os campos esperados estão preenchidos. Isso não comprova sua correção.'}</p>
     {r.original.normalization_issues.length ? <ul>{r.original.normalization_issues.map((flag, i) => <li key={i}>{flag}</li>)}</ul> : <p>Sem alertas automáticos de fragmentação.</p>}
-    <details><summary>Ver todas as colunas originais</summary><ol>{r.original.raw_columns.map((cell, i) => <li key={i}><pre className="research-raw">{cell || '—'}</pre></li>)}</ol></details>
+    <details><summary>Ver todas as colunas originais</summary><ol>{r.original.raw_columns.map((cell, i) => <li key={r.candidate_id + ":original-column:" + i}><pre className="research-raw">{cell || '—'}</pre></li>)}</ol></details>
   </article>;
 }

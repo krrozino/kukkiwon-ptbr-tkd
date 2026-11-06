@@ -2,7 +2,7 @@ import { useState, type SubmitEvent } from "react";
 import type { AuditedResearchRecord } from "../../lib/research-audit";
 import { candidateReviewState, proposalFields, reviewChecklist, type ChecklistKey, type ReviewInput, type ReviewSession } from "../../lib/research-session";
 
-export default function ResearchReviewPanel({ record, session, onEvent }: { record: AuditedResearchRecord; session: ReviewSession | null; onEvent: (input: ReviewInput) => boolean }) {
+export default function ResearchReviewPanel({ record, session, onEvent }: Readonly<{ record: AuditedResearchRecord; session: ReviewSession | null; onEvent: (input: ReviewInput) => boolean }>) {
   const [note, setNote] = useState(""); const [field, setField] = useState<string>(proposalFields[0]);
   const [proposed, setProposed] = useState(""); const [reason, setReason] = useState("");
   const [url, setUrl] = useState(""); const [locator, setLocator] = useState("");
@@ -21,7 +21,7 @@ export default function ResearchReviewPanel({ record, session, onEvent }: { reco
     </form>
     <details><summary>Propor correção com justificativa e evidência</summary><form onSubmit={submitProposal}>
       <label>Campo da proposta<select value={field} onChange={e => setField(e.target.value)} disabled={!session}>{proposalFields.map(k => <option key={k}>{k}</option>)}</select></label>
-      <p>Valor original preservado:</p><pre>{String(record.original[field] || '—')}</pre>
+      <p>Valor original preservado:</p><pre>{(typeof record.original[field] === "string" ? record.original[field] : "—")}</pre>
       <label>Valor proposto<textarea value={proposed} onChange={e => setProposed(e.target.value)} required maxLength={5000} disabled={!session}/></label>
       <label>Justificativa<textarea value={reason} onChange={e => setReason(e.target.value)} minLength={10} maxLength={5000} required disabled={!session}/></label>
       <label>URL HTTPS da evidência<input value={url} onChange={e => setUrl(e.target.value)} type="url" required maxLength={2000} disabled={!session}/></label>
