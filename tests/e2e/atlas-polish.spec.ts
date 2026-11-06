@@ -115,7 +115,7 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   if(isMobile) await target.tap();
   else await target.click();
   await expect(target).toHaveAttribute("aria-pressed","true");
-  await expect(page.getByRole("tooltip")).toContainText("Zona ilustrativa");
+  await expect(page.getByRole("tooltip")).toContainText("Parte dianteira da planta");
   const after=await page.evaluate(()=>({scrollY,pageHeight:document.documentElement.scrollHeight}));
   expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
   expect(Math.abs(after.pageHeight-before.pageHeight)).toBeLessThan(8);
