@@ -29,7 +29,7 @@ test('região técnica da borda do polegar mantém posição ao refinar os dedos
   }
 });
 
-test('zona em revisão tem apenas duas linhas e não consulta ficha técnica',async({page})=>{
+test('zona ilustrada explica a anatomia sem consultar ficha técnica não publicada',async({page})=>{
   await emptyCatalog(page);
   const queries:string[]=[];
   page.on('request',r=>{if(r.url().includes('/technical_terms'))queries.push(r.url());});
@@ -63,7 +63,7 @@ for(const area of ['hands','feet']) {
     const slug=area==='hands'?'sonnal':'balnal';
     await page.locator('[data-legend-zone="'+slug+'"]').click();
     await expect(page.locator('.detail-svg [data-region="'+slug+'"]')).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText('Borda do lado do dedo mínimo');
+    await expect(page.getByRole('tooltip')).toContainText(area==='hands'?'Borda do lado do dedo mínimo':'Borda externa do pé');
   });
 }
 
