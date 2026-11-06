@@ -56,7 +56,7 @@ test("recortes coloridos persistem em produção mesmo sem regiões técnicas pu
   expect(color).not.toBe("none");
   expect(color).not.toBe("transparent");
   if(isMobile)await cutouts.first().tap();else await cutouts.first().hover();
-  await expect(page.getByRole("tooltip")).toContainText("Região anatômica ilustrativa");
+  await expect(page.getByRole("tooltip")).toContainText("Recorte anatômico ilustrativo");
   await expect(page.getByRole("tooltip")).not.toContainText("Sonnal");
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
   await expect(cutouts.first()).toBeVisible();
@@ -106,6 +106,7 @@ test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
   await expect(buttons).toHaveCount(3);
   await page.getByRole("button",{name:"Punho",exact:true}).click();
-  await expect(buttons).toHaveCount(2);
+  // Dorso do punho: punho, dorso do punho e borda do punho.
+  await expect(buttons).toHaveCount(3);
   if(isMobile)expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
