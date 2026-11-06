@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import KoreanExpression from './KoreanExpression';
 import { fetchTermDetails, isCatalogConfigured } from "../lib/catalog-api";
 import { Pronunciation } from "./TermContext";
 import FavoriteButton from "./FavoriteButton";
@@ -65,11 +66,11 @@ export default function FichaTecnica() {
           aprovadas.
         </p>
       )}
-      <h1>{term.romanization}</h1>
+      <h1><KoreanExpression expressionId={term.slug} fallback={term.romanization} publishedTerm={term}/></h1>
       <FavoriteButton slug={term.slug} title={term.romanization} />
       {term.hangul && (
         <p lang="ko" className="hangul">
-          {term.hangul}
+          <KoreanExpression expressionId={term.slug} script="hangul" fallback={term.hangul} publishedTerm={term}/>
         </p>
       )}
       {term.translation_pt && <p className="lead">{term.translation_pt}</p>}

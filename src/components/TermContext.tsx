@@ -1,31 +1,8 @@
-import { useEffect, useState } from "react";
-import { fetchTermDetails } from "../lib/catalog-api";
 import FavoriteButton from "./FavoriteButton";
-export type TermDetail = NonNullable<
-  Awaited<ReturnType<typeof fetchTermDetails>>
->;
-export function useTermDetail(slug: string | null) {
-  const [detail, setDetail] = useState<TermDetail | null>(null),
-    [error, setError] = useState(false);
-  useEffect(() => {
-    setDetail(null);
-    setError(false);
-    if (!slug) return;
-    const c = new AbortController();
-    fetchTermDetails(slug, c.signal)
-      .then((d) => {
-        if (!c.signal.aborted) {
-          setDetail(d);
-          if (!d) setError(true);
-        }
-      })
-      .catch(() => {
-        if (!c.signal.aborted) setError(true);
-      });
-    return () => c.abort();
-  }, [slug]);
-  return { detail, error };
-}
+import {useTermDetail,type TermDetail} from '../lib/use-term-detail';
+export {useTermDetail} from '../lib/use-term-detail';
+export type {TermDetail} from '../lib/use-term-detail';
+import KoreanExpression from './KoreanExpression';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
   return (
     <div className="pronunciation">
@@ -101,9 +78,9 @@ export default function TermContext({
               Rascunho não validado · tradução e execução aguardam revisão.
             </p>
           )}
-          <h3>{detail.term.romanization}</h3>
+          <h3><KoreanExpression expressionId={detail.term.slug} fallback={detail.term.romanization} publishedTerm={detail.term}/></h3>
           <p lang="ko" className="hangul">
-            {detail.term.hangul}
+            <KoreanExpression expressionId={detail.term.slug} script="hangul" fallback={detail.term.hangul} publishedTerm={detail.term}/>
           </p>
           <p>
             <strong>{detail.term.translation_pt}</strong>

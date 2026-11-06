@@ -19,6 +19,8 @@ jobs:
       - run: npm run build
       - run: npm run preview:prepare
       - run: npx playwright install --with-deps chromium
+      - name: Conferir isolamento do glossário no pacote público
+        run: node tools/local-validation/glossary-public.mjs
       - run: npm run test:ui
       - name: Exibir contexto de erro se falhar teste de interface
         if: failure()

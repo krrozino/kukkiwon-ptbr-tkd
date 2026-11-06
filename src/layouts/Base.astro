@@ -4,6 +4,8 @@ const { title = 'Taekwondo para Todos' } = Astro.props;
 const links=[
   {label:'Catálogo',href:'/catalogo'},
   {label:'Atlas corporal',href:'/atlas'},
+  {label:'Glossário',href:'/glossario'},
+  {label:'Fundamentos',href:'/fundamentos/alturas-e-direcoes'},
   {label:'Currículos',href:'/curriculos'},
   {label:'Meus estudos',href:'/estudos'},
   {label:'Escolas',href:'/escolas'},
@@ -15,6 +17,7 @@ const path=Astro.url.pathname.replace(/\/$/,'')||'/';
 <html lang="pt-BR">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Plataforma educacional independente de Taekwondo com atlas interativo, currículos e referências documentais."/><title>{title}</title></head>
 <body>
+{import.meta.env.PUBLIC_GLOSSARY_REVIEW==='true'&&<aside class="glossary-review-banner">PRÉVIA LOCAL DO GLOSSÁRIO · conteúdo ainda não aprovado, para conferência.</aside>}
 {import.meta.env.PUBLIC_CONTENT_REVIEW==='true'&&<aside class="review-banner">PRÉVIA DE REVISÃO · 108 rascunhos não validados. Traduções e técnicas aguardam revisão humana.</aside>}
 <header class="site-header">
   <nav class="shell site-navigation" aria-label="Menu principal">
