@@ -1,6 +1,14 @@
 # Histórico de alterações
 
-As versões **realmente publicadas** são registradas em [GitHub Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases), com tags SemVer de acordo com package.json.
+As versões **realmente publicadas** são registradas em [GitHub Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases), com tags SemVer de acordo com package.json. A classificação MAJOR/MINOR/PATCH segue [docs/VERSIONING.md](docs/VERSIONING.md).
+
+## Documentação e governança — em desenvolvimento, sem release própria
+
+- README público atualizado para explicar o projeto, seu estado real, limitações e como contribuir.
+- Índice, arquitetura, recursos, guia local, governança, roadmap, segurança operacional e runbook de release reorganizados em `docs/`.
+- Política de versionamento MAJOR (mudanças gigantes), MINOR (grandes/médias) e PATCH (pequenas, incluindo conteúdo técnico revisado).
+- Notion como base interna para decisões ADR, roadmap e riscos; implementações e contratos permanecem no GitHub.
+- Mudanças somente documentais não geram deploy ou tag por si. Incluir no próximo PATCH de distribuição, se aplicável.
 
 ## v0.2.0 — atlas explicativo e aprendizado introdutório (candidato)
 
