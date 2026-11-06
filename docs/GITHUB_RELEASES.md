@@ -24,6 +24,16 @@ Nunca inserir tokens em prompt, código, Issues, arquivos, commit ou comentário
 - GitHub Release só é criada se deploy e smoke test passarem. Smoke HTTP não substitui revisão visual no celular ou revisão de conteúdo.
 - Se o deploy passar e o job da release falhar, reexecute **somente o job falho**, não a publicação toda.
 
+## Validação de preflight da publicação
+
+O fluxo manual exige uma execução **push → Validacao (sem deploy)** concluída com sucesso para o **SHA exato da main** que será publicado. Testes verdes de PR, de outra branch ou de commit anterior não são suficientes. O workflow consulta os próprios resultados do GitHub Actions por token de leitura `actions:read`; falhas de consulta bloqueiam o deploy.
+
+A publicação oficial exige `criar_release=true`. A verificação de tags já existentes independe desse sinalizador e falha fechada caso não consiga consultar o remoto: não se pode publicar novamente uma versão já etiquetada nem avançar com estado de tags desconhecido. Se o deploy tiver sido concluído, mas a criação da Release falhar, execute **somente o job de Release que falhou**, conforme descrito acima.
+
+O pacote oficial mantém `PUBLIC_CONTENT_REVIEW=false` e `PUBLIC_KNOWLEDGE_SCHEMA=false`. Os recursos `PUBLIC_SPRINT02_SCHEMA` e `PUBLIC_SPRINT03_STORAGE` permanecem habilitados porque as migrações respectivas foram aplicadas e testadas no projeto dedicado em 05/11/2026 (consulte `docs/SPRINT_02.md` e `docs/SPRINT_03.md`). **Isso não se estende à migração privada de pesquisa/Poomsae de 06/11**, que ainda exige avaliação e aplicação separadas.
+
+O preflight confirma código e histórico de CI, mas **não substitui** a verificação de Secrets e Environment `production`, a revisão manual do banco, a homologação Auth/Storage hospedados nem a permissão expressa de publicar. O fluxo não realiza migrações ou libera registros editoriais.
+
 ## Aumentar versão
 Criar uma PR que altere package.json e package-lock.json simultaneamente (ex.: npm version 0.2.0 --no-git-tag-version), com changelog e testes. Não criar tag antecipada; o workflow cria a tag a partir do commit publicado.
 

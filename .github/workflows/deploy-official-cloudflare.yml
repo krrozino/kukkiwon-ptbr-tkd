@@ -25,6 +25,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: kukkiwon-official-production
@@ -43,6 +44,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Exigir CI verde de push na main para este commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/workflows/check.yml/runs?event=push&branch=main&head_sha=$GITHUB_SHA&per_page=100" |
+            node scripts/release-ci-gate.mjs
       - name: Validar versão e evitar release duplicada
         env:
           RELEASE_TAG: ${{ inputs.versao }}
@@ -59,9 +68,19 @@ jobs:
             echo "::error::A tag deve corresponder à versão do package.json (v$VERSION)."
             exit 1
           fi
-          if [[ "$CREATE_RELEASE" == "true" ]] && git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+          if [[ "$CREATE_RELEASE" != "true" ]]; then
+            echo "::error::Publicação oficial exige GitHub Release versionada."
+            exit 1
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" >/dev/null; then
             echo "::error::Tag já existente: $RELEASE_TAG. Não repetir o deploy para a mesma versão."
             exit 1
+          else
+            tag_status=$?
+            if [[ "$tag_status" -ne 2 ]]; then
+              echo "::error::Não foi possível conferir a existência da tag; publicação bloqueada."
+              exit 1
+            fi
           fi
           echo "Versão: $RELEASE_TAG; commit: $GITHUB_SHA"
       - name: Exigir credenciais oficiais para Cloudflare e projeto dedicado
@@ -80,6 +99,7 @@ jobs:
       - name: Validar release
         run: |
           npm run content:check
+          npm run research:audit
           npm run check
           npm test
       - name: Compilar site oficial sem rascunhos públicos
@@ -87,6 +107,7 @@ jobs:
           PUBLIC_CONTENT_REVIEW: "false"
           PUBLIC_SPRINT02_SCHEMA: "true"
           PUBLIC_SPRINT03_STORAGE: "true"
+          PUBLIC_KNOWLEDGE_SCHEMA: "false"
           PUBLIC_SUPABASE_URL: https://acbostnsohltuaegfkwl.supabase.co
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
           ASTRO_TELEMETRY_DISABLED: "1"
