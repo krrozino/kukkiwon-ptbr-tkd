@@ -12,6 +12,7 @@ import DetailMap from "./atlas/DetailMap";
 import BodyRegionMap from "./atlas/BodyRegionMap";
 import TermContext from "./TermContext";
 import { surfaces } from "./atlas/surfaces";
+import AtlasRelations, {regionContextSlug} from './AtlasRelations';
 type Location = {
   area: Area;
   region: string | null;
@@ -25,13 +26,6 @@ const initial: Location = {
   view: "front",
   detailView: "front",
   zoom: false,
-};
-const relationLabels = {
-  surface: "Superfície de contato",
-  target: "Alvo",
-  movement: "Movimento",
-  anatomy: "Parte anatômica",
-  other: "Outro vínculo",
 };
 export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
@@ -153,6 +147,7 @@ export default function Atlas() {
     return () => c.abort();
   }, [location.area, ready, retry]);
   const selected = regions.find((r) => r.slug === location.region) || null;
+  const selectedContextSlug = contextSlug || (selected ? regionContextSlug(selected.slug,links) : null);
   useEffect(() => {
     setLinks([]);
     setLinkError("");
@@ -356,7 +351,7 @@ export default function Atlas() {
             </ul>
             {selected ? (
               <section aria-label="Técnicas associadas">
-                <TermContext slug={contextSlug || selected.slug} />
+                {selectedContextSlug&&<TermContext slug={selectedContextSlug}/>}
                 <h3>Relações com o catálogo</h3>
                 {linksLoading ? (
                   <p role="status">Carregando técnicas associadas...</p>
@@ -372,39 +367,7 @@ export default function Atlas() {
                     As técnicas associadas a esta região aparecerão após a conferência das referências.
                   </p>
                 ) : (
-                  <ul>
-                    {links
-                      .filter((l) => l.technical_terms)
-                      .map((l) => (
-                        <li key={l.term_id + l.usage_context}>
-                          <a
-                            href={
-                              "/tecnica?slug=" +
-                              encodeURIComponent(l.technical_terms!.slug)
-                            }
-                          >
-                            {l.technical_terms!.romanization}
-                          </a>
-                          <button
-                            className="context-link"
-                            onClick={() =>
-                              setContextSlug(l.technical_terms!.slug)
-                            }
-                          >
-                            Ver aqui: {l.technical_terms!.romanization}
-                          </button>
-                          {l.technical_terms!.translation_pt &&
-                            " — " + l.technical_terms!.translation_pt}
-                          <span className="relationship-label">
-                            {
-                              relationLabels[
-                                l.anatomical_role || l.usage_context
-                              ]
-                            }
-                          </span>
-                        </li>
-                      ))}
-                  </ul>
+                  <AtlasRelations links={links} onPreview={setContextSlug}/>
                 )}
                 <a
                   href={"/catalogo?region=" + encodeURIComponent(selected.slug)}

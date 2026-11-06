@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import PoomsaeApp from '../components/PoomsaeApp';
+---
+<Base title="Poomsae — Taekwondo para Todos">
+  <section class="shell section">
+    <p class="tag">Formas e movimentos</p><h1>Poomsae</h1>
+    <p class="lead">Consulte sequências documentadas e as técnicas relacionadas a cada movimento publicado.</p>
+    <PoomsaeApp client:load/>
+  </section>
+</Base>

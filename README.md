@@ -36,6 +36,10 @@ O novo catálogo depende da migração proposta nesta sprint; ela não é aplica
 
 O comando `content:check` valida todos os lotes de pesquisa. `node scripts/content.mjs --sql kukkiwon-2012-expansion` gera SQL para revisão, sem conectar ao banco. A CI verifica dados, permissões, busca e interface; não importa rascunhos nem faz deploy.
 
+A pesquisa Gemini tem [auditoria documental por campo](docs/research/2026-11-06-documentary-audit.md), [inventário e comparação reproduzíveis](content/research/gemini-2026-11-06/AUDIT_REPORT.md) e [laboratório local de observações e propostas](docs/research/LOCAL_WORKBENCH.md). Use `npm run research:audit` para conferir os artefatos versionados. Todos os 115 candidatos continuam em pesquisa/rascunho, sem promoção para o catálogo.
+
+As [fundações relacionais](docs/KNOWLEDGE_MODEL.md) reutilizam o catálogo e acrescentam pesquisa privada, evidências por campo e relações de Poomsae. A [integração pública](docs/KNOWLEDGE_INTEGRATION.md) oferece referências, vínculos explícitos, Poomsae e exercícios derivados somente de conteúdo elegível. `PUBLIC_KNOWLEDGE_SCHEMA` permanece desativado por padrão; a migração proposta não é aplicada automaticamente nem executada remotamente nesta missão.
+
 `npm run preview:prepare` gera uma prévia sem conexão remota em `.preview-build/` e executa Wrangler apenas em dry run. `npm run preview:check` valida esse pacote em um Worker local. Para a validação adicional PostgreSQL/PostgREST, consulte [as ferramentas isoladas](tools/local-validation/README.md). A ferramenta não aceita uma conexão de banco remoto.
 
 ## GitHub Releases e versionamento
