@@ -8,6 +8,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {randomBytes,randomUUID} from 'node:crypto';
 import {generateImportSql} from '../../scripts/content.mjs';
 import {launchService} from './process.mjs';
+import {storageSchema} from '../../tests/helpers/storage-schema.mjs';
 
 export const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const require=createRequire(new URL('./package.json',import.meta.url));
@@ -61,6 +62,7 @@ export async function startLocalRuntime() {
     await client.connect();
     await client.query("create role anon nologin; create role authenticated nologin; grant usage on schema public to anon,authenticated;");
     await client.query("create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select coalesce(nullif(current_setting('request.jwt.claim.sub',true),''),nullif(current_setting('request.jwt.claims',true),'')::jsonb->>'sub')::uuid$$;grant usage on schema auth to anon,authenticated;");
+    await client.query(storageSchema);
     await client.query("create role authenticator noinherit login password '"+pwd+"'; grant anon,authenticated to authenticator;");
     // Reproduz o estado legado do projeto dedicado antes da migração da Sprint 01.
     for(const file of ['20261103205602_catalogo_publico_inicial.sql','20261103220044_atlas_media_e_integridade_de_fontes.sql']) {
@@ -76,8 +78,19 @@ export async function startLocalRuntime() {
     const first=JSON.parse(readFileSync(join(root,'content/review/kukkiwon-2012-first20.json'),'utf8'));
     const sonnal=JSON.parse(readFileSync(join(root,'content/review/sprint02-sonnal-variants.json'),'utf8'));
     await client.query(generateImportSql(sonnal,[first,expansion]));
+    await client.query(readFileSync(join(root,'supabase/migrations/20261105203201_sprint03_school_images.sql'),'utf8'));
+    const snapshotCatalog=async()=>{
+      const catalog={};
+      for(const table of ['technical_terms','content_sources','term_sources','term_aliases','term_relations','body_regions','body_region_terms','term_media']) {
+        catalog[table]=(await client.query(`select coalesce(jsonb_agg(to_jsonb(record) order by to_jsonb(record)::text),'[]') data from public.${table} record`)).rows[0].data;
+      }
+      return catalog;
+    };
+    const catalogBeforeKnowledge=await snapshotCatalog();
+    await client.query(readFileSync(join(root,'supabase/migrations/20261106152500_knowledge_research_and_poomsae.sql'),'utf8'));
+    const catalogAfterKnowledge=await snapshotCatalog();
     const version=(await client.query('select version()')).rows[0].version;
-    return {client,secret,runDir,logFile,version,apiUrl:'http://127.0.0.1:'+apiPort,stop,
+    return {client,secret,runDir,logFile,version,catalogBeforeKnowledge,catalogAfterKnowledge,apiUrl:'http://127.0.0.1:'+apiPort,stop,
       get postgrestVersion(){return postgrestVersion;},
       async startApi() {
         const environment={...process.env};

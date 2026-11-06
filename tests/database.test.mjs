@@ -89,7 +89,7 @@ describe('PostgreSQL isolado: busca, permissões e fontes', () => {
         has_table_privilege($1,c.oid,'INSERT,UPDATE,DELETE,TRUNCATE') as writable
         from pg_class c join pg_namespace n on n.oid=c.relnamespace
         where n.nspname='public' and c.relkind='r' and c.relname not in ('schools','school_curricula','school_terms','school_media')`,[role]);
-      expect(rows).toHaveLength(8);
+      expect(rows).toHaveLength(10);
       expect(rows.every(r=>r.relrowsecurity&&!r.writable)).toBe(true);
     }
   });
