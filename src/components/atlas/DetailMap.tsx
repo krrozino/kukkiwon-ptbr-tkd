@@ -1,7 +1,8 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import type { BodyRegion } from "../../lib/catalog-api";
 import type { View } from "./BodyMap";
-import { handOutline, footOutline, fistOutline, surfaces, handSurfaceSlugs, footSurfaceSlugs } from "./surfaces";
+import { handOutline, footOutline, fistOutline, surfaces } from "./surfaces";
+import { zonesFor } from "./zones";
 import { useTermDetail } from "../TermContext";
 type Props = {
   area: "hands" | "feet";
@@ -56,12 +57,7 @@ export default function DetailMap({
   // Always draw the original colored anatomical zones, regardless of the
   // editorial status of the related term. Unpublished zones are illustrative
   // only: no Hangul, romanization, translation or technical ficha is exposed.
-  const illustratedSlugs: readonly string[] = hand ? handSurfaceSlugs : footSurfaceSlugs;
-  const visible = illustratedSlugs
-    .filter(slug => {
-      const s = surfaces[slug];
-      return (s.view === view || s.view === "both") && (!hand || !!s.posture === fist);
-    })
+  const visible = zonesFor(area,view,fist).map(z=>z.id)
     .map(slug => regions.find(r => r.slug === slug) ?? ({
       id: "illustration-" + slug,
       slug,
