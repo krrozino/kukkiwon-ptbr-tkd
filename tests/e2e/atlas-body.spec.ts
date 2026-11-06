@@ -52,7 +52,7 @@ for(const [area,count] of [['head',5],['torso',4],['arms',4],['legs',3]] as cons
     const point=await target.evaluate(g=>new DOMPoint(Number(g.getAttribute('data-anchor-x')),Number(g.getAttribute('data-anchor-y'))).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
     if(isMobile)await page.touchscreen.tap(point.x,point.y);else await page.mouse.click(point.x,point.y);
     await expect(target).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toHaveText('Zona ilustrativaNome técnico em revisão');
+    await expect(page.getByRole('tooltip')).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Coxa'} as const)[area]);
     const id=await target.getAttribute('data-region');
     await expect(page.locator('[data-legend-zone="'+id+'"]')).toHaveAttribute('aria-pressed','true');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
