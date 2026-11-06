@@ -56,7 +56,7 @@ test("recortes coloridos persistem em produção mesmo sem regiões técnicas pu
   expect(color).not.toBe("none");
   expect(color).not.toBe("transparent");
   if(isMobile)await cutouts.first().tap();else await cutouts.first().hover();
-  await expect(page.getByRole("tooltip")).toContainText("Região anatômica ilustrativa");
+  await expect(page.getByRole("tooltip")).toContainText("Recorte anatômico ilustrativo");
   await expect(page.getByRole("tooltip")).not.toContainText("Sonnal");
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
   await expect(cutouts.first()).toBeVisible();
@@ -67,4 +67,46 @@ test("recortes coloridos persistem em produção mesmo sem regiões técnicas pu
   await expect(cutouts.first()).toBeVisible();
   expect(await cutouts.count()).toBeGreaterThanOrEqual(3);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+
+test("primeiro toque no pé seleciona a zona e não desloca a página",async({page,isMobile})=>{
+  await page.route("**/rest/v1/**",route=>route.fulfill({json:[]}));
+  await page.goto("/atlas?region=feet&zoom=1");
+  const target=page.locator('.surface-cutout[data-region="apchuk"]');
+  await expect(target).toBeVisible();
+  const before=await page.evaluate(()=>({scrollY, pageHeight:document.documentElement.scrollHeight}));
+  if(isMobile) await target.tap();
+  else await target.click();
+  await expect(target).toHaveAttribute("aria-pressed","true");
+  await expect(page.getByRole("tooltip")).toContainText("Recorte anatômico ilustrativo");
+  const after=await page.evaluate(()=>({scrollY,pageHeight:document.documentElement.scrollHeight}));
+  expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
+  expect(Math.abs(after.pageHeight-before.pageHeight)).toBeLessThan(8);
+  await expect(page.locator('[data-legend-zone="apchuk"]')).toHaveAttribute("aria-pressed","true");
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados",async({page,isMobile})=>{
+  await page.route("**/rest/v1/**",route=>route.fulfill({json:[]}));
+  await page.goto("/atlas?region=hands&zoom=1");
+  const legend=page.getByRole("navigation",{name:"Selecionar zona ilustrada"});
+  await expect(legend).toBeVisible();
+  const buttons=legend.getByRole("button");
+  await expect(buttons).toHaveCount(5);
+  await buttons.nth(1).click();
+  await expect(buttons.nth(1)).toHaveAttribute("aria-pressed","true");
+  await expect(page.getByRole("tooltip")).toContainText("Zona 02 de 05");
+  await expect(page.getByRole("tooltip")).not.toContainText("Batangson");
+  const inspector=page.locator(".surface-inspector");
+  const before=await inspector.boundingBox();
+  await buttons.nth(2).click();
+  const after=await inspector.boundingBox();
+  expect(Math.abs((before?.height||0)-(after?.height||0))).toBeLessThan(1);
+  await page.getByRole("button",{name:"Dorso",exact:true}).click();
+  await expect(buttons).toHaveCount(3);
+  await page.getByRole("button",{name:"Punho",exact:true}).click();
+  // Dorso do punho: punho, dorso do punho e borda do punho.
+  await expect(buttons).toHaveCount(3);
+  if(isMobile)expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

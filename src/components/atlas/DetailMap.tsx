@@ -27,8 +27,10 @@ export default function DetailMap({
     undefined,
   );
   const published = new Set(regions.map(r => r.slug));
-  // Fetch the technical ficha only for a region explicitly published via RLS.
-  const { detail } = useTermDetail(hover && published.has(hover.slug) ? hover.slug : null);
+  // Only public records can resolve official/technical text.
+  const activeSlug = selected || visualSelection;
+  // Keep the panel visible after tapping: mouse hover only changes the preview.
+  const { detail } = useTermDetail(hover && published.has(hover.slug) ? hover.slug : (activeSlug && published.has(activeSlug) ? activeSlug : null));
   useEffect(() => {
     if (selected) setFist(!!surfaces[selected]?.posture);
   }, [selected]);
@@ -41,7 +43,7 @@ export default function DetailMap({
   useEffect(()=>{
     const update=()=>{
       const width=canvasRef.current?.getBoundingClientRect().width ?? 0;
-      setPlacement(width>=465 && window.innerWidth>=900 ? "side" : "below");
+      setPlacement(width>=435 && window.innerWidth>=1000 ? "side" : "below");
     };
     update();
     const observer=typeof ResizeObserver!=="undefined" ? new ResizeObserver(update) : null;
@@ -68,7 +70,7 @@ export default function DetailMap({
       detail_x: null,
       detail_y: null,
     } satisfies BodyRegion))
-    .sort((a, b) => Number(a.slug === (selected || visualSelection)) - Number(b.slug === (selected || visualSelection)));
+    ;
   const leave = () => {
     clearTimeout(exitTimer.current);
     exitTimer.current = setTimeout(() => setHover(null), 160);
@@ -77,7 +79,16 @@ export default function DetailMap({
     clearTimeout(exitTimer.current);
     setHover(r);
   };
-  const anchor = hover && surfaces[hover.slug]?.anchor;
+  const focused = hover || visible.find(r => r.slug === activeSlug) || null;
+  const focusedIndex = focused ? visible.findIndex(r => r.slug === focused.slug) + 1 : 0;
+  const anchor = focused && surfaces[focused.slug]?.anchor;
+  const chooseSurface = (r: BodyRegion) => {
+    enter(r);
+    if (published.has(r.slug)) onSelect(r);
+    else setVisualSelection(r.slug);
+  };
+  const focusName = (r: BodyRegion, index: number) =>
+    published.has(r.slug) ? r.name_pt : `Zona ilustrativa ${index + 1} ${hand ? "da mão" : "do pé"}`;
   return (
     <div
       ref={canvasRef}
@@ -162,31 +173,33 @@ export default function DetailMap({
               data-region={r.slug}
               role="button"
               tabIndex={0}
-              aria-label={published.has(r.slug) ? r.name_pt : "Recorte anatômico ilustrativo da " + (hand ? "mão" : "região do pé")}
-              aria-pressed={(selected || visualSelection) === r.slug}
+              aria-label={focusName(r, visible.indexOf(r))}
+              aria-pressed={activeSlug === r.slug}
               aria-describedby={
-                hover?.slug === r.slug ? "surface-tooltip" : undefined
+                focused?.slug === r.slug ? "surface-tooltip" : undefined
               }
               className={
-                "surface-cutout " + ((selected || visualSelection) === r.slug ? "selected" : "")
+                "surface-cutout " + (activeSlug === r.slug ? "selected" : "")
               }
               style={{ "--surface-color": s.color } as CSSProperties}
               onPointerEnter={(e) => {
                 if (e.pointerType === "mouse") enter(r);
               }}
+              onPointerDown={(e) => {
+                // Select before the mobile browser dispatches click or scroll anchoring.
+                // Do not prevent default: touch scrolling must continue working.
+                if (e.pointerType === "touch" || e.pointerType === "pen") {
+                  enter(r);
+                  if (!published.has(r.slug)) setVisualSelection(r.slug);
+                }
+              }}
               onFocus={() => enter(r)}
               onBlur={leave}
-              onClick={() => {
-                enter(r);
-                if (published.has(r.slug)) onSelect(r);
-                else setVisualSelection(r.slug);
-              }}
+              onClick={() => chooseSurface(r)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  enter(r);
-                  if (published.has(r.slug)) onSelect(r);
-                  else setVisualSelection(r.slug);
+                  chooseSurface(r);
                 }
               }}
             >
@@ -206,43 +219,66 @@ export default function DetailMap({
           />
         )}
       </svg>
-      {hover ? (
-        <div
-          id="surface-tooltip"
-          key={hover.slug}
-          role="tooltip"
-          className="surface-tooltip"
-          data-placement={placement}
-        >
-          {published.has(hover.slug) ? (
-            <>
-              <strong>{hover.name_pt}</strong>
-              <span>{detail?.term.romanization || "Identificação em consulta"}</span>
-              <span lang="ko">{detail?.term.hangul || "Hangul em consulta"}</span>
-              <span>
-                Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}
-                {detail?.term.pronunciation_pt &&
-                detail.term.pronunciation_status !== "verified"
-                  ? " · provisória"
-                  : ""}
-              </span>
-              <small>
-                {detail?.term.definition_pt?.slice(0, 140) ||
-                  "Consulte os dados e vínculos desta superfície."}
-              </small>
-              <small>Toque ou clique para explorar ↓</small>
-            </>
-          ) : (
-            <>
-              <strong>Região anatômica ilustrativa</strong>
-              <span>Superfície de contato destacada</span>
-              <small>O recorte, a cor e suas divisões são esquemáticos.</small>
-              <small>O nome técnico e a ficha serão exibidos após a revisão do conteúdo.</small>
-              <small>Toque ou clique para destacar esta área.</small>
-            </>
-          )}
+      <section className="surface-inspector" aria-label="Detalhes da região selecionada">
+        {focused ? (
+          <div
+            id="surface-tooltip"
+            key={focused.slug}
+            role="tooltip"
+            className="surface-tooltip"
+            data-placement={placement}
+          >
+            <span className="surface-panel-eyebrow">Zona {String(focusedIndex).padStart(2, "0")} de {String(visible.length).padStart(2, "0")}</span>
+            {published.has(focused.slug) ? (
+              <>
+                <strong>{focused.name_pt}</strong>
+                <span>{detail?.term.romanization || "Identificação em consulta"}</span>
+                <span lang="ko">{detail?.term.hangul || "Hangul em consulta"}</span>
+                <span>Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}</span>
+                <small>{detail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
+                <small>Clique para consultar a ficha e suas referências.</small>
+              </>
+            ) : (
+              <>
+                <strong>Recorte anatômico ilustrativo</strong>
+                <span>Área colorida selecionada</span>
+                <small>Contorno e divisões esquemáticos, sem correspondência técnica homologada.</small>
+                <small>O nome técnico e a ficha aparecerão após a conferência das fontes.</small>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="surface-placeholder" aria-hidden="true">
+            <span className="surface-placeholder-icon">◎</span>
+            <strong>Explore as áreas coloridas</strong>
+            <small>Passe o mouse ou selecione uma zona. No celular, um toque basta.</small>
+          </div>
+        )}
+      </section>
+      <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
+        <div className="surface-legend-heading">
+          <strong>Mapa das áreas</strong>
+          <small>{visible.length} zonas nesta vista</small>
         </div>
-      ) : <div className="surface-tooltip-placeholder" aria-hidden="true" />}
+        <div className="surface-legend-items">
+          {visible.map((r, index) => (
+            <button
+              type="button"
+              key={r.id}
+              data-legend-zone={r.slug}
+              className={"surface-legend-button" + (activeSlug === r.slug ? " selected" : "")}
+              aria-label={focusName(r, index)}
+              aria-pressed={activeSlug === r.slug}
+              onMouseEnter={() => enter(r)}
+              onFocus={() => enter(r)}
+              onClick={() => chooseSurface(r)}
+            >
+              <span aria-hidden="true" className="surface-swatch" style={{ backgroundColor: surfaces[r.slug].color }} />
+              <span>Zona {String(index + 1).padStart(2, "0")}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
