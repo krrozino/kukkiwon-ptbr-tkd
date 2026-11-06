@@ -6,7 +6,7 @@ O site usa **uma única publicação oficial manual pelo GitHub Actions**, com u
 
 - Primeira Release confirmada: **[v0.1.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.1.0)** (prerelease), no SHA `445b04818690dfb19e05ad12dae3255ed97246ee`.
 - Execução de deploy comprovada: **[#42288285862](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42288285862)**, com Worker publicado, cinco rotas HTTP e GitHub Release.
-- `v0.2.0` estava no código da `main` após PR #37; no checkpoint de 06/11/2026 não existia GitHub Release confirmada para ela. **Conferir sempre o estado atual de Releases antes de publicar**.
+- **[v0.2.0](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.2.0)** foi publicada como prerelease em 06/11/2026 no SHA `d0b3a9db76257350a11043da3c3bc0a5f6088470`. Run oficial [#42296206029](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42296206029) PASS, incluindo isolamento editorial, Wrangler, cinco rotas e job de GitHub Release. **Conferir sempre o estado atual de Releases antes de publicar**.
 - Incidentes anteriores da v0.1.0: primeiro navegador Playwright ausente no runner, depois token Cloudflare inválido. Ambos foram corrigidos antes da execução bem-sucedida. Os run IDs de falha permanecem registrados nas Issues/logs.
 
 ## Pré-requisitos da publicação
@@ -50,7 +50,7 @@ gh workflow run deploy-official-cloudflare.yml `
   --repo krrozino/kukkiwon-ptbr-tkd `
   --ref main `
   -f confirmacao=PUBLICAR `
-  -f versao=v0.2.0 `
+  -f versao=vX.Y.Z `
   -f criar_release=true `
   -f prerelease=true
 ```
@@ -60,7 +60,7 @@ gh workflow run deploy-official-cloudflare.yml `
 Uma alternativa segura de linha única:
 
 ```powershell
-gh workflow run deploy-official-cloudflare.yml --repo krrozino/kukkiwon-ptbr-tkd --ref main -f confirmacao=PUBLICAR -f versao=v0.2.0 -f criar_release=true -f prerelease=true
+gh workflow run deploy-official-cloudflare.yml --repo krrozino/kukkiwon-ptbr-tkd --ref main -f confirmacao=PUBLICAR -f versao=vX.Y.Z -f criar_release=true -f prerelease=true
 ```
 
 ## O que o workflow faz (em ordem)
