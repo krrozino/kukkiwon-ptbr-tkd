@@ -20,6 +20,20 @@ export function PoomsaeSequence({form,steps}:{form:PoomsaeForm;steps:PoomsaeStep
   </article>;
 }
 
+// Índice educativo com nomes e simbolismo resumidos a partir das descrições
+// públicas da Kukkiwon, separado do banco de sequências técnicas homologadas.
+const taegeukIndex = [
+  { number: 1, symbol: "Céu", note: "Primeiros fundamentos e início da prática." },
+  { number: 2, symbol: "Lago", note: "Calma e controle da respiração e das emoções." },
+  { number: 3, symbol: "Fogo", note: "Clareza, energia e movimentos decididos." },
+  { number: 4, symbol: "Trovão", note: "Movimento e expressão dinâmica de força." },
+  { number: 5, symbol: "Vento", note: "Alternância de suavidade e intensidade." },
+  { number: 6, symbol: "Água", note: "Continuidade e adaptação do movimento." },
+  { number: 7, symbol: "Montanha", note: "Estabilidade e uso consciente das articulações." },
+  { number: 8, symbol: "Terra", note: "Integração dos fundamentos desenvolvidos nas formas anteriores." },
+] as const;
+const kukkiwonPoomsaeSource = "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72";
+
 export default function PoomsaeApp() {
   const enabled=isKnowledgeSchemaEnabled()&&isCatalogConfigured();
   const [forms,setForms]=useState<PoomsaeForm[]>([]),[selected,setSelected]=useState<string|null>(null);
@@ -44,7 +58,27 @@ export default function PoomsaeApp() {
   const form=forms.find(item=>item.term_id===selected);
   if(loading)return <p role="status">Consultando Poomsae publicados...</p>;
   if(error)return <div role="alert"><p>{error}</p><button onClick={()=>setRetry(value=>value+1)}>Tentar novamente</button></div>;
-  if(!forms.length)return <div className="empty" role="status"><h2>Poomsae em preparação</h2><p>As formas e seus movimentos aparecerão após conferência das fontes e aprovação editorial de cada registro.</p><div className="actions"><a href="/catalogo">Consultar catálogo</a><a href="/atlas">Explorar atlas corporal</a></div></div>;
+  if(!forms.length)return <section aria-label="Introdução às formas Taegeuk">
+    <div className="card">
+      <p className="tag">Conteúdo educativo de referência</p>
+      <h2>Conheça os oito Taegeuk</h2>
+      <p>Os nomes e os temas gerais das oito formas Taegeuk podem ser estudados desde já. As sequências passo a passo e os vínculos técnicos continuarão separados até a validação documental.</p>
+      <div className="grid">
+        {taegeukIndex.map(form=><article key={form.number} className="card">
+          <p className="tag">Forma {form.number} de 8</p>
+          <h3>Taegeuk {form.number} Jang</h3>
+          <p><strong>Símbolo: {form.symbol}</strong></p>
+          <p>{form.note}</p>
+        </article>)}
+      </div>
+      <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
+    </div>
+    <div className="empty" role="status">
+      <h2>Poomsae em preparação</h2>
+      <p>As sequências detalhadas aparecerão após conferência das fontes e aprovação editorial de cada movimento.</p>
+      <div className="actions"><a href="/catalogo">Consultar catálogo</a><a href="/curriculos">Montar currículo de estudos</a></div>
+    </div>
+  </section>;
   return <div><label className="field">Forma publicada<select value={selected||''} onChange={event=>{
     const id=event.target.value;setSelected(id);const item=forms.find(row=>row.term_id===id);if(item)history.replaceState(null,'','/poomsae?slug='+encodeURIComponent(item.technical_terms.slug));
   }}>{forms.map(item=><option key={item.term_id} value={item.term_id}>{item.technical_terms.romanization}</option>)}</select></label>
