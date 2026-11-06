@@ -37,7 +37,9 @@ test("atlas v2: recorte Sonnal, cascata e ficha na mesma tela", async ({
     const table = new URL(route.request().url()).pathname.split("/").pop();
     let data: unknown = [];
     if (table === "body_regions") data = [region];
-    if (table === "body_region_terms")
+    if (table === "body_region_terms" && new URL(route.request().url()).searchParams.has('term_id'))
+      data = [{usage_context: 'surface', body_regions: region}];
+    else if (table === "body_region_terms")
       data = [
         {
           term_id: term.id,
@@ -56,6 +58,8 @@ test("atlas v2: recorte Sonnal, cascata e ficha na mesma tela", async ({
           content_sources: {
             institution: "Fixture",
             title: "Documento de teste",
+            edition: null,
+            publication_year: null,
             official_url: "https://example.org/source",
           },
         },

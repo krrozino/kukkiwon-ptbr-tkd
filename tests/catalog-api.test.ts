@@ -1,5 +1,5 @@
 import { beforeEach, afterEach, it, expect, vi } from 'vitest';
-import { fetchCatalogPage, fetchCatalogFacets, fetchRegions, fetchTermDetails, createCatalogClient } from '../src/lib/catalog-api';
+import { fetchCatalogPage, fetchCatalogFacets, fetchRegions, fetchRegionTerms, fetchTermDetails, createCatalogClient } from '../src/lib/catalog-api';
 beforeEach(() => {
   vi.stubEnv('PUBLIC_SUPABASE_URL','https://acbostnsohltuaegfkwl.supabase.co');
   vi.stubEnv('PUBLIC_SUPABASE_PUBLISHABLE_KEY','sb_publishable_test');
@@ -35,6 +35,18 @@ it('rejeita resposta malformada, paginação inválida e configuração secreta'
 it('não devolve rascunhos mesmo se a API responder dados indevidos', async () => {
   vi.stubGlobal('fetch', async () => Response.json({items:[{slug:'private',publication_status:'draft'}],total:1}));
   await expect(fetchCatalogPage({})).rejects.toThrow(/resposta/i);
+});
+it('rejeita vínculo de atlas malformado antes de renderizar ou navegar', async () => {
+  vi.stubGlobal('fetch', async () => Response.json([{term_id:'t1',usage_context:'surface',anatomical_role:'surface',technical_terms:{slug:'../draft',romanization:'Inválido',translation_pt:null}}]));
+  await expect(fetchRegionTerms('r1')).rejects.toThrow(/resposta/i);
+});
+it('recusa técnica relacionada não publicada mesmo em uma ficha publicada', async () => {
+  vi.stubGlobal('fetch', async (url:string) => Response.json(new URL(url).pathname.endsWith('/technical_terms')?[{id:'t1',slug:'test-term',category:'fixture',romanization:'Fixture',hangul:null,translation_pt:null,definition_pt:null,pronunciation_pt:null,publication_status:'published'}]:new URL(url).pathname.endsWith('/term_relations')?[{relation_kind:'related',technical_terms:{slug:'draft',romanization:'Rascunho',publication_status:'draft'}}]:[]));
+  await expect(fetchTermDetails('test-term')).rejects.toThrow(/resposta/i);
+});
+it('rejeita referência documental malformada antes de renderizar a ficha', async () => {
+  vi.stubGlobal('fetch', async (url:string) => Response.json(new URL(url).pathname.endsWith('/technical_terms')?[{id:'t1',slug:'test-term',category:'fixture',romanization:'Fixture',hangul:null,translation_pt:null,definition_pt:null,pronunciation_pt:null,publication_status:'published'}]:new URL(url).pathname.endsWith('/term_sources')?[{source_locator:'§1',checked_at:null,content_sources:{institution:'Fixture',title:{},edition:null,publication_year:2026,official_url:'https://example.org/test'}}]:[]));
+  await expect(fetchTermDetails('test-term')).rejects.toThrow(/resposta/i);
 });
 it('busca regiões com limite explícito e resolve somente ficha publicada', async () => {
   vi.stubGlobal('fetch', async (url: string) => {

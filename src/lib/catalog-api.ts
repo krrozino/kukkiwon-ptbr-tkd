@@ -54,11 +54,29 @@ export type RegionTerm = {
   term_id: string;
   usage_context: "surface" | "target" | "movement" | "other";
   anatomical_role: "surface" | "target" | "movement" | "anatomy" | null;
+  source_locator?: string | null;
+  content_sources?: TermSource["content_sources"];
   technical_terms: {
     slug: string;
     romanization: string;
     translation_pt: string | null;
+    publication_status?: "published";
+    record_kind?: string;
   } | null;
+};
+export type TermRelation = {
+  relation_kind: string;
+  source_locator?: string;
+  checked_at?: string | null;
+  content_sources?: TermSource["content_sources"];
+  technical_terms: {slug:string;romanization:string;publication_status?:"published"} | null;
+};
+export type TermDetails = {
+  term: TechnicalTerm;
+  sources: TermSource[];
+  media: TermMedia[];
+  regions: {usage_context:string;body_regions:BodyRegion|null}[];
+  relations: TermRelation[];
 };
 export type CatalogPage = { items: TechnicalTerm[]; total: number };
 export type CatalogOptions = {
@@ -88,6 +106,13 @@ const validSlug = (s: string) =>
 const isObject = (v: unknown): v is Record<string, unknown> =>
   !!v && typeof v === "object" && !Array.isArray(v);
 const nullableText = (v: unknown) => v === null || typeof v === "string";
+const validSourceDocument = (v:unknown) => v === null || (isObject(v) &&
+  ["institution","title","official_url"].every(key=>typeof v[key] === "string") &&
+  nullableText(v.edition) && (v.publication_year === null || Number.isSafeInteger(v.publication_year)));
+function assertSource(v:unknown):asserts v is TermSource {
+  if (!isObject(v) || typeof v.source_locator !== "string" || !nullableText(v.checked_at) ||
+    !validSourceDocument(v.content_sources)) throw new Error("Resposta inválida das referências da ficha.");
+}
 const namedSlug = (v: unknown, label: string) =>
   isObject(v) &&
   typeof v.slug === "string" &&
@@ -354,18 +379,31 @@ export async function fetchRegion(
 export async function fetchRegionTerms(regionId: string, signal?: AbortSignal) {
   if (isReviewMode)
     return (await import("./review-data")).previewRegionTerms(regionId);
-  return allPages<RegionTerm>(
+  const rows = await allPages<RegionTerm>(
     "body_region_terms",
     new URLSearchParams({
       select:
-        "term_id,usage_context,anatomical_role,technical_terms(slug,romanization,translation_pt)",
+        "term_id,usage_context,anatomical_role,source_locator,content_sources(institution,title,edition,publication_year,official_url),technical_terms(slug,romanization,translation_pt,publication_status,record_kind)",
       region_id: "eq." + regionId,
       order: "term_id.asc,usage_context.asc",
     }),
     signal,
   );
+  for (const row of rows) {
+    if (!isObject(row) || typeof row.term_id !== "string" ||
+      !["surface", "target", "movement", "other"].includes(row.usage_context) ||
+      ![null, "surface", "target", "movement", "anatomy"].includes(row.anatomical_role) ||
+      (row.source_locator !== undefined && !nullableText(row.source_locator)) ||
+      (row.content_sources !== undefined && !validSourceDocument(row.content_sources)) ||
+      (row.technical_terms !== null && (!namedSlug(row.technical_terms, "romanization") ||
+        !nullableText(row.technical_terms.translation_pt) ||
+        (row.technical_terms.publication_status !== undefined && row.technical_terms.publication_status !== "published")))) {
+      throw new Error("Resposta inválida dos vínculos do atlas.");
+    }
+  }
+  return rows;
 }
-export async function fetchTermDetails(slug: string, signal?: AbortSignal) {
+export async function fetchTermDetails(slug: string, signal?: AbortSignal):Promise<TermDetails|null> {
   if (isReviewMode)
     return (await import("./review-data")).previewTermDetails(slug);
   if (!validSlug(slug)) return null;
@@ -414,14 +452,11 @@ export async function fetchTermDetails(slug: string, signal?: AbortSignal) {
       }),
       signal,
     ),
-    allPages<{
-      relation_kind: string;
-      technical_terms: { slug: string; romanization: string } | null;
-    }>(
+    allPages<TermRelation>(
       "term_relations",
       new URLSearchParams({
         select:
-          "relation_kind,technical_terms!term_relations_related_term_id_fkey(slug,romanization)",
+          "relation_kind,source_locator,checked_at,content_sources(institution,title,edition,publication_year,official_url),technical_terms!term_relations_related_term_id_fkey(slug,romanization,publication_status)",
         term_id: "eq." + term.id,
         publication_status: "eq.published",
         order: "related_term_id.asc,relation_kind.asc",
@@ -429,5 +464,19 @@ export async function fetchTermDetails(slug: string, signal?: AbortSignal) {
       signal,
     ),
   ]);
+  sources.forEach(assertSource);
+  for (const row of regions) {
+    if (!isObject(row) || typeof row.usage_context !== "string") throw new Error("Resposta inválida das regiões da ficha.");
+    if (row.body_regions !== null) assertRegion(row.body_regions);
+  }
+  for (const row of relations) {
+    if (!isObject(row) || !["variant_of", "related"].includes(row.relation_kind) ||
+      (row.source_locator !== undefined && typeof row.source_locator !== "string") ||
+      (row.checked_at !== undefined && !nullableText(row.checked_at)) ||
+      (row.content_sources !== undefined && !validSourceDocument(row.content_sources)) ||
+      (row.technical_terms !== null && (!namedSlug(row.technical_terms, "romanization") ||
+        (row.technical_terms.publication_status !== undefined && row.technical_terms.publication_status !== "published"))))
+      throw new Error("Resposta inválida das relações da ficha.");
+  }
   return { term, sources, media, regions, relations };
 }

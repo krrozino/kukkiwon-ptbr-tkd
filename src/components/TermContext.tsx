@@ -3,6 +3,7 @@ import {useTermDetail,type TermDetail} from '../lib/use-term-detail';
 export {useTermDetail} from '../lib/use-term-detail';
 export type {TermDetail} from '../lib/use-term-detail';
 import KoreanExpression from './KoreanExpression';
+import KnowledgeReferences from './KnowledgeReferences';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
   return (
     <div className="pronunciation">
@@ -118,18 +119,7 @@ export default function TermContext({
                 </ul>
               )}
               <h4>Fonte documental</h4>
-              {detail.sources.map((s, i) => (
-                <p className="fine-print" key={i}>
-                  <a
-                    href={s.content_sources?.official_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {s.content_sources?.title || "Documento"}
-                  </a>{" "}
-                  · {s.source_locator}
-                </p>
-              ))}
+              <KnowledgeReferences sources={detail.sources}/>
               <h4>Imagens, vídeos e áudio</h4>
               {detail.media.length === 0 ? (
                 <p className="fine-print">

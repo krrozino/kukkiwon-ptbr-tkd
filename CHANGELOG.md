@@ -4,6 +4,10 @@ As versões **realmente publicadas** são registradas em [GitHub Releases](https
 
 ## Ainda não lançado — candidato v0.1.0
 
+- PR #29: auditoria por campo de 115 candidatos Gemini, inventário preservado e comparação conservadora com os 108 registros editoriais.
+- PR #30: pesquisa privada, evidências e histórico imutável, revisão autenticada futura e relações de Poomsae; migração testada apenas localmente.
+- PR #31: laboratório local com comparação, filtros, checklist e sessões exportáveis de observações/propostas; implementação excluída do build público.
+- PR #32: referências e vínculos publicados no catálogo/atlas/glossário, Poomsae opcional e fundamentos de aprendizagem derivados de conteúdo elegível.
 - PR #21: refinamento de mãos/pés e orientação das vistas.
 - PR #22: atlas de corpo inteiro, regiões e controles.
 - PR #23: glossário e fundamentos sem exposição de conteúdo em revisão.

@@ -4,6 +4,8 @@ import { fetchTermDetails, isCatalogConfigured } from "../lib/catalog-api";
 import { Pronunciation } from "./TermContext";
 import FavoriteButton from "./FavoriteButton";
 import TermSchoolMedia from "./TermSchoolMedia";
+import KnowledgeReferences from './KnowledgeReferences';
+import GlossaryKnowledgeLinks from './GlossaryKnowledgeLinks';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof fetchTermDetails>>>;
 
@@ -109,34 +111,9 @@ export default function FichaTecnica() {
           As fontes abaixo identificam a origem do conteúdo. Verificação técnica
           e tradução são etapas editoriais distintas.
         </p>
-        {sources.length === 0 ? (
-          <p>Nenhuma referência pública disponível.</p>
-        ) : (
-          <ul className="source-list">
-            {sources.map((record, index) => (
-              <li key={index}>
-                <strong>
-                  {record.content_sources?.institution || "Fonte"}
-                </strong>
-                {" — "}
-                <a
-                  href={record.content_sources?.official_url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {record.content_sources?.title || "Consultar documento"}
-                </a>
-                {record.content_sources?.edition &&
-                  " · " + record.content_sources.edition}
-                <span className="fine-print">
-                  {" "}
-                  · Seção: {record.source_locator}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
+        <KnowledgeReferences sources={sources}/>
       </section>
+      {term.publication_status==='published'&&<GlossaryKnowledgeLinks slug={term.slug}/>}
       <section className="section-inner">
         <h2>Atlas e técnicas relacionadas</h2>
         {regions.filter((r) => r.body_regions).length === 0 ? (
@@ -187,6 +164,7 @@ export default function FichaTecnica() {
                   >
                     {r.technical_terms!.romanization}
                   </a>
+                  {r.source_locator&&r.content_sources&&<KnowledgeReferences sources={[{source_locator:r.source_locator,checked_at:r.checked_at||null,content_sources:r.content_sources}]}/>}
                 </li>
               ))}
           </ul>
@@ -197,6 +175,7 @@ export default function FichaTecnica() {
           </a>
         )}
       </section>
+      {term.record_kind==='poomsae'&&term.publication_status==='published'&&<p><a href={'/poomsae?slug='+encodeURIComponent(term.slug)}>Consultar movimentos publicados desta forma →</a></p>}
       <section className="section-inner">
         <h2>Mídia autorizada</h2>
         <TermSchoolMedia slug={term.slug} />
