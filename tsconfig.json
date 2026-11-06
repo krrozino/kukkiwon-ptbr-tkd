@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "paths": { "@research/workbench": ["./src/components/ResearchWorkbench.tsx"] },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

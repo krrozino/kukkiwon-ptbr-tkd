@@ -3,7 +3,9 @@
 Fonte recebida: **Enciclopédia Completa de Taekwondo.pdf** (89 páginas).
 SHA-256: \`1550915bb02bfbec0c983a0a461bb8fc7c567028df5dea17942542628e528842\`.
 
-## Resultado de extração (não equivale a validação técnica)
+Este documento registra a extração preliminar da PR #24. A evolução, a cobertura documental e as regras atuais estão em [auditoria documental](research/2026-11-06-documentary-audit.md), [relatório reproduzível](../content/research/gemini-2026-11-06/AUDIT_REPORT.md) e [manual do laboratório](research/LOCAL_WORKBENCH.md).
+
+## Resultado de extração preliminar (não equivale a validação técnica)
 
 - 115 candidatos técnicos (28 chutes, 18 socos, 20 golpes, 6 estocadas, 20 defesas, 13 bases, 3 deslocamentos, 7 autodefesas).
 - Outras tabelas: 16 famílias, 18 modificadores linguísticos, 23 entradas de superfícies, 17 Poomsae, 11 comandos.
@@ -35,6 +37,6 @@ SHA-256: \`1550915bb02bfbec0c983a0a461bb8fc7c567028df5dea17942542628e528842\`.
 3. Selecionar \`tecnicas_rascunho.json\` no formulário; nenhum arquivo é transmitido ao backend.
 4. Inspecionar a página indicada no PDF e fonte primária; registrar divergências fora deste laboratório somente sob revisão responsável.
 
-O laboratório é **somente leitura**, não há gravação no Supabase e o componente não importa dados de pesquisa automaticamente. Em builds públicos, a rota é um aviso de área local, sem formulário, sem dados internos. Para integrar fichas ao catálogo público, usar o fluxo normal com conferência documental, revisão técnica/humana e aprovação explícita.
+O laboratório preserva os originais e agora permite observações, checklist e propostas em sessões locais exportáveis. Não há gravação no Supabase nem importação automática de pesquisa. Em builds públicos, a rota é um aviso de área local, sem formulário, dados internos ou implementação do laboratório. Para integrar fichas ao catálogo público, usar o fluxo com conferência documental, revisão técnica/humana e aprovação explícita autenticada.
 
 **Nenhum dos 115 candidatos tem status \`document_checked\` ou \`published\` por causa deste PDF.**
