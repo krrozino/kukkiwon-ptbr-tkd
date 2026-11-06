@@ -1,0 +1,254 @@
+[
+  {
+    "candidate_id": "MORPHEMES-001",
+    "pdf_page": 7,
+    "raw_columns": [
+      "Nível\nTopográfico",
+      "아래",
+      "Arae",
+      "Ah-ré",
+      "Abaixo da\nsínfise púbica\ne linha do\ncinturão\n(coxas,\njoelhos,\nvirilha)22."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-002",
+    "pdf_page": 7,
+    "raw_columns": [
+      "Nível\nTopográfico",
+      "몸통",
+      "Momtong",
+      "Mom-tong",
+      "Entre o\ncinturão e as\nclavículas\n(tórax,\nhipocôndrios,\nabdômen,\nplexo)6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-003",
+    "pdf_page": 7,
+    "raw_columns": [
+      "Nível\nTopográfico",
+      "얼굴",
+      "Olgul",
+      "Ol-gul",
+      "Acima do\nmanúbrio\nesternal\n(pescoço,\nmento,\ncartilagem\ntireoide,\ncrânio)."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-004",
+    "pdf_page": 7,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "앞",
+      "Ap",
+      "Ap",
+      "Vetor\npuramente\nanterior\nprojetado para\na frente em\nlinha sagital4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-005",
+    "pdf_page": 7,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "뒤",
+      "Dwi",
+      "Dui",
+      "Vetor posterior\nou ação\nretrógrada"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-006",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "옆",
+      "Yeop",
+      "Ióp",
+      "Vetor lateral no\nplano coronal\nprojetado para\na direita ou\nesquerda4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-007",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "안",
+      "An",
+      "An",
+      "Trajetória\ncentrípeta\ninterna;\nmovimenta-se\nda periferia\npara a linha\nmédia4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-008",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "바깥",
+      "Bakkat",
+      "Bah-kát",
+      "Trajetória\ncentrífuga\nexterna;\nmovimenta-se\nda linha média\npara a\nperiferia4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-009",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "올려",
+      "Ollyeo",
+      "Ol-li-ó",
+      "Vetor vertical\nascendente\ndirecionado de\nbaixo para\ncima4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-010",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Direção\nVetorial",
+      "내려",
+      "Naeryeo",
+      "Né-ri-ó",
+      "Vetor vertical\ndescendente\ndirecionado de\ncima para\nbaixo4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-011",
+    "pdf_page": 8,
+    "raw_columns": [
+      "Cinemática\nArticular",
+      "돌려",
+      "Dollyeo",
+      "Dol-li-ó",
+      "Trajetória\ncircular\ncontínua em\ntorno de um\npivô corporal4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-012",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Cinemática\nArticular",
+      "후려",
+      "Huryeo",
+      "Hu-ri-ó",
+      "Cinemática em\nchicote com\ncurvatura\ndinâmica e\nfechamento\nbrusco1."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-013",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Cinemática\nArticular",
+      "비틀어",
+      "Bitureo",
+      "Bi-tu-ró",
+      "Ação articular\ntorcida com\nrotação\nreversa em\nrelação à linha\nmédia4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-014",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Cinemática\nArticular",
+      "헤쳐",
+      "Hecheo",
+      "He-tchó",
+      "Movimento\nsimultâneo\nbilateral\ndivergente em\nabertura23."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-015",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Dinâmica\nPostural",
+      "바로",
+      "Baro",
+      "Bah-ro",
+      "Posição\nhomóloga\nregular; golpe\nexecutado com\no braço do\nlado da perna\ntraseira23."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-016",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Dinâmica\nPostural",
+      "반대",
+      "Bandae",
+      "Ban-dé",
+      "Posição\nheteróloga\nreversa; golpe\nexecutado com\no braço do\nlado da perna\ndianteira23."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-017",
+    "pdf_page": 9,
+    "raw_columns": [
+      "Apoio\nComplexo",
+      "거들어",
+      "Geodeureo",
+      "Gó-du-ró",
+      "Bloqueio ou\nação com o\nmembro\nauxiliar\nescorando a\narticulação do"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "MORPHEMES-018",
+    "pdf_page": 10,
+    "raw_columns": [
+      "Apoio\nComplexo",
+      "엇걸어",
+      "Eotgeoreo",
+      "Ót-gó-ró",
+      "Antebraços ou\npunhos\ncruzados em\nformato de \"X\"\nfuncional de\nbloqueio4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  }
+]

@@ -1,0 +1,591 @@
+"candidate_id","categoria","romanizacao","hangul","nome_pt_original","estado_documental","correspondencias_propostas","conflitos","paginas_pdf"
+"TC-CHA-001","chute","Ap-chagi","앞차기","Chute
+Fronta
+l1","verified_primary","exact_slug:ap-chagi","","19; 20"
+"TC-CHA-002","chute","Dollyeo-chagi","돌려차기","Chute
+Circul
+ar1","verified_primary","exact_slug:dollyeo-chagi","","20"
+"TC-CHA-003","chute","Yeop-chagi","옆차기","Chute
+Lateral
+1","verified_primary","exact_slug:yeop-chagi","","20"
+"TC-CHA-004","chute","Naeryeo-chagi","내려차기","Chute
+Desce
+ndente
+(Mach
+ado)1","verified_primary","exact_slug:naeryeo-chagi","","21"
+"TC-CHA-005","chute","Dwi-chagi","뒤차기","Chute
+para
+Trás
+(Coice
+)1","verified_primary","exact_slug:dwi-chagi","","21"
+"TC-CHA-006","chute","Dwi-huryeo-chagi","뒤후려차기","Chute
+Chicot
+e
+Giratór
+io1","verified_primary","possible_variant_review:huryeo-chagi","","21; 22"
+"TC-CHA-007","chute","Biteureo-chagi","비틀어차기","Chute
+Torcid
+o
+Diverg
+ente","verified_primary","exact_slug:biteureo-chagi","","22"
+"TC-CHA-008","chute","Bandal-chagi","반달차기","Chute
+Meia-L
+ua
+Diago
+nal","verified_primary","exact_slug:bandal-chagi","","22"
+"TC-CHA-009","chute","An-chagi","안차기","Chute
+Circul
+ar
+Intern
+o1","verified_primary","exact_slug:an-chagi","","23"
+"TC-CHA-010","chute","Bakkat-chagi","바깥차기","Chute
+Circul
+ar
+Extern
+o","verified_primary","exact_slug:bakkat-chagi","","23"
+"TC-CHA-011","chute","Pyojeok-chagi","표적차기","Chute
+no
+Alvo
+Palma
+r1","verified_primary","exact_slug:pyojeok-chagi","","23; 24"
+"TC-CHA-012","chute","Narae-chagi","나래차기","Chute
+Duplo
+Altern
+ado1","verified_primary","exact_slug:narae-chagi","","24"
+"TC-CHA-013","chute","Dolgae-chagi","돌개차기","Chute
+Tornad
+o 360°
+com
+Salto1","verified_primary","possible_variant_review:dollyeo-chagi","","24"
+"TC-CHA-014","chute","Ttwieo-yeop-chagi","뛰어옆차기","Chute
+Lateral
+Voado
+r com
+Salto1","verified_primary","possible_variant_review:ttwieo-chagi; possible_variant_review:yeop-chagi","","24; 25"
+"TC-CHA-015","chute","Ttwieo-ap-chagi","뛰어앞차기","Chute
+Fronta
+l
+Saltan
+do","verified_primary","possible_variant_review:ap-chagi; possible_variant_review:ttwieo-chagi","","25"
+"TC-CHA-016","chute","Ttwieo-dwi-chagi","뛰어뒤차기","Chute
+Trasei
+ro com
+Salto","verified_primary","possible_variant_review:dwi-chagi; possible_variant_review:ttwieo-chagi","","25; 26"
+"TC-CHA-017","chute","Dubaldangseong-chagi","두발당성차기","Chute
+Fronta
+l
+Duplo
+no Ar1","verified_primary","","","26"
+"TC-CHA-018","chute","540°Dwi-huryeo-chagi","540°뒤후려차기","Chute
+Chicot
+e 540°
+com
+Salto1","conflicting","","","26"
+"TC-CHA-019","chute","Gawi-chagi","가위차기","Chute
+em
+Tesour
+a
+Simult
+âneo1","extraction_error","exact_slug:gawi-chagi","","26; 27"
+"TC-CHA-020","chute","Gulleo-yeop-chagi","굴러옆차기","Chute
+Lateral
+com
+Batida
+de Pé1","verified_primary","possible_variant_review:yeop-chagi","","27"
+"TC-CHA-021","chute","Balbucheo-yeop-chagi","발붙여옆차기","Chute
+Lateral
+com
+Desliz
+e1","verified_primary","possible_variant_review:yeop-chagi","","27; 28"
+"TC-CHA-022","chute","Modum-yeop-chagi","모둠옆차기","Chute
+Lateral
+com
+Pés
+Juntos
+1","verified_primary","possible_variant_review:yeop-chagi","","28"
+"TC-CHA-023","chute","Japgo-yeop-chagi","잡고옆차기","Chute
+Lateral
+com
+Agarre
+1","verified_primary","possible_variant_review:yeop-chagi","","28; 29"
+"TC-CHA-024","chute","Nullo-chagi","눌러차기","Chute
+Pressi
+onado
+Desce
+ndente
+23","insufficient_evidence","possible_variant_review:nulleo-makgi","","29"
+"TC-CHA-025","chute","Jitjjiki","짓찧기","Pisotã
+o no
+Peito
+do Pé1","verified_primary","","","29"
+"TC-CHA-026","chute","Nakka-chagi","낚아차기","Chute
+em
+Ganch
+o
+Tracio
+nado1","extraction_error","exact_slug:nakka-chagi","","29; 30"
+"TC-CHA-027","chute","Mureup-chagi","무릎차기","Chute
+com o
+Joelho","insufficient_evidence","possible_variant_review:mireo-chagi","","30"
+"TC-CHA-028","chute","Ieo-chagi","이어차기","Chute
+Altern
+ado
+em
+Série1","verified_primary","possible_variant_review:mireo-chagi","","30; 31"
+"TC-JIR-001","soco","Baro-jireugi","바로지르기","Soco
+Direto
+Regul
+ar23","insufficient_evidence","possible_variant_review:naeryeo-jireugi","","31"
+"TC-JIR-002","soco","Bandae-jireugi","반대지르기","Soco
+Cruza
+do
+Inverti
+do23","insufficient_evidence","","","31; 32"
+"TC-JIR-003","soco","Momtong-jireugi","몸통지르기","Soco
+Médio
+no
+Tronc
+o3","insufficient_evidence","","","32"
+"TC-JIR-004","soco","Olgul-jireugi","얼굴지르기","Soco
+Alto
+na
+Face","conflicting","possible_variant_review:dollyeo-jireugi","","32"
+"TC-JIR-005","soco","Arae-jireugi","아래지르기","Soco
+Baixo","insufficient_evidence","","","32; 33"
+"TC-JIR-006","soco","Sewo-jireugi","세워지르기","Soco
+com
+Punho
+Vertica
+l23","conflicting","possible_variant_review:sewo-jjireugi","","33"
+"TC-JIR-007","soco","Jeocheo-jireugi","젖혀지르기","Soco
+com
+Punho
+Inverti
+do23","verified_primary","exact_slug:jeocheo-jireugi","","33; 34"
+"TC-JIR-008","soco","Chi-jireugi","치지르기","Soco
+Ascen
+dente
+(Upper
+cut)","verified_primary","exact_slug:chi-jireugi","","34"
+"TC-JIR-009","soco","Danggyeo-teok-jireugi","당겨턱지르기","Soco
+no
+Queix
+o
+Tracio
+nando
+23","insufficient_evidence","possible_variant_review:danggyeo-jireugi","","34"
+"TC-JIR-010","soco","Digeutja-jireugi","‘ㄷ’자지르기","Soco
+em
+Forma
+de
+Letra
+‘ㄷ’1","verified_primary","","","34; 35"
+"TC-JIR-011","soco","Chetdari-jireugi","쳇다리지르기","Soco
+Duplo
+em
+Garfo1","verified_primary","exact_slug:chetdari-jireugi","","35"
+"TC-JIR-012","soco","Geumgang-jireugi","금강지르기","Soco
+Diama
+nte
+com
+Bloqu
+eio26","verified_primary","exact_slug:geumgang-jireugi","","35"
+"TC-JIR-013","soco","Pyojeok-jireugi","표적지르기","Soco
+no
+Própri
+o Alvo
+Palma
+r","verified_primary","exact_slug:pyojeok-jireugi","","36"
+"TC-JIR-014","soco","Dwi-jireugi","뒤지르기","Soco
+Poster
+ior
+para
+Trás","verified_primary","exact_slug:dwi-jireugi","","36"
+"TC-JIR-015","soco","Yeop-jireugi","옆지르기","Soco
+Lateral
+em
+Posiçã
+o
+Aberta
+23","verified_primary","exact_slug:yeop-jireugi","","36; 37"
+"TC-JIR-016","soco","Pyeonjumeok-jireugi","편주먹지르기","Soco
+com
+Punho
+Semi-
+Aberto","verified_primary","possible_variant_review:pyojeok-jireugi","","37"
+"TC-JIR-017","soco","Bamjumeok-jireugi","밤주먹지르기","Soco
+Casta
+nha
+com
+Nó
+Salient
+e","verified_primary","","","37"
+"TC-JIR-018","soco","Jipgejumeok-jireugi","집게주먹지르기","Soco
+em
+Pinça
+Digital","verified_primary","","","37; 38"
+"TC-CHI-001","golpe","Deungjumeok-ap-chigi","등주먹앞치기","Golpe
+Fronta
+l com
+Dorso
+do
+Punho","verified_primary","possible_variant_review:ap-chigi","","38"
+"TC-CHI-002","golpe","Deungjumeok-bakkat-chigi","등주먹바깥치기","Golpe
+Extern
+o com
+Dorso
+do
+Punho","extraction_error","possible_variant_review:bakkat-chigi","","38; 39"
+"TC-CHI-003","golpe","Deungjumeok-ollyeo-chigi","등주먹올려치기","Golpe
+Ascen
+dente
+com
+Dorso
+do
+Punho","insufficient_evidence","possible_variant_review:ollyeo-chigi","","39"
+"TC-CHI-004","golpe","Mejumeok-naeryeo-chigi","메주먹내려치기","Golpe
+Martel
+o
+Desce
+ndente","verified_primary","possible_variant_review:naeryeo-chigi","","39; 40"
+"TC-CHI-005","golpe","Mejumeok-bakkat-chigi","메주먹바깥치기","Golpe
+Martel
+o para
+Fora1","verified_primary","possible_variant_review:bakkat-chigi","","40"
+"TC-CHI-006","golpe","Mejumeok-an-chigi","메주먹안치기","Golpe
+Martel
+o para
+Dentro
+1","verified_primary","possible_variant_review:an-chigi","","40"
+"TC-CHI-007","golpe","Sonnal-mok-chigi","손날목치기","Golpe
+de
+Faca
+da
+Mão
+no
+Pesco
+ço6","insufficient_evidence","possible_variant_review:sonnal-an-chigi","","40; 41"
+"TC-CHI-008","golpe","Sonnal-bakkat-chigi","손날바깥치기","Golpe
+de
+Faca
+da
+Mão
+para
+Fora","verified_primary","possible_variant_review:bakkat-chigi; possible_variant_review:sonnal-bakkat-makgi","","41"
+"TC-CHI-009","golpe","Sonnaldeung-an-chigi","손날등안치기","Golpe
+com
+Borda
+Radial
+para
+Dentro
+1","verified_primary","possible_variant_review:an-chigi; possible_variant_review:sonnal-an-chigi","","41"
+"TC-CHI-010","golpe","Batangson-teok-chigi","바탕손턱치기","Golpe
+de
+Palma
+no
+Queix
+o23","insufficient_evidence","","","41; 42"
+"TC-CHI-011","golpe","Kaljaebi(Ageumson)1","칼재비","Ataqu
+e em
+Garfo
+à
+Garga
+nta23","extraction_error","","","42"
+"TC-CHI-012","golpe","Palgup-dollyeo-chigi","팔굽돌려치기","Cotov
+elada
+Circul
+ar1","verified_primary","exact_slug:palgup-dollyeo-chigi; possible_variant_review:dollyeo-chigi","category","42"
+"TC-CHI-013","golpe","Palgup-pyojeok-chigi","팔굽표적치기","Cotov
+elada
+no
+Alvo
+Palma
+r","verified_primary","possible_variant_review:palgup-ollyeo-chigi; possible_variant_review:pyojeok-chigi","","42; 43"
+"TC-CHI-014","golpe","Palgup-naeryeo-chigi","팔굽내려치기","Cotov
+elada
+Desce
+ndente","verified_primary","possible_variant_review:naeryeo-chigi; possible_variant_review:palgup-ollyeo-chigi","","43"
+"TC-CHI-015","golpe","Palgup-ollyeo-chigi","팔굽올려치기","Cotov
+elada
+Ascen
+dente","verified_primary","exact_slug:palgup-ollyeo-chigi; possible_variant_review:ollyeo-chigi","category","43; 44"
+"TC-CHI-016","golpe","Meongae-chigi(Du-palgup)1","멍에치기","Cotov
+elada
+Dupla
+em
+Jugo1","extraction_error","","","44"
+"TC-CHI-017","golpe","Mureup-ollyeo-chigi","무릎올려치기","Joelha
+da
+Ascen
+dente","verified_primary","exact_slug:mureup-ollyeo-chigi; possible_variant_review:ollyeo-chigi","category","44"
+"TC-CHI-018","golpe","Mureup-dollyeo-chigi","무릎돌려치기","Joelha
+da
+Circul
+ar1","verified_primary","exact_slug:mureup-dollyeo-chigi; possible_variant_review:dollyeo-chigi","category","44; 45"
+"TC-CHI-019","golpe","Gomson-an-chigi","곰손안치기","Golpe
+Pata
+de
+Urso
+para
+Dentro
+1","verified_primary","possible_variant_review:an-chigi; possible_variant_review:sonnal-an-chigi","","45"
+"TC-CHI-020","golpe","Gupinsonmok-ollyeo-chigi","굽힌손목올려치기","Golpe
+com
+Punho
+Dobra
+do
+para
+Cima","verified_primary","possible_variant_review:ollyeo-chigi","","45"
+"TC-JJI-001","estocada","Pyeonsonkkeut-sewo-jjireugi","편손끝세워찌르기","Estoca
+da de
+Dedos
+Vertica
+is","verified_primary","possible_variant_review:sewo-jjireugi","","46"
+"TC-JJI-002","estocada","Pyeonsonkkeut-eopeo-jjireugi","편손끝엎어찌르기","Estoca
+da de
+Dedos
+Horizo
+ntais","verified_primary","possible_variant_review:eopeo-jjireugi","","46"
+"TC-JJI-003","estocada","Pyeonsonkkeut-jeocheo-jjireugi","편손끝젖혀찌르기","Estoca
+da de
+Dedos
+Inverti
+dos","verified_primary","possible_variant_review:jeocheo-jjireugi","","46; 47"
+"TC-JJI-004","estocada","Gawisonkkeut-jjireugi","가위손끝찌르기","Estoca
+da
+com
+Dedos
+em
+Tesour
+a","verified_primary","","","47"
+"TC-JJI-005","estocada","Hansonkkeut-jjireugi","한손끝찌르기","Estoca
+da
+com
+Dedo
+Único","insufficient_evidence","","","47"
+"TC-JJI-006","estocada","Modumsonkkeut-jjikgi","모둠손끝찍기","Golpe
+Picado
+com
+Dedos
+Unido
+s","conflicting","","","47; 48"
+"TC-MAK-001","defesa","Arae-makgi","아래막기","Defes
+a
+Baixa3","verified_primary","possible_variant_review:bada-makgi","","48"
+"TC-MAK-002","defesa","Momtong-an-makgi","몸통안막기","Defes
+a
+Média
+para
+Dentro
+1","insufficient_evidence","possible_variant_review:an-makgi","","48; 49"
+"TC-MAK-003","defesa","Momtong-bakkat-makgi","몸통바깥막기","Defes
+a
+Média
+para
+Fora","insufficient_evidence","possible_variant_review:bakkat-makgi","","49"
+"TC-MAK-004","defesa","Olgul-makgi","얼굴막기","Defes
+a Alta
+na
+Face3","conflicting","possible_variant_review:ollyeo-makgi","","49"
+"TC-MAK-005","defesa","Sonnal-momtong-makgi","손날몸통막기","Defes
+a de
+Faca
+da
+Mão
+no
+Tronc
+o23","insufficient_evidence","possible_variant_review:sonnal-an-makgi","","49; 50"
+"TC-MAK-006","defesa","Sonnal-arae-makgi","손날아래막기","Defes
+a
+Baixa
+de
+Faca
+da
+Mão23","insufficient_evidence","possible_variant_review:sonnal-an-makgi","","50"
+"TC-MAK-007","defesa","Hansonnal-bakkat-makgi","한손날바깥막기","Defes
+a
+Simple
+s com
+Faca
+da
+Mão","insufficient_evidence","possible_variant_review:bakkat-makgi; possible_variant_review:sonnal-bakkat-makgi","","50"
+"TC-MAK-008","defesa","Batangson-momtong-makgi","바탕손몸통막기","Defes
+a com
+Palma
+no
+Tronc
+o","extraction_error","","","50; 51"
+"TC-MAK-009","defesa","Batangson-nullo-makgi","바탕손눌러막기","Defes
+a de
+Palma
+para
+Baixo","conflicting","","","51"
+"TC-MAK-010","defesa","Geodeureo-makgi","거들어막기","Defes
+a
+Média
+com
+Apoio","verified_primary","exact_slug:geodeureo-makgi","","51; 52"
+"TC-MAK-011","defesa","Hecheo-makgi","헤쳐막기","Defes
+a
+Dupla
+de
+Abertu
+ra23","verified_primary","exact_slug:hecheo-makgi","","52"
+"TC-MAK-012","defesa","Oe-santeul-makgi","외산틀막기","Defes
+a de
+Monta
+nha
+Simple
+s","verified_primary","exact_slug:oesanteul-makgi","","52"
+"TC-MAK-013","defesa","Santeul-makgi","산틀막기","Defes
+a de
+Monta
+nha
+Dupla","verified_primary","exact_slug:santeul-makgi","","52; 53"
+"TC-MAK-014","defesa","Geumgang-makgi","금강막기","Bloqu
+eio
+Diama
+nte","verified_primary","exact_slug:geumgang-makgi","","53"
+"TC-MAK-015","defesa","Eotgeoreo-arae-makgi","엇걸어아래막기","Defes
+a
+Baixa
+em
+Cruz","insufficient_evidence","","","53"
+"TC-MAK-016","defesa","Eotgeoreo-olgul-makgi","엇걸어얼굴막기","Defes
+a Alta
+em
+Cruz","insufficient_evidence","","","53; 54"
+"TC-MAK-017","defesa","Gawi-makgi","가위막기","Defes
+a em
+Tesour
+a","verified_primary","exact_slug:gawi-makgi","","54"
+"TC-MAK-018","defesa","Kkeulleo-olligi","끌어올리기","Defes
+a
+Ascen
+dente
+em
+Traçã
+o1","conflicting","","","54"
+"TC-MAK-019","defesa","Hwangso-makgi","황소막기","Defes
+a
+Chifre
+s de
+Touro","verified_primary","exact_slug:hwangso-makgi","","54; 55"
+"TC-MAK-020","defesa","Geodeo-makgi","걷어막기","Defes
+a de
+Desvio
+Rápid
+o9","verified_primary","exact_slug:geodeo-makgi","","55"
+"TC-SEO-001","base","Ap-seogi","앞서기","Base
+de
+Camin
+hada3","verified_primary","exact_slug:ap-seogi","","55; 56"
+"TC-SEO-002","base","Ap-gubi","앞굽이","Base
+Fronta
+l
+Longa
+1","verified_primary","normalized_slug:apgubi","","56"
+"TC-SEO-003","base","Dwit-gubi","뒷굽이","Base
+em ""L""
+Recua
+da1","verified_primary","normalized_slug:dwitgubi","","56"
+"TC-SEO-004","base","Juchum-seogi","주춤서기","Base
+do
+Caval
+eiro1","verified_primary","exact_slug:juchum-seogi","","56; 57"
+"TC-SEO-005","base","Beom-seogi","범서기","Base
+do
+Tigre1","verified_primary","exact_slug:beom-seogi","","57"
+"TC-SEO-006","base","Kkoa-seogi(Dwi/Ap)1","꼬아서기","Base
+Cruza
+da6","extraction_error","exact_slug:kkoa-seogi","romanization","57"
+"TC-SEO-007","base","Hakdari-seogi","학다리서기","Base
+da
+Garça
+(Unipo
+dal)1","verified_primary","exact_slug:hakdari-seogi","","57; 58"
+"TC-SEO-008","base","Ogeum-seogi","오금서기","Base
+com
+Trava
+Poplít
+ea1","conflicting","","","58"
+"TC-SEO-009","base","Naranhi-seogi","나란히서기","Base
+Parale
+la
+Básica
+23","conflicting","possible_variant_review:narani-seogi","","58"
+"TC-SEO-010","base","Moa-seogi","모아서기","Base
+Fecha
+da de
+Pés
+Juntos
+6","verified_primary","exact_slug:moa-seogi","","58"
+"TC-SEO-011","base","Charyeot-seogi","차렷서기","Base
+de
+Atenç
+ão /
+Sentid
+o6","extraction_error","","","58; 59"
+"TC-SEO-012","base","Pyeonhi-seogi","편히서기","Base
+de
+Desca
+nso6","conflicting","possible_variant_review:yeop-seogi","","59"
+"TC-SEO-013","base","Gyeorugi-seogi(Gyeorumse)6","겨루기서기","Base
+de
+Luta /
+Comb
+ate6","extraction_error","possible_variant_review:gyeotdari-seogi","","59"
+"TC-DIT-001","deslocamento","Balbucheo-ditgi","발붙여디디기","Desloc
+ament
+o por
+Desliz
+e","insufficient_evidence","","","59; 60"
+"TC-DIT-002","deslocamento","Nae-ditgi","내디디기","Passo
+de
+Avanç
+o
+Fronta
+l","conflicting","","","60"
+"TC-DIT-003","deslocamento","Dwo-ditgi","뒤디디기","Passo
+de
+Recuo
+Poster
+ior","insufficient_evidence","","","60"
+"TC-HOS-001","autodefesa","Sonmok-kkeokgi","손목꺾기","Chave
+de
+Torção
+de
+Punho","insufficient_evidence","","","61"
+"TC-HOS-002","autodefesa","Palgup-kkeokgi","팔굽꺾기","Hiperex
+tensão
+de
+Cotovel
+o
+(Armloc
+k)","insufficient_evidence","","","61"
+"TC-HOS-003","autodefesa","Eokkae-kkeokgi","어깨꺾기","Chave
+e
+Rotaçã
+o
+Escapul
+oumeral","insufficient_evidence","","","61"
+"TC-HOS-004","autodefesa","Georeo-neomgigi","걸어넘기기","Rasteir
+a e
+Queda
+por
+Gancho
+1","verified_primary","","","61; 62"
+"TC-HOS-005","autodefesa","Mok-neomgigi","목넘기기","Projeçã
+o por
+Alavanc
+a
+Cervical","insufficient_evidence","","","62"
+"TC-HOS-006","autodefesa","Sonmok-ppaegi","손목빼기","Soltura
+de
+Pegada
+no
+Punho","insufficient_evidence","","","62"
+"TC-HOS-007","autodefesa","Ot-ppaegi","옷빼기","Liberaç
+ão de
+Pegada
+na Gola","insufficient_evidence","","","62"

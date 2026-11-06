@@ -1,0 +1,291 @@
+[
+  {
+    "candidate_id": "POOMSAE-001",
+    "pdf_page": 63,
+    "raw_columns": [
+      "Taegeuk\nIl Jang\n(태극\n1장)3",
+      "8º Gub\n(Amarela)\n16",
+      "☰ Geon\n(Céu /\nOrigem e\nLuz)3",
+      "183",
+      "王\n(Linhas\nparalelas\nortogonai\ns)29",
+      "Arae-mak\ngi,\nMomtong\n-an-makg\ni,\nAp-chagi,\nBaro-jireu\ngi3",
+      "Joelho\ndianteiro\nflexionad\no em\nAp-seogi;\nsoco fora\nda linha\ndo plexo;\ndesalinha\nmento da\nmarca\nfinal3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukiljang"
+  },
+  {
+    "candidate_id": "POOMSAE-002",
+    "pdf_page": 63,
+    "raw_columns": [
+      "Taegeuk\nYi Jang\n(태극\n2장)3",
+      "7º Gub\n(Amarela\nPonta\nVerde)16",
+      "☱ Tae\n(Lago /\nFirmeza\nInterior)3",
+      "1834",
+      "王",
+      "Olgul-jire\nugi\nencadead\no após\nAp-chagi\nem ritmo\nrápido3",
+      "Elevação\nexcessiva\ndo ombro\nno soco\nalto;\nantebraç\no do\nbloqueio\nbaixo\ncolado na\nperna3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukyijang"
+  },
+  {
+    "candidate_id": "POOMSAE-003",
+    "pdf_page": 64,
+    "raw_columns": [
+      "Taegeuk\nSam\nJang\n(태극\n3장)3",
+      "6º Gub\n(Verde)16",
+      "☲ Ri\n(Fogo /\nArdor e\nClareza)3",
+      "203",
+      "王",
+      "Sonnal-m\nok-chigi,\nHansonn\nal-bakkat-\nmakgi16",
+      "Dedos\nrelaxados\nno\nSonnal;\ncorte fora\nda linha\nda\ncarótida;\ndesequilí\nbrio ao\nrecolher\no chute3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeuksamjang"
+  },
+  {
+    "candidate_id": "POOMSAE-004",
+    "pdf_page": 64,
+    "raw_columns": [
+      "Taegeuk\nSa Jang\n(태극\n4장)3",
+      "5º Gub\n(Verde\nPonta\nAzul)",
+      "☳ Jin\n(Trovão /\nForça e\nDignidad\ne)3",
+      "2034",
+      "王",
+      "Sonnal-m\nomtong-\nmakgi,\nPyeonso\nnkkeut,\nJebipum,\nYeop-cha\ngi3",
+      "Distribuiç\não errada\ndo peso\nno\nDwit-gubi\n(fora da\nproporçã\no 70/30);\nmão sem\napoio no\nPyeonso\nnkkeut3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeuksajang"
+  },
+  {
+    "candidate_id": "POOMSAE-005",
+    "pdf_page": 64,
+    "raw_columns": [
+      "Taegeuk\nOh Jang\n(태극\n5장)33",
+      "4º Gub\n(Azul)",
+      "☴ Seon\n(Vento /\nFlexibilid\nade e\nForça)32",
+      "2034",
+      "王",
+      "Mejumeo\nk-naerye\no-chigi,\nDeungju\nmeok-ap-\nchigi,\nPalgup-p\nyojeok34",
+      "Cotovela\nda\ncolidindo\nfora da\npalma\noposta;\nfalta de\ncruzamen\nto e\nelevação\nem\nKkoa-seo\ngi6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukohjang"
+  },
+  {
+    "candidate_id": "POOMSAE-006",
+    "pdf_page": 64,
+    "raw_columns": [
+      "Taegeuk\nYuk Jang",
+      "3º Gub\n(Azul",
+      "☵ Gam\n(Água /",
+      "1936",
+      "王",
+      "Hansonn\nal-eolgul,",
+      "Queda do\ntronco"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukyukjang"
+  },
+  {
+    "candidate_id": "POOMSAE-007",
+    "pdf_page": 65,
+    "raw_columns": [
+      "Taegeuk\nChil\nJang\n(태극\n7장)27",
+      "2º Gub\n(Vermelh\na)16",
+      "☶ Gan\n(Montanh\na /\nEstabilida\nde\nFirme)3",
+      "2527",
+      "王",
+      "Beom-se\nogi,\nBatangso\nn-makgi,\nGawi-ma\nkgi,\nMureup-c\nhigi16",
+      "Assentar\no\ncalcanhar\nfrontal\nem\nBeom-se\nogi;\nassimetri\na e\ndessincro\nnização\ndos\nbraços no\nGawi-ma\nkgi27."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukchiljang"
+  },
+  {
+    "candidate_id": "POOMSAE-008",
+    "pdf_page": 65,
+    "raw_columns": [
+      "Taegeuk\nPal Jang\n(태극\n8장)27",
+      "1º Gub\n(Vermelh\na Ponta\nPreta)16",
+      "☷ Gon\n(Terra /\nMatriz da\nCriação)3",
+      "2421",
+      "王",
+      "Dubaldan\ngseong-c\nhagi,\nOe-sante\nul-makgi,\nDanggye\no-teok-jir\neugi16",
+      "Altura\ninsuficien\nte nos\ndois\nsaltos do\nDubaldan\ngseong;\nfalha no\nângulo de\n90° do\ncotovelo\nem\nOe-sante\nul3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taegeukpaljang"
+  },
+  {
+    "candidate_id": "POOMSAE-009",
+    "pdf_page": 66,
+    "raw_columns": [
+      "Koryo\n(고려)21",
+      "1º Dan\n(초단 / Il\nDan)18",
+      "선배\n(Seonbae\n/ O\nEspírito\ndos\nEruditos\ne\nGuerreiro\ns)21",
+      "3037",
+      "士\n(Acadêmi\nco /\nSoldado)2\n1",
+      "Tongmilgi\n-junbi,\nSonnal-ar\nae,\nPyojeok-c\nhagi,\nKaljaebi,\nMureup-k\nkeokgi9",
+      "Transição\nde\nTongmilgi\nfora dos\n5\nsegundos\nnormativo\ns; joelhos\nestendido\ns no corte\nduplo\nbaixo3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "koryo"
+  },
+  {
+    "candidate_id": "POOMSAE-010",
+    "pdf_page": 66,
+    "raw_columns": [
+      "Keumga\nng\n(금강)37",
+      "2º Dan\n(이단 / Yi\nDan)18",
+      "금강석\n(Diamant\ne /\nInquebrá\nvel como\no Monte\nKeumgan\ng)21",
+      "2737",
+      "山\n(Montanh\na)38",
+      "Hakdari-s\neogi,\nKeumgan\ng-makgi,\nSanteul-\nmakgi,\nKheun-do\nljjeogi3",
+      "Oscilação\nproprioce\nptiva em\nHakdari-s\neogi;\nalturas\ndesalinha\ndas dos\nantebraç\nos no\nSanteul-\nmakgi3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "keumgang"
+  },
+  {
+    "candidate_id": "POOMSAE-011",
+    "pdf_page": 66,
+    "raw_columns": [
+      "Taebaek\n(태백)37",
+      "3º Dan\n(삼단 /\nSam\nDan)18",
+      "백두산\n(Montanh\na Branca\nSagrada /\nFundaçã\no\nMítica)21",
+      "2637",
+      "工\n(Construç\não /\nHarmonia\n)",
+      "Baro-ap-c\nhagi,\nGeumgan\ng-momto\nng-heche\no-makgi,\nEotgeore\no-arae21",
+      "Ritmo\nprecipitad\no sem\npausas\nnítidas;\nfalta de\ncontração\nabdomina\nl nos\nbloqueios\nem \"X\"38."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "taebaek"
+  },
+  {
+    "candidate_id": "POOMSAE-012",
+    "pdf_page": 66,
+    "raw_columns": [
+      "Pyongw\non\n(평원)37",
+      "4º Dan\n(사단 /\nSa Dan)18",
+      "평야 (A\nVasta\nPlanície /\nPaz e",
+      "2137",
+      "一 (Linha\nReta\nInfinita)38",
+      "Palkup-d\nwi-chigi,\nHakdari-s\neogi,",
+      "Desvio\nlateral na\nlinha reta\nde"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "pyongwon"
+  },
+  {
+    "candidate_id": "POOMSAE-013",
+    "pdf_page": 67,
+    "raw_columns": [
+      "Sipjin\n(십진)37",
+      "5º Dan\n(오단 / O\nDan)18",
+      "십장생\n(Dez\nSímbolos\nda\nLongevid\nade\nImortal)21",
+      "2837",
+      "十 (Cruz /\nSistema\nDecimal)3\n4",
+      "Hwangso\n-makgi,\nSonbada\nk-geodeu\nreo-makg\ni,\nBawi-milg\ni34",
+      "Falta de\nexpressã\no de peso\ne\ndensidad\ne no\nBawi-milg\ni;\ncotovelos\nfechados\nno\nHwangso\n-makgi34."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "sipjin"
+  },
+  {
+    "candidate_id": "POOMSAE-014",
+    "pdf_page": 67,
+    "raw_columns": [
+      "Jitae\n(지태)37",
+      "6º Dan\n(육단 /\nYuk\nDan)18",
+      "地 (O\nHomem\nFirme\nsobre a\nTerra\nOlhando\no Céu)21",
+      "2837",
+      "ㅗ (Apoio\nPerpendi\ncular)1",
+      "Hansonn\nal-olgul-m\nakgi,\nGeumgan\ng-ap-jireu\ngi,\nTeol-eo-\nmakgi21",
+      "Falha em\ndemonstr\nar\nancorage\nm firme\nao solo\nnos giros\npesados\nde\ntransição\npostural21\n."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "jitae"
+  },
+  {
+    "candidate_id": "POOMSAE-015",
+    "pdf_page": 67,
+    "raw_columns": [
+      "Cheonk\nwon\n(천권)37",
+      "7º Dan\n(칠단 /\nChil\nDan)18",
+      "天 (A\nImensidã\no\nProfunda\nda\nAbóbada",
+      "2637",
+      "⊤ (A\nBóbada\nCeleste)3\n4",
+      "Nalgae-p\nyogi,\nSosum-c\nhigi,\nTaesan-m\nilgi34",
+      "Tensão\nescapular\nexcessiva\nnos\nmoviment\nos"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "cheonkwon"
+  },
+  {
+    "candidate_id": "POOMSAE-016",
+    "pdf_page": 68,
+    "raw_columns": [
+      "Hansu\n(한수)37",
+      "8º Dan\n(팔단 /\nPal\nDan)18",
+      "水 (Água\n/ Fonte\nPrimordia\nl da\nAdaptaçã\no)34",
+      "2737",
+      "水\n(Caracter\ne Hanja\npara\nÁgua)38",
+      "Hansu-m\nakgi,\nPyojeok-ji\nreugi,\nSonnal-h\necheo-m\nakgi38",
+      "Execução\nsegmenta\nda e\ndura;\nperda da\nanalogia\ncom o\nfluxo\nadaptativ\no e\ncontínuo\nda\nágua38."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "hansu"
+  },
+  {
+    "candidate_id": "POOMSAE-017",
+    "pdf_page": 68,
+    "raw_columns": [
+      "Ilyo\n(일여)37",
+      "9º Dan\n(구단 /\nGu\nDan)18",
+      "一如\n(Unicidad\ne /\nUnidade\nBudista\nde\nEspírito e\nMatéria)38",
+      "2337",
+      "卍\n(Harmoni\na\nCósmica\nBudista)38",
+      "Bojumeo\nk-tongmil\ngi,\nHakdari-g\neumgang\n-makgi38",
+      "Desvio\nvisual\n(Simseon\n);\ninstabilid\nade\narticular\nprolonga\nda nas\nposturas\nunipodais\n3."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false,
+    "poomsae_key_provisional": "ilyo"
+  }
+]

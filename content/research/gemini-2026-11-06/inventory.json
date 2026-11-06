@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "bundle": "taekwondo-gemini-deep-research-audit",
+  "pdf_sha256": "1550915bb02bfbec0c983a0a461bb8fc7c567028df5dea17942542628e528842",
+  "pdf_pages": 89,
+  "files": [
+    {
+      "name": "RELATORIO_AUDITORIA.md",
+      "bytes": 3875,
+      "sha256": "cc88505436be68205cfb84f29231a91f0b8b2bb54d77108449d70a7fbf6a6ca5"
+    },
+    {
+      "name": "achados_auditoria.json",
+      "bytes": 3834,
+      "sha256": "4785534c5631f94cd408c8594ccb272c874ce5bd2fdcd1b6f793cb6d30b73824"
+    },
+    {
+      "name": "commands_rascunho.json",
+      "bytes": 3760,
+      "sha256": "c2b08ecc39c1bfd498f1d9d58aecf3ad7f286076a2e309a3c63e1cbc3557f252"
+    },
+    {
+      "name": "families_rascunho.json",
+      "bytes": 5937,
+      "sha256": "8ab954fe5306768c611f0454724970eab4a79538960bb16bad35e8e47a247fdf"
+    },
+    {
+      "name": "flags_automatizadas.json",
+      "bytes": 12162,
+      "sha256": "ce91f6bebacf67d5e4fbaaafeff17ce765f4887ce3670ec20c5527e0c6655584"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 1323,
+      "sha256": "606be6ddd73ad1a39129e46e5b09efae43874297c2f43820363e16fb7f2267eb"
+    },
+    {
+      "name": "morphemes_rascunho.json",
+      "bytes": 6550,
+      "sha256": "bf2e002bcb9fb12f49e9d7bf754faf151bdde8fc4cdba2d8312b59981f4b3edd"
+    },
+    {
+      "name": "poomsae_rascunho.json",
+      "bytes": 10165,
+      "sha256": "16051b6c1e93da02eb87ff694299888257d204ef06ce9052fd94053514eff0e2"
+    },
+    {
+      "name": "referencias_a_conferir.json",
+      "bytes": 15706,
+      "sha256": "1afcd37f558faee709a080fbb82765ba93c0e719bfbd3c2d9e6f5aaa686b93ab"
+    },
+    {
+      "name": "referencias_revisao.csv",
+      "bytes": 8925,
+      "sha256": "b6c4cd96dac367f5c8c84ba33883d896b51f5ba1ca7a5abb9bc68de48472b520"
+    },
+    {
+      "name": "surfaces_rascunho.json",
+      "bytes": 14198,
+      "sha256": "04015c1075e11a6efb445f4d12c905c74f25d9af65d5db9824e6ed7e5245d99a"
+    },
+    {
+      "name": "tecnicas_rascunho.json",
+      "bytes": 192931,
+      "sha256": "7217291504d4d7dac42ed1b0a2c45271f56a39254ddd26e94285d98bed0b2064"
+    },
+    {
+      "name": "tecnicas_revisao.csv",
+      "bytes": 21890,
+      "sha256": "fac02164d05ffa7fffdf14d084b189805e2d81b60f8fbc06fed71beee0991344"
+    }
+  ],
+  "technical_candidates": 115,
+  "existing_records": 108,
+  "entities": [
+    {
+      "kind": "families",
+      "count": 16,
+      "ids": [
+        "FAMILIES-001",
+        "FAMILIES-002",
+        "FAMILIES-003",
+        "FAMILIES-004",
+        "FAMILIES-005",
+        "FAMILIES-006",
+        "FAMILIES-007",
+        "FAMILIES-008",
+        "FAMILIES-009",
+        "FAMILIES-010",
+        "FAMILIES-011",
+        "FAMILIES-012",
+        "FAMILIES-013",
+        "FAMILIES-014",
+        "FAMILIES-015",
+        "FAMILIES-016"
+      ]
+    },
+    {
+      "kind": "morphemes",
+      "count": 18,
+      "ids": [
+        "MORPHEMES-001",
+        "MORPHEMES-002",
+        "MORPHEMES-003",
+        "MORPHEMES-004",
+        "MORPHEMES-005",
+        "MORPHEMES-006",
+        "MORPHEMES-007",
+        "MORPHEMES-008",
+        "MORPHEMES-009",
+        "MORPHEMES-010",
+        "MORPHEMES-011",
+        "MORPHEMES-012",
+        "MORPHEMES-013",
+        "MORPHEMES-014",
+        "MORPHEMES-015",
+        "MORPHEMES-016",
+        "MORPHEMES-017",
+        "MORPHEMES-018"
+      ]
+    },
+    {
+      "kind": "surfaces",
+      "count": 23,
+      "ids": [
+        "SURFACES-001",
+        "SURFACES-002",
+        "SURFACES-003",
+        "SURFACES-004",
+        "SURFACES-005",
+        "SURFACES-006",
+        "SURFACES-007",
+        "SURFACES-008",
+        "SURFACES-009",
+        "SURFACES-010",
+        "SURFACES-011",
+        "SURFACES-012",
+        "SURFACES-013",
+        "SURFACES-014",
+        "SURFACES-015",
+        "SURFACES-016",
+        "SURFACES-017",
+        "SURFACES-018",
+        "SURFACES-019",
+        "SURFACES-020",
+        "SURFACES-021",
+        "SURFACES-022",
+        "SURFACES-023"
+      ]
+    },
+    {
+      "kind": "poomsae",
+      "count": 17,
+      "ids": [
+        "POOMSAE-001",
+        "POOMSAE-002",
+        "POOMSAE-003",
+        "POOMSAE-004",
+        "POOMSAE-005",
+        "POOMSAE-006",
+        "POOMSAE-007",
+        "POOMSAE-008",
+        "POOMSAE-009",
+        "POOMSAE-010",
+        "POOMSAE-011",
+        "POOMSAE-012",
+        "POOMSAE-013",
+        "POOMSAE-014",
+        "POOMSAE-015",
+        "POOMSAE-016",
+        "POOMSAE-017"
+      ]
+    },
+    {
+      "kind": "commands",
+      "count": 11,
+      "ids": [
+        "COMMANDS-001",
+        "COMMANDS-002",
+        "COMMANDS-003",
+        "COMMANDS-004",
+        "COMMANDS-005",
+        "COMMANDS-006",
+        "COMMANDS-007",
+        "COMMANDS-008",
+        "COMMANDS-009",
+        "COMMANDS-010",
+        "COMMANDS-011"
+      ]
+    }
+  ],
+  "references": 42
+}

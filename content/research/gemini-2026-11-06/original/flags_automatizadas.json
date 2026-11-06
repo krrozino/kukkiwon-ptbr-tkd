@@ -1,0 +1,530 @@
+[
+  {
+    "candidate_id": "TC-CHA-001",
+    "slug": "ap-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 19
+  },
+  {
+    "candidate_id": "TC-CHA-006",
+    "slug": "dwi-huryeo-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 21
+  },
+  {
+    "candidate_id": "TC-CHA-006",
+    "slug": "dwi-huryeo-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 21
+  },
+  {
+    "candidate_id": "TC-CHA-011",
+    "slug": "pyojeok-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 23
+  },
+  {
+    "candidate_id": "TC-CHA-013",
+    "slug": "dolgae-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 24
+  },
+  {
+    "candidate_id": "TC-CHA-014",
+    "slug": "ttwieo-yeop-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 24
+  },
+  {
+    "candidate_id": "TC-CHA-014",
+    "slug": "ttwieo-yeop-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 24
+  },
+  {
+    "candidate_id": "TC-CHA-015",
+    "slug": "ttwieo-ap-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 25
+  },
+  {
+    "candidate_id": "TC-CHA-016",
+    "slug": "ttwieo-dwi-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 25
+  },
+  {
+    "candidate_id": "TC-CHA-016",
+    "slug": "ttwieo-dwi-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 25
+  },
+  {
+    "candidate_id": "TC-CHA-018",
+    "slug": "540-dwihuryeo",
+    "issue": "hangul_contains_non_syllabic_symbols_or_numbers",
+    "pdf_page": 26
+  },
+  {
+    "candidate_id": "TC-CHA-018",
+    "slug": "540-dwihuryeo",
+    "issue": "romanization_contains_parenthetical_or_numeric_variant",
+    "pdf_page": 26
+  },
+  {
+    "candidate_id": "TC-CHA-019",
+    "slug": "gawi-chagi",
+    "issue": "id_pdf_fragmented_or_inconsistent",
+    "pdf_page": 26
+  },
+  {
+    "candidate_id": "TC-CHA-019",
+    "slug": "gawi-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 26
+  },
+  {
+    "candidate_id": "TC-CHA-021",
+    "slug": "balbucheo-yeop-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 27
+  },
+  {
+    "candidate_id": "TC-CHA-023",
+    "slug": "japgo-yeop-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 28
+  },
+  {
+    "candidate_id": "TC-CHA-024",
+    "slug": "nullo-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 29
+  },
+  {
+    "candidate_id": "TC-CHA-026",
+    "slug": "nakka-chagi",
+    "issue": "id_pdf_fragmented_or_inconsistent",
+    "pdf_page": 29
+  },
+  {
+    "candidate_id": "TC-CHA-026",
+    "slug": "nakka-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 29
+  },
+  {
+    "candidate_id": "TC-CHA-027",
+    "slug": "mureup-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 30
+  },
+  {
+    "candidate_id": "TC-CHA-028",
+    "slug": "ieo-chagi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 30
+  },
+  {
+    "candidate_id": "TC-CHA-028",
+    "slug": "ieo-chagi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 30
+  },
+  {
+    "candidate_id": "TC-JIR-001",
+    "slug": "baro-jireugi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 31
+  },
+  {
+    "candidate_id": "TC-JIR-002",
+    "slug": "bandae-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 31
+  },
+  {
+    "candidate_id": "TC-JIR-004",
+    "slug": "olgul-jireugi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 32
+  },
+  {
+    "candidate_id": "TC-JIR-005",
+    "slug": "arae-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 32
+  },
+  {
+    "candidate_id": "TC-JIR-006",
+    "slug": "sewo-jireugi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 33
+  },
+  {
+    "candidate_id": "TC-JIR-007",
+    "slug": "jeocheo-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 33
+  },
+  {
+    "candidate_id": "TC-JIR-009",
+    "slug": "danggyeo-teok-jireugi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 34
+  },
+  {
+    "candidate_id": "TC-JIR-010",
+    "slug": "digeutja-jireugi",
+    "issue": "hangul_contains_non_syllabic_symbols_or_numbers",
+    "pdf_page": 34
+  },
+  {
+    "candidate_id": "TC-JIR-010",
+    "slug": "digeutja-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 34
+  },
+  {
+    "candidate_id": "TC-JIR-015",
+    "slug": "yeop-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 36
+  },
+  {
+    "candidate_id": "TC-JIR-016",
+    "slug": "pyeonjumeok-jireugi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 37
+  },
+  {
+    "candidate_id": "TC-JIR-018",
+    "slug": "jipgejumeok-jireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 37
+  },
+  {
+    "candidate_id": "TC-CHI-002",
+    "slug": "deungjumeok-bakkat-chigi",
+    "issue": "id_pdf_fragmented_or_inconsistent",
+    "pdf_page": 38
+  },
+  {
+    "candidate_id": "TC-CHI-002",
+    "slug": "deungjumeok-bakkat-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 38
+  },
+  {
+    "candidate_id": "TC-CHI-004",
+    "slug": "mejumeok-naeryeo-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 39
+  },
+  {
+    "candidate_id": "TC-CHI-007",
+    "slug": "sonnal-mok-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 40
+  },
+  {
+    "candidate_id": "TC-CHI-007",
+    "slug": "sonnal-mok-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 40
+  },
+  {
+    "candidate_id": "TC-CHI-008",
+    "slug": "sonnal-bakkat-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 41
+  },
+  {
+    "candidate_id": "TC-CHI-009",
+    "slug": "sonnaldeung-an-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 41
+  },
+  {
+    "candidate_id": "TC-CHI-010",
+    "slug": "batangson-teok-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 41
+  },
+  {
+    "candidate_id": "TC-CHI-011",
+    "slug": "kaljaebi",
+    "issue": "romanization_contains_parenthetical_or_numeric_variant",
+    "pdf_page": 42
+  },
+  {
+    "candidate_id": "TC-CHI-011",
+    "slug": "kaljaebi",
+    "issue": "pdf_slug_romanization_disagreement",
+    "pdf_page": 42
+  },
+  {
+    "candidate_id": "TC-CHI-013",
+    "slug": "palgup-pyojeok-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 42
+  },
+  {
+    "candidate_id": "TC-CHI-013",
+    "slug": "palgup-pyojeok-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 42
+  },
+  {
+    "candidate_id": "TC-CHI-014",
+    "slug": "palgup-naeryeo-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 43
+  },
+  {
+    "candidate_id": "TC-CHI-015",
+    "slug": "palgup-ollyeo-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 43
+  },
+  {
+    "candidate_id": "TC-CHI-016",
+    "slug": "meongae-chigi",
+    "issue": "romanization_contains_parenthetical_or_numeric_variant",
+    "pdf_page": 44
+  },
+  {
+    "candidate_id": "TC-CHI-016",
+    "slug": "meongae-chigi",
+    "issue": "pdf_slug_romanization_disagreement",
+    "pdf_page": 44
+  },
+  {
+    "candidate_id": "TC-CHI-018",
+    "slug": "mureup-dollyeo-chigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 44
+  },
+  {
+    "candidate_id": "TC-CHI-019",
+    "slug": "gomson-an-chigi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 45
+  },
+  {
+    "candidate_id": "TC-JJI-003",
+    "slug": "pyeonsonkkeut-jeocheo-jjireugi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 46
+  },
+  {
+    "candidate_id": "TC-JJI-006",
+    "slug": "modumsonkkeut-jjikgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 47
+  },
+  {
+    "candidate_id": "TC-MAK-001",
+    "slug": "arae-makgi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 48
+  },
+  {
+    "candidate_id": "TC-MAK-002",
+    "slug": "momtong-an-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 48
+  },
+  {
+    "candidate_id": "TC-MAK-004",
+    "slug": "olgul-makgi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 49
+  },
+  {
+    "candidate_id": "TC-MAK-005",
+    "slug": "sonnal-momtong-makgi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 49
+  },
+  {
+    "candidate_id": "TC-MAK-005",
+    "slug": "sonnal-momtong-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 49
+  },
+  {
+    "candidate_id": "TC-MAK-006",
+    "slug": "sonnal-arae-makgi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 50
+  },
+  {
+    "candidate_id": "TC-MAK-007",
+    "slug": "hansonnal-bakkat-makgi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 50
+  },
+  {
+    "candidate_id": "TC-MAK-008",
+    "slug": "batangson-momtong-makgi",
+    "issue": "id_pdf_fragmented_or_inconsistent",
+    "pdf_page": 50
+  },
+  {
+    "candidate_id": "TC-MAK-008",
+    "slug": "batangson-momtong-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 50
+  },
+  {
+    "candidate_id": "TC-MAK-010",
+    "slug": "geodeureo-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 51
+  },
+  {
+    "candidate_id": "TC-MAK-013",
+    "slug": "santeul-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 52
+  },
+  {
+    "candidate_id": "TC-MAK-016",
+    "slug": "eotgeoreo-olgul-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 53
+  },
+  {
+    "candidate_id": "TC-MAK-019",
+    "slug": "hwangso-makgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 54
+  },
+  {
+    "candidate_id": "TC-SEO-001",
+    "slug": "ap-seogi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 55
+  },
+  {
+    "candidate_id": "TC-SEO-004",
+    "slug": "juchum-seogi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 56
+  },
+  {
+    "candidate_id": "TC-SEO-006",
+    "slug": "kkoa-seogi",
+    "issue": "romanization_contains_parenthetical_or_numeric_variant",
+    "pdf_page": 57
+  },
+  {
+    "candidate_id": "TC-SEO-006",
+    "slug": "kkoa-seogi",
+    "issue": "pdf_slug_romanization_disagreement",
+    "pdf_page": 57
+  },
+  {
+    "candidate_id": "TC-SEO-007",
+    "slug": "hakdari-seogi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 57
+  },
+  {
+    "candidate_id": "TC-SEO-009",
+    "slug": "naranhi-seogi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 58
+  },
+  {
+    "candidate_id": "TC-SEO-011",
+    "slug": "charyeot-seogi",
+    "issue": "id_pdf_fragmented_or_inconsistent",
+    "pdf_page": 58
+  },
+  {
+    "candidate_id": "TC-SEO-011",
+    "slug": "charyeot-seogi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 58
+  },
+  {
+    "candidate_id": "TC-SEO-012",
+    "slug": "pyeonhi-seogi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 59
+  },
+  {
+    "candidate_id": "TC-SEO-013",
+    "slug": "gyeorugi-seogi",
+    "issue": "romanization_contains_parenthetical_or_numeric_variant",
+    "pdf_page": 59
+  },
+  {
+    "candidate_id": "TC-SEO-013",
+    "slug": "gyeorugi-seogi",
+    "issue": "possible_duplicate_or_variant",
+    "pdf_page": 59
+  },
+  {
+    "candidate_id": "TC-SEO-013",
+    "slug": "gyeorugi-seogi",
+    "issue": "pdf_slug_romanization_disagreement",
+    "pdf_page": 59
+  },
+  {
+    "candidate_id": "TC-DIT-001",
+    "slug": "balbucheo-ditgi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 59
+  },
+  {
+    "candidate_id": "TC-HOS-001",
+    "slug": "sonmok-kkeokgi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 61
+  },
+  {
+    "candidate_id": "TC-HOS-002",
+    "slug": "palgup-kkeokgi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 61
+  },
+  {
+    "candidate_id": "TC-HOS-003",
+    "slug": "eokkae-kkeokgi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 61
+  },
+  {
+    "candidate_id": "TC-HOS-004",
+    "slug": "georeo-neomgigi",
+    "issue": "spans_pdf_page_break",
+    "pdf_page": 61
+  },
+  {
+    "candidate_id": "TC-HOS-004",
+    "slug": "georeo-neomgigi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 61
+  },
+  {
+    "candidate_id": "TC-HOS-005",
+    "slug": "mok-neomgigi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 62
+  },
+  {
+    "candidate_id": "TC-HOS-006",
+    "slug": "sonmok-ppaegi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 62
+  },
+  {
+    "candidate_id": "TC-HOS-007",
+    "slug": "ot-ppaegi",
+    "issue": "requires_safety_and_instructor_review",
+    "pdf_page": 62
+  }
+]
