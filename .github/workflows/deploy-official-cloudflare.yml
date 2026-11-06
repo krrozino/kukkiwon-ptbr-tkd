@@ -122,6 +122,8 @@ jobs:
             echo "::error::Build contém banner editorial de prévia."
             exit 1
           fi
+      - name: Instalar Chromium para validar o pacote público
+        run: npx playwright install --with-deps chromium
       - name: Conferir isolamento editorial
         run: node tools/local-validation/glossary-public.mjs
       - name: Publicar somente Worker oficial (um deploy)
