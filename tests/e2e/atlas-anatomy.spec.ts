@@ -36,8 +36,9 @@ test('zona em revisão tem apenas duas linhas e não consulta ficha técnica',as
   await page.goto('/atlas?region=hands&zoom=1');
   await page.locator('[data-legend-zone="sonbadak"]').click();
   const panel=page.getByRole('tooltip');
-  await expect(panel).toHaveText('Zona ilustrativaNome técnico em revisão');
-  await expect(panel.locator('a,[lang="ko"],p,small')).toHaveCount(0);
+  await expect(panel).toContainText('Palma da mão');
+  await expect(panel).toContainText('Superfície interna');
+  await expect(panel.locator('a,[lang="ko"]')).toHaveCount(0);
   expect(queries).toEqual([]);
 });
 
@@ -62,7 +63,7 @@ for(const area of ['hands','feet']) {
     const slug=area==='hands'?'sonnal':'balnal';
     await page.locator('[data-legend-zone="'+slug+'"]').click();
     await expect(page.locator('.detail-svg [data-region="'+slug+'"]')).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText('Nome técnico em revisão');
+    await expect(page.getByRole('tooltip')).toContainText('Borda do lado do dedo mínimo');
   });
 }
 
@@ -101,7 +102,7 @@ test('primeiro toque e legenda continuam estáveis nas duas vistas do pé',async
     const before=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     if(isMobile)await target.locator('path').tap();else await target.locator('path').click();
     await expect(target).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toHaveText('Zona ilustrativaNome técnico em revisão');
+    await expect(page.getByRole('tooltip')).toContainText('Planta do pé');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
     expect(Math.abs(after.height-before.height)).toBeLessThan(1);
