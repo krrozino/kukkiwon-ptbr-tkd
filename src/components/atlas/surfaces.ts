@@ -1,37 +1,60 @@
-// Recortes editoriais de contato: em coordenadas da mesma silhueta da mão/pé.
-// Bordas internas adjacentes partilham pontos; o clipPath do atlas corta qualquer
-// extrapolação pela silhueta. Diagramas didáticos originais, não anatomia oficial.
-export type Surface={path:string;color:string;view:'front'|'back'|'both';posture?:'fist';anchor:[number,number]};
-export const handOutline='M32 125 C32 113 27 105 23 97 L9 74 C5 67 8 62 12 63 C17 64 20 72 27 77 L25 35 C25 28 32 26 34 34 L39 64 L38 17 C38 9 46 9 47 17 L50 60 L52 12 C53 5 61 7 61 15 L60 63 L66 28 C68 21 76 24 75 31 L70 83 C69 97 62 108 61 125 Z';
-export const footOutline='M36 128 C25 124 25 114 30 99 C34 86 36 78 30 64 C24 52 18 43 20 31 C20 22 29 19 34 26 L34 16 C35 7 45 6 47 16 L48 24 L49 18 C51 11 59 13 60 21 L61 28 C66 19 73 23 73 33 C79 28 85 34 83 42 C89 39 92 47 88 55 L76 79 C69 92 69 104 66 116 C63 130 50 133 36 128 Z';
-export const fistOutline='M26 114 L25 93 C16 85 13 74 13 61 L15 43 C16 35 27 34 30 41 C29 28 42 24 47 33 C50 22 62 23 66 33 C73 26 84 32 84 41 L85 72 C87 84 73 93 69 101 L69 114 Z';
-export const surfaces:Record<string,Surface>={
- sonbadak:{path:'M29 73 Q47 64 67 73 L64 99 Q49 109 34 100 L30 84 Z',color:'#d6a541',view:'front',anchor:[48,86]},
- batangson:{path:'M34 100 Q49 109 64 99 L61 125 L32 125 Z',color:'#ad699b',view:'front',anchor:[49,107]},
- sonnal:{path:'M63 50 L75 38 L71 83 Q70 99 62 114 L55 108 Q63 93 62 78 Z',color:'#258c8b',view:'both',anchor:[69,88]},
- sonnaldeung:{path:'M25 35 L32 33 L39 64 L30 77 L25 76 Z',color:'#cf7549',view:'both',anchor:[32,64]},
- ageumson:{path:'M9 65 Q18 65 27 77 L39 64 L44 71 L30 87 L23 84 Z',color:'#598bc0',view:'front',anchor:[28,80]},
- sondeung:{path:'M29 73 Q49 63 67 73 L64 99 Q50 108 34 100 Z',color:'#859753',view:'back',anchor:[49,86]},
- jumeok:{path:'M15 42 Q21 36 30 42 Q34 30 47 34 Q53 27 65 33 Q76 30 84 42 L85 56 L14 56 Z',color:'#cf7549',view:'both',posture:'fist',anchor:[48,44]},
- deungjumeok:{path:'M14 55 L85 55 L84 73 Q58 90 25 76 Z',color:'#6c7eb2',view:'back',posture:'fist',anchor:[53,65]},
- mejumeok:{path:'M77 50 L85 50 L85 73 Q82 89 69 100 L65 91 Q77 77 77 65 Z',color:'#258c8b',view:'both',posture:'fist',anchor:[81,75]},
- balbadak:{path:'M29 55 Q53 64 78 55 L70 82 Q63 97 65 113 Q49 125 31 113 Q39 88 29 55 Z',color:'#d6a541',view:'front',anchor:[52,82]},
- apchuk:{path:'M20 35 Q45 43 83 38 L87 51 Q57 69 27 55 Z',color:'#258c8b',view:'front',anchor:[51,49]},
- baldeung:{path:'M28 46 Q51 39 80 47 L71 79 L65 103 Q47 113 34 100 Q42 77 28 46 Z',color:'#6c7eb2',view:'back',anchor:[55,71]},
- balkkeut:{path:'M21 31 Q21 21 33 26 L34 16 Q40 7 46 15 L49 23 Q53 11 59 20 L62 29 Q68 21 73 32 Q82 29 83 41 L86 47 L78 49 Q48 32 22 38 Z',color:'#cf7549',view:'both',anchor:[50,27]},
- balnal:{path:'M83 50 L89 53 L76 79 Q68 94 66 117 L60 119 Q63 93 69 76 Z',color:'#ad699b',view:'both',anchor:[74,83]},
- balnaldeung:{path:'M27 54 L33 55 Q43 76 39 88 L34 102 L29 99 Q37 79 27 62 Z',color:'#598bc0',view:'both',anchor:[35,78]},
- dwichuk:{path:'M30 108 Q49 121 65 108 L65 121 Q57 133 37 128 Q27 123 30 108 Z',color:'#b56d64',view:'front',anchor:[49,123]},
- dwikkumchi:{path:'M30 114 Q49 124 65 114 L64 124 Q51 135 36 128 Z',color:'#b56d64',view:'back',anchor:[48,126]},
+// Geometria ilustrativa local, independente do conteúdo editorial. As duas
+// vistas usam estas coordenadas; o grupo inteiro é espelhado no dorso.
+export type Surface = {
+  path: string;
+  color: string;
+  view: 'front' | 'back' | 'both';
+  posture?: 'fist';
+  anchor: [number, number];
 };
-
-// Geometria do atlas independente do estado editorial no banco.
-// Os nomes técnicos não são publicados por estas listas.
+export const handOutline = 'M32 125 C32 113 27 105 23 97 L9 74 C5 67 8 62 12 63 C17 64 20 72 27 77 L25 35 C25 28 32 26 34 34 L39 64 L38 17 C38 9 46 9 47 17 L50 60 L52 12 C53 5 61 7 61 15 L60 63 L66 28 C68 21 76 24 75 31 L70 83 C69 97 62 108 61 125 Z';
+// Cinco dedos: hálux à esquerda na planta, à direita na vista dorsal.
+export const footOutline = 'M38 129 C25 126 25 115 30 100 C35 86 35 76 29 63 C23 52 19 40 21 29 L22 20 C23 8 37 7 41 17 L44 29 L45 24 C46 15 57 16 59 25 L60 32 C64 23 73 27 74 36 C80 29 87 35 85 44 C91 41 95 49 90 57 L77 80 C70 93 70 106 67 118 C64 132 51 135 38 129 Z';
+export const fistOutline = 'M26 114 L25 93 C16 85 13 74 13 61 L15 43 C16 35 27 34 30 41 C29 28 42 24 47 33 C50 22 62 23 66 33 C73 26 84 32 84 41 L85 72 C87 84 73 93 69 101 L69 114 Z';
+// Fronteiras compartilhadas evitam lacunas e sobreposição de transparências.
+// Os paths de partição terminam na silhueta pelo clipPath do DetailMap.
+const palm = 'M40 70 H63 V98 Q49 106 34 98 V86 H40 Z';
+const handBase = 'M34 98 Q49 106 63 98 V140 H32 V100 Z';
+const handWeb = 'M24 70 H40 V86 H24 Z';
+const heel = 'M0 110 L32 112 L48 115 L65 112 L100 110 V140 H0 Z';
+export const surfaces: Record<string, Surface> = {
+  sonbadak: {path:palm,color:'#d6a541',view:'front',anchor:[49,87]},
+  batangson: {path:handBase,color:'#ad699b',view:'front',anchor:[48,112]},
+  sonnal: {path:'M63 70 L71.25 70 L70 83 C69 97 62 108 61 125 H63 Z',color:'#258c8b',view:'both',anchor:[67,88]},
+  sonnaldeung: {path:'M0 86 H34 V98 L32 100 V140 H0 Z',color:'#cf7549',view:'both',anchor:[28,96]},
+  ageumson: {path:handWeb,color:'#598bc0',view:'front',anchor:[31,79]},
+  sondeung: {path:palm,color:'#859753',view:'back',anchor:[49,87]},
+  'illustration-hand-base': {path:handBase,color:'#ad699b',view:'back',anchor:[48,112]},
+  'illustration-hand-web': {path:handWeb,color:'#598bc0',view:'back',anchor:[31,79]},
+  'illustration-thumb': {path:'M0 0 H24 V86 H0 Z',color:'#c88264',view:'both',anchor:[16,74]},
+  'illustration-finger-index': {path:'M24 0 H37 V70 H24 Z',color:'#ccaa68',view:'both',anchor:[31,52]},
+  'illustration-finger-middle': {path:'M37 0 H50 V70 H37 Z',color:'#70a398',view:'both',anchor:[44,46]},
+  'illustration-finger-ring': {path:'M50 0 H64 V70 H50 Z',color:'#8c91be',view:'both',anchor:[56,45]},
+  'illustration-finger-little': {path:'M64 0 H100 V70 H64 Z',color:'#b784a2',view:'both',anchor:[69,53]},
+  jumeok: {path:'M0 0 H100 V56 H0 Z',color:'#cf7549',view:'both',posture:'fist',anchor:[48,44]},
+  deungjumeok: {path:'M0 56 H77 V95 H0 Z',color:'#6c7eb2',view:'back',posture:'fist',anchor:[49,70]},
+  mejumeok: {path:'M77 56 H100 V140 H65 V95 H77 Z',color:'#258c8b',view:'both',posture:'fist',anchor:[81,75]},
+  'illustration-fist-palm': {path:'M0 56 H77 V95 H0 Z',color:'#d6a541',view:'front',posture:'fist',anchor:[49,76]},
+  'illustration-fist-base': {path:'M0 95 H65 V140 H0 Z',color:'#ad699b',view:'both',posture:'fist',anchor:[47,105]},
+  balbadak: {path:'M48 69 L70 67 Q67 88 65 112 L48 115 Q50 90 48 69 Z',color:'#d6a541',view:'front',anchor:[58,89]},
+  apchuk: {path:'M0 42 Q50 34 100 48 L100 62 L70 67 L48 69 L35 66 L0 60 Z',color:'#258c8b',view:'front',anchor:[51,54]},
+  baldeung: {path:'M0 42 Q50 34 100 48 L100 62 L70 67 Q67 88 65 112 L48 115 L32 112 Q43 86 35 66 L0 60 Z',color:'#6c7eb2',view:'back',anchor:[54,81]},
+  balkkeut: {path:'M0 0 H100 V48 Q50 34 0 42 Z',color:'#cf7549',view:'both',anchor:[45,29]},
+  balnal: {path:'M70 67 L100 62 V110 L65 112 Q67 88 70 67 Z',color:'#ad699b',view:'both',anchor:[74,83]},
+  balnaldeung: {path:'M0 60 L35 66 Q43 86 32 112 L0 110 Z',color:'#598bc0',view:'both',anchor:[34,86]},
+  'illustration-foot-arch': {path:'M35 66 L48 69 Q50 90 48 115 L32 112 Q43 86 35 66 Z',color:'#859753',view:'front',anchor:[43,92]},
+  dwichuk: {path:heel,color:'#b56d64',view:'front',anchor:[49,122]},
+  dwikkumchi: {path:heel,color:'#b56d64',view:'back',anchor:[49,122]},
+};
+// Novas divisões têm IDs ilustrativos, sem inventar terminologia técnica.
 export const handSurfaceSlugs = [
-  "sonbadak", "batangson", "sonnal", "sonnaldeung", "ageumson",
-  "sondeung", "jumeok", "deungjumeok", "mejumeok",
+  'sonbadak', 'batangson', 'sonnal', 'sonnaldeung', 'ageumson', 'sondeung',
+  'illustration-hand-base', 'illustration-hand-web', 'illustration-thumb',
+  'illustration-finger-index', 'illustration-finger-middle',
+  'illustration-finger-ring', 'illustration-finger-little',
+  'jumeok', 'deungjumeok', 'mejumeok', 'illustration-fist-palm', 'illustration-fist-base',
 ] as const;
 export const footSurfaceSlugs = [
-  "balbadak", "apchuk", "baldeung", "balkkeut",
-  "balnal", "balnaldeung", "dwichuk", "dwikkumchi",
+  'balbadak', 'apchuk', 'baldeung', 'balkkeut', 'balnal', 'balnaldeung',
+  'illustration-foot-arch', 'dwichuk', 'dwikkumchi',
 ] as const;

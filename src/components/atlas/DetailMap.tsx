@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import type { BodyRegion } from "../../lib/catalog-api";
 import type { View } from "./BodyMap";
 import { handOutline, footOutline, fistOutline, surfaces, handSurfaceSlugs, footSurfaceSlugs } from "./surfaces";
@@ -18,6 +18,7 @@ export default function DetailMap({
   onSelect,
 }: Props) {
   const hand = area === "hands";
+  const clipId = useId().replace(/:/g, "") + "-anatomy";
   const canvasRef=useRef<HTMLDivElement>(null);
   const [placement,setPlacement]=useState<"side"|"below">("below");
   const [hover, setHover] = useState<BodyRegion | null>(null),
@@ -28,10 +29,11 @@ export default function DetailMap({
   );
   const published = new Set(regions.map(r => r.slug));
   // Only public records can resolve official/technical text.
-  const activeSlug = selected || visualSelection;
+  const activeSlug = visualSelection || selected;
   // Keep the panel visible after tapping: mouse hover only changes the preview.
   const { detail } = useTermDetail(hover && published.has(hover.slug) ? hover.slug : (activeSlug && published.has(activeSlug) ? activeSlug : null));
   useEffect(() => {
+    setVisualSelection(null);
     if (selected) setFist(!!surfaces[selected]?.posture);
   }, [selected]);
   useEffect(() => () => clearTimeout(exitTimer.current), []);
@@ -79,12 +81,21 @@ export default function DetailMap({
     clearTimeout(exitTimer.current);
     setHover(r);
   };
+  const previewOnFocus = (r: BodyRegion) => {
+    // Tab must not replace a selected ficha before its link can receive focus.
+    if (activeSlug) setHover(null);
+    else enter(r);
+  };
   const focused = hover || visible.find(r => r.slug === activeSlug) || null;
-  const focusedIndex = focused ? visible.findIndex(r => r.slug === focused.slug) + 1 : 0;
   const anchor = focused && surfaces[focused.slug]?.anchor;
+  const anchorX = anchor && (view === "back" ? 100 - anchor[0] : anchor[0]);
+  const silhouette = hand ? (fist ? fistOutline : handOutline) : footOutline;
   const chooseSurface = (r: BodyRegion) => {
     enter(r);
-    if (published.has(r.slug)) onSelect(r);
+    if (published.has(r.slug)) {
+      setVisualSelection(null);
+      onSelect(r);
+    }
     else setVisualSelection(r.slug);
   };
   const focusName = (r: BodyRegion, index: number) =>
@@ -133,7 +144,9 @@ export default function DetailMap({
             <stop offset=".55" stopColor="#e9d9cc" />
             <stop offset="1" stopColor="#f8eee4" />
           </linearGradient>
+          <clipPath id={clipId}><path d={silhouette} /></clipPath>
         </defs>
+        <g className="anatomy-geometry" transform={view === "back" ? "translate(100 0) scale(-1 1)" : undefined}>
         <g
           role="img"
           aria-label={
@@ -145,7 +158,7 @@ export default function DetailMap({
           }
         >
           <path
-            d={hand ? (fist ? fistOutline : handOutline) : footOutline}
+            d={silhouette}
             className="anatomy-outline"
             fill={"url(#skin-" + area + ")"}
           />
@@ -159,12 +172,13 @@ export default function DetailMap({
                 <path d="M35 77 L39 107 M45 70 L47 108 M56 68 L55 107 M66 77 L60 108 M34 115 L59 115 M27 36 L33 36 M40 19 L46 19 M54 14 L60 14 M68 30 L73 30" />
               )
             ) : view === "front" ? (
-              <path d="M26 41 Q48 49 77 43 M33 63 Q45 72 39 88 M36 111 Q49 105 60 113 M36 119 Q48 115 58 121 M38 23 L45 23 M52 25 L59 26 M65 34 L71 35" />
+                <path d="M27 34 Q34 37 41 33 M47 32 L56 33 M63 37 L70 39 M77 42 L82 44 M29 58 Q49 68 77 58 M36 77 Q44 90 37 103 M38 120 Q49 116 60 121" />
             ) : (
-              <path d="M38 43 L49 101 M50 39 L55 99 M63 42 L60 101 M35 113 Q49 109 64 113 M37 18 L45 18 M52 22 L58 23 M64 30 L71 31 M77 38 L81 40" />
+              <path d="M32 43 L45 104 M48 44 L52 105 M64 46 L59 105 M35 115 Q49 111 64 115 M27 27 L38 28 M48 30 L56 31 M63 36 L70 38 M77 42 L82 44" />
             )}
           </g>
         </g>
+        <g className="anatomy-cutouts" clipPath={`url(#${clipId})`}>
         {visible.map((r) => {
           const s = surfaces[r.slug];
           return (
@@ -193,7 +207,7 @@ export default function DetailMap({
                   if (!published.has(r.slug)) setVisualSelection(r.slug);
                 }
               }}
-              onFocus={() => enter(r)}
+              onFocus={() => previewOnFocus(r)}
               onBlur={leave}
               onClick={() => chooseSurface(r)}
               onKeyDown={(e) => {
@@ -207,13 +221,16 @@ export default function DetailMap({
             </g>
           );
         })}
+        </g>
+        <path d={silhouette} className="anatomy-edge" aria-hidden="true" />
+        </g>
         {anchor && (
           <path
             key={hover?.slug}
             className="surface-connector"
             d={placement==="side"
               ? `M82 ${anchor[1]} L99 ${anchor[1]}`
-              : `M${anchor[0]} 130 L${anchor[0]} 139`}
+              : `M${anchorX} 132 L${anchorX} 139`}
             pathLength="1"
             aria-hidden="true"
           />
@@ -225,10 +242,9 @@ export default function DetailMap({
             id="surface-tooltip"
             key={focused.slug}
             role="tooltip"
-            className="surface-tooltip"
+            className={"surface-tooltip" + (published.has(focused.slug) ? "" : " surface-tooltip-compact")}
             data-placement={placement}
           >
-            <span className="surface-panel-eyebrow">Zona {String(focusedIndex).padStart(2, "0")} de {String(visible.length).padStart(2, "0")}</span>
             {published.has(focused.slug) ? (
               <>
                 <strong>{focused.name_pt}</strong>
@@ -236,14 +252,12 @@ export default function DetailMap({
                 <span lang="ko">{detail?.term.hangul || "Hangul em consulta"}</span>
                 <span>Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}</span>
                 <small>{detail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
-                <small>Clique para consultar a ficha e suas referências.</small>
+                <a className="inline-link" href={`/tecnica?slug=${encodeURIComponent(focused.slug)}`}>Abrir ficha técnica →</a>
               </>
             ) : (
               <>
-                <strong>Recorte anatômico ilustrativo</strong>
-                <span>Área colorida selecionada</span>
-                <small>Contorno e divisões esquemáticos, sem correspondência técnica homologada.</small>
-                <small>O nome técnico e a ficha aparecerão após a conferência das fontes.</small>
+                <strong>Zona ilustrativa</strong>
+                <span>Nome técnico em revisão</span>
               </>
             )}
           </div>
@@ -270,7 +284,7 @@ export default function DetailMap({
               aria-label={focusName(r, index)}
               aria-pressed={activeSlug === r.slug}
               onMouseEnter={() => enter(r)}
-              onFocus={() => enter(r)}
+              onFocus={() => previewOnFocus(r)}
               onClick={() => chooseSurface(r)}
             >
               <span aria-hidden="true" className="surface-swatch" style={{ backgroundColor: surfaces[r.slug].color }} />
