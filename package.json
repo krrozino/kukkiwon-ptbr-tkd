@@ -15,6 +15,9 @@
     "content:sql": "node scripts/content.mjs --sql",
     "validate": "npm run content:check && npm run check && npm test && npm run build",
     "content:review": "node scripts/review-export.mjs",
+    "research:audit": "node scripts/research-audit.mjs",
+    "research:prepare": "node scripts/research-audit.mjs --write",
+    "test:research:ui": "playwright test --config playwright.research.config.ts",
     "test:integration": "node tools/local-validation/verify.mjs",
     "test:schools": "node tools/local-validation/sprint02.mjs",
     "preview:prepare": "node scripts/prepare-preview.mjs",
@@ -24,9 +27,7 @@
     "preview:external:check": "node tools/local-validation/check-deployed.mjs",
     "preview:check": "node tools/local-validation/check-preview.mjs",
     "glossary:check": "node scripts/glossary.mjs",
-    "glossary:preview": "node scripts/glossary-preview.mjs",
-    "research:audit": "node scripts/research-audit.mjs",
-    "research:prepare": "node scripts/research-audit.mjs --write"
+    "glossary:preview": "node scripts/glossary-preview.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",
