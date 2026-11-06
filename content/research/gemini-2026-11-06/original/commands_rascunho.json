@@ -1,0 +1,145 @@
+[
+  {
+    "candidate_id": "COMMANDS-001",
+    "pdf_page": 69,
+    "raw_columns": [
+      "차렷",
+      "Charyeot",
+      "Tcha-riót",
+      "Ordem de Sentido:\natletas alinham-se\neretos na marcação\nperimetral6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-002",
+    "pdf_page": 69,
+    "raw_columns": [
+      "경례",
+      "Gyeong-nye",
+      "Gui-ong-nié",
+      "Saudação Formal:\nflexão cervical e\ndorsal em 45° em\ndireção ao"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-003",
+    "pdf_page": 70,
+    "raw_columns": [
+      "준비",
+      "Junbi",
+      "Djum-bi",
+      "Postura de\nProntidão: atletas\nassumem a base de\ncombate fechada31."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-004",
+    "pdf_page": 70,
+    "raw_columns": [
+      "시작",
+      "Sijak",
+      "Shi-ják",
+      "Início do Assalto:\ncomando para\ndeflagração\nimediata do\ncombate6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-005",
+    "pdf_page": 70,
+    "raw_columns": [
+      "갈려",
+      "Gallyeo",
+      "Kal-lió",
+      "Separação:\ninterrupção\nmomentânea; os\natletas congelam e\nrecuam um passo6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-006",
+    "pdf_page": 70,
+    "raw_columns": [
+      "계속",
+      "Gyesok",
+      "Gui-e-sók",
+      "Continuação:\nretorno imediato\ndas trocas marciais\napós a separação."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-007",
+    "pdf_page": 70,
+    "raw_columns": [
+      "그만",
+      "Geuman",
+      "Ku-man",
+      "Término do Assalto:\nfim do tempo ou\ninterrupção\ndefinitiva da luta6."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-008",
+    "pdf_page": 70,
+    "raw_columns": [
+      "계시",
+      "Gyeshi",
+      "Gui-e-shi",
+      "Interrupção Médica\nde 1 Minuto:\natendimento para\nlesões não\nintencionais."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-009",
+    "pdf_page": 70,
+    "raw_columns": [
+      "시간",
+      "Sigan",
+      "Shi-gan",
+      "Suspensão do\nTempo Oficial:\ninterrupção\ncronométrica por\nmotivo de\narbitragem."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-010",
+    "pdf_page": 71,
+    "raw_columns": [
+      "감점",
+      "Gam-jeom",
+      "Kam-djom",
+      "Falta Oficial:\npunição formal que\nconcede 1 ponto ao\noponente40."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "COMMANDS-011",
+    "pdf_page": 71,
+    "raw_columns": [
+      "청 / 홍 승",
+      "Chung / Hong\nSeung",
+      "Tchung / Rong\nSung",
+      "Declaração de\nVitória: anúncio do\nvencedor do round\nou combate (Azul /\nVermelho)."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "candidate_id": "FAMILIES-001",
+    "pdf_page": 4,
+    "raw_columns": [
+      "차기",
+      "Chagi",
+      "Chagi",
+      "Chute",
+      "Golpes\nbalísticos\ncontundentes\nou penetrativos\ndesferidos\npelos membros\ninferiores4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-002",
+    "pdf_page": 4,
+    "raw_columns": [
+      "지르기",
+      "Jireugi",
+      "Jireugi",
+      "Soco /\nPerfuração\nDireta",
+      "Projeção linear\nretilínea com\npronação final\naxial do punho\ncerrado4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-003",
+    "pdf_page": 4,
+    "raw_columns": [
+      "치기",
+      "Chigi",
+      "Chigi",
+      "Golpe\nTraumático\nIndireto",
+      "Aceleração\ncontundente\nangular com o\npunho, mão\naberta,\ncotovelo ou\njoelho4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-004",
+    "pdf_page": 4,
+    "raw_columns": [
+      "찌르기",
+      "Jjireugi",
+      "Jjireugi",
+      "Estocada\nPenetrativa",
+      "Projeção\nperfurante\nconcentrada\nnas\nextremidades\ndas falanges\ndigitais\nalinhadas4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-005",
+    "pdf_page": 4,
+    "raw_columns": [
+      "찍기",
+      "Jjikgi",
+      "Jjikgi",
+      "Golpe Picado /\nMachado",
+      "Trajetória\ndescendente\nvertical rápida\n(dedos unidos\nou calcanhar)4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-006",
+    "pdf_page": 5,
+    "raw_columns": [
+      "막기",
+      "Makgi",
+      "Makgi",
+      "Bloqueio /\nDefesa",
+      "Interceptação,\ndeflexão ou\ndispersão\nvetorial de um\ngolpe\noponente4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-007",
+    "pdf_page": 5,
+    "raw_columns": [
+      "꺾기",
+      "Kkeokgi",
+      "Kkeokgi",
+      "Chave / Torção\nArticular",
+      "Alavanca\nhiperextensora\nou torque\naplicado sobre\ncápsulas\narticulares4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-008",
+    "pdf_page": 5,
+    "raw_columns": [
+      "넘기기",
+      "Neomgigi",
+      "Neomgigi",
+      "Projeção /\nQueda",
+      "Desestabilizaç\não\nbiomecânica\ndo centro de\nmassa e\narremesso ao\nsolo4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-009",
+    "pdf_page": 5,
+    "raw_columns": [
+      "빼기",
+      "Ppaegi",
+      "Ppaegi",
+      "Desvencilhame\nnto / Soltura",
+      "Tração e\nrotação rápida\nem alavanca\ncontra\npreensões\ncorporais\nadversárias4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-010",
+    "pdf_page": 5,
+    "raw_columns": [
+      "피하기",
+      "Pihagi",
+      "Pihagi",
+      "Esquiva /\nEvasão",
+      "Deslocamento\ncefálico ou do\ntronco para\nretirar a zona\nvital da linha\nde impacto4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-011",
+    "pdf_page": 5,
+    "raw_columns": [
+      "잡기",
+      "Japgi",
+      "Japgi",
+      "Agarre /\nPreensão",
+      "Fechamento\npreênsil dos\ndedos sobre\nmembro,\ndobok ou"
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-012",
+    "pdf_page": 6,
+    "raw_columns": [
+      "밀기",
+      "Milgi",
+      "Milgi",
+      "Empurrão",
+      "Aplicação\ncontínua e\nisotônica de\nforça vetorial\npara deslocar\na massa\nadversária4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-013",
+    "pdf_page": 6,
+    "raw_columns": [
+      "서기",
+      "Seogi",
+      "Seogi",
+      "Base / Postura",
+      "Configuração\ncinestésica e\ndistribuição\nponderal sobre\nos apoios\npodais4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-014",
+    "pdf_page": 6,
+    "raw_columns": [
+      "디디기",
+      "Ditgi",
+      "Ditgi",
+      "Passo /\nDeslocamento",
+      "Reorganização\nespacial e\nmodulação\ndinâmica do\npasso na área\nde combate4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-015",
+    "pdf_page": 6,
+    "raw_columns": [
+      "뛰기",
+      "Ttwigi",
+      "Ttwigi",
+      "Salto / Pulo",
+      "Propulsão\nvertical ou\nhorizontal\ndesprovida de\ncontato podal\ntemporário\ncom o solo4."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  },
+  {
+    "candidate_id": "FAMILIES-016",
+    "pdf_page": 6,
+    "raw_columns": [
+      "낙법",
+      "Nakbeop",
+      "Nakbeop",
+      "Queda /\nAmortecimento",
+      "Técnicas de\ndissipação\nsuperficial de\nenergia de\nimpacto contra\no solo7."
+    ],
+    "editorial_status": "research",
+    "publication_status": "draft",
+    "eligible_for_public_site": false
+  }
+]

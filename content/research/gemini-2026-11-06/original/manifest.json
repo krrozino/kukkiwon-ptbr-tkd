@@ -1,0 +1,45 @@
+{
+  "bundle": "taekwondo-gemini-deep-research-audit",
+  "generated_on": "2026-11-06",
+  "pdf_filename": "Enciclopédia Completa de Taekwondo.pdf",
+  "pdf_sha256": "1550915bb02bfbec0c983a0a461bb8fc7c567028df5dea17942542628e528842",
+  "pdf_pages": 89,
+  "technical_candidates": 115,
+  "other_categories": {
+    "families": 16,
+    "morphemes": 18,
+    "surfaces": 23,
+    "poomsae": 17,
+    "commands": 11
+  },
+  "references_count": 42,
+  "existing_repo_review_records": 108,
+  "existing_repo_slugs_unique": 108,
+  "counts": {
+    "chute": 28,
+    "soco": 18,
+    "golpe": 20,
+    "estocada": 6,
+    "defesa": 20,
+    "base": 13,
+    "deslocamento": 3,
+    "autodefesa": 7
+  },
+  "match_status": {
+    "exact_slug": 38,
+    "possible_variant_review": 27,
+    "not_found_in_repo_review_batches": 48,
+    "normalized_slug": 2
+  },
+  "flags_count": 88,
+  "flag_types": {
+    "spans_pdf_page_break": 38,
+    "possible_duplicate_or_variant": 27,
+    "hangul_contains_non_syllabic_symbols_or_numbers": 2,
+    "romanization_contains_parenthetical_or_numeric_variant": 5,
+    "id_pdf_fragmented_or_inconsistent": 5,
+    "pdf_slug_romanization_disagreement": 4,
+    "requires_safety_and_instructor_review": 7
+  },
+  "policy": "Offline research evidence only; no public import, no Supabase writes, no verified teacher/source claims."
+}

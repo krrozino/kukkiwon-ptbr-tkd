@@ -32,4 +32,24 @@ describe("Pesquisa externa: entrada sempre isolada", () => {
   it("bloqueia arquivos sem manifesto", () => {
     expect(() => parseResearchBundle([{ slug: "ap-chagi" }])).toThrow();
   });
+  it.each([
+    ["metadados negativos", (x: any) => { x.metadata.pdf_pages = -1; x.records[0].pdf_pages = []; }],
+    ["página ausente", (x: any) => { x.records[0].pdf_pages = []; }],
+    ["comparação inválida", (x: any) => { x.records[0].compare_existing_repo = { injected: true }; }],
+    ["identidade observada inválida", (x: any) => { x.records[0].pdf_id_observed = null; }],
+    ["revisão técnica forjada", (x: any) => { x.records[0].technical_review = "approved"; }],
+    ["chave perigosa", (x: any) => { x.records[0].extra = JSON.parse('{"__proto__":{"approved":true}}'); }],
+    ["campo sem limite", (x: any) => { x.records[0].romanization_extracted = "x".repeat(50_001); }],
+  ])("rejeita integralmente %s", (_, change) => {
+    const x = valid(); change(x);
+    expect(() => parseResearchBundle(x)).toThrow();
+  });
+  it("rejeita falha no último registro sem alterar entrada", () => {
+    const x = valid();
+    x.metadata.technical_candidates = 2;
+    x.records.push({ ...x.records[0], candidate_id: "TC-CHA-002", raw_columns: null as any });
+    const before = JSON.stringify(x);
+    expect(() => parseResearchBundle(x)).toThrow();
+    expect(JSON.stringify(x)).toBe(before);
+  });
 });
