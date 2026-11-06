@@ -1,6 +1,6 @@
 # Research Knowledge Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** transformar a pesquisa em entrada auditável e revisão prática, preservando o catálogo e a produção.
 
@@ -32,11 +32,11 @@
 
 **Interfaces:** `auditResearch(bundle, existing, documentary)` retorna envelope versionado com originais, normalizações, correspondências, estado documental e lacunas; `parseAuditFile(unknown)` valida entrada sem promover conteúdo.
 
-- [ ] Testar rejeição integral de JSON malformado/promovido, NFC idempotente, identidades únicas, conflito, variantes, proveniência e nenhuma mutação dos lotes.
-- [ ] Rodar os testes e observar falha por comportamento ausente.
-- [ ] Implementar parser, comparador, inventário com SHA-256, classificação individual e relatórios JSON/CSV/Markdown reproduzíveis.
-- [ ] Rodar testes focados e a suíte; gerar artefatos e comparar duas execuções.
-- [ ] Commit/PR A com cobertura documental real e pendências.
+- [x] Testar rejeição integral de JSON malformado/promovido, NFC idempotente, identidades únicas, conflito, variantes, proveniência e nenhuma mutação dos lotes.
+- [x] Rodar os testes e observar falha por comportamento ausente.
+- [x] Implementar parser, comparador, inventário com SHA-256, classificação individual e relatórios JSON/CSV/Markdown reproduzíveis.
+- [x] Rodar testes focados e a suíte; gerar artefatos e comparar duas execuções.
+- [x] Commit/PR A com cobertura documental real e pendências.
 
 ### Task 2: Modelo relacional
 
@@ -44,9 +44,9 @@
 
 **Interfaces:** reutilizar `technical_terms`, `term_sources`, `term_relations`, `body_regions`; relações novas opcionais para a integração pública.
 
-- [ ] Ler esquema existente e escrever testes de RLS, evidência por campo, integridade, identidade humana e histórico imutável.
-- [ ] Observar falha, implementar migração compatível e executar somente em PGlite.
-- [ ] Validar suíte e documentar aplicabilidade local; commit/PR B dependente da A.
+- [x] Ler esquema existente e escrever testes de RLS, evidência por campo, integridade, identidade humana e histórico imutável.
+- [x] Observar falha, implementar migração compatível e executar somente em PGlite.
+- [x] Validar suíte e documentar aplicabilidade local; commit/PR B dependente da A.
 
 ### Task 3: Laboratório editorial
 
@@ -54,10 +54,10 @@
 
 **Interfaces:** consome o envelope da Task 1; sessões portáveis identificam hash do PDF e candidatos, preservam eventos de checklist/proposta/anotação sem aprovação.
 
-- [ ] Testar busca PT/Hangul/romanização, filtros, comparação e sessões com revisão explícita sem promoção.
-- [ ] Observar falha, implementar histórico, checklist, exportação e reabertura validada.
-- [ ] Testar no navegador desktop/mobile, teclado, XSS e erros; conferir ausência do componente/dados no build público.
-- [ ] Commit/PR C dependente da B.
+- [x] Testar busca PT/Hangul/romanização, filtros, comparação e sessões com revisão explícita sem promoção.
+- [x] Observar falha, implementar histórico, checklist, exportação e reabertura validada.
+- [x] Testar no navegador desktop/mobile, teclado, XSS e erros; conferir ausência do componente/dados no build público.
+- [x] Commit/PR C dependente da B.
 
 ### Task 4: Integração e fundações educativas
 
@@ -65,7 +65,7 @@
 
 **Interfaces:** apenas termos e relações publicados, dados licenciados e localizadores; recursos dependentes de migração desligados por padrão.
 
-- [ ] Testar exclusão de rascunhos, fonte/relação inválida, estado vazio e ausência de graduação universal.
-- [ ] Observar falha e implementar adaptadores/componentes e navegação acessível.
-- [ ] Executar conteúdo, TypeScript, unitários/banco, integração local, build e Playwright; revisão independente da branch.
-- [ ] Commit/PR D dependente da C, sem merge/deploy; registrar resultados e próximos passos humanos.
+- [x] Testar exclusão de rascunhos, fonte/relação inválida, estado vazio e ausência de graduação universal.
+- [x] Observar falha e implementar adaptadores/componentes e navegação acessível.
+- [x] Executar conteúdo, TypeScript, unitários/banco, integração local, build e Playwright; revisão independente da branch.
+- [x] Commit/PR D dependente da C, sem merge/deploy; registrar resultados e próximos passos humanos.
