@@ -33,8 +33,8 @@ export function validateGlossary(data,{requireApproval=true}={}){
  return errors;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- const path=process.argv[2]||'content/glossary/approved.json';
- const errors=validateGlossary(JSON.parse(readFileSync(path,'utf8')));
+ if(process.argv.length>2){process.stderr.write('Este comando não aceita caminhos; valida somente o glossário público.\n');process.exit(1);}
+ const errors=validateGlossary(JSON.parse(readFileSync(new URL('../content/glossary/approved.json',import.meta.url),'utf8')));
  if(errors.length){process.stderr.write(errors.join('\n')+'\n');process.exitCode=1;}
  else process.stdout.write('Glossário público validado: somente conteúdo aprovado.\n');
 }

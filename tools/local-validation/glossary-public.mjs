@@ -17,12 +17,12 @@ try{
    if(!path.startsWith(root)||!existsSync(path))return route.fulfill({status:404,body:''});
    return route.fulfill({path,contentType:({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'})[extname(path)]||'application/octet-stream'});
   });
-  await page.goto('http://public.local/glossario',{waitUntil:'networkidle'});
+  await page.goto('https://public.local/glossario',{waitUntil:'networkidle'});
   await expect(page.locator('[data-word-card]')).toHaveCount(approved.words.length);
   await expect(page.locator('.glossary-review-banner')).toHaveCount(0);
   for(const entry of review.words.filter(e=>!released.has(e.id)))await expect(page.locator('[data-word-card="'+entry.id+'"]')).toHaveCount(0);
   for(const entry of review.expressions.filter(e=>!released.has(e.id)))await expect(page.locator('[data-expression="'+entry.id+'"]')).toHaveCount(0);
-  await page.goto('http://public.local/fundamentos/alturas-e-direcoes',{waitUntil:'networkidle'});
+  await page.goto('https://public.local/fundamentos/alturas-e-direcoes',{waitUntil:'networkidle'});
   await expect(page.locator('.height-card')).toHaveCount(3);
   await expect(page.locator('.glossary-review-banner')).toHaveCount(0);
   if(!approved.words.length)await expect(page.locator('.korean-word')).toHaveCount(0);

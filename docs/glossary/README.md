@@ -10,6 +10,8 @@ Na raiz do projeto, executar `npm run glossary:preview` e abrir
 O servidor escuta somente no computador local. O build fica em
 `.preview-build/glossary`, com faixa explícita de conteúdo em revisão e sem
 credenciais do catálogo remoto. Ctrl+C encerra o servidor.
+Os arquivos da prévia são carregados em memória na inicialização; as URLs
+recebidas apenas consultam esse mapa, sem formar caminhos de leitura no disco.
 
 `npm run glossary:preview -- --build-only` apenas prepara o pacote de revisão.
 Isso não é um comando de deploy. Não reutilizar esse pacote na produção.
@@ -27,7 +29,8 @@ revisão habilitada é recusado se seu destino for o diretório oficial `dist`.
 - Uma expressão só pode ser liberada se todas as suas palavras também estiverem
   no arquivo aprovado. Os segmentos de romanização e Hangul são explícitos.
 
-`npm run glossary:check` confere o arquivo público. O mesmo validador é executado
+`npm run glossary:check` confere o arquivo público fixo, sem aceitar caminhos
+pela linha de comando. O mesmo validador é executado
 pela configuração Astro, incluindo builds diretos. Ao final de um build público,
 uma segunda verificação recusa a presença do identificador ou dos textos
 contextuais do lote que ainda não foi aprovado.
@@ -57,7 +60,7 @@ continuam em texto simples. Links de ficha exigem um registro publicado.
 ## Verificação desta entrega
 
 - Tipos: `npm run check`, sem diagnósticos.
-- Unitários: `npm test`, 58 testes aprovados.
+- Unitários: `npm test`, 60 testes aprovados.
 - Navegador: `npm run test:ui`, 88 testes aprovados em desktop e celular.
 - Pacote público: build padrão e `node tools/local-validation/glossary-public.mjs`,
   sem lote em revisão e sem erros de JavaScript nos dois dispositivos.
