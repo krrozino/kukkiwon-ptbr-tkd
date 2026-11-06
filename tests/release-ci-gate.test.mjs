@@ -65,5 +65,10 @@ describe("preflight de release", () => {
     expect(workflow).toContain('if [[ "$CREATE_RELEASE" != "true" ]]');
     expect(workflow).toContain('if [[ "$tag_status" -ne 2 ]]');
     expect(workflow).toContain("npm run research:audit");
+    const chromium = workflow.indexOf("npx playwright install --with-deps chromium");
+    const isolation = workflow.indexOf("node tools/local-validation/glossary-public.mjs");
+    expect(chromium).toBeGreaterThan(-1);
+    expect(isolation).toBeGreaterThan(chromium);
+    expect(publish).toBeGreaterThan(isolation);
   });
 });
