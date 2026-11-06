@@ -1,0 +1,21 @@
+name: "Funcionalidade"
+description: "Sugira evoluções para o atlas, glossário, catálogo ou estudos."
+title: "[Melhoria] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: opportunity
+    attributes:
+      label: "Problema ou oportunidade"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Solução proposta"
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: "Critérios de aceite e testes"

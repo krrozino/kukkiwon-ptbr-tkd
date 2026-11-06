@@ -1,0 +1,27 @@
+name: "Bug / regressão"
+description: "Relate um problema reproduzível na enciclopédia ou atlas."
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Comportamento observado e esperado"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Passos para reproduzir"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: "Ambiente"
+      placeholder: "Celular/desktop, navegador e página"
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "Capturas e logs"
+      description: "Nunca inclua tokens, senhas ou dados pessoais."

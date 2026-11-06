@@ -37,3 +37,13 @@ O novo catálogo depende da migração proposta nesta sprint; ela não é aplica
 O comando `content:check` valida todos os lotes de pesquisa. `node scripts/content.mjs --sql kukkiwon-2012-expansion` gera SQL para revisão, sem conectar ao banco. A CI verifica dados, permissões, busca e interface; não importa rascunhos nem faz deploy.
 
 `npm run preview:prepare` gera uma prévia sem conexão remota em `.preview-build/` e executa Wrangler apenas em dry run. `npm run preview:check` valida esse pacote em um Worker local. Para a validação adicional PostgreSQL/PostgREST, consulte [as ferramentas isoladas](tools/local-validation/README.md). A ferramenta não aceita uma conexão de banco remoto.
+
+## GitHub Releases e versionamento
+
+O site oficial usa publicação manual: o workflow da Cloudflare compila, valida e realiza um único deploy. **Somente depois do sucesso**, cria a tag e a [GitHub Release](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases) vinculadas ao commit implantado.
+
+- [Processo de publicação e configuração segura de secrets](docs/GITHUB_RELEASES.md)
+- [Changelog](CHANGELOG.md)
+- [Política de segurança](SECURITY.md)
+
+Releases do software não homologam automaticamente nenhum conteúdo técnico em revisão.
