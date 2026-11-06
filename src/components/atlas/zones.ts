@@ -13,29 +13,34 @@ const palette=['#d6a541','#258c8b','#cf7549','#ad699b','#598bc0','#859753'];
 const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[number,number],color:number,regionSlug?:string):AtlasZone=>
   ({id,area,view,path,anchor,color:palette[color],...(regionSlug?{regionSlug}:{})});
 export const bodyZones:AtlasZone[]=[
-  body('head','head-face','front','M115 52 H145 V76 H115 Z',[130,65],0),
-  body('head','head-forehead','front','M113 36 Q130 30 150 36 L148 52 H112 Z',[130,43],1),
-  body('head','head-temples','front','M108 51 H115 V72 L110 70 Z M145 51 H153 L151 70 L145 72 Z',[111,60],2),
-  body('head','head-chin','front','M115 76 H147 Q145 87 131 92 Q120 87 115 76 Z',[130,83],3),
-  body('head','head-occiput','back','M111 27 Q130 16 148 29 L153 54 L149 77 Q130 85 112 76 L107 53 Z',[130,54],4),
-  body('head','head-neck','both','M118 91 Q130 97 142 91 L144 102 Q130 110 116 102 Z',[130,101],5),
-  body('torso','torso-shoulders','both','M96 113 L113 106 L121 125 L99 139 L90 133 Z M147 106 L164 113 L170 133 L161 139 L139 125 Z',[106,123],0),
-  body('torso','torso-chest','front','M102 139 H158 L160 173 H100 Z',[130,154],1),
-  body('torso','torso-abdomen','front','M100 173 H160 L161 219 Q130 225 99 219 Z',[130,196],2),
-  body('torso','torso-flanks','both','M94 145 L102 143 L100 173 L99 219 L95 218 Z M158 143 L166 145 L165 218 L161 219 L160 173 Z',[98,183],3),
-  body('torso','torso-back','back','M102 139 H158 L160 185 H100 Z',[130,160],4),
-  body('torso','torso-lumbar','back','M100 185 H160 L161 219 Q130 225 99 219 Z',[130,204],5),
-  body('arms','arms-upper','both','M79 133 L91 140 L79 174 L65 171 Z M181 133 L169 140 L181 174 L195 171 Z',[78,155],0),
-  body('arms','arms-elbow','both','M65 174 L78 178 L74 198 L59 195 Z M195 174 L182 178 L186 198 L201 195 Z',[68,185],1,'palgup'),
-  body('arms','arms-forearm','both','M58 199 L73 203 L61 246 L45 242 Z M202 199 L187 203 L199 246 L215 242 Z',[59,224],2),
-  body('arms','arms-wrist','both','M45 246 L60 250 L56 267 L41 263 Z M215 246 L200 250 L204 267 L219 263 Z',[50,257],3),
-  // Preservar as geometrias técnicas existentes do antebraço, sem renomeá-las.
-  body('arms','arms-inner-forearm','both','M47 230 L61 233 L55 265 L44 262 Z',[52,244],4,'anpalmok'),
-  body('arms','arms-outer-forearm','both','M202 230 L214 228 L219 261 L205 266 Z',[211,244],5,'bakkatpalmok'),
-  body('legs','legs-thigh','both','M91 251 L124 257 L115 318 L84 316 Z M169 251 L136 257 L145 318 L176 316 Z',[101,284],0),
-  body('legs','legs-knee','front','M84 322 L115 324 L113 345 L84 343 Z M176 322 L145 324 L147 345 L176 343 Z',[99,334],1,'mureup'),
-  body('legs','legs-shin','front','M85 349 L113 351 L110 391 L85 390 Z M175 349 L147 351 L150 391 L175 390 Z',[99,370],2),
-  body('legs','legs-calf','back','M85 323 L115 326 L112 371 L109 391 L85 390 Z M175 323 L145 326 L148 371 L151 391 L175 390 Z',[100,351],4),
+  // A figura possui 260x480 unidades. Estas faixas seguem o contorno
+  // orgânico do rosto, dobok, articulações e calça; o clipPath limita as
+  // marcas às partes do corpo. Não são áreas técnicas certificadas.
+  body('head','head-face','front','M116 53 Q130 48 145 53 L149 71 Q144 81 131 83 Q119 81 113 71 Z',[130,65],0),
+  body('head','head-forehead','front','M113 37 Q128 31 148 37 L148 51 Q130 47 113 52 Z',[130,43],1),
+  body('head','head-temples','front','M107 51 Q110 49 115 52 L114 74 Q109 71 107 63 Z M147 52 Q151 49 155 52 L153 70 L147 74 Z',[111,60],2),
+  body('head','head-chin','front','M115 77 Q130 86 146 77 Q145 88 131 93 Q120 90 115 77 Z',[130,83],3),
+  body('head','head-occiput','back','M108 45 Q109 22 130 19 Q153 22 155 45 L152 71 Q146 85 131 91 Q115 85 109 72 Z',[130,54],4),
+  body('head','head-neck','both','M117 90 Q130 96 143 90 L145 103 Q130 112 115 103 Z',[130,101],5),
+
+  body('torso','torso-shoulders','both','M95 113 Q104 108 114 105 L121 123 L101 143 L89 134 Z M146 105 Q156 108 165 113 L171 134 L159 143 L139 123 Z',[106,123],0),
+  body('torso','torso-chest','front','M104 140 Q130 132 156 140 L160 174 Q130 182 100 174 Z',[130,154],1),
+  body('torso','torso-abdomen','front','M101 176 Q130 183 159 176 L163 218 Q131 228 97 218 Z',[130,196],2),
+  body('torso','torso-flanks','both','M95 142 L105 141 L102 178 L99 219 L94 226 Q91 196 95 142 Z M155 141 L165 142 Q169 197 166 226 L161 219 L158 178 Z',[98,183],3),
+  body('torso','torso-back','back','M103 139 Q130 134 157 139 L160 185 Q130 193 100 185 Z',[130,160],4),
+  body('torso','torso-lumbar','back','M100 186 Q130 192 160 186 L164 219 Q130 230 96 219 Z',[130,204],5),
+
+  body('arms','arms-upper','both','M77 127 Q84 119 95 116 L96 147 L78 183 L62 175 Q66 150 77 127 Z M183 127 Q176 119 165 116 L164 147 L182 183 L198 175 Q194 150 183 127 Z',[78,155],0),
+  body('arms','arms-elbow','both','M61 174 Q69 179 78 179 L76 199 Q66 206 56 198 Z M199 174 Q191 179 182 179 L184 199 Q194 206 204 198 Z',[68,185],1,'palgup'),
+  body('arms','arms-forearm','both','M57 199 Q65 204 75 204 L61 247 Q52 249 43 242 Z M203 199 Q195 204 185 204 L199 247 Q208 249 217 242 Z',[59,224],2),
+  body('arms','arms-wrist','both','M44 243 Q52 250 61 249 L58 270 L39 263 Z M216 243 Q208 250 199 249 L202 270 L221 263 Z',[50,257],3),
+  body('arms','arms-inner-forearm','both','M49 227 Q55 232 63 233 L57 266 L43 263 Z',[52,244],4,'anpalmok'),
+  body('arms','arms-outer-forearm','both','M197 233 Q205 232 212 227 L217 263 L203 266 Z',[211,244],5,'bakkatpalmok'),
+
+  body('legs','legs-thigh','both','M91 245 Q107 251 124 256 L117 319 Q100 325 83 316 Z M169 245 Q153 251 136 256 L143 319 Q160 325 177 316 Z',[101,284],0),
+  body('legs','legs-knee','front','M83 317 Q100 323 116 320 L114 346 Q99 351 84 345 Z M177 317 Q160 323 144 320 L146 346 Q161 351 176 345 Z',[99,334],1,'mureup'),
+  body('legs','legs-shin','front','M84 347 Q98 352 114 348 L114 391 Q98 397 83 392 Z M176 347 Q162 352 146 348 L146 391 Q162 397 177 392 Z',[99,370],2),
+  body('legs','legs-calf','back','M83 322 Q99 330 116 322 L113 363 L114 391 Q99 399 83 393 Z M177 322 Q161 330 144 322 L147 363 L146 391 Q161 399 177 393 Z',[100,351],4),
 ];
 const detailZones=(area:'hands'|'feet',ids:readonly string[]):AtlasZone[]=>ids.map(id=>({
   ...surfaces[id],id,area,...(!id.startsWith('illustration-')?{regionSlug:id}:{}),

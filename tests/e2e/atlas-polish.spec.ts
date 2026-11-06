@@ -42,7 +42,7 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   // Uma seleção publicada não pode prevalecer sobre a próxima zona ilustrativa.
   await page.locator('[data-legend-zone="sonnal"]').click();
   await page.locator('[data-legend-zone="illustration-thumb"]').click();
-  await expect(tip).toHaveText('Zona ilustrativaNome técnico em revisão');
+  await expect(tip).toContainText('Polegar');
   await expect(tip.getByRole('link')).toHaveCount(0);
   await expect(page.locator('.detail-svg [data-region="illustration-thumb"]')).toHaveAttribute('aria-pressed','true');
   await page.locator('[data-legend-zone="sonnal"]').click();
@@ -92,7 +92,7 @@ test("recortes coloridos persistem em produção mesmo sem regiões técnicas pu
   expect(color).not.toBe("none");
   expect(color).not.toBe("transparent");
   if(isMobile)await cutouts.first().tap();else await cutouts.first().hover();
-  await expect(page.getByRole("tooltip")).toContainText("Zona ilustrativa");
+  await expect(page.getByRole("tooltip")).toContainText("Palma da mão");
   await expect(page.getByRole("tooltip")).not.toContainText("Sonnal");
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
   await expect(cutouts.first()).toBeVisible();
@@ -115,7 +115,7 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   if(isMobile) await target.tap();
   else await target.click();
   await expect(target).toHaveAttribute("aria-pressed","true");
-  await expect(page.getByRole("tooltip")).toContainText("Zona ilustrativa");
+  await expect(page.getByRole("tooltip")).toContainText("Parte dianteira da planta");
   const after=await page.evaluate(()=>({scrollY,pageHeight:document.documentElement.scrollHeight}));
   expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
   expect(Math.abs(after.pageHeight-before.pageHeight)).toBeLessThan(8);
@@ -132,7 +132,7 @@ test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados
   await expect(buttons).toHaveCount(11);
   await buttons.nth(1).click();
   await expect(buttons.nth(1)).toHaveAttribute("aria-pressed","true");
-  await expect(page.getByRole("tooltip")).toHaveText("Zona ilustrativaNome técnico em revisão");
+  await expect(page.getByRole("tooltip")).toContainText("Base da palma");
   await expect(page.getByRole("tooltip")).not.toContainText("Batangson");
   const inspector=page.locator(".surface-inspector");
   const before=await inspector.boundingBox();

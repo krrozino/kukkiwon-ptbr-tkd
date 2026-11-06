@@ -7,6 +7,15 @@ import {
   type CatalogPage,
   type CatalogFacets,
 } from "../lib/catalog-api";
+// Famílias introdutórias: apresentação pedagógica, não fichas técnicas publicadas.
+const movementGroups = [
+  { title: "Chutes", name: "Chagi", description: "Movimentos realizados com as pernas e os pés." },
+  { title: "Defesas", name: "Makgi", description: "Movimentos para interceptar ou desviar ações de ataque." },
+  { title: "Golpes de punho", name: "Jireugi", description: "Movimentos de ataque executados com o punho." },
+  { title: "Posições", name: "Seogi", description: "Bases do corpo utilizadas para equilíbrio e deslocamento." },
+] as const;
+const movementSource = "https://research.kukkiwon.or.kr/society/researchKukkiwon/homepage/boardMedia/11584";
+
 const emptyFacets: CatalogFacets = {
   categories: [],
   regions: [],
@@ -228,6 +237,21 @@ export default function Catalogo() {
                 <a href="/atlas" className="inline-link">Explorar atlas corporal →</a>
                 <a href="/curriculos" className="inline-link">Consultar currículos →</a>
               </div>
+              {!filters.query && !filters.category && !filters.region && !filters.family && (
+                <section className="section-inner" aria-label="Introdução às famílias de movimentos">
+                  <h3>Entenda os grupos de movimentos</h3>
+                  <p>Enquanto as fichas técnicas passam por conferência, você pode começar pela organização geral dos movimentos do Taekwondo.</p>
+                  <div className="grid">
+                    {movementGroups.map(group=><article className="card" key={group.name}>
+                      <p className="tag">{group.name}</p>
+                      <h4>{group.title}</h4>
+                      <p>{group.description}</p>
+                    </article>)}
+                  </div>
+                  <p className="fine-print">Categorias introdutórias, sem execução passo a passo nem equivalência com fichas homologadas. <a href={movementSource} target="_blank" rel="noreferrer">Fonte de referência: publicação de pesquisa da Kukkiwon</a>.</p>
+                  <a href="/fundamentos/alturas-e-direcoes" className="inline-link">Estudar alturas e direções →</a>
+                </section>
+              )}
               {filters.page > 1 && (
                 <button onClick={() => move(1)}>
                   Voltar à primeira página

@@ -3,6 +3,7 @@ import type {BodyRegion} from '../../lib/catalog-api';
 import type {Area,View} from './BodyMap';
 import BodyIllustration,{bodySilhouettePath} from './BodyIllustration';
 import {areaViewBoxes,zonesFor} from './zones';
+import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
 
 type Props={area:Area;view:View;regions:BodyRegion[];selected:string|null;onSelect:(r:BodyRegion)=>void};
@@ -24,7 +25,7 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     setHover(id);const record=published(id);
     if(record){setVisual(null);onSelect(record);}else setVisual(id);
   };
-  const label=(id:string)=>published(id)?.name_pt||`Zona ilustrativa ${zones.findIndex(z=>z.id===id)+1} do corpo`;
+  const label=(id:string)=>published(id)?.name_pt||zoneCopy[id]?.title||'Região anatômica ilustrativa';
   return <div ref={canvas} className={'surface-canvas body-detail placement-'+(side?'side':'below')} onPointerLeave={()=>setHover(null)}>
     <svg className="detail-svg" viewBox={areaViewBoxes[area]} role="group" aria-label="Recortes do corpo interativos">
       <defs>
@@ -56,15 +57,15 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
           <span>Pronúncia: {detail?.term.pronunciation_pt||'ainda não conferida'}</span>
           <small>{detail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
           <a className="inline-link" href={'/tecnica?slug='+encodeURIComponent(record.slug)}>Abrir ficha técnica →</a>
-        </>:<><strong>Zona ilustrativa</strong><span>Nome técnico em revisão</span></>}
+        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small></>}
       </div>:<div className="surface-placeholder" aria-hidden="true"><span className="surface-placeholder-icon">◎</span><strong>Explore as áreas coloridas</strong><small>Selecione uma zona no desenho ou na legenda.</small></div>}
     </section>
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
       <div className="surface-legend-heading"><strong>Mapa das áreas</strong><small>{zones.length} zonas nesta vista</small></div>
-      <div className="surface-legend-items">{zones.map((z,i)=><button key={z.id} data-legend-zone={z.id}
+      <div className="surface-legend-items">{zones.map(z=><button key={z.id} data-legend-zone={z.id}
         className={'surface-legend-button'+(active===z.id?' selected':'')} aria-label={label(z.id)} aria-pressed={active===z.id}
         onFocus={()=>{if(!active)setHover(z.id);else setHover(null);}} onMouseEnter={()=>setHover(z.id)} onClick={()=>choose(z.id)}>
-        <span className="surface-swatch" aria-hidden="true" style={{backgroundColor:z.color}}/><span>Zona {String(i+1).padStart(2,'0')}</span>
+        <span className="surface-swatch" aria-hidden="true" style={{backgroundColor:z.color}}/><span>{label(z.id)}</span>
       </button>)}</div>
     </nav>
   </div>;

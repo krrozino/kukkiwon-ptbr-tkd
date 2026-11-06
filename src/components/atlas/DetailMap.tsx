@@ -3,6 +3,7 @@ import type { BodyRegion } from "../../lib/catalog-api";
 import type { View } from "./BodyMap";
 import { handOutline, footOutline, fistOutline, surfaces } from "./surfaces";
 import { zonesFor } from "./zones";
+import { zoneCopy } from "./zone-copy";
 import { useTermDetail } from "../TermContext";
 type Props = {
   area: "hands" | "feet";
@@ -95,7 +96,7 @@ export default function DetailMap({
     else setVisualSelection(r.slug);
   };
   const focusName = (r: BodyRegion, index: number) =>
-    published.has(r.slug) ? r.name_pt : `Zona ilustrativa ${index + 1} ${hand ? "da mão" : "do pé"}`;
+    published.has(r.slug) ? r.name_pt : zoneCopy[r.slug]?.title || `Região anatômica ${index + 1}`;
   return (
     <div
       ref={canvasRef}
@@ -252,8 +253,9 @@ export default function DetailMap({
               </>
             ) : (
               <>
-                <strong>Zona ilustrativa</strong>
-                <span>Nome técnico em revisão</span>
+                <strong>{zoneCopy[focused.slug]?.title || "Região anatômica ilustrativa"}</strong>
+                <span>{zoneCopy[focused.slug]?.description || "Região selecionada no desenho."}</span>
+                <small>Descrição anatômica para estudo. A nomenclatura técnica exige conferência documental.</small>
               </>
             )}
           </div>
@@ -284,7 +286,7 @@ export default function DetailMap({
               onClick={() => chooseSurface(r)}
             >
               <span aria-hidden="true" className="surface-swatch" style={{ backgroundColor: surfaces[r.slug].color }} />
-              <span>Zona {String(index + 1).padStart(2, "0")}</span>
+              <span>{focusName(r, index)}</span>
             </button>
           ))}
         </div>

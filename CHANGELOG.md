@@ -2,7 +2,20 @@
 
 As versões **realmente publicadas** são registradas em [GitHub Releases](https://github.com/krrozino/kukkiwon-ptbr-tkd/releases), com tags SemVer de acordo com package.json.
 
-## Ainda não lançado — candidato v0.1.0
+## v0.2.0 — atlas explicativo e aprendizado introdutório (candidato)
+
+- Atlas anatômico: polígonos curvos para cabeça, tronco, braços e pernas; explicação em português para todas as 50 zonas ilustradas, inclusive mãos e pés.
+- Legendas com nomes de áreas no lugar de números e mensagens genéricas. Textos anatômicos não são traduções técnicas homologadas.
+- Conteúdo educativo introdutório: oito Taegeuk com referências públicas da Kukkiwon, famílias de movimentos e roteiro independente de estudo/currículo.
+- Página inicial com links para Poomsae e categorias de movimentos.
+- Mantidas as salvaguardas editoriais, queries públicas, RLS e isolamento dos rascunhos; técnicas em revisão não são publicadas.
+- Release oficial somente após CI do SHA exato, deploy manual e smoke HTTP das rotas.
+
+## v0.1.0 — primeira prerelease oficial (publicada em 06/11/2026)
+
+- GitHub Release: https://github.com/krrozino/kukkiwon-ptbr-tkd/releases/tag/v0.1.0
+- Worker oficial e cinco rotas HTTP aprovados: https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/42288285862
+
 
 - PR #29: auditoria por campo de 115 candidatos Gemini, inventário preservado e comparação conservadora com os 108 registros editoriais.
 - PR #30: pesquisa privada, evidências e histórico imutável, revisão autenticada futura e relações de Poomsae; migração testada apenas localmente.
@@ -14,4 +27,4 @@ As versões **realmente publicadas** são registradas em [GitHub Releases](https
 - PR #24: laboratório editorial local e barreira contra publicação de pesquisa não homologada.
 - Governança: tags/Releases após deploy, templates de Issues e PRs, notas geradas e Dependabot agrupado.
 
-Este documento registra alterações do código e **não** comprova que o deploy ocorreu. O histórico de produção só começa com uma Release emitida após a publicação confirmada.
+As seções de candidatas descrevem código ainda não publicado. Releases oficiais e seus links de Actions comprovam o histórico de produção confirmado.
