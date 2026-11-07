@@ -12,12 +12,20 @@ Descreva o que muda, por que é necessário e qual Issue/ADR sustenta a decisão
 
 Leia [MAJOR.MINOR.PATCH](../docs/VERSIONING.md). Mudanças pequenas, incluindo poucas técnicas/regiões **aprovadas**, normalmente são PATCH; funcionalidades grandes/médias e reorganizações são MINOR; mudanças gigantes/incompatíveis são MAJOR. Não criar tag ou Release dentro da PR.
 
+## Orquestração Programations (quando houver execução por agentes)
+
+- **Executor real, modelo/esforço e função:**
+- **Issue / worktree isolada / branch / HEAD:**
+- **Revisão independente e evidência (quando aplicável):**
+- **STOP CONDITIONS / quota e serviços externos consumidos:**
+
 ## Segurança e conteúdo
 
 - [ ] Não há deploy automático, migração remota nem escrita no Supabase por esta PR.
 - [ ] Nenhuma credencial, dado pessoal ou conteúdo técnico não revisado no build público.
 - [ ] RLS e controles de acesso mantidos/validados quando aplicáveis.
-- [ ] Fontes, edição/localizador, revisão humana e direitos de mídia documentados quando houver dados de Taekwondo.
+- [ ] Fontes **por afirmação/campo** (não só bibliografia), edição/localizador, revisão humana e direitos de mídia documentados quando houver dados de Taekwondo.
+- [ ] Imagens/SVGs novos possuem manifesto de autoria, direitos verificados e aprovação visual; nenhuma figura de terceiro foi copiada.
 - [ ] Alterações de terminologia, Poomsae e currículo de escola não confundem conteúdo próprio com referência canônica.
 - [ ] Se houver mudança de ambiente, migração ou segredo, existe plano e autorização humana **separada**.
 
