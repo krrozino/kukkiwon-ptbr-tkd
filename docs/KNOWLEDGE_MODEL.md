@@ -1,5 +1,50 @@
 # Modelo de conhecimento e pesquisa editorial
 
+## Sentidos e afirmações por campo — Issue #42
+
+A [ADR-009](adr/009-term-senses.md) propõe `term_senses` (N:1 com termos) e
+`term_field_claims` (afirmações/variantes documentais, opcionalmente por sentido).
+O SQL `20261107024730_term_senses_and_field_claims.sql` **não foi aplicado**.
+As identidades e consultas legadas permanecem compatíveis; não há integração
+automática com a UI, pesquisa, aliases de busca, Poomsae ou currículo escolar.
+
+Cada sentido exige evidência privada com `field_name=<sense_kind>_meaning` e
+`observed_value` igual à string `meaning`. Uma afirmação exige `field_name` e
+`observed_value` iguais ao seu campo/valor. O candidato da evidência deve ter
+`matched_term_id` igual ao termo canônico. A evidência ainda não vinculada a uma
+identidade permanece exclusivamente na pesquisa. Fontes suplementares de um
+sentido podem ser registradas como afirmações separadas do mesmo sentido, sem
+sobrescrever sua evidência primária ou resolver divergências automaticamente.
+
+`src/lib/term-semantics.ts` fornece tipos, projeções explícitas e dois contratos:
+`validateTermSemantics(unknown)` aceita pesquisa offline;
+`parsePublishedTermSemantics(unknown, termId)` rejeita qualquer rascunho, termo
+divergente, vínculo de sentido incompatível ou dado privado. A autorização de
+pais/regiões é responsabilidade da RLS, não desse decoder. Consultas futuras devem
+selecionar `TERM_SENSE_COLUMNS`/`TERM_CLAIM_COLUMNS`, filtrar `term_id` e publicação,
+ordenar por ID e paginar; não usar `select=*`. O decoder recebe `{senses,claims}`.
+Essa integração só pode ser habilitada depois da aplicação/homologação separada.
+
+Bibliografia pública é uma projeção de cinco campos do snapshot da evidência,
+com edição/ano opcionais. O SQL aceita um subconjunto conservador de URLs HTTPS:
+DNS com TLD alfabético, sem IP/credenciais/espaços/backslash; porta até 65535.
+O TypeScript reaproveita `safeReferenceUrl`. Metadados corrigidos posteriormente
+não reescrevem a referência histórica; uma nova evidência requer nova revisão.
+
+Fixtures em `tests/fixtures/term-semantics.json` demonstram Dwitgubi, Ageumson,
+Dwichuk e Dwikkumchi, todos `research`/`draft`, sem assinatura humana. Dwitgubi
+preserva `Duit kubi` como grafia candidata de outra fonte. Significados literais e
+pronúncias sem evidência lexical não foram preenchidos. Regiões ilustrativas
+podem continuar sem Hangul; vínculos técnicos usam `body_region_terms` existente.
+
+O smoke `supabase/tests/term_senses_authorization.sql` foi preparado para uma
+instância **local isolada e descartável**, via `psql -X -v ON_ERROR_STOP=1 -f ...`.
+O script foi executado no PGlite e também em PostgreSQL portátil 17.11 real.
+A integração em PostgREST 16.5 verificou requisições com JWTs locais, projeções,
+recusa de escrita e revogação. Os binários já estavam disponíveis; não houve
+instalação de serviço nem uso de banco remoto. Supabase Auth completo, comparação
+do schema hospedado e aprovação humana permanecem pendentes antes da aplicação.
+
 A migração `20261106152500_knowledge_research_and_poomsae.sql` é uma proposta local aditiva, executada apenas nos bancos efêmeros PGlite dos testes. Não foi aplicada ao projeto Supabase, não cria conteúdo e não publica nenhum registro. As 108 entradas atuais continuam com suas identidades, fontes e estados existentes.
 
 ## Reaproveitamento do esquema

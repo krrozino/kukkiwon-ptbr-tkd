@@ -39,6 +39,30 @@ Resultado resumido: `.local-validation/latest.json`. Logs sem credenciais de pro
 
 ## Limites
 
+### Issue #42 — sentidos e referências por campo
+
+O runtime aplica também as migrações posteriores à proposta de conhecimento e
+captura `catalogAfterSemantics` para comparação com as oito tabelas originais.
+Com os binários/dependências locais já disponíveis, executar:
+
+```powershell
+$env:TERM_SENSES_REAL_DB='1'
+npx --no-install vitest run tests/term-senses-database.test.mjs
+Remove-Item Env:\TERM_SENSES_REAL_DB
+node tools/local-validation/term-senses.mjs
+```
+
+O primeiro comando reutiliza a mesma suíte negativa no PostgreSQL portátil em
+cluster novo. Sem a variável, `npm test` usa PGlite. Não existe parâmetro de URL
+remota. O segundo verifica as projeções HTTP novas com JWTs de teste e grava
+`.local-validation/term-senses-latest.json`, sem modificar dados externos. As
+fixtures/revisores são sintéticos e só existem nos clusters descartáveis.
+
+`supabase/tests/term_senses_authorization.sql` também pode ser executado com
+`psql -X -v ON_ERROR_STOP=1 -f ...` em banco **local isolado**, nunca em produção.
+Não instalar os binários automaticamente se estiverem ausentes; nesse caso,
+registrar **BLOCKED — REAL DATABASE VALIDATION** e continuar com PGlite.
+
 Isso valida PostgreSQL, PostgREST e a integração real do catálogo/atlas. Não é uma instância completa do Supabase: não há Kong, Auth, Storage, Realtime ou ambiente hospedado. O full stack Supabase local ainda depende de Docker/WSL, ausentes nesta máquina. A comparação com o projeto hospedado depende de autorização explícita e não foi executada.
 
 Referências: [PostgREST — configuração](https://docs.postgrest.org/en/v14/references/configuration.html), [PostgreSQL portátil](https://github.com/leinelissen/embedded-postgres), [Supabase — desenvolvimento local](https://supabase.com/docs/guides/local-development).
