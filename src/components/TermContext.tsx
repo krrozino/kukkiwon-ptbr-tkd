@@ -4,6 +4,7 @@ export {useTermDetail} from '../lib/use-term-detail';
 export type {TermDetail} from '../lib/use-term-detail';
 import KoreanExpression from './KoreanExpression';
 import KnowledgeReferences from './KnowledgeReferences';
+import TermSemanticsPanel from './TermSemanticsPanel';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
   return (
     <div className="pronunciation">
@@ -118,6 +119,7 @@ export default function TermContext({
                     ))}
                 </ul>
               )}
+              {detail.term.publication_status === 'published' && <TermSemanticsPanel termId={detail.term.id} />}
               <h4>Fonte documental</h4>
               <KnowledgeReferences sources={detail.sources}/>
               <h4>Imagens, vídeos e áudio</h4>
