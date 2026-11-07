@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import fixture from "./fixtures/term-semantics.json";
 import { canReadTermSemantics, fetchPublishedTermSemantics } from "../src/lib/public-term-semantics";
 import { TermSemanticsDetails } from "../src/components/TermSemanticsPanel";
+import { parsePublishedTermSemantics } from "../src/lib/term-semantics";
 
 const api = vi.hoisted(() => ({ fetchPublic: vi.fn() }));
 vi.mock("../src/lib/catalog-api", () => ({ fetchPublic: api.fetchPublic }));
@@ -75,7 +76,7 @@ describe("ficha semântica com fonte individual", () => {
   });
 
   it("exibe cada sentido e variante com link e localizador próprios", () => {
-    const html = renderToStaticMarkup(createElement(TermSemanticsDetails, { data: dataForTerm() }));
+    const html = renderToStaticMarkup(createElement(TermSemanticsDetails, { data: parsePublishedTermSemantics(dataForTerm(), termId) }));
     expect(html).toContain("Significado técnico");
     expect(html).toContain("Base com peso atrás");
     expect(html).toContain("Dwitgubi");
