@@ -71,7 +71,8 @@ export default function PoomsaeApp() {
   const form=forms.find(item=>item.term_id===selected);
   if(loading)return <p role="status">Consultando Poomsae publicados...</p>;
   if(error)return <div role="alert"><p>{error}</p><button onClick={()=>setRetry(value=>value+1)}>Tentar novamente</button></div>;
-  if(!forms.length)return <section aria-label="Introdução às formas Taegeuk">
+  if(!forms.length)return <div className="poomsae-index">
+    <section aria-label="Introdução às formas Taegeuk">
     <div className="card">
       <p className="tag">Conteúdo educativo de referência</p>
       <h2>Conheça os oito Taegeuk</h2>
@@ -87,6 +88,7 @@ export default function PoomsaeApp() {
       </div>
       <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
     </div>
+    </section>
     <section className="card section-inner" role="region" aria-label="Poomsae de graduação Dan">
       <p className="tag">Poomsae de graduação Dan</p>
       <h2>Conheça as formas de Koryo a Ilyeo</h2>
@@ -107,7 +109,7 @@ export default function PoomsaeApp() {
       <p>As sequências detalhadas aparecerão após conferência das fontes e aprovação editorial de cada movimento.</p>
       <div className="actions"><a href="/catalogo">Consultar catálogo</a><a href="/curriculos">Montar currículo de estudos</a></div>
     </div>
-  </section>;
+  </div>;
   return <div><label className="field">Forma publicada<select value={selected||''} onChange={event=>{
     const id=event.target.value;setSelected(id);const item=forms.find(row=>row.term_id===id);if(item)history.replaceState(null,'','/poomsae?slug='+encodeURIComponent(item.technical_terms.slug));
   }}>{forms.map(item=><option key={item.term_id} value={item.term_id}>{item.technical_terms.romanization}</option>)}</select></label>
