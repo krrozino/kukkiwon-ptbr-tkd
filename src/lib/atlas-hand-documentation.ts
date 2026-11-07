@@ -1,12 +1,13 @@
 import { safeReferenceUrl } from './published-knowledge.ts';
 import { researchCsvCell } from './research-reports.ts';
+import type {
+  ClaimField, EditorialStatus, SenseKind, SourceSnapshot, VariantKind, RegionUsageContext,
+} from './term-semantics.ts';
 
 /** Portable research keys resolve to existing DB identities; these are not DB rows. */
-export type HandField = 'hangul' | 'romanization' | 'pronunciation_pt' | 'translation_pt' |
-  'definition_pt' | 'literal_meaning' | 'technical_meaning' | 'context' | 'variant' | 'distinction' | 'region';
-export type HandSource = {
-  source_id: string; institution: string; title: string; edition: string | null;
-  publication_year: number | null; official_url: string;
+export type HandField = ClaimField;
+export type HandSource = SourceSnapshot & {
+  source_id: string;
   authority: 'primary' | 'historical' | 'complementary' | 'editorial';
   sha256: string | null; pdf_pages: number | null; access_note: string;
 };
@@ -19,17 +20,17 @@ type Documented = {
   term_slug: string; language_tag: string; usage_context: string;
   source_id: string; source_locator: string;
   evidence_kind: HandSource['authority']; evidence: Evidence; basis: Basis[];
-  editorial_status: 'research' | 'document_checked'; publication_status: 'draft';
+  editorial_status: Exclude<EditorialStatus, 'technical_reviewed'>; publication_status: 'draft';
   checked_at: string | null; approved_at: null; note: string;
 };
 export type HandClaim = Documented & {
   claim_key: string; sense_key: string | null; field_name: HandField; value: string;
-  variant_kind: 'documented_spelling' | 'historical_romanization' | 'regional_translation' | 'synonym' | null;
+  variant_kind: VariantKind | null;
   related_term_slug: string | null; region_slug: string | null;
-  region_usage_context: 'surface' | 'target' | 'movement' | 'other' | null;
+  region_usage_context: RegionUsageContext | null;
 };
 export type HandSense = Documented & {
-  sense_key: string; sense_kind: 'literal' | 'technical' | 'contextual' | 'historical' | 'regional'; meaning: string;
+  sense_key: string; sense_kind: SenseKind; meaning: string;
 };
 export type HandTerm = {
   slug: string; existing_term_slug: string | null; record_kind: 'surface' | 'anatomy';

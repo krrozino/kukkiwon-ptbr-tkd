@@ -46,7 +46,7 @@ O consumidor recebe a matriz **explicitamente**, por exemplo de um arquivo abert
 
 ### Reaproveitamento da Issue #42
 
-Na base `origin/main` em `7d08a66`, as tabelas `term_senses` e `term_field_claims` ainda não existem. A implementação local da #42 foi consultada no commit **`15b1e05`**, especialmente `src/lib/term-semantics.ts`, ADR-009 e a migração `20261107024730_term_senses_and_field_claims.sql`. Esta PR não incorpora essa migração, altera RLS ou aplica SQL.
+A base foi atualizada para `origin/main` em **`f1a251c`** antes da entrega final. As tabelas/contratos de `term_senses` e `term_field_claims` da #42, implementados originalmente em **`15b1e05`**, já estão nessa base. O módulo importa diretamente os tipos de `src/lib/term-semantics.ts` (`ClaimField`, `SenseKind`, `EditorialStatus`, `SourceSnapshot`, `VariantKind` e `RegionUsageContext`). Esta PR não acrescenta ou modifica migrações, RLS ou SQL.
 
 O formato portátil reutiliza `technical_terms`, `content_sources`, `term_senses`, `term_field_claims`, `body_regions`, `body_region_terms` e `term_relations`. As chaves locais `term_slug`, `sense_key`, `claim_key`, `region_slug` e `source_id` referem-se a identidades documentais, **não são UUIDs fictícios**. `existing_term_slug` identifica as correspondências exatas aos registros já versionados. Nenhuma aproximação linguística cria identidade.
 
