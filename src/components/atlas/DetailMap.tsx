@@ -5,6 +5,7 @@ import { handOutline, footOutline, fistOutline, surfaces } from "./surfaces";
 import { zonesFor } from "./zones";
 import { zoneCopy } from "./zone-copy";
 import { useTermDetail } from "../TermContext";
+import AtlasSourceEvidence from "./AtlasSourceEvidence";
 type Props = {
   area: "hands" | "feet";
   view: View;
@@ -250,12 +251,14 @@ export default function DetailMap({
                 <span>Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}</span>
                 <small>{detail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
                 <a className="inline-link" href={`/tecnica?slug=${encodeURIComponent(focused.slug)}`}>Abrir ficha técnica →</a>
+                <AtlasSourceEvidence kind="technical" sources={detail?.sources} />
               </>
             ) : (
               <>
                 <strong>{zoneCopy[focused.slug]?.title || "Região anatômica ilustrativa"}</strong>
                 <span>{zoneCopy[focused.slug]?.description || "Região selecionada no desenho."}</span>
                 <small>Descrição anatômica para estudo. A nomenclatura técnica exige conferência documental.</small>
+                <AtlasSourceEvidence kind="illustrative" />
               </>
             )}
           </div>
