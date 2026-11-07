@@ -129,7 +129,7 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .body-svg .atlas-zone:focus-visible{stroke:#254bbb;stroke-width:2.8}
 .body-svg .body-markings{display:none}
 .surface-canvas{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:center;isolation:isolate}
-.surface-canvas.placement-side{grid-template-columns:minmax(0,1.05fr) minmax(216px,.9fr);gap:14px}
+.surface-canvas.placement-side{grid-template-columns:minmax(0,.9fr) minmax(335px,1.1fr);gap:18px}
 .surface-canvas .posture-switch{grid-column:1/-1;margin:0 0 6px}
 .surface-canvas .detail-svg{grid-column:1;width:100%;height:auto;max-height:460px;min-height:220px;aspect-ratio:5/7;margin:0;justify-self:center}
 .surface-canvas.placement-below .detail-svg{max-width:340px}
@@ -196,9 +196,9 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .surface-canvas .detail-svg{grid-column:1;grid-row:2;display:block;touch-action:pan-y}
 .surface-canvas.placement-side{grid-template-rows:auto auto auto}
 .surface-canvas.placement-side .detail-svg{grid-column:1;grid-row:2}
-.surface-canvas .surface-inspector{grid-column:1;grid-row:3;width:100%;height:242px;min-width:0;position:relative;isolation:isolate}
-.surface-canvas.placement-side .surface-inspector{grid-column:2;grid-row:2;height:274px;align-self:center}
-.surface-canvas .surface-tooltip{height:100%;min-height:0;overflow-y:auto;overscroll-behavior:contain;max-height:100%;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:7px}
+.surface-canvas .surface-inspector{grid-column:1;grid-row:3;width:100%;height:auto;min-height:355px;min-width:0;position:relative;isolation:isolate}
+.surface-canvas.placement-side .surface-inspector{grid-column:2;grid-row:2;height:auto;min-height:390px;align-self:stretch}
+.surface-canvas .surface-tooltip{height:auto;min-height:355px;overflow:visible;max-height:none;padding:22px 24px;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:11px;line-height:1.55;overflow-wrap:anywhere}
 .surface-canvas .surface-tooltip .surface-panel-eyebrow{color:#346d74;font-size:.69rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
 .surface-canvas .surface-placeholder{border:1px dashed #cbdcd7;border-radius:12px;background:#ffffffd6;height:100%;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;text-align:center;color:#4d6264}
 .surface-canvas .surface-placeholder-icon{font-size:2rem;color:#258c8b;line-height:1}
@@ -218,7 +218,7 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .detail-svg .anatomy-edge{fill:none;stroke:#87786c;stroke-width:.7;stroke-linejoin:round;pointer-events:none}
 .surface-inspector .surface-tooltip{pointer-events:auto}
 .surface-inspector .surface-tooltip-compact{gap:8px}
-.surface-inspector .surface-tooltip-compact strong{font-size:.95rem;color:#243e42}
+.surface-inspector .surface-tooltip-compact strong{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.28;color:#243e42;white-space:normal;overflow-wrap:anywhere;max-width:100%}
 .surface-inspector .surface-tooltip-compact>span{font-size:.8rem;line-height:1.5;color:#647577}
 .surface-inspector .surface-tooltip a{font-size:.8rem;line-height:1.5}
 .detail-svg .surface-cutout path{stroke-width:.85;stroke-opacity:.92;fill-opacity:.48;transition:fill-opacity .16s,stroke-width .16s}
@@ -226,7 +226,7 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .detail-svg .surface-cutout:focus-visible path{stroke:#173c9c;stroke-width:1.6}
 .surface-canvas .surface-tooltip:before{display:none}
 @media(max-width:750px){
-  .surface-canvas .surface-inspector{height:242px;grid-column:1;grid-row:3}
+  .surface-canvas .surface-inspector{height:auto;min-height:355px;grid-column:1;grid-row:3}
   .surface-canvas .surface-legend{grid-row:4}
   .surface-canvas .detail-svg{min-height:250px}
   .surface-canvas .surface-legend-button{min-height:44px}
@@ -336,3 +336,21 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .badge,[data-theme="dark"] .review-label{color:#ffdb9d}
 [data-theme="dark"] .glossary-close{color:var(--theme-text)}
 [data-theme="dark"] input::placeholder,[data-theme="dark"] textarea::placeholder{color:#b4c3cc;opacity:1}
+
+/* Atlas: selectable panels use natural height and field-level source references. */
+.surface-canvas.placement-side .surface-tooltip{min-height:390px}
+.surface-canvas .surface-tooltip strong{white-space:normal;overflow-wrap:anywhere;hyphens:auto;line-height:1.28;flex-shrink:0}
+.surface-canvas .surface-tooltip span,.surface-canvas .surface-tooltip small{max-width:100%;overflow-wrap:anywhere;flex-shrink:0}
+.surface-canvas .surface-tooltip [lang="ko"]{font-size:clamp(1.35rem,2.8vw,1.85rem);line-height:1.4;word-break:keep-all}
+.atlas-source-evidence{margin-top:14px;padding-top:13px;border-top:1px solid #d9e5e0;min-width:0;width:100%;line-height:1.5}
+.atlas-source-evidence .atlas-source-heading{display:block;font-size:.8rem;font-weight:800;color:#315f62;margin-bottom:6px}
+.atlas-source-evidence .source-list{padding-left:18px;margin:8px 0;max-width:100%;overflow-wrap:anywhere}
+.atlas-source-evidence .source-list li{margin-bottom:10px}
+.atlas-source-evidence a{color:#176c68;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.atlas-source-evidence a:focus-visible{outline:3px solid #3768b5;outline-offset:3px}
+.atlas-source-evidence small,.atlas-source-evidence p{font-size:.8rem;color:#536b71}
+[data-theme="dark"] .atlas-source-evidence{border-color:var(--theme-border)}
+[data-theme="dark"] .atlas-source-evidence .atlas-source-heading,[data-theme="dark"] .atlas-source-evidence small,[data-theme="dark"] .atlas-source-evidence p{color:var(--theme-muted)}
+[data-theme="dark"] .surface-inspector .surface-tooltip-compact strong{color:var(--theme-text)}
+[data-theme="dark"] .atlas-source-evidence a{color:var(--theme-link)}
+@media(max-width:750px){.surface-canvas .surface-tooltip{padding:20px;min-height:355px}.surface-canvas .surface-inspector{min-height:355px}}
