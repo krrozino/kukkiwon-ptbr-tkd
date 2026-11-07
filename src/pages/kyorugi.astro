@@ -21,10 +21,11 @@ import { competitionReferences, kukkiwonSparringIndex, martialFamilies, sparring
     <div class="grid ky-families">
       {martialFamilies.map((family) =>
         <article class="card">
-          <p class="fine-print">Família técnica · Kukkiwon</p>
+          <p class="fine-print">Índice de estudo · fonte institucional · tradução técnica em revisão</p>
           <h3>{family.name}</h3>
           <h4>{family.label}</h4>
           <p>{family.summary}</p>
+          <p class="fine-print">Referência: {family.evidence.document}, {family.evidence.locator}. Consulta em {family.evidence.sourceCheckedAt}. Interpretação em português em revisão técnica.</p>
           <div class="ky-card-links">
             <a href={'/atlas?region='+family.atlas+'&zoom=1'}>Explorar {family.atlasLabel}</a>
             <a href={sparringSource(family.boardNo)} target="_blank" rel="noopener noreferrer" aria-label={'Ler fonte Kukkiwon: '+family.name}>Fonte Kukkiwon · artigo {family.boardNo}</a>
@@ -37,8 +38,9 @@ import { competitionReferences, kukkiwonSparringIndex, martialFamilies, sparring
   <section class="shell section" id="combinado">
     <div class="card ky-feature">
       <p class="tag">Combate combinado</p>
-      <h2>Matchwo Gyeorugi</h2>
-      <p>O combate combinado é estudado separadamente da competição esportiva. A grafia em coreano, as subdivisões e as sequências precisas ainda precisam ser conferidas em material técnico apropriado, antes de receberem o selo de referência do projeto.</p>
+      <h2>Combate combinado</h2>
+      <p class="fine-print"><strong>Terminologia em pesquisa:</strong> “Matchwo Gyeorugi” é uma grafia provisória utilizada no levantamento inicial; ainda não localizamos fonte institucional específica para confirmar esta forma, seu Hangul ou sua definição técnica. Não a tratamos como nomenclatura oficial.</p>
+      <p>O estudo do combate combinado é tratado separadamente da competição esportiva. A nomenclatura, as subdivisões e as sequências precisas precisam de conferência documental antes de integrar o catálogo técnico.</p>
       <p><strong>Não existem sequências de combate combinado aprovadas para publicação nesta versão.</strong> Em vez de apresentar demonstrações inventadas, esta área conecta o estudante aos fundamentos, ao atlas e ao ensino de Gyeorugi.</p>
       <div class="ky-card-links">
         <a href="/fundamentos/alturas-e-direcoes">Estudar alturas e direções</a>
