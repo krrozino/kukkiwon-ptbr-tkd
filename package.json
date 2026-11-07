@@ -28,7 +28,9 @@
     "preview:check": "node tools/local-validation/check-preview.mjs",
     "glossary:check": "node scripts/glossary.mjs",
     "glossary:preview": "node scripts/glossary-preview.mjs",
-    "sources:audit": "node scripts/sources-audit.mjs --offline"
+    "sources:audit": "node scripts/sources-audit.mjs --offline",
+    "atlas:hand:check": "node scripts/atlas-hand-audit.mjs --offline --check",
+    "atlas:hand:prepare": "node scripts/atlas-hand-audit.mjs --offline --write"
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",

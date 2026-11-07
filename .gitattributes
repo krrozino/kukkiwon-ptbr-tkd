@@ -5,3 +5,4 @@ content/research/**/original/** -text whitespace=cr-at-eol
 content/research/**/audit.json linguist-generated=true
 content/research/**/inventory.json linguist-generated=true
 content/research/**/candidates.csv -text whitespace=cr-at-eol linguist-generated=true
+content/research/atlas-hand-v1/claims.csv -text whitespace=cr-at-eol linguist-generated=true
