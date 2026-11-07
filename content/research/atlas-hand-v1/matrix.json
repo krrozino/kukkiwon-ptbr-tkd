@@ -7086,7 +7086,7 @@
     },
     {
       "term_slug": "sonnaldeung",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Sonnal Dung",
@@ -7115,7 +7115,7 @@
     },
     {
       "term_slug": "sondeung",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Son Dung",
@@ -7144,7 +7144,7 @@
     },
     {
       "term_slug": "pyeonsonkkeut",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Pyon Sonkut",
@@ -7173,7 +7173,7 @@
     },
     {
       "term_slug": "gawisonkkeut",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Kauwi Sonkut",
@@ -7202,7 +7202,7 @@
     },
     {
       "term_slug": "hansonkkeut",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Ran Sonkut",
@@ -7231,7 +7231,7 @@
     },
     {
       "term_slug": "gomson",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Kom Son",
@@ -7260,7 +7260,7 @@
     },
     {
       "term_slug": "mejumeok",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "JUMOK(PUNHO FECHADO) > Me Jumok",
@@ -7289,7 +7289,7 @@
     },
     {
       "term_slug": "deungjumeok",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "JUMOK(PUNHO FECHADO) > Dung Jumok",
@@ -7318,7 +7318,7 @@
     },
     {
       "term_slug": "pyeonjumeok",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "JUMOK(PUNHO FECHADO) > Pyon Jumok",
@@ -7347,7 +7347,7 @@
     },
     {
       "term_slug": "bamjumeok",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "JUMOK(PUNHO FECHADO) > Bam Jumok",
@@ -7376,7 +7376,7 @@
     },
     {
       "term_slug": "jipgejumeok",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional observada; correspondência candidata para cotejo, sem equivalência homologada",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "JUMOK(PUNHO FECHADO) > Jip-Ke Jumok",
@@ -7405,7 +7405,7 @@
     },
     {
       "term_slug": "modumsonkkeut",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Trecho mínimo da tradução regional divergente",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Mo Dum Sonkut",
@@ -7472,7 +7472,7 @@
     },
     {
       "term_slug": "ageumson",
-      "language_tag": "en",
+      "language_tag": "pt-BR",
       "usage_context": "Grafia regional para investigação, sem declarar alias de Ageumson",
       "source_id": "TKDBR-DICTIONARY",
       "source_locator": "SON (MÃO) > Agui Son",
@@ -8107,6 +8107,35 @@
       "related_term_slug": null,
       "region_slug": null,
       "region_usage_context": null
+    },
+    {
+      "term_slug": "sonbadak",
+      "language_tag": "en",
+      "usage_context": "Uso expresso da palma em defesa de absorção; grafia preservada do documento",
+      "source_id": "KUK-2012-TERMINOLOGY",
+      "source_locator": "10. Makgi > Bada-makgi > use > Sonbadak-badamakgi; PDF p. 45",
+      "evidence_kind": "primary",
+      "evidence": {
+        "term_slug": "sonbadak",
+        "field_name": "context",
+        "observed_value": "Sonbadak-badamakgi",
+        "source_id": "KUK-2012-TERMINOLOGY",
+        "source_locator": "10. Makgi > Bada-makgi > use > Sonbadak-badamakgi; PDF p. 45"
+      },
+      "basis": [],
+      "editorial_status": "document_checked",
+      "publication_status": "draft",
+      "checked_at": "2026-11-07",
+      "approved_at": null,
+      "note": "Registro de uso documental; não é instrução de execução nem tradução homologada.",
+      "claim_key": "sonbadak-context-1",
+      "sense_key": null,
+      "field_name": "context",
+      "value": "Sonbadak-badamakgi",
+      "variant_kind": null,
+      "related_term_slug": null,
+      "region_slug": null,
+      "region_usage_context": null
     }
   ],
   "body_regions": [
@@ -8494,6 +8523,16 @@
       "checked_at": "2026-11-07",
       "source_id": "KUK-2012-TERMINOLOGY",
       "source_locator": "6. Jjireugi > Sewo-jjireugi; PDF p. 38"
+    },
+    {
+      "term_slug": "bada-makgi",
+      "related_term_slug": "sonbadak",
+      "relation_kind": "related",
+      "editorial_status": "document_checked",
+      "publication_status": "draft",
+      "checked_at": "2026-11-07",
+      "source_id": "KUK-2012-TERMINOLOGY",
+      "source_locator": "10. Makgi > Bada-makgi > use > Sonbadak-badamakgi; PDF p. 45"
     }
   ]
 }

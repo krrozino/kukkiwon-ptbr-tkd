@@ -52,6 +52,13 @@ describe('Atlas A2 — evidência documental independente da geometria', () => {
     expect(term.claims.some(c => c.field_name === 'variant' && c.value === 'Moundusonkket')).toBe(true);
   });
 
+  it('documenta o uso da palma na defesa de absorção com localizador próprio', () => {
+    const palm = handTermDocumentation(validateHandMatrix(load()), 'sonbadak')!;
+    expect(palm.techniques.some(t => t.term_slug === 'bada-makgi')).toBe(true);
+    expect(palm.claims.some(c => c.field_name === 'context' && c.value === 'Sonbadak-badamakgi' &&
+      c.source_id === 'KUK-2012-TERMINOLOGY' && c.source_locator.includes('PDF p. 45'))).toBe(true);
+  });
+
   it.each([
     ['URL insegura', (d: any) => { d.content_sources[0].official_url = 'javascript:alert(1)'; }],
     ['credenciais', (d: any) => { d.content_sources[0].official_url = 'https://user:pass@example.org/'; }],

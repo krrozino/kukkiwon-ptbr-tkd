@@ -5,8 +5,8 @@ Lote de pesquisa `atlas-hand-v1`, conferido em 07/11/2026. **Todos os registros 
 ## Entrega e limites
 
 - 23 termos/configurações, 19 regiões geométricas existentes (9 com correspondência técnica proposta e 10 exclusivamente ilustrativas).
-- 47 sentidos e 202 afirmações com evidência individual: valor, campo, documento, URL, edição, localizador, data e natureza da informação.
-- 13 relações documentadas com técnicas já presentes nos lotes de revisão.
+- 47 sentidos e 203 afirmações com evidência individual: valor, campo, documento, URL, edição, localizador, data e natureza da informação.
+- 14 relações documentadas com técnicas já presentes nos lotes de revisão, incluindo o uso de `Sonbadak` na defesa de absorção `Bada-makgi` (p. PDF 45).
 - [Matriz JSON](../../content/research/atlas-hand-v1/matrix.json) como fonte versionada e [CSV por afirmação](../../content/research/atlas-hand-v1/claims.csv) para cotejo. Ambos ficam fora do site público.
 - Nenhum sentido, tradução ou pronúncia recebe aprovação humana. A arte exige avaliação separada de anatomia, autoria e direitos.
 
