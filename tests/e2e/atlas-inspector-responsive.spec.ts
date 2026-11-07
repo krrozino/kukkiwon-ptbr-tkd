@@ -19,10 +19,11 @@ for (const width of [375,1280]) {
     await legend.click();
     const tip=page.getByRole("tooltip");
     await expect(tip).toContainText(longName);
-    const dims=await tip.evaluate(el=>{
-      const header=el.querySelector("strong")!;
-      const parent=el.closest(".surface-inspector")!;
-      const viewport=el.ownerDocument.documentElement;
+    const title=tip.locator("strong");
+    await expect(title).toHaveText(longName);
+    const dims=await title.evaluate(header=>{
+      const parent=header.closest(".surface-inspector")!;
+      const viewport=header.ownerDocument.documentElement;
       return {
         titleHeight:header.clientHeight,titleScrollHeight:header.scrollHeight,
         titleWidth:header.clientWidth,titleScrollWidth:header.scrollWidth,
