@@ -85,6 +85,7 @@ export default function DetailMap({
     else enter(r);
   };
   const focused = hover || visible.find(r => r.slug === activeSlug) || null;
+  const inspectedDetail = focused && detail?.term.slug === focused.slug ? detail : null;
   const anchor = focused && surfaces[focused.slug]?.anchor;
   const anchorX = anchor && (view === "back" ? 100 - anchor[0] : anchor[0]);
   const silhouette = hand ? (fist ? fistOutline : handOutline) : footOutline;
@@ -246,12 +247,12 @@ export default function DetailMap({
             {published.has(focused.slug) ? (
               <>
                 <strong>{focused.name_pt}</strong>
-                <span>{detail?.term.romanization || "Identificação em consulta"}</span>
-                <span lang="ko">{detail?.term.hangul || "Hangul em consulta"}</span>
-                <span>Pronúncia: {detail?.term.pronunciation_pt || "ainda não conferida"}</span>
-                <small>{detail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
+                <span>{inspectedDetail?.term.romanization || "Identificação em consulta"}</span>
+                <span lang="ko">{inspectedDetail?.term.hangul || "Hangul em consulta"}</span>
+                <span>Pronúncia: {inspectedDetail?.term.pronunciation_pt || "ainda não conferida"}</span>
+                <small>{inspectedDetail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
                 <a className="inline-link" href={`/tecnica?slug=${encodeURIComponent(focused.slug)}`}>Abrir ficha técnica →</a>
-                <AtlasSourceEvidence kind="technical" sources={detail?.sources} />
+                <AtlasSourceEvidence kind="technical" sources={inspectedDetail?.sources} />
               </>
             ) : (
               <>
