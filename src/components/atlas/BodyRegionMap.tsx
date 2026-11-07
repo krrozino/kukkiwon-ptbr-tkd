@@ -17,7 +17,7 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
   const {detail}=useTermDetail(record?.slug||null);
   useEffect(()=>{setVisual(null);setHover(null);},[area,view,selected]);
   useEffect(()=>{
-    const update=()=>setSide((canvas.current?.clientWidth||0)>=435&&innerWidth>=1000);
+    const update=()=>setSide((canvas.current?.clientWidth||0)>=720&&innerWidth>=1080);
     const observer=new ResizeObserver(update);if(canvas.current)observer.observe(canvas.current);update();
     return ()=>observer.disconnect();
   },[]);
