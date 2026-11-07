@@ -8,7 +8,7 @@ export const sparringSource = (boardNo: number) =>
   "https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=56&boardNo=" +
   boardNo + "&menuLevel=3&menuNo=73";
 
-export const martialFamilies = [
+const familyResearch = [
   {name:"Makgi",label:"Defesas e bloqueios",summary:"Uso de antebraços e superfícies da mão para interceptar ou desviar ataques.",atlas:"arms",atlasLabel:"Braços e antebraços",boardNo:1365},
   {name:"Jireugi",label:"Socos",summary:"Família de movimentos de ataque executados com o punho.",atlas:"hands",atlasLabel:"Mãos e punhos",boardNo:1366},
   {name:"Chigi",label:"Golpes de impacto",summary:"Movimentos executados com superfícies como mão, cotovelo e joelho.",atlas:"arms",atlasLabel:"Braços e cotovelos",boardNo:1367},
@@ -19,6 +19,19 @@ export const martialFamilies = [
   {name:"Neomgigi",label:"Desequilíbrios e quedas",summary:"Técnicas de desequilíbrio e projeção com uso do corpo e dos membros.",atlas:"legs",atlasLabel:"Pernas e equilíbrio",boardNo:1372},
   {name:"Nakbeop",label:"Amortecimento de quedas",summary:"Movimentos de proteção do corpo durante quedas.",atlas:"torso",atlasLabel:"Tronco e proteção",boardNo:1373},
 ] as const;
+/** Document metadata verified, editorial translations still awaiting review. */
+export const martialFamilies = familyResearch.map(family => ({
+  ...family,
+  evidence: {
+    institution: "Kukkiwon",
+    document: "Composition of Taekwondo — Sparring",
+    locator: "Board 56 / article " + family.boardNo,
+    sourceUrl: sparringSource(family.boardNo),
+    sourceCheckedAt: "2026-11-07",
+    editorialReview: "research" as const,
+    technicalReview: "pending" as const,
+  },
+}));
 
 export const competitionReferences = [
   {
