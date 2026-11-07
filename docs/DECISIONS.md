@@ -14,7 +14,7 @@ As decisões completas, suas alternativas e seu histórico de discussão ficam n
 | ADR-006 | Aceita | MAJOR.MINOR.PATCH por impacto: gigante / grande-médio / pequeno e conteúdo validado | [Versionamento](VERSIONING.md) |
 | ADR-007 | Aceita | GitHub mantém implementação pública; Notion mantém decisões, riscos e planejamento | [Governança](GOVERNANCE.md), [Documentação](INDEX.md) |
 | ADR-008 | **Proposta** | Definir licenças separadas de código, traduções/dados e mídia | [Licenças e direitos](GOVERNANCE.md#licenças-e-direitos) |
-| ADR-009 | Aceita (objetivo editorial; implementação pendente) | Termos e regiões podem ter vários sentidos/traduções/variantes, cada um atribuído a fonte e contexto | [Modelo de conhecimento](KNOWLEDGE_MODEL.md), [Fontes por campo](SOURCE_PROVENANCE.md) |
+| ADR-009 | Aceita como objetivo; implementação proposta, homologação pendente | Termos e regiões podem ter vários sentidos/traduções/variantes, cada um atribuído a fonte e contexto | [Proposta SQL/TS](adr/009-term-senses.md), [Modelo de conhecimento](KNOWLEDGE_MODEL.md), [Fontes por campo](SOURCE_PROVENANCE.md) |
 | ADR-010 | Aceita (padrão; SVGs pendentes) | Atlas com desenhos vetoriais autorais, revisão anatômica, autoria e direitos rastreáveis | [Arte original](ORIGINAL_ATLAS_ART.md), [Issue #41](https://github.com/krrozino/kukkiwon-ptbr-tkd/issues/41) |
 | ADR-011 | Aceita (regra editorial; cobertura pendente) | Cada afirmação técnica deve permitir abrir a fonte/edição/localizador específico | [Proveniência](SOURCE_PROVENANCE.md), [Issue #50](https://github.com/krrozino/kukkiwon-ptbr-tkd/issues/50) |
 
