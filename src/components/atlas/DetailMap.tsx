@@ -47,7 +47,7 @@ export default function DetailMap({
   useEffect(()=>{
     const update=()=>{
       const width=canvasRef.current?.getBoundingClientRect().width ?? 0;
-      setPlacement(width>=435 && window.innerWidth>=1000 ? "side" : "below");
+      setPlacement(width>=720 && window.innerWidth>=1080 ? "side" : "below");
     };
     update();
     const observer=typeof ResizeObserver!=="undefined" ? new ResizeObserver(update) : null;
