@@ -40,8 +40,8 @@ jobs:
       url: https://kukkiwon-ptbr-tkd.kukkiwon-ptbr-tkd.workers.dev/
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
       - name: Exigir CI verde de push na main para este commit
@@ -164,7 +164,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Criar tag e release sem executar deploy novamente
         env:
           GH_TOKEN: ${{ github.token }}
