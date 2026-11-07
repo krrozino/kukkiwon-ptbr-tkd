@@ -39,8 +39,8 @@ export const competitionReferences = [
     name:"World Taekwondo",
     label:"Regras internacionais de competição",
     description:"As regras esportivas de Kyorugi tratam de pontuação, condutas, arbitragem e condições de competição. Consultar sempre a edição aplicável ao evento.",
-    source:"https://www.worldtaekwondo.org/att_file/documents/WT%20Competition%20Rules%20and%20Interpretation%20%28September%2030%2C%202024%29.pdf",
-    notice:"Documento histórico de 2024; conferir atualizações de 2026 antes de utilizar em campeonatos."
+    source:"https://www.taekwondo.dk/files/Dokumenter/Statisk/Dommer/Regler/Competition%20Rules%20and%20Interpretation%201%20januar%202026.pdf",
+    notice:"Regras WT em vigor desde 01/01/2026; PDF em inglês hospedado por federação nacional. Conferir normas e atualizações do evento."
   },
   {
     id:"cbtkd",
