@@ -19,6 +19,8 @@ Esta é a porta de entrada para a documentação **pública e versionada**. Os d
 | --- | --- |
 | [Começar localmente](GETTING_STARTED.md) | Dependências, .env, scripts e testes |
 | [Arquitetura](ARCHITECTURE.md) | Stack, fronteiras de dados, fluxos e ambientes |
+| [Agentes Programations](AGENT_DISPATCH.md) | Codex, Antigravity, Gemini e Jules: worktrees, escalonamento, testes e STOP CONDITIONS |
+| [Instruções dos agentes](../AGENTS.md) | Preflight, autorizações, segurança e comandos obrigatórios |
 | [Política de versões](VERSIONING.md) | MAJOR / MINOR / PATCH e exemplos |
 | [Índice público de decisões (ADRs)](DECISIONS.md) | Decisões aceitas, propostas e links de implementação |
 | [Release oficial](GITHUB_RELEASES.md) | Gatilhos manuais, pré-condições, smoke e rollback |
@@ -32,6 +34,8 @@ Esta é a porta de entrada para a documentação **pública e versionada**. Os d
 | Documento | Objetivo |
 | --- | --- |
 | [Política editorial](CONTENT_POLICY.md) | Condições para publicação |
+| [Fonte em cada afirmação](SOURCE_PROVENANCE.md) | URL, edição/localizador, sentidos e divergências com prova por campo |
+| [Padrão de arte SVG autoral](ORIGINAL_ATLAS_ART.md) | Anatomia própria, direitos, manifesto e aceitação visual |
 | [Revisão humana](EDITORIAL_REVIEW.md) | Como gerar e revisar pacotes offline |
 | [Governança](GOVERNANCE.md) | Responsabilidades, decisões e limites |
 | [Modelo de conhecimento](KNOWLEDGE_MODEL.md) | Estruturas propostas e isolamento |
