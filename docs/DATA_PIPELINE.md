@@ -65,3 +65,10 @@ Sem cache persistente ou Service Worker para dados do catálogo: cada consulta u
 Esta sprint não aplica SQL remotamente. Não há down migration destrutiva. Para recuar a interface, reverter os commits da aplicação e manter as colunas/tabela aditivas; decidir a remoção de objetos novos somente após backup e análise de dependências. Não apagar as migrações históricas.
 
 Referências de implementação: [funções e segurança no Supabase](https://supabase.com/docs/guides/database/functions), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security) e [pg_trgm](https://www.postgresql.org/docs/current/pgtrgm.html).
+## Consulta provisória e revisão em lote (07/11/2026)
+
+Por orientação do mantenedor, `/acervo` apresenta os lotes editoriais locais antes da homologação individual. São 108 registros de `content/review/` e 12 novos de `content/provisional/`, com fontes por campo, pendências e relações corporais com papéis explícitos. Os arquivos brutos de `content/research/` continuam fora dessa projeção. As traduções propostas não recebem selo oficial e nenhum estado remoto é promovido.
+
+`npm run acervo:check` valida os lotes em conjunto e a projeção de 120 registros/26 relações, sem rede. `npm run acervo:review -- nome.csv` gera CSV por campo/relação em `review-output/`, com decisão e revisor vazios; recusa sobrescrever arquivo existente. A resposta humana é uma revisão posterior, não há importador automático de decisões. `content:check` e os fluxos antigos preservam o inventário original de 108; os 12 novos candidatos não foram importados para o banco.
+
+As páginas usam somente os dois diretórios editoriais explícitos, em tempo de build. Campos ausentes, pronúncia e sentido literal não são completados por inferência. A política e os estados estão em [CONTENT_POLICY.md](CONTENT_POLICY.md).

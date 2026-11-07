@@ -1,5 +1,7 @@
 # Política de proveniência: referência em cada afirmação técnica
 
+**Consulta provisória, autorizada em 07/11/2026:** `/acervo` expõe os campos dos lotes editoriais com a referência individual de origem, explicitamente pendentes de revisão por campo. A referência herdada de uma ficha orienta a conferência e não prova, sozinha, que tradução, pronúncia ou execução foram aprovadas. Novos controles/projeções registram seções e páginas físicas; vínculos alvo/superfície mantêm seu próprio localizador. Essa exceção está detalhada na [política editorial](CONTENT_POLICY.md); não promove `draft` no catálogo remoto.
+
 **Decisão editorial de 06/11/2026:** toda informação técnica exibida no Taekwondo para Todos deve permitir que a pessoa abra a fonte original diretamente **no contexto em que a informação aparece**. O rótulo "Fonte: Kukkiwon" isolado não é prova suficiente.
 
 ## O que é uma afirmação que precisa de fonte?

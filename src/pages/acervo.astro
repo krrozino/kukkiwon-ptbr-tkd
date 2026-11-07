@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import ProvisionalAcervo from '../components/ProvisionalAcervo';
+import { buildProvisionalAcervo, type ProvisionalBatch } from '../lib/provisional-acervo';
+// Explicit build-time globs: never include raw research files or a runtime filesystem reader.
+const batches=import.meta.glob<ProvisionalBatch>('../../content/{review,provisional}/*.json',{eager:true,import:'default'});
+const entries=buildProvisionalAcervo(Object.keys(batches).sort().map(path=>batches[path]));
+---
+<Base title="Acervo em revisão — Taekwondo para Todos">
+  <section class="shell section acervo-page">
+    <p class="tag">Biblioteca aberta para consulta</p>
+    <h1>Acervo em revisão</h1>
+    <p class="lead">Explore técnicas, bases e superfícies com as referências de cada ficha. O material está disponível para consulta enquanto as traduções, relações e descrições passam por revisão.</p>
+    <aside class="card acervo-notice" aria-label="Estado do acervo">
+      <strong>Conteúdo provisório, sem homologação técnica.</strong>
+      <p>As traduções e descrições em português são propostas editoriais. A fonte citada identifica a origem da pesquisa; não comprova aprovação de todos os campos. Pronúncias, significados literais e relações ausentes não são preenchidos por suposição.</p>
+      <p>Os atalhos para o atlas mostram áreas ilustrativas. As relações de superfície e alvo têm localizadores próprios e continuam em revisão. Consulte um professor para a prática dos movimentos.</p>
+      <a href="/fontes">Conhecer as fontes</a> · <a href="/catalogo">Consultar catálogo com revisão concluída</a>
+    </aside>
+    <ProvisionalAcervo entries={entries} client:load />
+  </section>
+</Base>
+<style is:global>
+  .acervo-notice{margin-block:24px;border-inline-start:4px solid var(--theme-link,#247778)}
+  .acervo-filters{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:14px;align-items:end;margin-block:28px}
+  .acervo-filters .field{min-width:0}.acervo-filters input,.acervo-filters select{width:100%;min-width:0}
+  .acervo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .acervo-entry{min-width:0;overflow-wrap:anywhere;scroll-margin-top:24px}
+  .acervo-entry h2{font-size:1.3rem}.acervo-entry dt{font-weight:700}.acervo-entry dd{margin:6px 0 0}
+  .acervo-claim{margin-block:18px}.acervo-evidence{display:flex;flex-direction:column;gap:4px;margin-top:8px;line-height:1.55}
+  .acervo-entry details{margin-block:18px}.acervo-entry summary{cursor:pointer;font-weight:650}
+  .acervo-relations li{margin-bottom:14px}.acervo-entry [lang=ko]{font-size:1.15rem}
+  @media(max-width:800px){.acervo-grid{grid-template-columns:1fr}.acervo-filters{grid-template-columns:1fr 1fr}.acervo-filters .field:first-child{grid-column:1/-1}}
+  @media(max-width:420px){.acervo-filters{grid-template-columns:1fr}.acervo-filters .field:first-child{grid-column:auto}}
+</style>

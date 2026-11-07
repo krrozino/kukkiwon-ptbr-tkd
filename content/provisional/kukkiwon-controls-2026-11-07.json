@@ -1,0 +1,208 @@
+{
+  "batch": "kukkiwon-controls-2026-11-07",
+  "source": {
+    "institution": "Kukkiwon",
+    "title": "Taekwondo Technical Terminology",
+    "year": 2011,
+    "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+    "edition": "English first published 2011-12-31; prefácio de 2012-03-01"
+  },
+  "accessed_at": "2026-11-07",
+  "notes": [
+    "Consulta documental automatizada; tradução e execução não homologadas.",
+    "Grafias e espaços preservados como na seção de origem. Sem associação inferida a Sonmok-kkeokgi ou Mok-neomgigi.",
+    "Região posterior do joelho não foi equiparada ao recorte Mureup.",
+    "PDF consultado: SHA-256 b96a0432d1a4e894f0796a4ed55a1b20922e5425edf810f7486d825546050efb; arquivo integral não redistribuído."
+  ],
+  "records": [
+    {
+      "slug": "kkeokgi",
+      "hangul": "꺾기",
+      "romanization": "Kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controles articulares",
+      "definition_pt": "Família de controles por pressão ou torção articular.",
+      "source_locator": "§9 Kkeokgi > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "family"
+    },
+    {
+      "slug": "biteureo-kkeokgi",
+      "hangul": "비틀어꺾기",
+      "romanization": "Biteureo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle por torção",
+      "definition_pt": "Variante de controle articular por torção.",
+      "source_locator": "§9 Kkeokgi > Biteureo-kkeokgi > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "nulleo-kkeokgi",
+      "hangul": "눌러꺾기",
+      "romanization": "Nulleo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle por pressão",
+      "definition_pt": "Variante de controle articular por pressão.",
+      "source_locator": "§9 Kkeokgi > Nulleo-kkeokgi > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "sonmok-biteureo-kkeokgi",
+      "hangul": "손목 비틀어꺾기",
+      "romanization": "Sonmok-biteureo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle do punho por torção",
+      "definition_pt": "Exemplo específico de controle do punho.",
+      "source_locator": "§9 Kkeokgi > Biteureo-kkeokgi > use > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "palgup-biteureo-kkeokgi",
+      "hangul": "팔굽 비틀어꺾기",
+      "romanization": "Palgup-biteureo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle do cotovelo por torção",
+      "definition_pt": "Exemplo específico de controle do cotovelo.",
+      "source_locator": "§9 Kkeokgi > Biteureo-kkeokgi > use > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique",
+      "anatomical_links": [
+        {
+          "region_slug": "palgup",
+          "relation_type": "target",
+          "source_locator": "§9 Kkeokgi > Biteureo-kkeokgi > use > PDF físico p. 43; nome específico do exemplo, não superfície executora"
+        }
+      ]
+    },
+    {
+      "slug": "mureup-nulleo-kkeokgi",
+      "hangul": "무릎 눌러꺾기",
+      "romanization": "Mureup-nulleo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle do joelho por pressão",
+      "definition_pt": "Exemplo específico de controle do joelho.",
+      "source_locator": "§9 Kkeokgi > Nulleo-kkeokgi > use > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique",
+      "anatomical_links": [
+        {
+          "region_slug": "mureup",
+          "relation_type": "target",
+          "source_locator": "§9 Kkeokgi > Nulleo-kkeokgi > use > PDF físico p. 43; nome específico do exemplo, não superfície executora"
+        }
+      ]
+    },
+    {
+      "slug": "palgup-nulleo-kkeokgi",
+      "hangul": "팔굽 눌러꺾기",
+      "romanization": "Palgup-nulleo-kkeokgi",
+      "category": "controle",
+      "translation_pt": "Controle do cotovelo por pressão",
+      "definition_pt": "Exemplo específico de controle do cotovelo.",
+      "source_locator": "§9 Kkeokgi > Nulleo-kkeokgi > use > PDF físico p. 43",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique",
+      "anatomical_links": [
+        {
+          "region_slug": "palgup",
+          "relation_type": "target",
+          "source_locator": "§9 Kkeokgi > Nulleo-kkeokgi > use > PDF físico p. 43; nome específico do exemplo, não superfície executora"
+        }
+      ]
+    },
+    {
+      "slug": "deureo-neomgigi",
+      "hangul": "들어넘기기",
+      "romanization": "Deureo-neomgigi",
+      "category": "projecao",
+      "translation_pt": "Projeção por elevação",
+      "definition_pt": "Designação de projeção por elevação.",
+      "source_locator": "§12 Neomgigi > Deureo-neomgigi > PDF físico p. 55–56 (título na p. 55, definição na p. 56)",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "georeo-neomgigi",
+      "hangul": "걸어넘기기",
+      "romanization": "Georeo-neomgigi",
+      "category": "projecao",
+      "translation_pt": "Desequilíbrio por varredura",
+      "definition_pt": "Designação de desequilíbrio ou varredura.",
+      "source_locator": "§12 Neomgigi > Georeo-neomgigi > PDF físico p. 56",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "ogeum-deureo-neomgigi",
+      "hangul": "오금 들어넘기기",
+      "romanization": "Ogeum-deureo-neomgigi",
+      "category": "projecao",
+      "translation_pt": "Projeção pela região posterior do joelho",
+      "definition_pt": "Exemplo nomeado na seção de projeções.",
+      "source_locator": "§12 Neomgigi > Deureo-neomgigi > use > PDF físico p. 56",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "balmok-georeo-neomgigi",
+      "hangul": "발목 걸어넘기기",
+      "romanization": "Balmok-georeo-neomgigi",
+      "category": "projecao",
+      "translation_pt": "Varredura do tornozelo",
+      "definition_pt": "Exemplo nomeado de varredura do tornozelo.",
+      "source_locator": "§12 Neomgigi > Georeo-neomgigi > use > PDF físico p. 56",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    },
+    {
+      "slug": "ogeum-georeo-neomgigi",
+      "hangul": "오금 걸어넘기기",
+      "romanization": "Ogeum-georeo-neomgigi",
+      "category": "projecao",
+      "translation_pt": "Varredura da região posterior do joelho",
+      "definition_pt": "Exemplo nomeado de varredura na região posterior do joelho.",
+      "source_locator": "§12 Neomgigi > Georeo-neomgigi > use > PDF físico p. 56",
+      "editorial_status": "research",
+      "publication_status": "draft",
+      "translation_review": "pending",
+      "technical_review": "pending",
+      "record_kind": "technique"
+    }
+  ]
+}
