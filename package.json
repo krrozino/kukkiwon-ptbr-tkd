@@ -27,7 +27,8 @@
     "preview:external:check": "node tools/local-validation/check-deployed.mjs",
     "preview:check": "node tools/local-validation/check-preview.mjs",
     "glossary:check": "node scripts/glossary.mjs",
-    "glossary:preview": "node scripts/glossary-preview.mjs"
+    "glossary:preview": "node scripts/glossary-preview.mjs",
+    "sources:audit": "node scripts/sources-audit.mjs --offline"
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",

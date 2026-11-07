@@ -38,6 +38,7 @@ Esta é a porta de entrada para a documentação **pública e versionada**. Os d
 | [Integração](KNOWLEDGE_INTEGRATION.md) | Leitura pública de relações e Poomsae |
 | [Auditoria de pesquisa](GEMINI_RESEARCH_AUDIT.md) | Critérios e rastreabilidade da investigação |
 | [Pesquisa documental](research/2026-11-06-documentary-audit.md) | Estado e fontes de candidatos |
+| [Acervo inicial de fontes — Kukkiwon e comparativas](research/2026-11-06-source-acervo.md) | Fontes oficiais, variantes, direitos e inventário offline `sources:audit` |
 
 ## Histórico técnico
 
