@@ -21,22 +21,33 @@ const present = (value:unknown): value is string => typeof value==='string' && B
 const normalize = (value:string) => value.normalize('NFD').replace(/\p{M}/gu,'').toLocaleLowerCase('pt-BR');
 const areas = new Set(['head','torso','arms','legs','hands','feet']);
 
-/** Explicit reading projection. Never changes the original records or publishes them to a database. */
-export function buildProvisionalAcervo(batches:ProvisionalBatch[]):ProvisionalEntry[] {
+function validateSource(batch:ProvisionalBatch) {
+  const s=batch.source;
+  if(!s || !safeReferenceUrl(s.url) || !present(s.institution) || !present(s.title)) throw new Error('Fonte inválida: '+batch.batch);
+  if(batch.accessed_at && (!/^\d{4}-\d{2}-\d{2}$/.test(batch.accessed_at) || !Number.isFinite(Date.parse(batch.accessed_at)))) throw new Error('Data de consulta inválida');
+}
+function validateRecord(record:ProvisionalBatch['records'][number]) {
+  if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug)) throw new Error('Slug inválido');
+  if(!present(record.source_locator)) throw new Error('Localizador ausente: '+record.slug);
+  if(!present(record.romanization) || !present(record.category)) throw new Error('Nome/categoria ausente: '+record.slug);
+  if(record.atlas && !areas.has(record.atlas.area)) throw new Error('Região ilustrativa inválida: '+record.slug);
+}
+function indexRecords(batches:ProvisionalBatch[]) {
   const records=new Map<string,ProvisionalBatch['records'][number]>();
   for(const batch of batches) {
-    const s=batch.source;
-    if(!s || !safeReferenceUrl(s.url) || !present(s.institution) || !present(s.title)) throw new Error('Fonte inválida: '+batch.batch);
-    if(batch.accessed_at && (!/^\d{4}-\d{2}-\d{2}$/.test(batch.accessed_at) || !Number.isFinite(Date.parse(batch.accessed_at)))) throw new Error('Data de consulta inválida');
+    validateSource(batch);
     for(const record of batch.records) {
-      if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug)) throw new Error('Slug inválido');
       if(records.has(record.slug)) throw new Error('Slug duplicado: '+record.slug);
-      if(!present(record.source_locator)) throw new Error('Localizador ausente: '+record.slug);
-      if(!present(record.romanization) || !present(record.category)) throw new Error('Nome/categoria ausente: '+record.slug);
-      if(record.atlas && !areas.has(record.atlas.area)) throw new Error('Região ilustrativa inválida: '+record.slug);
+      validateRecord(record);
       records.set(record.slug,record);
     }
   }
+  return records;
+}
+
+/** Explicit reading projection. Never changes the original records or publishes them to a database. */
+export function buildProvisionalAcervo(batches:ProvisionalBatch[]):ProvisionalEntry[] {
+  const records=indexRecords(batches);
   return batches.flatMap(batch=>batch.records.map(record=>{
     // Allowlist protects public pages and exports from raw research or private annotations.
     const source:Source={institution:batch.source.institution,title:batch.source.title,url:batch.source.url,

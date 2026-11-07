@@ -5,14 +5,14 @@ const fieldLabels={romanization:'Romanização documentada',hangul:'Hangul docum
 const gapLabels:Record<string,string>={romanization:'Romanização',hangul:'Hangul',translation_pt:'Tradução',definition_pt:'Descrição',pronunciation_pt:'Pronúncia em português',literal_meaning:'Significado literal',human_review:'Revisão humana',anatomical_links:'Relações corporais'};
 const roleLabels:Record<string,string>={surface:'Superfície usada',target:'Região alvo',movement:'Região em movimento',anatomy:'Referência anatômica'};
 const kindLabels:Record<string,string>={family:'Família',variant:'Variante',surface:'Superfície',anatomy:'Referência anatômica',technique:'Técnica'};
-function Evidence({evidence}:{evidence:ProvisionalEvidence}) {
+function Evidence({evidence}:Readonly<{evidence:ProvisionalEvidence}>) {
   const {source}=evidence;
   return <small className="acervo-evidence"><a href={source.url} target="_blank" rel="noopener noreferrer">{source.institution} · {source.title}</a>
     <span>{[source.edition,source.year].filter(Boolean).join(' · ')} · {evidence.locator}</span>
     <span>Consulta documental: {evidence.accessedAt||'data não registrada no lote'} · revisão humana pendente</span>
   </small>;
 }
-export default function ProvisionalAcervo({entries}:{entries:ProvisionalEntry[]}) {
+export default function ProvisionalAcervo({entries}:Readonly<{entries:ProvisionalEntry[]}>) {
   const [query,setQuery]=useState(''),[category,setCategory]=useState(''),[region,setRegion]=useState('');
   useEffect(()=>{
     const sync=()=>{
@@ -22,7 +22,7 @@ export default function ProvisionalAcervo({entries}:{entries:ProvisionalEntry[]}
     sync();window.addEventListener('popstate',sync);
     return ()=>window.removeEventListener('popstate',sync);
   },[]);
-  const categories=[...new Set(entries.map(entry=>entry.category))].sort();
+  const categories=[...new Set(entries.map(entry=>entry.category))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   const regions=[...new Map(entries.flatMap(entry=>entry.relations.map(link=>[link.regionSlug,link.regionName] as const))).entries()].sort((a,b)=>a[1].localeCompare(b[1],'pt-BR'));
   const visible=filterProvisionalAcervo(entries,{query,category,region});
   const update=(field:'q'|'categoria'|'regiao',value:string)=>{

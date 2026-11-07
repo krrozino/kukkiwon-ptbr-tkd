@@ -26,7 +26,7 @@ export function provisionalReviewCsv(entries) {
     for(const relation of entry.relations) append('region:'+relation.role,relation.regionSlug,relation.evidence);
     for(const gap of entry.gaps.filter(g=>!provisionalFields.includes(g))) append('pendencia:'+gap,'',null);
   }
-  return '\ufeff'+rows.map(row=>row.map(escapeSpreadsheetCell).join(';')).join('\r\n')+'\r\n';
+  return '\ufeff'+rows.map(row=>row.map(value=>escapeSpreadsheetCell(value)).join(';')).join('\r\n')+'\r\n';
 }
 export function runProvisionalAcervo(args) {
   if(args.length && !(args.length===2 && args[0]==='--review' && /^[a-zA-Z0-9][a-zA-Z0-9._-]*\.csv$/.test(args[1]))) throw new Error('Uso: npm run acervo:check [-- --review nome.csv]');

@@ -10,6 +10,6 @@ Escolha: projeção explícita dos lotes editoriais locais em `/acervo`, com fon
 - [x] Acrescentar 12 candidatos documentados na terminologia Kukkiwon, edição inglesa 2011/prefácio 2012, com localizadores e relações apenas quando sustentadas.
 - [x] Implementar leitura e busca acessíveis em `/acervo`, links de entrada e exportação CSV local para revisão em lote sem sobrescrita.
 - [x] Registrar a exceção editorial solicitada pelo mantenedor e o limite dos estados técnicos.
-- [ ] Executar conteúdo, pesquisa, fontes, tipos, suíte completa, build e E2E desktop/mobile; publicar somente branch e Draft PR.
+- [x] Executar conteúdo, pesquisa, fontes, tipos, suíte completa, build e E2E desktop/mobile; publicar somente branch e Draft PR (#57).
 
 STOP: fonte ilegível não será completada por memória; conflito com branch de outro agente não será sobrescrito; nenhum custo externo, Docker, SQL remoto ou deploy. Handoff conterá HEAD, CI, limitações e próxima ação.
