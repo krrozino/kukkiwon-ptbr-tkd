@@ -33,7 +33,7 @@
     "sources:audit": "node scripts/sources-audit.mjs --offline"
   },
   "dependencies": {
-    "@astrojs/react": "7.1.0",
+    "@astrojs/react": "7.1.2",
     "@supabase/supabase-js": "2.119.0",
     "astro": "7.4.5",
     "react": "19.3.1",
