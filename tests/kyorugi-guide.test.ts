@@ -19,9 +19,9 @@ describe("estudo do Kyorugi com proveniência", () => {
 
   it("diferencia regulamentos WT e CBTKD do catálogo marcial", () => {
     expect(competitionReferences.map(r => r.id)).toEqual(["wt", "cbtkd"]);
-    expect(competitionReferences[0].source).toContain("worldtaekwondo.org");
+    expect(competitionReferences[0].source).toContain("taekwondo.dk");
     expect(competitionReferences[1].source).toContain("fpetkd.org");
-    expect(competitionReferences[0].notice).toContain("2024");
+    expect(competitionReferences[0].notice).toContain("2026");
     expect(competitionReferences[1].notice).toContain("2026");
   });
 });
