@@ -234,3 +234,12 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 @media(prefers-reduced-motion:reduce){
   .surface-legend-button,.detail-svg .surface-cutout path{transition:none}
 }
+
+/* Referência ligada à ficha selecionada; não confundir crédito de arte e termo técnico. */
+.atlas-source-evidence{margin-top:14px;padding-top:13px;border-top:1px solid #d9e5e0;min-width:0;width:100%;line-height:1.5}
+.atlas-source-evidence .atlas-source-heading{display:block;font-size:.78rem;font-weight:800;color:#315f62;margin-bottom:6px}
+.atlas-source-evidence .source-list{padding-left:18px;margin:8px 0;max-width:100%;overflow-wrap:anywhere}
+.atlas-source-evidence .source-list li{margin:0 0 10px}
+.atlas-source-evidence a{color:#176c68;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.atlas-source-evidence a:focus-visible{outline:3px solid #3768b5;outline-offset:3px}
+.atlas-source-evidence small,.atlas-source-evidence p{font-size:.8rem;color:#536b71}
