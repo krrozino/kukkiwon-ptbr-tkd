@@ -116,3 +116,18 @@ Os testes executam as migrações SQL reais em PGlite, criam fixtures isoladas e
 Comandos reproduzíveis: `npx vitest run tests/knowledge-database.test.mjs tests/database.test.mjs --reporter=verbose` e `npm test`. Os testes `.mjs` são executados pelo Vitest atual; não foi necessário alterar sua configuração. Eles não substituem a validação futura em um stack Supabase/PostgREST real, as verificações do ambiente de produção ou a revisão humana do conteúdo.
 
 As decisões de isolamento e privilégios seguem as orientações oficiais de [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security) e de [proteção da Data API](https://supabase.com/docs/guides/api/securing-your-api), consultadas neste trabalho. Não há funções `SECURITY DEFINER` novas; as funções usam `SECURITY INVOKER`, `search_path` vazio e execução revogada para papéis públicos.
+
+
+## Exibição dos sentidos documentados (candidata de UI, Issue #50)
+
+A ficha de técnica e a ficha contextual podem renderizar `TermSemanticsPanel`, que consulta `term_senses` e `term_field_claims` **apenas se as duas flags estiverem explicitamente habilitadas**:
+
+- `PUBLIC_KNOWLEDGE_SCHEMA=true` — pressupõe aplicação/homologação da migração de pesquisa;
+- `PUBLIC_TERM_SEMANTICS_SCHEMA=true` — pressupõe também aplicação/homologação de `20261107024730_term_senses_and_field_claims.sql`;
+- `PUBLIC_CONTENT_REVIEW` diferente de `true` — mantém separação de pesquisa pública e catálogo.
+
+**Por padrão, `PUBLIC_TERM_SEMANTICS_SCHEMA=false` e nenhuma consulta às novas tabelas é feita.** A compilação de produção existente não habilita a flag. Não configurar `true` apenas para mostrar conteúdo: a fonte e a revisão de cada campo são obrigatórias. A publicação oficial permanece processo separado.
+
+O leitor faz duas consultas explicitamente limitadas a linhas `published`, seleciona apenas colunas públicas, valida termId e decodifica/recusa linhas inválidas. O banco mantém a decisão de visibilidade por RLS. Cada significado e grafia é mostrado com documento/link/localizador próprio, sem atribuir aprovação a interpretações que continuam em pesquisa. Quando não existem linhas publicadas, a seção não é desenhada; a ficha legada permanece disponível.
+
+A integração da UI não aplica migração nem promove rascunhos. As PRs #48/#52 de visualização do atlas seguem paralelas e não foram modificadas nesta etapa.
