@@ -1,0 +1,82 @@
+---
+import Base from "../layouts/Base.astro";
+import { competitionReferences, kukkiwonSparringIndex, martialFamilies, sparringSource } from "../data/kyorugi-guide";
+---
+<Base title="Kyorugi e combate combinado — Taekwondo para Todos">
+  <section class="shell section">
+    <p class="tag">Arte marcial e modalidade esportiva</p>
+    <h1>Kyorugi: pratique e estude com fontes</h1>
+    <p class="lead">Aprenda a diferença entre as famílias técnicas do Taekwondo, o combate combinado e a competição esportiva. Cada assunto tem sua própria documentação — sem misturar regra de campeonato com execução marcial.</p>
+    <div class="kyorugi-jumps" role="navigation" aria-label="Navegar pelo guia">
+      <a href="#familias">Técnicas e regiões</a>
+      <a href="#combinado">Combate combinado</a>
+      <a href="#competicao">Competição</a>
+      <a href="/catalogo">Catálogo de técnicas</a>
+    </div>
+  </section>
+  <section class="shell section" id="familias">
+    <p class="tag">Referências Kukkiwon</p>
+    <h2>Famílias de movimentos</h2>
+    <p>Estas nove famílias são descritas em páginas individuais da Kukkiwon. As ligações com o atlas servem para explorar a anatomia relacionada; <strong>não</strong> representam uma associação técnica oficialmente aprovada de cada movimento.</p>
+    <div class="grid ky-families">
+      {martialFamilies.map((family) =>
+        <article class="card">
+          <p class="fine-print">Família técnica · Kukkiwon</p>
+          <h3>{family.name}</h3>
+          <h4>{family.label}</h4>
+          <p>{family.summary}</p>
+          <div class="ky-card-links">
+            <a href={'/atlas?region='+family.atlas+'&zoom=1'}>Explorar {family.atlasLabel}</a>
+            <a href={sparringSource(family.boardNo)} target="_blank" rel="noopener noreferrer" aria-label={'Ler fonte Kukkiwon: '+family.name}>Fonte Kukkiwon · artigo {family.boardNo}</a>
+          </div>
+        </article>
+      )}
+    </div>
+    <p class="fine-print">As descrições são resumos editoriais de orientação. A <a href={kukkiwonSparringIndex} target="_blank" rel="noopener noreferrer">coleção institucional de técnicas</a> é a fonte-base. Fichas individuais com Hangul, execução e aplicações somente aparecem no catálogo após revisão documental.</p>
+  </section>
+  <section class="shell section" id="combinado">
+    <div class="card ky-feature">
+      <p class="tag">Combate combinado</p>
+      <h2>Matchwo Gyeorugi</h2>
+      <p>O combate combinado é estudado separadamente da competição esportiva. A grafia em coreano, as subdivisões e as sequências precisas ainda precisam ser conferidas em material técnico apropriado, antes de receberem o selo de referência do projeto.</p>
+      <p><strong>Não existem sequências de combate combinado aprovadas para publicação nesta versão.</strong> Em vez de apresentar demonstrações inventadas, esta área conecta o estudante aos fundamentos, ao atlas e ao ensino de Gyeorugi.</p>
+      <div class="ky-card-links">
+        <a href="/fundamentos/alturas-e-direcoes">Estudar alturas e direções</a>
+        <a href="/atlas">Explorar o atlas corporal</a>
+        <a href="https://wta.kukkiwon.or.kr/en/trainingProcess/masterCourse?lang=en&topMenuid=1072" target="_blank" rel="noopener noreferrer">Currículo da WTA: Gyeorugi no ensino</a>
+      </div>
+      <p class="fine-print">A referência WTA comprova que Gyeorugi integra a formação de mestres; não constitui, por si, uma fonte para cada termo ou sequência de combate combinado.</p>
+    </div>
+  </section>
+  <section class="shell section" id="competicao">
+    <p class="tag">Modalidade esportiva</p>
+    <h2>Kyorugi competitivo</h2>
+    <p>As regras para competições variam por edição e entidade organizadora. Não é correto aplicar automaticamente a uma luta as exigências de outra época, categoria ou campeonato.</p>
+    <div class="grid ky-regulations">
+      {competitionReferences.map((item) =>
+        <article class="card">
+          <h3>{item.name}</h3>
+          <h4>{item.label}</h4>
+          <p>{item.description}</p>
+          <p class="fine-print">{item.notice}</p>
+          <a class="inline-link" href={item.source} target="_blank" rel="noopener noreferrer">Consultar documento ou índice de regulamentos</a>
+        </article>
+      )}
+    </div>
+    <p class="fine-print">Para competir, consulte o regulamento mais recente da federação, as normas do evento e o material oficial da World Taekwondo. Esta biblioteca não substitui a orientação de árbitros e professores.</p>
+    <div class="actions"><a class="button" href="/catalogo">Explorar técnicas disponíveis</a><a href="/fontes">Conhecer nossas fontes</a></div>
+  </section>
+  <style>
+    .kyorugi-jumps{display:flex;flex-wrap:wrap;gap:10px;min-height:0;margin-top:24px;padding:0}
+    .kyorugi-jumps a{border:1px solid currentColor;border-radius:999px;padding:9px 15px;text-decoration:none;font-weight:650}
+    .kyorugi-jumps a:hover{color:var(--theme-link,#247778)}
+    .ky-families .card{display:flex;flex-direction:column;min-width:0}
+    .ky-families .card h3{font-size:1.45rem;margin:4px 0}
+    .ky-families .card h4{font-size:.99rem;margin:3px 0 8px}
+    .ky-card-links{display:flex;flex-direction:column;align-items:start;gap:9px;margin-top:auto;padding-top:18px;overflow-wrap:anywhere}
+    .ky-card-links a{text-underline-offset:3px}
+    .ky-feature{max-width:920px}
+    .ky-regulations{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media(max-width:750px){.ky-regulations{grid-template-columns:1fr}.kyorugi-jumps{gap:7px}.kyorugi-jumps a{padding:9px 11px}}
+  </style>
+</Base>
