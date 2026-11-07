@@ -5,6 +5,7 @@ import { Pronunciation } from "./TermContext";
 import FavoriteButton from "./FavoriteButton";
 import TermSchoolMedia from "./TermSchoolMedia";
 import KnowledgeReferences from './KnowledgeReferences';
+import TermSemanticsPanel from './TermSemanticsPanel';
 import GlossaryKnowledgeLinks from './GlossaryKnowledgeLinks';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof fetchTermDetails>>>;
@@ -105,6 +106,7 @@ export default function FichaTecnica() {
           )}
         </section>
       </div>
+      {term.publication_status === 'published' && <TermSemanticsPanel termId={term.id} />}
       <section className="section-inner">
         <h2>Referências documentais</h2>
         <p className="fine-print">

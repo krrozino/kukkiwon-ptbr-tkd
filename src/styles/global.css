@@ -234,3 +234,13 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 @media(prefers-reduced-motion:reduce){
   .surface-legend-button,.detail-svg .surface-cutout path{transition:none}
 }
+
+/* Each interpretation keeps its own bibliographic source and readable label. */
+.term-semantics{margin-block:24px}
+.term-semantics-entry{padding:15px 18px;border:1px solid #d8e5df;border-radius:12px;margin-block:12px;overflow-wrap:anywhere}
+.term-semantics-entry h3{margin:0 0 9px;font-size:1.04rem}
+.term-semantics-entry .source-list{margin:8px 0;overflow-wrap:anywhere}
+.term-semantics-claims ul{padding:0;list-style:none}
+.term-semantics-entry a{overflow-wrap:anywhere;text-underline-offset:2px}
+.term-semantics-entry a:focus-visible{outline:2px solid #225f74;outline-offset:3px}
+.term-semantics-entry [lang="ko"]{font-size:1.2em;word-break:keep-all}
