@@ -34,7 +34,7 @@ const taegeukIndex = [
 ] as const;
 const kukkiwonPoomsaeSource = "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72";
 /** Nomes e contexto histórico/simbólico: não constituem sequência de movimentos. */
-const danIndex = [
+const danResearch = [
   { name:"Koryo",boardNo:1356,theme:"Tradição marcial e postura de quem estuda." },
   { name:"Keumgang",boardNo:1357,theme:"Força firme associada à imagem da montanha." },
   { name:"Taebaek",boardNo:1358,theme:"Montanha luminosa, origem e tradição." },
@@ -45,6 +45,17 @@ const danIndex = [
   { name:"Hansu",boardNo:1363,theme:"Água, continuidade e adaptabilidade." },
   { name:"Ilyeo",boardNo:1364,theme:"Unidade entre mente e corpo." },
 ] as const;
+const danIndex = danResearch.map(form => ({
+  ...form,
+  evidence: {
+    institution: "Kukkiwon",
+    document: "Composition of Taekwondo — Poomsae",
+    locator: "Board 55 / artigo " + form.boardNo,
+    sourceCheckedAt: "2026-11-07",
+    editorialReview: "research" as const,
+    technicalReview: "pending" as const,
+  },
+}));
 
 
 export default function PoomsaeApp() {
@@ -97,6 +108,7 @@ export default function PoomsaeApp() {
         {danIndex.map(form=><article key={form.boardNo} className="card">
           <h3>{form.name}</h3>
           <p>{form.theme}</p>
+          <p className="fine-print">Kukkiwon · {form.evidence.locator}. Fonte consultada em {form.evidence.sourceCheckedAt}. Resumo editorial em revisão; sequência técnica não verificada.</p>
           <a className="inline-link" target="_blank" rel="noopener noreferrer"
             href={`https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=${form.boardNo}&menuLevel=3&menuNo=72`}>
             Conferir nome e contexto na Kukkiwon →
