@@ -22,7 +22,7 @@ test("navegação para Kyorugi e catálogo de Poomsae de Dan sem movimentos fict
   await expect(page.getByRole("heading", {name:"Conheça as formas de Koryo a Ilyeo"})).toBeVisible();
   const dan=page.getByRole("region", {name:"Poomsae de graduação Dan"});
   await expect(dan.getByRole("link", {name:"Conferir nome e contexto na Kukkiwon"})).toHaveCount(9);
-  await expect(dan.getByRole("heading", {name:"Koryo"})).toBeVisible();
-  await expect(dan.getByRole("heading", {name:"Ilyeo"})).toBeVisible();
+  await expect(dan.getByRole("heading", {name:"Koryo", exact:true})).toBeVisible();
+  await expect(dan.getByRole("heading", {name:"Ilyeo", exact:true})).toBeVisible();
   await expect(page.getByText("As sequências detalhadas aparecerão após conferência das fontes e aprovação editorial de cada movimento.")).toBeVisible();
 });
