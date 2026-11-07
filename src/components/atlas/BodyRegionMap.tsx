@@ -5,6 +5,7 @@ import BodyIllustration,{bodySilhouettePath} from './BodyIllustration';
 import {areaViewBoxes,zonesFor} from './zones';
 import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
+import AtlasSourceEvidence from './AtlasSourceEvidence';
 
 type Props={area:Area;view:View;regions:BodyRegion[];selected:string|null;onSelect:(r:BodyRegion)=>void};
 export default function BodyRegionMap({area,view,regions,selected,onSelect}:Props){
@@ -15,9 +16,11 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
   const active=visual||zones.find(z=>z.regionSlug===selected)?.id||null;
   const focused=zones.find(z=>z.id===(hover||active)),record=focused&&published(focused.id);
   const {detail}=useTermDetail(record?.slug||null);
+  // A seleção pode mudar antes do efeito da consulta; nunca mostrar fonte de outra ficha.
+  const inspectedDetail=record&&detail?.term.slug===record.slug?detail:null;
   useEffect(()=>{setVisual(null);setHover(null);},[area,view,selected]);
   useEffect(()=>{
-    const update=()=>setSide((canvas.current?.clientWidth||0)>=435&&innerWidth>=1000);
+    const update=()=>setSide((canvas.current?.clientWidth||0)>=720&&innerWidth>=1080);
     const observer=new ResizeObserver(update);if(canvas.current)observer.observe(canvas.current);update();
     return ()=>observer.disconnect();
   },[]);
@@ -52,12 +55,13 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     </svg>
     <section className="surface-inspector" aria-label="Detalhes da região selecionada">
       {focused?<div role="tooltip" className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={focused.id}>
-        {record?<><strong>{record.name_pt}</strong><span>{detail?.term.romanization||'Identificação em consulta'}</span>
-          <span lang="ko">{detail?.term.hangul||'Hangul em consulta'}</span>
-          <span>Pronúncia: {detail?.term.pronunciation_pt||'ainda não conferida'}</span>
-          <small>{detail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
+        {record?<><strong>{record.name_pt}</strong><span>{inspectedDetail?.term.romanization||'Identificação em consulta'}</span>
+          <span lang="ko">{inspectedDetail?.term.hangul||'Hangul em consulta'}</span>
+          <span>Pronúncia: {inspectedDetail?.term.pronunciation_pt||'ainda não conferida'}</span>
+          <small>{inspectedDetail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
           <a className="inline-link" href={'/tecnica?slug='+encodeURIComponent(record.slug)}>Abrir ficha técnica →</a>
-        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small></>}
+          <AtlasSourceEvidence kind="technical" sources={inspectedDetail?.sources}/>
+        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small><AtlasSourceEvidence kind="illustrative"/></>}
       </div>:<div className="surface-placeholder" aria-hidden="true"><span className="surface-placeholder-icon">◎</span><strong>Explore as áreas coloridas</strong><small>Selecione uma zona no desenho ou na legenda.</small></div>}
     </section>
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
