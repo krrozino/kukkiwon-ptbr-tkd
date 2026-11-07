@@ -306,10 +306,10 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .button-outline:hover{background:#542b39}
 [data-theme="dark"] .button{background:#ab3949;color:white}
 [data-theme="dark"] .button-outline{background:transparent;color:#ffc1c5}
-[data-theme="dark"] button:not(.korean-word):not(.expression-info):not(.glossary-close):not(.context-link):not(.text-button):not(.button):not(.theme-toggle),
+[data-theme="dark"] button:where(:not(.korean-word):not(.expression-info):not(.glossary-close):not(.context-link):not(.text-button):not(.button):not(.theme-toggle)),
 [data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea{
   background:var(--theme-panel-alt);color:var(--theme-text);border-color:var(--theme-border)}
-[data-theme="dark"] button:hover:not(:disabled):not(.korean-word):not(.expression-info):not(.glossary-close):not(.context-link):not(.text-button):not(.button):not(.theme-toggle){border-color:var(--theme-link)}
+[data-theme="dark"] button:hover:where(:not(:disabled):not(.korean-word):not(.expression-info):not(.glossary-close):not(.context-link):not(.text-button):not(.button):not(.theme-toggle)){border-color:var(--theme-link)}
 [data-theme="dark"] .atlas-controls button.selected,[data-theme="dark"] .atlas-controls button[aria-pressed=true],
 [data-theme="dark"] .surface-legend-button.selected,[data-theme="dark"] .region-list button[aria-pressed=true]{
   background:#215253;color:#e7fff9;border-color:#76d8c4}
