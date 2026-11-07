@@ -4,7 +4,8 @@ test("Kyorugi apresenta famílias, contexto e fonte específica", async ({ page 
   await page.goto("/kyorugi");
   await expect(page.getByRole("heading", { name: "Kyorugi: pratique e estude com fontes" })).toBeVisible();
   await expect(page.locator(".ky-families article")).toHaveCount(9);
-  await expect(page.getByRole("heading", { name: "Matchwo Gyeorugi" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Combate combinado", exact: true })).toBeVisible();
+  await expect(page.getByText("Matchwo Gyeorugi", {exact: false})).toBeVisible();
   await expect(page.getByText("Não existem sequências de combate combinado aprovadas", {exact:false})).toBeVisible();
   await expect(page.getByRole("link", {name:"Ler fonte Kukkiwon: Chagi"})).toHaveAttribute("href", /boardNo=1368/);
   await expect(page.locator('a[href="/atlas?region=feet&zoom=1"]')).toBeVisible();
