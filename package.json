@@ -4,6 +4,8 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
+    "acervo:check": "node scripts/provisional-acervo.mjs",
+    "acervo:review": "node scripts/provisional-acervo.mjs --review",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
