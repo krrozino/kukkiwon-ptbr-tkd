@@ -5,6 +5,7 @@ import BodyIllustration,{bodySilhouettePath} from './BodyIllustration';
 import {areaViewBoxes,zonesFor} from './zones';
 import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
+import AtlasSourceEvidence from './AtlasSourceEvidence';
 
 type Props={area:Area;view:View;regions:BodyRegion[];selected:string|null;onSelect:(r:BodyRegion)=>void};
 export default function BodyRegionMap({area,view,regions,selected,onSelect}:Props){
@@ -57,7 +58,8 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
           <span>Pronúncia: {detail?.term.pronunciation_pt||'ainda não conferida'}</span>
           <small>{detail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
           <a className="inline-link" href={'/tecnica?slug='+encodeURIComponent(record.slug)}>Abrir ficha técnica →</a>
-        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small></>}
+          <AtlasSourceEvidence kind="technical" sources={detail?.sources}/>
+        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small><AtlasSourceEvidence kind="illustrative"/></>}
       </div>:<div className="surface-placeholder" aria-hidden="true"><span className="surface-placeholder-icon">◎</span><strong>Explore as áreas coloridas</strong><small>Selecione uma zona no desenho ou na legenda.</small></div>}
     </section>
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
