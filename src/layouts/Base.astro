@@ -2,6 +2,7 @@
 import '../styles/global.css';
 const { title = 'Taekwondo para Todos' } = Astro.props;
 const links=[
+  {label:'Acervo em revisão',href:'/acervo'},
   {label:'Catálogo',href:'/catalogo'},
   {label:'Atlas corporal',href:'/atlas'},
   {label:'Glossário',href:'/glossario'},
@@ -17,7 +18,53 @@ const path=Astro.url.pathname.replace(/\/$/,'')||'/';
 ---
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Plataforma educacional independente de Taekwondo com atlas interativo, currículos e referências documentais."/><title>{title}</title></head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Plataforma educacional independente de Taekwondo com atlas interativo, currículos e referências documentais."/>
+  <meta name="theme-color" content="#f9fafb"/>
+  <title>{title}</title>
+  <script is:inline>
+    (() => {
+      const KEY = 'taekwondo-theme';
+      let selected = null;
+      try {
+        const saved = localStorage.getItem(KEY);
+        if (saved === 'dark' || saved === 'light') selected = saved;
+      } catch { /* Navegação privada / storage indisponível */ }
+      const preference = window.matchMedia('(prefers-color-scheme: dark)');
+      const effective = () => selected || (preference.matches ? 'dark' : 'light');
+      const apply = () => {
+        const dark = effective() === 'dark';
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#111c29' : '#f9fafb');
+        document.querySelectorAll('[data-theme-toggle]').forEach(button => {
+          button.textContent = dark ? '☀ Tema claro' : '☾ Tema escuro';
+          button.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+          button.setAttribute('aria-pressed', String(dark));
+          button.setAttribute('title', dark ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+        });
+      };
+      // Executa no <head> antes de o corpo ser desenhado para evitar piscar o tema claro.
+      apply();
+      document.addEventListener('DOMContentLoaded', () => {
+        apply();
+        document.querySelectorAll('[data-theme-toggle]').forEach(button =>
+          button.addEventListener('click', () => {
+            selected = effective() === 'dark' ? 'light' : 'dark';
+            try { localStorage.setItem(KEY, selected); } catch { /* preferência só desta página */ }
+            apply();
+          }),
+        );
+      });
+      const onSystemChange = () => { if (!selected) apply(); };
+      if (preference.addEventListener) preference.addEventListener('change', onSystemChange);
+      else if (preference.addListener) preference.addListener(onSystemChange);
+    })();
+  </script>
+</head>
 <body>
 {import.meta.env.PUBLIC_GLOSSARY_REVIEW==='true'&&<aside class="glossary-review-banner">PRÉVIA LOCAL DO GLOSSÁRIO · conteúdo ainda não aprovado, para conferência.</aside>}
 {import.meta.env.PUBLIC_CONTENT_REVIEW==='true'&&<aside class="review-banner">PRÉVIA DE REVISÃO · 108 rascunhos não validados. Traduções e técnicas aguardam revisão humana.</aside>}
@@ -31,6 +78,7 @@ const path=Astro.url.pathname.replace(/\/$/,'')||'/';
       {links.map(link=><a href={link.href} class={path===link.href?'active':''}
         aria-current={path===link.href?'page':undefined}>{link.label}</a>)}
     </div>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema" aria-pressed="false">☾ Tema escuro</button>
   </nav>
 </header>
 <main><slot /></main>

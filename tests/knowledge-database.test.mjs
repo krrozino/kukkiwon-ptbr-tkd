@@ -28,7 +28,7 @@ beforeAll(async () => {
     grant usage on schema auth to anon,authenticated;`);
   await db.exec(storageSchema);
   const migration = '20261106152500_knowledge_research_and_poomsae.sql';
-  for (const file of readdirSync('supabase/migrations').filter(f => f.endsWith('.sql') && f !== migration).sort()) {
+  for (const file of readdirSync('supabase/migrations').filter(f => f.endsWith('.sql') && f < migration).sort()) {
     await db.exec(readFileSync('supabase/migrations/' + file, 'utf8'));
     if (file === '20261103220044_atlas_media_e_integridade_de_fontes.sql') {
       for (const seed of ['kukkiwon_2012_first20_drafts.sql','atlas_maos_2012_drafts.sql']) {
@@ -42,6 +42,9 @@ beforeAll(async () => {
   }
   originalCatalog = await catalogSnapshot();
   await db.exec(readFileSync('supabase/migrations/' + migration,'utf8'));
+  for (const file of readdirSync('supabase/migrations').filter(f => f.endsWith('.sql') && f > migration).sort()) {
+    await db.exec(readFileSync('supabase/migrations/' + file,'utf8'));
+  }
   migratedCatalog = await catalogSnapshot();
   // Free only legacy fixtures; never disable the new immutable/audit triggers.
   await db.exec(`delete from public.body_region_terms; delete from public.term_relations;

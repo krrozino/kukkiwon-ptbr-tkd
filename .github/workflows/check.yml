@@ -17,6 +17,8 @@ jobs:
           node-version: '22'
       - run: npm ci --ignore-scripts
       - run: npm run content:check
+      - run: npm run acervo:check
+      - run: npm run sources:audit
       - run: npm run research:audit
       - run: npm run check
       - run: npm test

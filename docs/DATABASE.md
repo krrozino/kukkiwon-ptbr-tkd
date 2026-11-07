@@ -18,6 +18,7 @@
 | `20261105115448_sprint02_schools_learning` | Aplicada |
 | `20261105203201_sprint03_school_images` | Aplicada |
 | `20261106152500_knowledge_research_and_poomsae` | **NÃO aplicada remotamente**; proposta no repositório |
+| `20261107024730_term_senses_and_field_claims` | **NÃO aplicada remotamente**; proposta da Issue #42, depende da proposta anterior |
 
 A existência de um arquivo em `supabase/migrations/` não significa aplicação. Antes de executar qualquer migração futura, inspecionar as migrações ativas, planejar backup/rollback e homologar em ambiente isolado. Não executar migrações automaticamente em CI ou deploy do site.
 
@@ -41,6 +42,12 @@ Contagens de arquivos do repositório e pesquisas Gemini são inventários disti
 - `knowledge_research`, `poomsae_forms` e `poomsae_steps`: **estruturas da migração proposta** — não presumir disponíveis na API pública do projeto até serem aplicadas e validadas.
 
 Leia o [pipeline de dados](DATA_PIPELINE.md), o [modelo detalhado de conhecimento](KNOWLEDGE_MODEL.md) e as [extensões](DATABASE_EXTENSIONS.md) para contratos completos.
+
+`term_senses` e `term_field_claims` são propostas aditivas com fonte/revisão por
+significado ou campo. A [ADR-009](adr/009-term-senses.md) detalha o modelo e o
+contrato de leitura. PGlite e PostgreSQL/PostgREST portáteis foram validados
+localmente; Supabase Auth completo permanece pendente. Nenhum inventário remoto foi consultado nesta Issue;
+as confirmações acima pertencem à sessão documentada anteriormente.
 
 ## Segurança por padrão
 

@@ -43,7 +43,8 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   await page.locator('[data-legend-zone="sonnal"]').click();
   await page.locator('[data-legend-zone="illustration-thumb"]').click();
   await expect(tip).toContainText('Polegar');
-  await expect(tip.getByRole('link')).toHaveCount(0);
+  await expect(tip.getByRole("link",{name:"Abrir ficha técnica"})).toHaveCount(0);
+  await expect(tip.getByRole("link",{name:"Como conferimos as fontes e as técnicas"})).toHaveAttribute("href","/fontes");
   await expect(page.locator('.detail-svg [data-region="illustration-thumb"]')).toHaveAttribute('aria-pressed','true');
   await page.locator('[data-legend-zone="sonnal"]').click();
   // Tab percorre os recortes seguintes sem apagar a ficha selecionada.
@@ -111,6 +112,8 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   await page.goto("/atlas?region=feet&zoom=1");
   const target=page.locator('.surface-cutout[data-region="apchuk"]');
   await expect(target).toBeVisible();
+  // Deslocamentos necessários para trazer o alvo à vista não são causados pelo toque.
+  await target.scrollIntoViewIfNeeded();
   const before=await page.evaluate(()=>({scrollY, pageHeight:document.documentElement.scrollHeight}));
   if(isMobile) await target.tap();
   else await target.click();

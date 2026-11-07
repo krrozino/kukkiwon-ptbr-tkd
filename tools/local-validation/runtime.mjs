@@ -2,7 +2,7 @@ import {spawn,execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {createRequire} from 'node:module';
 import {createServer} from 'node:net';
-import {mkdirSync,writeFileSync,readFileSync,existsSync,unlinkSync,openSync,closeSync} from 'node:fs';
+import {mkdirSync,writeFileSync,readFileSync,readdirSync,existsSync,unlinkSync,openSync,closeSync} from 'node:fs';
 import {resolve,dirname,join,delimiter} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {randomBytes,randomUUID} from 'node:crypto';
@@ -89,8 +89,12 @@ export async function startLocalRuntime() {
     const catalogBeforeKnowledge=await snapshotCatalog();
     await client.query(readFileSync(join(root,'supabase/migrations/20261106152500_knowledge_research_and_poomsae.sql'),'utf8'));
     const catalogAfterKnowledge=await snapshotCatalog();
+    for(const file of readdirSync(join(root,'supabase/migrations')).filter(file=>file.endsWith('.sql')&&file>'20261106152500_knowledge_research_and_poomsae.sql').sort()) {
+      await client.query(readFileSync(join(root,'supabase/migrations',file),'utf8'));
+    }
+    const catalogAfterSemantics=await snapshotCatalog();
     const version=(await client.query('select version()')).rows[0].version;
-    return {client,secret,runDir,logFile,version,catalogBeforeKnowledge,catalogAfterKnowledge,apiUrl:'http://127.0.0.1:'+apiPort,stop,
+    return {client,secret,runDir,logFile,version,catalogBeforeKnowledge,catalogAfterKnowledge,catalogAfterSemantics,apiUrl:'http://127.0.0.1:'+apiPort,stop,
       get postgrestVersion(){return postgrestVersion;},
       async startApi() {
         const environment={...process.env};
