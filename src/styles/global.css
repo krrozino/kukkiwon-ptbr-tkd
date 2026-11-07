@@ -299,7 +299,7 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .text-button,[data-theme="dark"] .direction-arrow,
 [data-theme="dark"] .grade-editor legend,[data-theme="dark"] .term-context .hangul,
 [data-theme="dark"] .surface-inspector .surface-tooltip a,[data-theme="dark"] .source-list a,
-[data-theme="dark"] .atlas-source-evidence a,[data-theme="dark"] a:not(.button):not(.logo):not(.link-card):not(.term-card):not(.inline-link):not(.site-navigation a){color:var(--theme-link)}
+[data-theme="dark"] .atlas-source-evidence a,[data-theme="dark"] main a:not(.button):not(.link-card):not(.term-card):not(.inline-link),[data-theme="dark"] footer a{color:var(--theme-link)}
 [data-theme="dark"] .surface-canvas .surface-panel-eyebrow,[data-theme="dark"] .surface-legend-heading strong,
 [data-theme="dark"] .surface-inspector .surface-tooltip-compact strong{color:var(--theme-text)}
 [data-theme="dark"] .button-outline{border-color:#f8a4a8;color:#f8a4a8;background:transparent}
