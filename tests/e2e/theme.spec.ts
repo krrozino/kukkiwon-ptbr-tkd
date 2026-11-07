@@ -48,3 +48,19 @@ test("tema escuro mantém texto, cards e campos legíveis sem rolagem horizontal
   expect(read.pageWidth).toBeLessThanOrEqual(read.windowWidth);
   await expect(page.getByRole("button", { name: "Ativar tema claro" })).toBeVisible();
 });
+
+test("seleção do atlas continua destacada no tema escuro", async ({ page }) => {
+  await page.emulateMedia({colorScheme: "dark"});
+  await page.goto("/atlas");
+  const frente = page.getByRole("button", {name: "Vista anterior"});
+  const costas = page.getByRole("button", {name: "Vista posterior"});
+  await expect(frente).toHaveAttribute("aria-pressed", "true");
+  const first = await frente.evaluate(el => getComputedStyle(el).backgroundColor);
+  const unselected = await costas.evaluate(el => getComputedStyle(el).backgroundColor);
+  expect(first).not.toBe(unselected);
+  await costas.click();
+  await expect(costas).toHaveAttribute("aria-pressed", "true");
+  await expect(frente).toHaveAttribute("aria-pressed", "false");
+  const after = await costas.evaluate(el => getComputedStyle(el).backgroundColor);
+  expect(after).toBe(first);
+});
