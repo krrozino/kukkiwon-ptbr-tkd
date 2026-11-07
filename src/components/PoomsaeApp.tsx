@@ -87,7 +87,7 @@ export default function PoomsaeApp() {
       </div>
       <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
     </div>
-    <div className="card section-inner" aria-label="Poomsae de graduação Dan">
+    <section className="card section-inner" role="region" aria-label="Poomsae de graduação Dan">
       <p className="tag">Poomsae de graduação Dan</p>
       <h2>Conheça as formas de Koryo a Ilyeo</h2>
       <p>Os nove nomes e temas abaixo são apresentados pela Kukkiwon. Seus movimentos ainda precisam de documentação específica e revisão antes de aparecer como sequência aqui.</p>
@@ -101,7 +101,7 @@ export default function PoomsaeApp() {
           </a>
         </article>)}
       </div>
-    </div>
+    </section>
     <div className="empty" role="status">
       <h2>Poomsae em preparação</h2>
       <p>As sequências detalhadas aparecerão após conferência das fontes e aprovação editorial de cada movimento.</p>
