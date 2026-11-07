@@ -11,7 +11,7 @@ export function checkResearchBundle(directory) {
       else if (entry.isFile() && ['.html', '.js', '.json', '.map', '.csv', '.md'].includes(extname(file))) {
         checked++;
         const body = readFileSync(file, 'utf8');
-        if (/TC-[A-Z]+-\d{3}|taekwondo-research-audit|taekwondo-local-review|Conferência e propostas editoriais|source_locator_verified/.test(body)) throw new Error('Pesquisa privada ou laboratório incluído no pacote público: ' + file);
+        if (/TC-[A-Z]+-\d{3}|taekwondo-research-audit|taekwondo-local-review|taekwondo-atlas-hand-research|Conferência e propostas editoriais|source_locator_verified/.test(body)) throw new Error('Pesquisa privada ou laboratório incluído no pacote público: ' + file);
       }
     }
   }
