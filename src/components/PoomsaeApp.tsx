@@ -33,6 +33,19 @@ const taegeukIndex = [
   { number: 8, boardNo: 1355, symbol: "Terra", note: "Integração dos fundamentos desenvolvidos nas formas anteriores." },
 ] as const;
 const kukkiwonPoomsaeSource = "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72";
+/** Nomes e contexto histórico/simbólico: não constituem sequência de movimentos. */
+const danIndex = [
+  { name:"Koryo",boardNo:1356,theme:"Tradição marcial e postura de quem estuda." },
+  { name:"Keumgang",boardNo:1357,theme:"Força firme associada à imagem da montanha." },
+  { name:"Taebaek",boardNo:1358,theme:"Montanha luminosa, origem e tradição." },
+  { name:"Pyongwon",boardNo:1359,theme:"Planície e expansão em todas as direções." },
+  { name:"Shipjin",boardNo:1360,theme:"Dez símbolos tradicionais de longevidade." },
+  { name:"Jitae",boardNo:1361,theme:"A pessoa e sua relação com a terra." },
+  { name:"Chonkwon",boardNo:1362,theme:"Céu, forças naturais e equilíbrio." },
+  { name:"Hansu",boardNo:1363,theme:"Água, continuidade e adaptabilidade." },
+  { name:"Ilyeo",boardNo:1364,theme:"Unidade entre mente e corpo." },
+] as const;
+
 
 export default function PoomsaeApp() {
   const enabled=isKnowledgeSchemaEnabled()&&isCatalogConfigured();
@@ -73,6 +86,21 @@ export default function PoomsaeApp() {
         </article>)}
       </div>
       <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
+    </div>
+    <div className="card section-inner" aria-label="Poomsae de graduação Dan">
+      <p className="tag">Poomsae de graduação Dan</p>
+      <h2>Conheça as formas de Koryo a Ilyeo</h2>
+      <p>Os nove nomes e temas abaixo são apresentados pela Kukkiwon. Seus movimentos ainda precisam de documentação específica e revisão antes de aparecer como sequência aqui.</p>
+      <div className="grid">
+        {danIndex.map(form=><article key={form.boardNo} className="card">
+          <h3>{form.name}</h3>
+          <p>{form.theme}</p>
+          <a className="inline-link" target="_blank" rel="noopener noreferrer"
+            href={`https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=${form.boardNo}&menuLevel=3&menuNo=72`}>
+            Conferir nome e contexto na Kukkiwon →
+          </a>
+        </article>)}
+      </div>
     </div>
     <div className="empty" role="status">
       <h2>Poomsae em preparação</h2>
