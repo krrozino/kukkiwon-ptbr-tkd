@@ -111,6 +111,8 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   await page.goto("/atlas?region=feet&zoom=1");
   const target=page.locator('.surface-cutout[data-region="apchuk"]');
   await expect(target).toBeVisible();
+  // Deslocamentos necessários para trazer o alvo à vista não são causados pelo toque.
+  await target.scrollIntoViewIfNeeded();
   const before=await page.evaluate(()=>({scrollY, pageHeight:document.documentElement.scrollHeight}));
   if(isMobile) await target.tap();
   else await target.click();
