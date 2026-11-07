@@ -111,6 +111,9 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   await page.goto("/atlas?region=feet&zoom=1");
   const target=page.locator('.surface-cutout[data-region="apchuk"]');
   await expect(target).toBeVisible();
+  // O painel tem altura natural: garantir que o alvo esteja visível antes de medir
+  // a estabilidade da página, sem atribuir ao clique o scrollIntoView do Playwright.
+  await target.scrollIntoViewIfNeeded();
   const before=await page.evaluate(()=>({scrollY, pageHeight:document.documentElement.scrollHeight}));
   if(isMobile) await target.tap();
   else await target.click();
