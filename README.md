@@ -74,6 +74,14 @@ npm run test:ui
 
 A CI da PR não importa dados no banco remoto nem publica o site.
 
+### Laboratório documental da mão (Atlas A3)
+
+Com `npm run dev`, abra `/atlas-mao-local` para selecionar as regiões existentes da mão e consultar evidências por campo. O índice permite pesquisar os 23 termos, incluindo as 14 configurações sem geometria. Todos os vínculos são propostas; revisão humana, tradução e geometria continuam pendentes conforme cada registro.
+
+Esta implementação está disponível somente no servidor de desenvolvimento. `npm run build` substitui o componente por uma versão vazia e verifica a ausência da matriz e de fragmentos documentais em todos os chunks públicos. Nenhuma flag pública habilita o laboratório. O contrato e os estados editoriais da pesquisa são preservados.
+
+`npm run atlas:hand:check` audita a matriz offline. `npm run test:research:ui` verifica o laboratório; `npm run test:ui` inclui a fronteira do build público e as regressões do inspector. Veja o [plano de implementação](docs/superpowers/plans/2026-11-08-atlas-a3-local.md).
+
 ## Versionamento: MAJOR.MINOR.PATCH
 
 Adotamos uma classificação explícita pelo maior impacto da mudança:
