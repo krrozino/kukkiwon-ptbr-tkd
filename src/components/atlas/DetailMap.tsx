@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { BodyRegion } from "../../lib/catalog-api";
 import type { View } from "./BodyMap";
 import { handOutline, footOutline, fistOutline, surfaces } from "./surfaces";
@@ -12,6 +12,8 @@ type Props = {
   regions: BodyRegion[];
   selected: string | null;
   onSelect: (r: BodyRegion) => void;
+  /** An isolated consumer may supply its own inspector without changing geometry/public data. */
+  renderInspection?: (region: BodyRegion) => ReactNode;
 };
 export default function DetailMap({
   area,
@@ -19,6 +21,7 @@ export default function DetailMap({
   regions,
   selected,
   onSelect,
+  renderInspection,
 }: Props) {
   const hand = area === "hands";
   const clipId = useId().replace(/:/g, "") + "-anatomy";
@@ -189,8 +192,9 @@ export default function DetailMap({
               aria-label={focusName(r, visible.indexOf(r))}
               aria-pressed={activeSlug === r.slug}
               aria-describedby={
-                focused?.slug === r.slug ? "surface-tooltip" : undefined
+                !renderInspection && focused?.slug === r.slug ? "surface-tooltip" : undefined
               }
+              aria-controls={renderInspection ? "surface-tooltip" : undefined}
               className={
                 "surface-cutout " + (activeSlug === r.slug ? "selected" : "")
               }
@@ -240,11 +244,12 @@ export default function DetailMap({
           <div
             id="surface-tooltip"
             key={focused.slug}
-            role="tooltip"
+            role={renderInspection ? "region" : "tooltip"}
+            aria-label={renderInspection ? "Ficha documental da região" : undefined}
             className={"surface-tooltip" + (published.has(focused.slug) ? "" : " surface-tooltip-compact")}
             data-placement={placement}
           >
-            {published.has(focused.slug) ? (
+            {renderInspection ? renderInspection(focused) : published.has(focused.slug) ? (
               <>
                 <strong>{focused.name_pt}</strong>
                 <span>{inspectedDetail?.term.romanization || "Identificação em consulta"}</span>

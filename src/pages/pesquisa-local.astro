@@ -7,7 +7,10 @@ const available = import.meta.env.DEV;
   <section class="shell section">
     <h1>Laboratório de pesquisa</h1>
     {available ? (
-      <ResearchWorkbench client:load />
+      <>
+        <p><a href="/atlas-mao-local">Abrir consulta documental provisória da mão (Atlas A3)</a></p>
+        <ResearchWorkbench client:load />
+      </>
     ) : (
       <div class="card" role="status">
         <p>Disponível apenas no desenvolvimento local. O catálogo público não contém arquivos de pesquisa pendentes.</p>

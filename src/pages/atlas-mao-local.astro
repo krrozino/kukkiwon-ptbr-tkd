@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import HandAtlasWorkbench from '@research/hand-atlas';
+---
+<Base title="Laboratório da mão — Taekwondo para Todos">
+  <section class="shell section">
+    <h1>Laboratório documental da mão</h1>
+    {import.meta.env.DEV ? <HandAtlasWorkbench client:load /> : (
+      <p class="card" role="status">Disponível apenas no desenvolvimento local. A documentação provisória da mão não integra o pacote público.</p>
+    )}
+  </section>
+</Base>
