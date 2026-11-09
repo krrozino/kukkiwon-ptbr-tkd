@@ -33,22 +33,22 @@
     "sources:audit": "node scripts/sources-audit.mjs --offline"
   },
   "dependencies": {
-    "@astrojs/react": "7.1.0",
+    "@astrojs/react": "7.1.4",
     "@supabase/supabase-js": "2.119.0",
-    "astro": "7.4.5",
+    "astro": "7.4.7",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
     "@electric-sql/pglite": "0.5.15",
-    "@playwright/test": "1.64.1",
+    "@playwright/test": "1.65.0",
     "@types/node": "24.10.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "ajv": "8.20.0",
     "typescript": "5.9.3",
     "vitest": "5.1.0",
-    "wrangler": "4.157.0"
+    "wrangler": "4.158.0"
   }
 }
