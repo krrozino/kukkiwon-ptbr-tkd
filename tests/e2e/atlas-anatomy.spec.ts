@@ -113,7 +113,7 @@ test('primeiro toque e legenda continuam estáveis nas duas vistas do pé',async
   expect(errors).toEqual([]);
 });
 
-test('geometria SVG da mão tem sobreposição zero, sem captura invisível e hit-testing preciso nos 4 estados',async({page})=>{
+test('geometria SVG da mão tem sobreposição amostrada zero, sem captura invisível e hit-testing preciso nos 4 estados',async({page})=>{
   await emptyCatalog(page);
   await page.goto('/atlas?region=hands&zoom=1');
   for(const viewLabel of ['Palma','Dorso'] as const){
@@ -154,12 +154,26 @@ test('geometria SVG da mão tem sobreposição zero, sem captura invisível e hi
           return document.elementFromPoint(screenPt.x,screenPt.y)?.closest('[data-region]')?.getAttribute('data-region')??null;
         };
         const boundaryProbes=state.postureLabel==='Mão aberta'?{
+          cleftThumbIndex:checkPoint(22,58),
+          cleftIndexMiddle:checkPoint(38,42),
+          cleftMiddleRing:checkPoint(50,42),
+          cleftRingLittle:checkPoint(61,48),
           indexLeftOfCleft:checkPoint(36,35),
           middleRightOfIndex:checkPoint(40,35),
           middleLeftOfRing:checkPoint(48,35),
           ringRightOfMiddle:checkPoint(52,35),
           ringLeftOfLittle:checkPoint(59,45),
           littleRightOfRing:checkPoint(63,45),
+          sonnaldeungSideOfIndex:checkPoint(30.0,52),
+          indexSideOfSonnaldeung:checkPoint(31.5,52),
+          sonnaldeungAboveWeb:checkPoint(27,71.25),
+          webBelowSonnaldeung:checkPoint(27,72.75),
+          webLeftOfPalm:checkPoint(34.75,76),
+          palmRightOfWeb:checkPoint(36.25,76),
+          thumbLeftOfWeb:checkPoint(21.6,79),
+          webRightOfThumb:checkPoint(23.4,79),
+          sonnalInnerSide:checkPoint(62.25,81.5),
+          sonnalOuterSide:checkPoint(63.75,81.5),
           sonnaldeungEdge:checkPoint(27,50),
           indexShaft:checkPoint(33,50),
           sonnalEdge:checkPoint(66.5,88),
@@ -192,12 +206,26 @@ test('geometria SVG da mão tem sobreposição zero, sem captura invisível e hi
       if(postureLabel==='Mão aberta'){
         expect(metrics.count).toBe(11);
         expect(metrics.boundaryProbes).toEqual({
+          cleftThumbIndex:null,
+          cleftIndexMiddle:null,
+          cleftMiddleRing:null,
+          cleftRingLittle:null,
           indexLeftOfCleft:'illustration-finger-index',
           middleRightOfIndex:'illustration-finger-middle',
           middleLeftOfRing:'illustration-finger-middle',
           ringRightOfMiddle:'illustration-finger-ring',
           ringLeftOfLittle:'illustration-finger-ring',
           littleRightOfRing:'illustration-finger-little',
+          sonnaldeungSideOfIndex:'sonnaldeung',
+          indexSideOfSonnaldeung:'illustration-finger-index',
+          sonnaldeungAboveWeb:'sonnaldeung',
+          webBelowSonnaldeung:viewLabel==='Palma'?'ageumson':'illustration-hand-web',
+          webLeftOfPalm:viewLabel==='Palma'?'ageumson':'illustration-hand-web',
+          palmRightOfWeb:viewLabel==='Palma'?'sonbadak':'sondeung',
+          thumbLeftOfWeb:'illustration-thumb',
+          webRightOfThumb:viewLabel==='Palma'?'ageumson':'illustration-hand-web',
+          sonnalInnerSide:viewLabel==='Palma'?'sonbadak':'sondeung',
+          sonnalOuterSide:'sonnal',
           sonnaldeungEdge:'sonnaldeung',
           indexShaft:'illustration-finger-index',
           sonnalEdge:'sonnal',

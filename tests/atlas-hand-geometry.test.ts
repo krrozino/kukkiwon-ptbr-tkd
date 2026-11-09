@@ -6,7 +6,7 @@ import { zoneCopy } from '../src/components/atlas/zone-copy';
 
 type Point = [number, number];
 
-/** Avalia um caminho SVG (M, L, H, V, C, Q, Z) em uma polilinha densa para análise geométrica real. */
+/** Avalia um caminho SVG (M, L, H, V, C, Q, Z) em uma polilinha densa para análise geométrica amostrada. */
 function sampleSvgPath(d: string, stepsPerCurve = 24): Point[] {
   const tokens = d.match(/[MLHVCQZ]|-?\d+(?:\.\d+)?/gi) ?? [];
   const points: Point[] = [];
@@ -110,13 +110,20 @@ function bbox(polygon: Point[]) {
   };
 }
 
-describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', () => {
-  it('avalia as curvas reais dos cinco dedos e confirma a hierarquia anatômica de comprimentos', () => {
-    const thumbBox = bbox(sampleSvgPath(surfaces['illustration-thumb'].path));
-    const indexBox = bbox(sampleSvgPath(surfaces['illustration-finger-index'].path));
-    const middleBox = bbox(sampleSvgPath(surfaces['illustration-finger-middle'].path));
-    const ringBox = bbox(sampleSvgPath(surfaces['illustration-finger-ring'].path));
-    const littleBox = bbox(sampleSvgPath(surfaces['illustration-finger-little'].path));
+describe('Atlas A1.1/A1.3 — geometria vetorial da mão e precisão amostrada dos recortes', () => {
+  it('avalia os extremos reais das curvas dos cinco dedos (indicador y=16, médio y=9, anelar y=13.5, mínimo y=30)', () => {
+    const thumbBox = bbox(sampleSvgPath(surfaces['illustration-thumb'].path, 64));
+    const indexBox = bbox(sampleSvgPath(surfaces['illustration-finger-index'].path, 64));
+    const middleBox = bbox(sampleSvgPath(surfaces['illustration-finger-middle'].path, 64));
+    const ringBox = bbox(sampleSvgPath(surfaces['illustration-finger-ring'].path, 64));
+    const littleBox = bbox(sampleSvgPath(surfaces['illustration-finger-little'].path, 64));
+
+    // Extremos reais medidos nos ápices das curvas cúbicas:
+    expect(indexBox.minY).toBeCloseTo(16, 3);
+    expect(middleBox.minY).toBeCloseTo(9, 3);
+    expect(ringBox.minY).toBeCloseTo(13.5, 3);
+    expect(littleBox.minY).toBeCloseTo(30, 3);
+    expect(thumbBox.minY).toBeCloseTo(55.823, 2);
 
     // Em coordenadas SVG (y cresce para baixo), menor minY = ápice mais alto (dedo mais longo).
     expect(middleBox.minY).toBeLessThan(ringBox.minY);
@@ -124,9 +131,9 @@ describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', (
     expect(indexBox.minY).toBeLessThan(littleBox.minY);
     expect(littleBox.minY).toBeLessThan(thumbBox.minY);
 
-    // O dedo mínimo é substancialmente mais curto que o indicador e o anelar.
-    expect(littleBox.minY - indexBox.minY).toBeGreaterThanOrEqual(12);
-    expect(littleBox.minY - ringBox.minY).toBeGreaterThanOrEqual(15);
+    // O dedo mínimo (y=30) é substancialmente mais baixo que o indicador (y=16) e o anelar (y=13.5).
+    expect(littleBox.minY - indexBox.minY).toBeCloseTo(14, 3);
+    expect(littleBox.minY - ringBox.minY).toBeCloseTo(16.5, 3);
 
     // Ordenação horizontal estrita (radial -> ulnar na vista palmar).
     expect(thumbBox.minX).toBeLessThan(indexBox.minX);
@@ -135,18 +142,43 @@ describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', (
     expect(ringBox.minX).toBeLessThan(littleBox.minX);
   });
 
-  it('separa anelar e mínimo exatamente na comissura interdigital sem invasão', () => {
-    const middleBox = bbox(sampleSvgPath(surfaces['illustration-finger-middle'].path));
-    const ringPoly = sampleSvgPath(surfaces['illustration-finger-ring'].path);
-    const littlePoly = sampleSvgPath(surfaces['illustration-finger-little'].path);
+  it('separa os dedos nas comissuras interdigitais (38,58), (50,57) e (61,62) e mantém as fendas abertas fora das zonas', () => {
+    const outlinePoly = sampleSvgPath(handOutline, 32);
+    const indexPoly = sampleSvgPath(surfaces['illustration-finger-index'].path, 32);
+    const middlePoly = sampleSvgPath(surfaces['illustration-finger-middle'].path, 32);
+    const ringPoly = sampleSvgPath(surfaces['illustration-finger-ring'].path, 32);
+    const littlePoly = sampleSvgPath(surfaces['illustration-finger-little'].path, 32);
+    const middleBox = bbox(middlePoly);
     const ringBox = bbox(ringPoly);
     const littleBox = bbox(littlePoly);
 
-    // A fronteira entre médio e anelar coincide em x = 50; entre anelar e mínimo em x = 61.
+    // As comissuras (38,58), (50,57) e (61,62) são pontos de encontro na base dos dedos,
+    // com fenda aberta acima de cada comissura (e não uma parede vertical compartilhada).
     expect(middleBox.maxX).toBeCloseTo(ringBox.minX, 3);
     expect(ringBox.maxX).toBeCloseTo(littleBox.minX, 3);
+    expect(minDistanceToBoundary([38, 58], indexPoly)).toBeLessThan(1e-4);
+    expect(minDistanceToBoundary([38, 58], middlePoly)).toBeLessThan(1e-4);
+    expect(minDistanceToBoundary([50, 57], middlePoly)).toBeLessThan(1e-4);
+    expect(minDistanceToBoundary([50, 57], ringPoly)).toBeLessThan(1e-4);
+    expect(minDistanceToBoundary([61, 62], ringPoly)).toBeLessThan(1e-4);
+    expect(minDistanceToBoundary([61, 62], littlePoly)).toBeLessThan(1e-4);
 
-    // Nenhum ponto interno do mínimo pertence ao anelar e vice-versa.
+    // Sondas dentro das fendas interdigitais acima das comissuras ficam fora da silhueta e de todos os dedos:
+    const cleftProbes: Point[] = [
+      [22, 58], // fenda polegar-indicador
+      [38, 42], // fenda indicador-médio acima de (38, 58)
+      [50, 42], // fenda médio-anelar acima de (50, 57)
+      [61, 48], // fenda anelar-mínimo acima de (61, 62)
+    ];
+    for (const pt of cleftProbes) {
+      expect(pointInPolygon(pt, outlinePoly), `fenda em (${pt[0]}, ${pt[1]}) fora da silhueta`).toBe(false);
+      expect(pointInPolygon(pt, indexPoly), `fenda em (${pt[0]}, ${pt[1]}) fora do indicador`).toBe(false);
+      expect(pointInPolygon(pt, middlePoly), `fenda em (${pt[0]}, ${pt[1]}) fora do médio`).toBe(false);
+      expect(pointInPolygon(pt, ringPoly), `fenda em (${pt[0]}, ${pt[1]}) fora do anelar`).toBe(false);
+      expect(pointInPolygon(pt, littlePoly), `fenda em (${pt[0]}, ${pt[1]}) fora do mínimo`).toBe(false);
+    }
+
+    // Na malha amostrada (passo 0.5), nenhum ponto pertence simultaneamente ao anelar e ao mínimo.
     for (let x = 50.25; x <= 72; x += 0.5) {
       for (let y = 12; y <= 68; y += 0.5) {
         const inRing = pointInPolygon([x, y], ringPoly);
@@ -156,7 +188,71 @@ describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', (
     }
   });
 
-  it('mede partição planar com zero sobreposição e cobertura integral na mão aberta e no punho', () => {
+  it('valida fronteiras internas de sonnal, sonnaldeung e ageumson com tolerância de stroke (±0.75 u)', () => {
+    const openFrontZones = zonesFor('hands', 'front', false).map(z => ({
+      id: z.id,
+      poly: sampleSvgPath(z.path, 32),
+    }));
+    const openBackZones = zonesFor('hands', 'back', false).map(z => ({
+      id: z.id,
+      poly: sampleSvgPath(z.path, 32),
+    }));
+
+    // Em repouso (.surface-cutout path tem stroke-width: 0.8 -> meia-largura 0.4 u).
+    // Sondas a >= 0.65..0.75 u de cada fronteira interna devem pertencer exclusivamente
+    // à superfície esperada e manter folga >= 0.45 u da borda.
+    const strokeHalfWidth = 0.4;
+    const frontBoundaryProbes: Array<{ label: string; point: Point; expected: string }> = [
+      // Fronteira sonnal (x=63.5..62.5) <-> sonbadak (y=65..98, ponto médio em x=63.0, y=81.5)
+      { label: 'sonbadak à esquerda de sonnal', point: [62.25, 81.5], expected: 'sonbadak' },
+      { label: 'sonnal à direita de sonbadak', point: [63.75, 81.5], expected: 'sonnal' },
+      // Fronteira sonnal <-> batangson (curva de (62.5,98) a (59.5,125), em y=110 x≈61.3)
+      { label: 'batangson à esquerda de sonnal', point: [60.4, 110], expected: 'batangson' },
+      { label: 'sonnal à direita de batangson', point: [62.2, 110], expected: 'sonnal' },
+      // Fronteira sonnal <-> illustration-finger-little ((63.5,65)->(71.5,67), em x=67.5 y=66)
+      { label: 'mínimo acima de sonnal', point: [67.5, 65.2], expected: 'illustration-finger-little' },
+      { label: 'sonnal abaixo do mínimo', point: [67.5, 66.8], expected: 'sonnal' },
+      // Fronteira sonnaldeung <-> illustration-finger-index ((30.5,42)->(31,62), em y=52 x=30.75)
+      { label: 'sonnaldeung à esquerda do indicador', point: [30.0, 52], expected: 'sonnaldeung' },
+      { label: 'indicador à direita de sonnaldeung', point: [31.5, 52], expected: 'illustration-finger-index' },
+      // Fronteira sonnaldeung <-> ageumson ((25,72)->(29,72) e (29,72)->(31,62))
+      { label: 'sonnaldeung acima de ageumson', point: [27, 71.25], expected: 'sonnaldeung' },
+      { label: 'ageumson abaixo de sonnaldeung', point: [27, 72.75], expected: 'ageumson' },
+      { label: 'sonnaldeung à esquerda do chanfro de ageumson', point: [29.2, 67], expected: 'sonnaldeung' },
+      { label: 'ageumson à direita do chanfro de sonnaldeung', point: [30.8, 67], expected: 'ageumson' },
+      // Fronteira ageumson <-> sonbadak ((31,62)->(36,66) e (36,66)->(35,86))
+      { label: 'sonbadak acima do chanfro de ageumson', point: [33.5, 63.1], expected: 'sonbadak' },
+      { label: 'ageumson abaixo do chanfro de sonbadak', point: [33.5, 64.9], expected: 'ageumson' },
+      { label: 'ageumson à esquerda de sonbadak', point: [34.75, 76], expected: 'ageumson' },
+      { label: 'sonbadak à direita de ageumson', point: [36.25, 76], expected: 'sonbadak' },
+      // Fronteira ageumson <-> illustration-thumb ((20,86)->(25,72), em y=79 x=22.5)
+      { label: 'polegar à esquerda de ageumson', point: [21.6, 79], expected: 'illustration-thumb' },
+      { label: 'ageumson à direita do polegar', point: [23.4, 79], expected: 'ageumson' },
+      // Fronteira ageumson <-> illustration-hand-side ((20,86)->(35,86), em x=28 y=86)
+      { label: 'ageumson acima da borda radial', point: [28, 85.25], expected: 'ageumson' },
+      { label: 'borda radial abaixo de ageumson', point: [28, 86.75], expected: 'illustration-hand-side' },
+    ];
+
+    for (const probe of frontBoundaryProbes) {
+      const owners = openFrontZones.filter(z => pointInPolygon(probe.point, z.poly));
+      expect(owners.map(z => z.id), probe.label).toEqual([probe.expected]);
+      expect(minDistanceToBoundary(probe.point, owners[0].poly), `${probe.label}: folga de stroke`).toBeGreaterThan(strokeHalfWidth);
+    }
+
+    // Na vista dorsal, as mesmas sondas nas fronteiras equivalentes resolvem para sondeung, illustration-hand-base e illustration-hand-web:
+    const backMap: Record<string, string> = {
+      sonbadak: 'sondeung',
+      batangson: 'illustration-hand-base',
+      ageumson: 'illustration-hand-web',
+    };
+    for (const probe of frontBoundaryProbes) {
+      const expectedBack = backMap[probe.expected] ?? probe.expected;
+      const owners = openBackZones.filter(z => pointInPolygon(probe.point, z.poly));
+      expect(owners.map(z => z.id), `dorso -> ${probe.label}`).toEqual([expectedBack]);
+    }
+  });
+
+  it('mede partição planar amostrada (passo 1 u, margem de borda 0.25 u) sem sobreposição nos 4 estados', () => {
     const cases = [
       { label: 'mão aberta — palma', view: 'front' as const, fist: false, outline: handOutline, expectedZones: 11 },
       { label: 'mão aberta — dorso', view: 'back' as const, fist: false, outline: handOutline, expectedZones: 11 },
@@ -179,7 +275,7 @@ describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', (
         for (let y = 2.3; y < 136; y += 1) {
           const pt: Point = [x, y];
           const distToOutline = minDistanceToBoundary(pt, outlinePoly);
-          if (distToOutline < 0.25) continue; // ignora pontos sobre a linha de contorno
+          if (distToOutline < 0.25) continue; // exclui vizinhança imediata do contorno nas amostras de malha
 
           const inOutline = pointInPolygon(pt, outlinePoly);
           const matchingZones = zonePolys.filter(z => minDistanceToBoundary(pt, z.poly) >= 0.2 && pointInPolygon(pt, z.poly));
@@ -196,9 +292,9 @@ describe('Atlas A1.1 — geometria vetorial da mão e precisão dos recortes', (
       }
 
       expect(insideOutlineCount, label).toBeGreaterThan(1500);
-      expect(coveredCount / insideOutlineCount, `${label}: cobertura`).toBeGreaterThan(0.995);
-      expect(overlapCount, `${label}: sobreposição entre zonas`).toBe(0);
-      expect(outsideLeakCount, `${label}: vazamento fora da silhueta`).toBe(0);
+      expect(coveredCount / insideOutlineCount, `${label}: cobertura amostrada`).toBeGreaterThan(0.995);
+      expect(overlapCount, `${label}: sobreposição amostrada entre zonas`).toBe(0);
+      expect(outsideLeakCount, `${label}: vazamento amostrado fora da silhueta`).toBe(0);
 
       // Cada âncora deve cair exclusivamente dentro de sua própria zona e dentro da silhueta.
       for (const z of zonePolys) {
