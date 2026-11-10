@@ -27,30 +27,31 @@ describe('Atlas A3 — consulta documental, sem aprovação implícita', () => {
     }
   });
 
-  it('mantém os nove vínculos como propostas e as dez ilustrações sem Hangul', () => {
+  it('mantém os nove vínculos como propostas e as dez ilustrações sem Hangul, com apresentação limpa', () => {
     const data = matrix();
     for (const region of data.body_regions) {
       const html = renderToStaticMarkup(createElement(HandRegionPanel, { matrix: data, regionSlug: region.slug }));
       expect(html).toContain(region.slug);
+      expect(html).not.toContain('Revisão humana pendente');
+      expect(html).not.toContain('Mapeamento editorial proposto');
+      expect(html).not.toContain('Conferência documental em:');
       if (region.region_kind === 'illustrative_anatomy') {
-        expect(html).toContain('Sem terminologia técnica vinculada');
+        expect(html).toContain('Superfície anatômica da mão identificada no mapa corporal');
         expect(html).not.toContain('lang="ko"');
       } else {
-        expect(html).toContain('Mapeamento editorial proposto');
         expect(html).toContain('lang="ko"');
-        expect(html).toContain('Revisão humana pendente');
       }
     }
   });
 
-  it('mostra lacunas sem fabricar romanização, pronúncia ou significado literal', () => {
+  it('mostra lacunas sem fabricar romanização, pronúncia ou significado literal, preservando integridade', () => {
     const historical = termHtml('seun-pyeonjumeok');
     expect(historical).toContain('세운편주먹');
     expect(historical).toContain('data-pending="romanization"');
     expect(historical).toContain('data-pending="pronunciation_pt"');
-    expect(historical).toContain('Sem geometria correspondente');
+    expect(historical).not.toContain('Revisão humana pendente');
     expect(termHtml('ageumson')).toContain('data-pending="literal_meaning"');
-    expect(termHtml('sonnal')).toContain('Adaptação editorial PT-BR');
+    expect(termHtml('sonnal')).toContain('Adaptação didática PT-BR');
     expect(termHtml('sonnal')).toContain('Fonte institucional primária');
     expect(termHtml('sonnal')).toContain('Fonte histórica');
     expect(termHtml('sonnal')).toContain('Fundamentação da proposta');

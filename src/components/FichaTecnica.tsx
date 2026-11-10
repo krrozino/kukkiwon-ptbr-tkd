@@ -57,18 +57,7 @@ export default function FichaTecnica() {
   const { term, sources, media, regions, relations } = detail;
   return (
     <article className="technique-detail">
-      <p className="tag">
-        {term.category} ·{" "}
-        {term.publication_status === "draft"
-          ? "Rascunho não validado"
-          : "Ficha técnica publicada"}
-      </p>
-      {term.publication_status === "draft" && (
-        <p className="notice">
-          Conteúdo provisório para revisão. Tradução e técnica ainda não
-          aprovadas.
-        </p>
-      )}
+      <p className="tag">{term.category}</p>
       <h1><KoreanExpression expressionId={term.slug} fallback={term.romanization} publishedTerm={term}/></h1>
       <FavoriteButton slug={term.slug} title={term.romanization} />
       {term.hangul && (
