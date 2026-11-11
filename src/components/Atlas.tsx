@@ -333,7 +333,7 @@ export default function Atlas() {
             </button>
           </div>
         ) : regions.length === 0 ? (
-          <p>As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.</p>
+          <p>Explore outras regiões do corpo e seus pontos de referência no Atlas.</p>
         ) : (
           <>
             <h3>Superfícies e regiões</h3>

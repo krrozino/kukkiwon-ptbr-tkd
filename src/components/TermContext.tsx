@@ -11,7 +11,7 @@ export function Pronunciation({ term }: { term: TermDetail["term"] }) {
     <div className="pronunciation">
       <span className="fine-print">Pronúncia didática PT-BR</span>
       <p>
-        {term.pronunciation_pt}}
+        {term.pronunciation_pt}
       </p>
       {term.pronunciation_notes && (
         <p className="fine-print">{term.pronunciation_notes}</p>

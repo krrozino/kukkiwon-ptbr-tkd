@@ -69,7 +69,7 @@ export default function FichaTecnica() {
       <div className="detail-grid">
         <section className="card">
           <h2>Entenda a técnica</h2>
-          <p>{term.definition_pt || "Definição ainda não disponível."}</p>
+          {term.definition_pt && <p>{term.definition_pt}</p>}
           <Pronunciation term={term} />
           <p className="fine-print">
             A pronúncia em português é uma adaptação didática, não uma
@@ -79,7 +79,7 @@ export default function FichaTecnica() {
         <section className="card">
           <h2>Nomenclaturas relacionadas</h2>
           {(term.term_aliases || []).length === 0 ? (
-            <p>Nenhum nome alternativo registrado.</p>
+
           ) : (
             <ul>
               {term.term_aliases!.map((alias) => (
@@ -108,7 +108,7 @@ export default function FichaTecnica() {
       <section className="section-inner">
         <h2>Atlas e técnicas relacionadas</h2>
         {regions.filter((r) => r.body_regions).length === 0 ? (
-          <p>Nenhuma região corporal publicada associada.</p>
+
         ) : (
           <ul>
             {regions
