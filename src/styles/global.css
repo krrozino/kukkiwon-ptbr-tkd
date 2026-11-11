@@ -359,3 +359,45 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .detail-svg .anatomy-edge{stroke:#5d7285}
 [data-theme="dark"] .detail-svg .anatomy-lines{stroke:#786a5e}
 [data-theme="dark"] .detail-svg .surface-cutout:focus-visible path{stroke:#80d6cc}
+
+
+/* Atlas da mão — ficha e índice públicos (Issue #72). */
+.hand-term-card{display:grid;gap:8px;min-width:0;overflow-wrap:anywhere;line-height:1.55}
+.hand-term-card strong{font-size:1.13rem;line-height:1.35;color:#213d45}
+.hand-term-romanization{font-weight:650;color:#286b70}
+.hand-term-hangul{font-size:clamp(1.45rem,2.3vw,1.9rem);line-height:1.3;color:#203b53}
+.hand-term-card p{margin:0;line-height:1.55}
+.hand-term-card h4{font-size:.92rem;margin:10px 0 2px}
+.hand-term-card section ul{margin:6px 0 2px;padding-left:19px}
+.hand-term-card section li{margin:3px 0}
+.hand-label{font-size:.82rem;color:#58707c;font-weight:650}
+.hand-term-sources{font-size:.83rem;margin-top:5px;padding:9px 11px;border:1px solid #d7e5e1;border-radius:9px;background:#f9fcfc}
+.hand-term-sources summary{cursor:pointer;font-weight:650;color:#266975}
+.hand-term-sources ul{padding-left:17px;margin:10px 0 0;display:grid;gap:9px}
+.hand-term-sources a{overflow-wrap:anywhere;color:#12616f}
+.hand-reference-locator{font-size:.79rem;color:#526978}
+.hand-region-card{display:grid;gap:8px;min-width:0}
+.hand-region-card>strong{font-size:1.1rem}
+.hand-region-card p{margin:0}
+.hand-term-card-compact .hand-term-sources{margin-top:6px}
+.hand-current-region{border-bottom:1px solid #dde7e8;padding-bottom:16px;margin-bottom:17px}
+.hand-current-region h3{margin:8px 0}
+.hand-term-index{display:grid;gap:11px;min-width:0}
+.hand-term-index h3{margin:6px 0 0}
+.hand-term-index label{font-size:.85rem;font-weight:700;color:#364d59}
+.hand-term-index>input{min-width:0;width:100%}
+.hand-term-index .fine-print{margin:0}
+.hand-term-index-results{display:grid;gap:6px;list-style:none;margin:0;padding:0;max-height:360px;overflow-y:auto;overscroll-behavior:contain}
+.hand-term-index-results button{width:100%;display:grid;gap:3px;text-align:left;min-height:50px;padding:10px 12px;border:1px solid #d5e0e1;background:#f9fbfa}
+.hand-term-index-results button[aria-pressed=true]{background:#e4f3ef;border-color:#3b8b83}
+.hand-term-index-results button>span{font-weight:700}
+.hand-term-index-results button>small{color:#56707b}
+.hand-term-selected{padding-top:14px;border-top:1px solid #dbe5e5}
+.hand-term-selected h3{margin:0 0 10px}
+[data-theme="dark"] .hand-term-card strong,[data-theme="dark"] .hand-term-hangul,[data-theme="dark"] .hand-term-index label{color:var(--theme-text)}
+[data-theme="dark"] .hand-term-romanization,[data-theme="dark"] .hand-term-sources summary{color:#8ad5ca}
+[data-theme="dark"] .hand-label,[data-theme="dark"] .hand-reference-locator,[data-theme="dark"] .hand-term-index-results button>small{color:var(--theme-muted)}
+[data-theme="dark"] .hand-term-sources,[data-theme="dark"] .hand-term-index-results button{background:var(--theme-panel-alt);color:var(--theme-text);border-color:var(--theme-border)}
+[data-theme="dark"] .hand-term-index-results button[aria-pressed=true]{background:#205353;border-color:#72cbb9}
+[data-theme="dark"] .hand-current-region,[data-theme="dark"] .hand-term-selected{border-color:var(--theme-border)}
+@media(max-width:750px){.hand-term-index-results{max-height:310px}.hand-term-sources{padding:10px}}

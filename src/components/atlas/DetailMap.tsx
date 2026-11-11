@@ -52,7 +52,9 @@ export default function DetailMap({
   // Only public records can resolve official/technical text.
   const activeSlug = visualSelection || selected;
   // Keep the panel visible after tapping: mouse hover only changes the preview.
-  const { detail } = useTermDetail(hover && published.has(hover.slug) ? hover.slug : (activeSlug && published.has(activeSlug) ? activeSlug : null));
+  const catalogSlug = renderInspection ? null : hover && published.has(hover.slug)
+    ? hover.slug : (activeSlug && published.has(activeSlug) ? activeSlug : null);
+  const { detail } = useTermDetail(catalogSlug);
   useEffect(() => {
     setVisualSelection(null);
     if (selected) setFist(!!surfaces[selected]?.posture);
@@ -248,7 +250,7 @@ export default function DetailMap({
             id="surface-tooltip"
             key={focused.slug}
             role={renderInspection ? "region" : "tooltip"}
-            aria-label={renderInspection ? "Ficha documental da região" : undefined}
+            aria-label={renderInspection ? "Informações da região" : undefined}
             className={"surface-tooltip" + (published.has(focused.slug) ? "" : " surface-tooltip-compact")}
             data-placement={placement}
           >
