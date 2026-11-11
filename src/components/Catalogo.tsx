@@ -3,7 +3,6 @@ import {
   fetchCatalogPage,
   fetchCatalogFacets,
   isCatalogConfigured,
-  isReviewMode,
   type CatalogPage,
   type CatalogFacets,
 } from "../lib/catalog-api";
@@ -230,9 +229,9 @@ export default function Catalogo() {
                 filters.region ||
                 filters.family
                   ? "Nenhum resultado para os filtros escolhidos."
-                  : "Biblioteca técnica em preparação."}
+                  : "Conheça as famílias técnicas."}
               </strong>
-              <p>Novas fichas serão incluídas após conferência das referências e orientações técnicas. Enquanto isso, explore o atlas ou os currículos compartilhados pelas escolas.</p>
+              <p>Explore o atlas corporal ou os currículos compartilhados pelas escolas para conhecer outros conteúdos.</p>
               <div className="actions">
                 <a href="/atlas" className="inline-link">Explorar atlas corporal →</a>
                 <a href="/curriculos" className="inline-link">Consultar currículos →</a>
@@ -240,7 +239,7 @@ export default function Catalogo() {
               {!filters.query && !filters.category && !filters.region && !filters.family && (
                 <section className="section-inner" aria-label="Introdução às famílias de movimentos">
                   <h3>Entenda os grupos de movimentos</h3>
-                  <p>Enquanto as fichas técnicas passam por conferência, você pode começar pela organização geral dos movimentos do Taekwondo.</p>
+                  <p>Conheça a organização geral dos movimentos do Taekwondo.</p>
                   <div className="grid">
                     {movementGroups.map(group=><article className="card" key={group.name}>
                       <p className="tag">{group.name}</p>
@@ -248,7 +247,7 @@ export default function Catalogo() {
                       <p>{group.description}</p>
                     </article>)}
                   </div>
-                  <p className="fine-print">Categorias introdutórias, sem execução passo a passo nem equivalência com fichas homologadas. <a href={movementSource} target="_blank" rel="noreferrer">Fonte de referência: publicação de pesquisa da Kukkiwon</a>.</p>
+                  <p className="fine-print">Panorama das famílias de movimentos do Taekwondo. <a href={movementSource} target="_blank" rel="noreferrer">Fonte de referência: publicação de pesquisa da Kukkiwon</a>.</p>
                   <a href="/fundamentos/alturas-e-direcoes" className="inline-link">Estudar alturas e direções →</a>
                 </section>
               )}
@@ -269,11 +268,10 @@ export default function Catalogo() {
                   >
                     <small>
                       {t.category}
-                      {isReviewMode ? " · Rascunho não validado" : ""}
                     </small>
                     <h2>{t.romanization}</h2>
                     {t.hangul && <p lang="ko">{t.hangul}</p>}
-                    <p>{t.translation_pt || "Tradução em revisão"}</p>
+                    {t.translation_pt && <p>{t.translation_pt}</p>}
                     <span className="inline-link">
                       Consultar ficha e fontes →
                     </span>

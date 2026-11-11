@@ -6,14 +6,12 @@ import KoreanExpression from './KoreanExpression';
 import KnowledgeReferences from './KnowledgeReferences';
 import TermSemanticsPanel from './TermSemanticsPanel';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
+  if (!term.pronunciation_pt && !term.pronunciation_notes && !term.pronunciation_audio_url) return null;
   return (
     <div className="pronunciation">
       <span className="fine-print">Pronúncia didática PT-BR</span>
       <p>
-        {term.pronunciation_pt || "Ainda não conferida."}
-        {term.pronunciation_pt && term.pronunciation_status !== "verified" && (
-          <small> · Provisória, não verificada</small>
-        )}
+        {term.pronunciation_pt}}
       </p>
       {term.pronunciation_notes && (
         <p className="fine-print">{term.pronunciation_notes}</p>
@@ -64,7 +62,7 @@ export default function TermContext({
       {!detail ? (
         <p role="status">
           {error
-            ? "Ficha indisponível ou ainda não publicada."
+            ? "Não foi possível consultar esta ficha."
             : `Consultando ${slug}…`}
         </p>
       ) : (
@@ -78,9 +76,7 @@ export default function TermContext({
             <strong>{detail.term.translation_pt}</strong>
           </p>
           <Pronunciation term={detail.term} />
-          <p>
-            {detail.term.definition_pt || "Descrição ainda não disponível."}
-          </p>
+          {detail.term.definition_pt && <p>{detail.term.definition_pt}</p>}
           {!compact && (
             <>
               <h4>Superfície e uso</h4>
@@ -112,20 +108,14 @@ export default function TermContext({
               {detail.term.publication_status === 'published' && <TermSemanticsPanel termId={detail.term.id} />}
               <h4>Fonte documental</h4>
               <KnowledgeReferences sources={detail.sources}/>
-              <h4>Imagens, vídeos e áudio</h4>
-              {detail.media.length === 0 ? (
-                <p className="fine-print">
-                  Nenhuma mídia autorizada disponível para este termo.
-                </p>
-              ) : (
-                detail.media.map((m) => (
+              {detail.media.length > 0 && <h4>Imagens, vídeos e áudio</h4>}
+              {detail.media.length > 0 && detail.media.map((m) => (
                   <p key={m.id}>
                     <a href={m.media_url} target="_blank" rel="noreferrer">
                       {m.caption_pt || m.media_kind}
                     </a>
                   </p>
-                ))
-              )}
+                ))}
             </>
           )}
           <div className="actions">
