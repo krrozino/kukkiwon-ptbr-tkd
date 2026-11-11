@@ -78,9 +78,7 @@ export default function FichaTecnica() {
         </section>
         <section className="card">
           <h2>Nomenclaturas relacionadas</h2>
-          {(term.term_aliases || []).length === 0 ? (
-
-          ) : (
+          {(term.term_aliases || []).length > 0 && (
             <ul>
               {term.term_aliases!.map((alias) => (
                 <li key={alias.alias + alias.alias_kind}>
@@ -98,18 +96,12 @@ export default function FichaTecnica() {
       {term.publication_status === 'published' && <TermSemanticsPanel termId={term.id} />}
       <section className="section-inner">
         <h2>Referências documentais</h2>
-        <p className="fine-print">
-          As fontes abaixo identificam a origem do conteúdo. Verificação técnica
-          e tradução são etapas editoriais distintas.
-        </p>
         <KnowledgeReferences sources={sources}/>
       </section>
       {term.publication_status==='published'&&<GlossaryKnowledgeLinks slug={term.slug}/>}
       <section className="section-inner">
         <h2>Atlas e técnicas relacionadas</h2>
-        {regions.filter((r) => r.body_regions).length === 0 ? (
-
-        ) : (
+        {regions.filter((r) => r.body_regions).length > 0 && (
           <ul>
             {regions
               .filter((r) => r.body_regions)
