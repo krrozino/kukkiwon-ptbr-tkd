@@ -82,7 +82,7 @@ test("atlas v2: recorte Sonnal, cascata e ficha na mesma tela", async ({
   ).toContainText("손날");
   await expect(
     page.getByRole("region", { name: "Ficha contextual" }),
-  ).toContainText("Pronúncia didática");
+  ).not.toContainText("Pronúncia didática");
   await expect(page).toHaveURL(/\/atlas\?/);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(cutout).toBeVisible();

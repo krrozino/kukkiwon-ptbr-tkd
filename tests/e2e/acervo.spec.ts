@@ -33,10 +33,12 @@ test('relações reversas, teclado e layout escuro funcionam em desktop e celula
   await page.reload();
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('Palgup-biteureo');
   await expect(page.locator('#palgup-biteureo-kkeokgi')).toBeVisible();
-  const details=page.locator('#palgup-biteureo-kkeokgi summary');
-  await details.focus();await page.keyboard.press('Enter');
-  await expect(page.locator('#palgup-biteureo-kkeokgi details')).toHaveAttribute('open','');
-  await expect(page.locator('#palgup-biteureo-kkeokgi details')).toContainText('Pronúncia em português');
+  const article=page.locator('#palgup-biteureo-kkeokgi');
+  const title=article.locator('h2 a');
+  await title.focus();
+  await expect(title).toBeFocused();
+  await expect(article.locator('dl')).toContainText('Hangul');
+  await expect(article.locator('.acervo-evidence a').first()).toHaveAttribute('rel','noopener noreferrer');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1)).toBe(true);
   await page.screenshot({path:'test-results/acervo-'+test.info().project.name+'.png',fullPage:true});
 });
