@@ -1,0 +1,1314 @@
+{
+  "version": 1,
+  "publicTerms": [
+    {
+      "slug": "sonnal",
+      "name": "Borda externa da mão (mão em faca)",
+      "hangul": "손날",
+      "romanization": "Sonnal",
+      "pronunciation": "sôn-nal",
+      "description": "Borda da mão aberta do mínimo ao punho; dedos reunidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Knife Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnal; PDF pp. 74-75"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Bakkat-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Bakkat-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnal; PDF pp. 74-75"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnal; PDF pp. 74-75"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sonnaldeung",
+      "name": "Borda interna da mão (faca reversa)",
+      "hangul": "손날등",
+      "romanization": "Sonnaldeung",
+      "pronunciation": "sôn-nal-dûng",
+      "description": "Borda oposta ao sonnal, com polegar recolhido à palma.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Reverse Knife Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnaldeung; PDF p. 75"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Bakkat-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Bakkat-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnaldeung; PDF p. 75"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonnaldeung; PDF p. 75"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sonbadak",
+      "name": "Palma da mão",
+      "hangul": "손바닥",
+      "romanization": "Sonbadak",
+      "pronunciation": "sôn-ba-dak",
+      "description": "Face palmar entre a base dos dedos e o punho.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Palm",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonbadak; PDF p. 74"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Bada-makgi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "10. Makgi > Bada-makgi > use > Sonbadak-badamakgi; PDF p. 45"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonbadak; PDF p. 74"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sonbadak; PDF p. 74"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "batangson",
+      "name": "Base da palma da mão",
+      "hangul": "바탕손",
+      "romanization": "Batangson",
+      "pronunciation": "ba-tang-sôn",
+      "description": "Base palmar exposta com a mão fletida para trás.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Palm Heel",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Batangson; PDF p. 70"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Ap-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Ap-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Batangson; PDF p. 70"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Batangson; PDF p. 70"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ageumson",
+      "name": "Mão em arco",
+      "hangul": "아금손",
+      "romanization": "Ageumson",
+      "pronunciation": "a-gûm-sôn",
+      "description": "Configuração em arco entre polegar e indicador afastados.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Arc Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Ageumson; PDF p. 69"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Ap-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Ap-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Ageumson; PDF p. 69"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Ageumson; PDF p. 69"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sondeung",
+      "name": "Dorso da mão",
+      "hangul": "손등",
+      "romanization": "Sondeung",
+      "pronunciation": "sôn-dûng",
+      "description": "Face oposta à palma da mão.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Back Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sondeung; PDF p. 74"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sondeung; PDF p. 74"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Sondeung; PDF p. 74"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jumeok",
+      "name": "Punho fechado",
+      "hangul": "주먹",
+      "romanization": "Jumeok",
+      "pronunciation": "dju-mók",
+      "description": "Mão fechada; contato frontal das primeiras juntas do indicador e médio.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jumeok; PDF p. 72"
+          }
+        },
+        {
+          "kind": "literal",
+          "language": "en",
+          "value": "fist",
+          "reference": {
+            "title": "Korean-English Learners’ Dictionary — 주먹",
+            "institution": "National Institute of Korean Language",
+            "edition": "",
+            "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=79399&nation=eng",
+            "locator": "Entrada 주먹, ParaWordNo=79399, acepção 1 (fist)"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jumeok; PDF p. 72"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jumeok; PDF p. 72"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "deungjumeok",
+      "name": "Dorso do punho fechado",
+      "hangul": "등주먹",
+      "romanization": "Deungjumeok",
+      "pronunciation": "dûng-dju-mók",
+      "description": "Face superior das primeiras juntas do indicador e médio no punho fechado.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Back Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Deungjumeok; PDF pp. 70-71"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Ap-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Ap-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Deungjumeok; PDF pp. 70-71"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Deungjumeok; PDF pp. 70-71"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mejumeok",
+      "name": "Punho em martelo",
+      "hangul": "메주먹",
+      "romanization": "Mejumeok",
+      "pronunciation": "mê-dju-mók",
+      "description": "Borda externa do punho fechado, correspondente ao lado do mínimo.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Hammer Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Mejumeok; PDF p. 72"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Bakkat-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Bakkat-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Mejumeok; PDF p. 72"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Mejumeok; PDF p. 72"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bamjumeok",
+      "name": "Punho com junta média saliente",
+      "hangul": "밤주먹",
+      "romanization": "Bamjumeok",
+      "pronunciation": "bam-dju-mók",
+      "description": "Punho fechado com a junta média do dedo médio projetada.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Knuckle Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Bamjumeok; PDF p. 70"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Bamjumeok; PDF p. 70"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Bamjumeok; PDF p. 70"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jipgebamjumeok",
+      "name": "Punho com junta do indicador saliente",
+      "hangul": "집게밤주먹",
+      "romanization": "Jipgebamjumeok",
+      "pronunciation": "djip-kê-bam-dju-mók",
+      "description": "Punho fechado com a segunda junta do indicador projetada.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Trigger Finger Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgebamjumeok; PDF p. 72"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgebamjumeok; PDF p. 72"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgebamjumeok; PDF p. 72"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jipgejumeok",
+      "name": "Punho em pinça",
+      "hangul": "집게주먹",
+      "romanization": "Jipgejumeok",
+      "pronunciation": "djip-kê-dju-mók",
+      "description": "Polegar e indicador formam pinça; outros dedos recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Pincers Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgejumeok; PDF p. 72"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgejumeok; PDF p. 72"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Jipgejumeok; PDF p. 72"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pyeonjumeok",
+      "name": "Punho parcialmente fechado",
+      "hangul": "편주먹",
+      "romanization": "Pyeonjumeok",
+      "pronunciation": "pyón-dju-mók",
+      "description": "Configuração parcialmente fechada que expõe as juntas médias dos quatro dedos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Half-clenched Fist / Flat Fist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonjumeok; PDF p. 74"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonjumeok; PDF p. 74"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonjumeok; PDF p. 74"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gomson",
+      "name": "Mão de urso",
+      "hangul": "곰손",
+      "romanization": "Gomson",
+      "pronunciation": "kôm-sôn",
+      "description": "Configuração que reúne base palmar e juntas dos dedos mais recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Bear Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gomson; PDF p. 71"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Ap-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Ap-chigi; PDF p. 24"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gomson; PDF p. 71"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gomson; PDF p. 71"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gupinsonmok",
+      "name": "Punho fletido",
+      "hangul": "굽힌손목",
+      "romanization": "Gupinsonmok",
+      "pronunciation": "ku-pin-sôn-mók",
+      "description": "Área de articulação entre dorso da mão e punho fletido para dentro.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Bent Wrist",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gupinsonmok; PDF p. 71"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Ollyeo-chigi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "2. Chigi > Ollyeo-chigi; PDF p. 27"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gupinsonmok; PDF p. 71"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gupinsonmok; PDF p. 71"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gawisonkkeut",
+      "name": "Pontas dos dedos em tesoura",
+      "hangul": "가위손끝",
+      "romanization": "Gawisonkkeut",
+      "pronunciation": "ka-ui-sôn-kkût",
+      "description": "Pontas do indicador e médio separados; demais dedos recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Scissors Fingertips",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gawisonkkeut; PDF p. 71"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Eopeo-jjireugi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "6. Jjireugi > Eopeo-jjireugi; PDF p. 37"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gawisonkkeut; PDF p. 71"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Gawisonkkeut; PDF p. 71"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hansonkkeut",
+      "name": "Ponta de um dedo",
+      "hangul": "한손끝",
+      "romanization": "Hansonkkeut",
+      "pronunciation": "han-sôn-kkût",
+      "description": "Ponta do indicador estendido com os demais dedos recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Single Fingertip",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Hansonkkeut; PDF p. 72"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Sewo-jjireugi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "6. Jjireugi > Sewo-jjireugi; PDF p. 38"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Hansonkkeut; PDF p. 72"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Hansonkkeut; PDF p. 72"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "modumsonkkeut",
+      "name": "Cinco pontas dos dedos reunidas",
+      "hangul": "모둠손끝",
+      "romanization": "Modumsonkkeut",
+      "pronunciation": "mo-dum-sôn-kkût",
+      "description": "Pontas dos cinco dedos reunidas em uma configuração compacta.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Combined Fingertips",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Modumsonkkeut; PDF p. 73"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Modumsonkkeut; PDF p. 73"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Modumsonkkeut; PDF p. 73"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "moeundusonkkeut",
+      "name": "Duas pontas dos dedos reunidas",
+      "hangul": "모은두손끝",
+      "romanization": "Moeundusonkkeut",
+      "pronunciation": "mo-ûn-du-sôn-kkût",
+      "description": "Pontas do indicador e médio estendidos e unidos; outros dedos recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Combined Two Fingertips",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeundusonkkeut; PDF p. 73"
+          }
+        }
+      ],
+      "variants": [
+        {
+          "value": "Moundusonkket",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Standardization > 5. Classification of the Applicable Parts of Body > Jjireugi; PDF p. 6"
+          }
+        }
+      ],
+      "related": [
+        {
+          "name": "Sewo-jjireugi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "6. Jjireugi > Sewo-jjireugi; PDF p. 38"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeundusonkkeut; PDF p. 73"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeundusonkkeut; PDF p. 73"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "moeunsesonkkeut",
+      "name": "Três pontas dos dedos reunidas",
+      "hangul": "모은세손끝",
+      "romanization": "Moeunsesonkkeut",
+      "pronunciation": "mo-ûn-sê-sôn-kkût",
+      "description": "Indicador e anelar unidos, médio alinhado sobre eles; polegar e mínimo recolhidos.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Combined Three Fingertips",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeunsesonkkeut; PDF p. 73"
+          }
+        }
+      ],
+      "variants": [
+        {
+          "value": "Mounsesonkket",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Standardization > 5. Classification of the Applicable Parts of Body > Jjireugi; PDF p. 6"
+          }
+        }
+      ],
+      "related": [
+        {
+          "name": "Sewo-jjireugi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "6. Jjireugi > Sewo-jjireugi; PDF p. 38"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeunsesonkkeut; PDF p. 73"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Moeunsesonkkeut; PDF p. 73"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pyeonsonkkeut",
+      "name": "Pontas dos dedos em lança",
+      "hangul": "편손끝",
+      "romanization": "Pyeonsonkkeut",
+      "pronunciation": "pyón-sôn-kkût",
+      "description": "Dedos reunidos; médio levemente curvado para alinhar as pontas do indicador e anelar.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Spear Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonsonkkeut; PDF p. 74"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [
+        {
+          "name": "Eopeo-jjireugi",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "6. Jjireugi > Eopeo-jjireugi; PDF p. 37"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonsonkkeut; PDF p. 74"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Pyeonsonkkeut; PDF p. 74"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "son",
+      "name": "Mão",
+      "hangul": "손",
+      "romanization": "Son",
+      "pronunciation": "sôn",
+      "description": "Mão aberta, com dedos e polegar, distal ao punho.",
+      "meanings": [
+        {
+          "kind": "technical",
+          "language": "en",
+          "value": "Hand",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Son; PDF p. 74"
+          }
+        }
+      ],
+      "variants": [],
+      "related": [],
+      "evidence": [
+        {
+          "field": "hangul",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Son; PDF p. 74"
+          }
+        },
+        {
+          "field": "romanization",
+          "reference": {
+            "title": "Taekwondo Technical Terminology",
+            "institution": "Kukkiwon",
+            "edition": "2011",
+            "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+            "locator": "Appendix > Applicable Parts of the Body > Son; PDF p. 74"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "seun-pyeonjumeok",
+      "name": "Punho parcialmente fechado vertical",
+      "hangul": null,
+      "romanization": null,
+      "pronunciation": null,
+      "description": null,
+      "meanings": [],
+      "variants": [],
+      "related": [],
+      "evidence": []
+    }
+  ],
+  "publicRegions": [
+    {
+      "slug": "sonnal",
+      "name": "Borda externa da mão (mão em faca)",
+      "termSlug": "sonnal"
+    },
+    {
+      "slug": "sonnaldeung",
+      "name": "Borda interna da mão (faca reversa)",
+      "termSlug": "sonnaldeung"
+    },
+    {
+      "slug": "sonbadak",
+      "name": "Palma da mão",
+      "termSlug": "sonbadak"
+    },
+    {
+      "slug": "batangson",
+      "name": "Base da palma da mão",
+      "termSlug": "batangson"
+    },
+    {
+      "slug": "ageumson",
+      "name": "Mão em arco",
+      "termSlug": "ageumson"
+    },
+    {
+      "slug": "sondeung",
+      "name": "Dorso da mão",
+      "termSlug": "sondeung"
+    },
+    {
+      "slug": "jumeok",
+      "name": "Punho fechado",
+      "termSlug": "jumeok"
+    },
+    {
+      "slug": "deungjumeok",
+      "name": "Dorso do punho fechado",
+      "termSlug": "deungjumeok"
+    },
+    {
+      "slug": "mejumeok",
+      "name": "Punho em martelo",
+      "termSlug": "mejumeok"
+    },
+    {
+      "slug": "illustration-hand-base",
+      "name": "Base da mão na vista dorsal",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-hand-web",
+      "name": "Espaço entre polegar e indicador na vista dorsal",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-hand-side",
+      "name": "Lateral ilustrativa da mão",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-thumb",
+      "name": "Polegar",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-finger-index",
+      "name": "Indicador",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-finger-middle",
+      "name": "Dedo médio",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-finger-ring",
+      "name": "Anelar",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-finger-little",
+      "name": "Dedo mínimo",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-fist-palm",
+      "name": "Face palmar do punho ilustrado",
+      "termSlug": null
+    },
+    {
+      "slug": "illustration-fist-base",
+      "name": "Base do punho ilustrado",
+      "termSlug": null
+    }
+  ]
+}
