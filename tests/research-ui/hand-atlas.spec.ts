@@ -74,12 +74,14 @@ for (const width of [375, 1280]) for (const theme of ['light', 'dark']) {
     await page.getByRole('button', { name: theme === 'light' ? 'Ativar tema claro' : 'Ativar tema escuro', exact: true }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
     for (const [view, posture, slug] of [
-      ['Palma', 'Mão aberta', 'sonbadak'], ['Dorso', 'Mão aberta', 'sondeung'], ['Dorso', 'Punho', 'deungjumeok'],
+      ['Palma', 'Mão aberta', 'sonbadak'], ['Dorso', 'Mão aberta', 'sondeung'],
+      ['Palma', 'Punho', 'jumeok'], ['Dorso', 'Punho', 'deungjumeok'],
     ]) {
       await page.getByRole('button', { name: view, exact: true }).click();
       await page.getByRole('button', { name: posture, exact: true }).click();
       await page.locator(`[data-legend-zone="${slug}"]`).click();
       await expect(page.locator('.surface-inspector [data-region-documentation]')).toHaveAttribute('data-region-documentation', slug);
+      await page.locator('.surface-tooltip').evaluate(el => { el.scrollTop = 0; });
       const dimensions = await page.locator('.surface-inspector').evaluate(panel => ({
         overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
         height: panel.clientHeight,
@@ -93,3 +95,102 @@ for (const width of [375, 1280]) for (const theme of ['light', 'dark']) {
     }
   });
 }
+
+test('todas as 19 superfícies da mão respondem ao clique geométrico real no SVG e preservam o contrato documental', async ({ page, isMobile }) => {
+  const technicalSlugs = new Set([
+    'sonbadak', 'batangson', 'sonnal', 'sonnaldeung', 'ageumson', 'sondeung',
+    'jumeok', 'deungjumeok', 'mejumeok',
+  ]);
+  const states: Array<{
+    view: 'Palma' | 'Dorso';
+    posture: 'Mão aberta' | 'Punho';
+    probes: Array<[string, number, number]>;
+  }> = [
+    {
+      view: 'Palma',
+      posture: 'Mão aberta',
+      probes: [
+        ['sonbadak', 49, 82],
+        ['batangson', 48, 112],
+        ['sonnal', 66.5, 88],
+        ['sonnaldeung', 28, 55],
+        ['ageumson', 28, 77],
+        ['illustration-hand-side', 29, 98],
+        ['illustration-thumb', 16, 69],
+        ['illustration-finger-index', 32, 34],
+        ['illustration-finger-middle', 44, 32],
+        ['illustration-finger-ring', 55.5, 36],
+        ['illustration-finger-little', 66.5, 48],
+      ],
+    },
+    {
+      view: 'Dorso',
+      posture: 'Mão aberta',
+      probes: [
+        ['sondeung', 49, 82],
+        ['illustration-hand-base', 48, 112],
+        ['illustration-hand-web', 28, 77],
+        ['sonnal', 66.5, 88],
+        ['sonnaldeung', 28, 55],
+        ['illustration-finger-ring', 55.5, 36],
+        ['illustration-finger-little', 66.5, 48],
+      ],
+    },
+    {
+      view: 'Palma',
+      posture: 'Punho',
+      probes: [
+        ['jumeok', 46, 42],
+        ['illustration-fist-palm', 44, 75],
+        ['mejumeok', 74.5, 74],
+        ['illustration-fist-base', 48, 106],
+      ],
+    },
+    {
+      view: 'Dorso',
+      posture: 'Punho',
+      probes: [
+        ['jumeok', 46, 42],
+        ['deungjumeok', 44, 75],
+        ['mejumeok', 74.5, 74],
+        ['illustration-fist-base', 48, 106],
+      ],
+    },
+  ];
+
+  const visited = new Set<string>();
+  const panel = page.locator('.surface-inspector');
+
+  for (const state of states) {
+    await page.getByRole('button', { name: state.view, exact: true }).click();
+    await page.getByRole('button', { name: state.posture, exact: true }).click();
+    await page.locator('.detail-svg').scrollIntoViewIfNeeded();
+
+    for (const [slug, x, y] of state.probes) {
+      const point = await page.locator('.anatomy-geometry').evaluate((group, coords) => {
+        const ctm = (group as SVGGraphicsElement).getScreenCTM()!;
+        const pt = new DOMPoint(coords.x, coords.y).matrixTransform(ctm);
+        const hit = document.elementFromPoint(pt.x, pt.y)?.closest('[data-region]')?.getAttribute('data-region');
+        return { x: pt.x, y: pt.y, hit };
+      }, { x, y });
+
+      expect(point.hit, `${state.view} / ${state.posture} -> ${slug}`).toBe(slug);
+      if (isMobile) await page.touchscreen.tap(point.x, point.y);
+      else await page.mouse.click(point.x, point.y);
+
+      await expect(page.locator(`.detail-svg [data-region="${slug}"]`)).toHaveAttribute('aria-pressed', 'true');
+      await expect(panel.locator('[data-region-documentation]')).toHaveAttribute('data-region-documentation', slug);
+
+      if (technicalSlugs.has(slug)) {
+        await expect(panel).toContainText('Mapeamento editorial proposto');
+        await expect(panel.locator('[lang="ko"]').first()).toBeVisible();
+      } else {
+        await expect(panel).toContainText('Sem terminologia técnica vinculada');
+        await expect(panel.locator('[lang="ko"]')).toHaveCount(0);
+      }
+      visited.add(slug);
+    }
+  }
+
+  expect(visited.size).toBe(19);
+});
