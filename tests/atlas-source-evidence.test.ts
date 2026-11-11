@@ -36,9 +36,9 @@ describe("atlas source attribution", () => {
     expect(html).toContain('href="/fontes"');
   });
 
-  it("rejects unreviewed evidence and flags missing individual references", () => {
+  it("silently suppresses unverified individual evidence in the visitor UI", () => {
     const html = view("technical", [{ ...official, checked_at: null }]);
-    expect(html).toContain("ainda não apresenta fonte individual");
+    expect(html).toBe("");
     expect(html).not.toContain("Kukkiwon");
     expect(html).not.toContain("https://research.kukkiwon.or.kr");
   });
@@ -48,7 +48,7 @@ describe("atlas source attribution", () => {
       { ...official, content_sources: { ...official.content_sources!, official_url: "javascript:alert(1)" } },
     ]);
     expect(html).not.toContain('href="javascript:');
-    expect(html).toContain("precisa ser verificada");
+    expect(html).toBe("");
   });
 
   it("keeps two distinct sources for a multi-source record", () => {
