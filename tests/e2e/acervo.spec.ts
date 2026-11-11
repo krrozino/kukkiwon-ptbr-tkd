@@ -5,10 +5,10 @@ test('consulta todos os registros catalogados, filtra e abre fonte individual',a
   page.on('request',r=>{if(r.url().includes('supabase.co'))backend.push(r.url());});
   await page.goto('/acervo');
   await expect(page.getByRole('heading',{name:'Acervo de Técnicas',exact:true})).toBeVisible();
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
   await expect(page.getByRole('complementary',{name:'Apresentação do acervo'})).toContainText('Acervo referenciado');
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
   const entry=page.locator('#palgup-biteureo-kkeokgi');
   await expect(entry).toContainText('Região alvo:');
   await expect(entry).toContainText('PDF físico p. 43');
@@ -43,16 +43,16 @@ test('relações reversas, teclado e layout escuro funcionam em desktop e celula
 
 test('Voltar restaura os filtros depois de abrir uma âncora de ficha',async({page})=>{
   await page.goto('/acervo');
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
   await page.locator('#ap-chagi h2 a').click();
   await expect(page).toHaveURL(/#ap-chagi$/);
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
   await page.goBack();
   await expect(page).toHaveURL(/\/acervo$/);
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('');
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
   await page.goForward();
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
 });
