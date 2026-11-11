@@ -3,17 +3,17 @@ import Base from "../layouts/Base.astro";
 import ResearchWorkbench from "@research/workbench";
 const available = import.meta.env.DEV;
 ---
-<Base title="Laboratório editorial — Taekwondo para Todos">
+<Base title="Área de pesquisa — Taekwondo para Todos">
   <section class="shell section">
     <h1>Laboratório de pesquisa</h1>
     {available ? (
       <>
-        <p><a href="/atlas-mao-local">Abrir consulta documental provisória da mão (Atlas A3)</a></p>
+        <p><a href="/atlas-mao-local">Abrir Atlas da mão</a></p>
         <ResearchWorkbench client:load />
       </>
     ) : (
       <div class="card" role="status">
-        <p>Disponível apenas no desenvolvimento local. O catálogo público não contém arquivos de pesquisa pendentes.</p>
+        <p>Esta área está disponível somente no ambiente de desenvolvimento.</p>
       </div>
     )}
   </section>
