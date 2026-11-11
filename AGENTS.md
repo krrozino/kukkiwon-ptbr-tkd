@@ -23,7 +23,7 @@ Projeto **independente, comunitário, público, gratuito e sem fins lucrativos**
 
 ## Dados editoriais e referências
 
-**Exceção de consulta provisória autorizada pelo mantenedor em 07/11/2026:** os lotes editoriais locais podem ser apresentados em `/acervo`, com rótulo de revisão pendente, fontes/localizadores e lacunas visíveis. Isso não muda `draft` para `published`, não homologa técnica/tradução, não autoriza expor arquivos brutos de pesquisa ou dados privados, nem concede autorização de deploy. Ver [política editorial](docs/CONTENT_POLICY.md). A restrição à publicação automática continua para o catálogo homologado e para o banco remoto.
+**Regra de apresentação do mantenedor (09/11/2026):** interfaces destinadas aos visitantes não exibem rótulos de "revisão humana", "análise documental", "conteúdo provisório", "pendência de aprovação" ou outros estados do processo editorial. Exibir apenas dados existentes e fontes consultáveis, sem inventar campos ausentes. Isso **não** modifica os estados internos, as permissões de publicação nem a origem das afirmações, e não autoriza colocar na interface pública sequências sem documentação suficiente.
 
 Toda **afirmação técnica** de Taekwondo (nome coreano, Hangul, romanização, pronúncia, significado literal/técnico, área corporal técnica, posição, movimento, passo de Poomsae ou variante) exige **referência por afirmação/campo** com instituição, documento/edição/ano quando conhecidos, URL `https` segura, localizador (página, seção ou boardNo), estado de revisão e data de conferência. Uma lista global de fontes não comprova cada campo.
 

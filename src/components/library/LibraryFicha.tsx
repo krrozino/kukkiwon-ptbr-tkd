@@ -104,19 +104,8 @@ export default function LibraryFicha({ item, category }: { item: LibraryItem; ca
         </section>
       )}
 
-      {item.mediaPrepared && (
-        <section className="card ficha-media-placeholder">
-          <h2>Recursos Multimídia</h2>
-          <div className="media-placeholder-notice">
-            <p>
-              Estrutura preparada para integração de demonstrações em vídeo e ilustrações fotográficas com licença autorizada.
-            </p>
-          </div>
-        </section>
-      )}
-
       <footer className="card ficha-sources">
-        <h2>Fontes Documentais e Referências</h2>
+        <h2>Fontes e referências</h2>
         <ul className="sources-list">
           {item.sources.map((src, idx) => (
             <li key={idx} className="source-item">
@@ -126,7 +115,7 @@ export default function LibraryFicha({ item, category }: { item: LibraryItem; ca
               {src.url && (
                 <div>
                   <a href={src.url} target="_blank" rel="noopener noreferrer" className="source-link">
-                    Acessar fonte institucional ↗
+                    Consultar fonte ↗
                   </a>
                 </div>
               )}

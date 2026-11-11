@@ -1,0 +1,262 @@
+{
+  "origin": "Gemini Teamwork recovery, PR #67, commit 90e3ca2",
+  "scope": "Candidate library entries not verified against the claimed source location; do not import into public bundle.",
+  "record_count": 8,
+  "records": [
+    {
+      "slug": "sebon-kyorugi-1",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequência 1",
+      "hangul": "세본겨루기 1",
+      "romanization": "Sebon Gyeorugi 1",
+      "pronunciation_pt": "Sebon Kiorugui Um",
+      "sequenceNumber": 1,
+      "literalMeaning": "Combate combinado de três passos número 1",
+      "technicalMeaning": "Ataque em três passos com Momtong Baro Jirugi; defesa em recuo com Momtong An Makgi e contra-ataque com Baro Jirugi.",
+      "description": "Sequência fundamental de Sebon Kyorugi. O atacante avança três passos consecutivos desferindo socos na altura média (Momtong). O defensor recua sincronizadamente bloqueando e finaliza com contra-ataque firme.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "instruction": "Atacante avança em Ap Kubi desferindo Momtong Baro Jirugi direito. Defensor recua em Ap Kubi executando Momtong An Makgi esquerdo.",
+          "stance": "Ap Kubi",
+          "target": "Momtong"
+        },
+        {
+          "stepNumber": 2,
+          "instruction": "Atacante avança segundo passo com Momtong Baro Jirugi esquerdo. Defensor recua com Momtong An Makgi direito.",
+          "stance": "Ap Kubi",
+          "target": "Momtong"
+        },
+        {
+          "stepNumber": 3,
+          "instruction": "Atacante avança terceiro passo com Momtong Baro Jirugi direito (com Kihap). Defensor recua com Momtong An Makgi esquerdo, contra-atacando de imediato com Momtong Baro Jirugi direito ao plexo solar.",
+          "stance": "Ap Kubi",
+          "target": "Plexo solar"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Exame de Faixa — Matcho Kyorugui",
+          "url": "https://fetese.com.br/uploads/2016/01/14/downloads/regulamento-geral-de-exame-de-faixa-cbtkd.pdf"
+        },
+        {
+          "institution": "Kukkiwon",
+          "title": "WTA Master Training Course — Gyeorugi Teaching",
+          "editionOrYear": "2023",
+          "locator": "Section 4: Matchwo Gyeorugi",
+          "url": "https://wta.kukkiwon.or.kr/en/trainingProcess/masterCourse?lang=en&topMenuid=1072"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "sebon-kyorugi-2",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequência 2",
+      "hangul": "세본겨루기 2",
+      "romanization": "Sebon Gyeorugi 2",
+      "pronunciation_pt": "Sebon Kiorugui Dois",
+      "sequenceNumber": 2,
+      "literalMeaning": "Combate combinado de três passos número 2",
+      "technicalMeaning": "Ataque em três passos na altura do rosto (Olgul); defesa em recuo com Olgul Makgi e contra-ataque com soco no queixo.",
+      "description": "Segunda sequência tradicional de três passos, focada na proteção da cabeça e na recuperação imediata da linha central para contra-golpear.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "instruction": "Atacante avança em Ap Kubi com Olgul Baro Jirugi. Defensor recua em Ap Kubi com Olgul Makgi.",
+          "stance": "Ap Kubi",
+          "target": "Olgul"
+        },
+        {
+          "stepNumber": 2,
+          "instruction": "Atacante avança segundo passo com Olgul Baro Jirugi oposto. Defensor recua com Olgul Makgi oposto.",
+          "stance": "Ap Kubi",
+          "target": "Olgul"
+        },
+        {
+          "stepNumber": 3,
+          "instruction": "Atacante avança terceiro passo com Kihap. Defensor recua com Olgul Makgi e contra-ataca com Baro Jirugi ao queixo ou filtrando a guarda.",
+          "stance": "Ap Kubi",
+          "target": "Olgul"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Exame de Faixa — Matcho Kyorugui"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "sebon-kyorugi-3",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequência 3",
+      "hangul": "세본겨루기 3",
+      "romanization": "Sebon Gyeorugi 3",
+      "pronunciation_pt": "Sebon Kiorugui Três",
+      "sequenceNumber": 3,
+      "literalMeaning": "Combate combinado de três passos número 3",
+      "technicalMeaning": "Defesa externa com Sonnal Makgi em Dwit Kubi e contra-ataque com Sonnal Mok Chigi ao pescoço.",
+      "description": "Sequência que introduz o uso da faca da mão (Sonnal) na defesa e no contra-ataque direcionado à lateral do pescoço do atacante.",
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Matcho Kyorugui 3"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "sebon-kyorugi-4",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequência 4",
+      "hangul": "세본겨루기 4",
+      "romanization": "Sebon Gyeorugi 4",
+      "pronunciation_pt": "Sebon Kiorugui Quatro",
+      "sequenceNumber": 4,
+      "literalMeaning": "Combate combinado de três passos número 4",
+      "technicalMeaning": "Deslocamento angular lateral na terceira defesa e contra-ataque com Yop Chagi (chute lateral) às costelas.",
+      "description": "Desenvolve a saída da linha de ataque do oponente com esquiva lateral e aplicação de chute lateral vigoroso.",
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Matcho Kyorugui 4"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "sebon-kyorugi-5",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequência 5",
+      "hangul": "세본겨루기 5",
+      "romanization": "Sebon Gyeorugi 5",
+      "pronunciation_pt": "Sebon Kiorugui Cinco",
+      "sequenceNumber": 5,
+      "literalMeaning": "Combate combinado de três passos número 5",
+      "technicalMeaning": "Defesa por desvio com Batangson e contra-ataque com Ap Chagi ou soco duplo simultâneo.",
+      "description": "Quinta sequência do currículo básico de Sebon, completando o conjunto comum exigido na transição de Faixa Amarela.",
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Matcho Kyorugui 5"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "sebon-kyorugi-6-10",
+      "categoryId": "matchuo-kyorugi",
+      "subcategoryId": "sebon",
+      "name": "Sebon Kyorugi — Sequências 6 a 10",
+      "hangul": "세본겨루기 6-10",
+      "romanization": "Sebon Gyeorugi 6 a 10",
+      "pronunciation_pt": "Sebon Kiorugui Seis a Dez",
+      "sequenceNumber": 6,
+      "literalMeaning": "Série intermediária de três passos (Sequências 6, 7, 8, 9 e 10)",
+      "technicalMeaning": "Conjunto de sequências com alavancas articulares (Kkeokgi), contragolpes com cotovelos (Palkup) e chutes circulares (Dollyo Chagi).",
+      "description": "Sequências avançadas de três passos tradicionalmente praticadas para o exame de Ponta Verde e Faixa Verde, combinando defesas complexas e arremates rápidos.",
+      "sources": [
+        {
+          "institution": "CBTKD",
+          "title": "Regulamento Geral de Exame de Faixa (Documento Histórico)",
+          "editionOrYear": "2016",
+          "locator": "Matcho Kyorugui 6 a 10"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "palgwae-il-jang",
+      "categoryId": "palgwae",
+      "subcategoryId": "palgwae-formas",
+      "name": "Palgwae 1 Jang (Il Jang)",
+      "hangul": "팔괘 1장",
+      "romanization": "Palgwae Il Jang",
+      "pronunciation_pt": "Palgué Il Djang",
+      "literalMeaning": "Primeira forma Palgwae — Trigrama Keon (☰ Céu Puro)",
+      "technicalMeaning": "Forma histórica criada pela KTA em 1967 com 23 movimentos, enfatizando posturas firmes em Ap Kubi e transições contínuas.",
+      "description": "As formas Palgwae foram desenvolvidas pelos primeiros mestres das diversas escolas (Kwans) antes da criação dos Taegeuk. Preservam movimentos amplos e o estudo clássico dos oito trigramas.",
+      "stances": [
+        "ap-kubi",
+        "dwit-kubi",
+        "ap-seogi"
+      ],
+      "sources": [
+        {
+          "institution": "Korea Taekwondo Association",
+          "title": "Palgwae Poomsae Historical Records",
+          "editionOrYear": "1968",
+          "locator": "Palgwae 1 Jang"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    },
+    {
+      "slug": "palgwae-ee-jang",
+      "categoryId": "palgwae",
+      "subcategoryId": "palgwae-formas",
+      "name": "Palgwae 2 Jang (Ee Jang)",
+      "hangul": "팔괘 2장",
+      "romanization": "Palgwae Ee Jang",
+      "pronunciation_pt": "Palgué I Djang",
+      "literalMeaning": "Segunda forma Palgwae — Trigrama Tae (☱ Lago)",
+      "technicalMeaning": "Segunda forma da série Palgwae com 23 movimentos, integrando defesas com antebraço e ataques repetidos na linha média.",
+      "description": "Representa a tranquilidade profunda com firmeza marcial. Caracteriza-se por cadência constante e movimentos equilibrados.",
+      "stances": [
+        "ap-kubi",
+        "dwit-kubi"
+      ],
+      "sources": [
+        {
+          "institution": "Korea Taekwondo Association",
+          "title": "Palgwae Poomsae Historical Records",
+          "editionOrYear": "1968",
+          "locator": "Palgwae 2 Jang"
+        }
+      ],
+      "mediaPrepared": {
+        "hasVideoPlaceholder": true,
+        "hasPhotoPlaceholder": true
+      }
+    }
+  ]
+}
