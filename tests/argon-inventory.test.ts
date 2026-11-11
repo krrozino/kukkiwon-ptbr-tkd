@@ -20,7 +20,7 @@ describe('Argon PDF — conferência offline do inventário de pesquisa', () => 
     expect(x.unique_ids).toBe(380);
     expect(x.unique_candidate_slugs).toBe(380);
     expect(x.summary_grade_conflict).toBe(true);
-    expect(x.records.every(r => r.may_publish === false && r.needs_field_verification)).toBe(true);
+    expect(x.records.every((r: { may_publish: boolean; needs_field_verification: boolean }) => r.may_publish === false && r.needs_field_verification)).toBe(true);
   });
   it('rejeita registros ausentes, duplicados e páginas inválidas', () => {
     expect(() => inspectArgonInventory(rows(379))).toThrow(/Contagem/);
