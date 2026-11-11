@@ -37,7 +37,7 @@ test('palma mostra terminologia e fontes mesmo sem a API de técnicas',async({pa
   await page.locator('[data-legend-zone="sonbadak"]').click();
   const panel=page.locator('[data-hand-region="sonbadak"]');
   await expect(panel).toContainText('Palma da mão');
-  await expect(panel).toContainText('Superfície interna');
+  await expect(panel).toContainText('Face palmar entre a base dos dedos e o punho.');
   await expect(panel.locator('[lang="ko"]')).toContainText('손바닥');
   await expect(panel.locator('a[href^="/tecnica"]')).toHaveCount(0);
   expect(queries).toEqual([]);

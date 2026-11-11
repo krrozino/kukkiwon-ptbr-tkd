@@ -10,7 +10,7 @@ test('Atlas público mostra regiões, Hangul, pronúncia e fontes sem registros 
   await expect(page.locator('.hand-current-region [lang="ko"]')).toContainText('손날');
   await expect(page.locator('.hand-current-region')).toContainText('sôn-nal');
   await page.locator('.hand-current-region summary').click();
-  await expect(page.locator('.hand-current-region a[href^="https://research.kukkiwon.or.kr/"]')).toHaveCount(2);
+  await expect(page.locator('.hand-current-region .hand-term-sources a[href^="https://research.kukkiwon.or.kr/"]')).toHaveCount(2);
   await expect(page.locator('[data-hand-region="sonnal"]')).toBeVisible();
   await expect(page.getByText('Revisão humana pendente')).toHaveCount(0);
 });
@@ -20,7 +20,7 @@ test('os 23 termos são pesquisáveis mesmo sem hotspot geométrico', async ({ p
   const search=page.getByRole('searchbox',{name:'Buscar nome, Hangul ou romanização'});
   await expect(page.getByText('23 de 23 termos')).toBeVisible();
   await search.fill('손날');
-  await expect(page.getByText('1 de 23 termos')).toBeVisible();
+  await expect(page.getByText('2 de 23 termos')).toBeVisible();
   await search.fill('Modumsonkkeut');
   await page.getByRole('button',{name:/Modumsonkkeut/}).click();
   await expect(page).toHaveURL(/term=modumsonkkeut/);

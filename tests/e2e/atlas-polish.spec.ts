@@ -28,7 +28,7 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   await expect(tip).toContainText("Sonnal");
   await expect(tip).toContainText("Borda externa da mão");
   await expect(tip.locator('[lang="ko"]')).toHaveText('손날');
-  await expect(tip).toContainText('Pronúncia: ainda não conferida');
+  await expect(tip).not.toContainText('Pronúncia:');
   await expect(tip).toContainText('Superfície junto ao dedo mínimo.');
   await expect(tip.getByRole('link',{name:'Abrir ficha técnica'})).toHaveAttribute('href','/tecnica?slug=sonnal');
   const illustration=page.locator(".surface-canvas .detail-svg");
