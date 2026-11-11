@@ -364,7 +364,7 @@ export default function Atlas() {
                   </div>
                 ) : links.filter((l) => l.technical_terms).length === 0 ? (
                   <p>
-                    As técnicas associadas a esta região aparecerão após a conferência das referências.
+                    Explore também o catálogo para conhecer as técnicas relacionadas a esta região.
                   </p>
                 ) : (
                   <AtlasRelations links={links} onPreview={setContextSlug}/>
@@ -383,10 +383,8 @@ export default function Atlas() {
           </>
         )}
         <p className="fine-print">
-          As áreas coloridas são ilustrações de estudo e permanecem visíveis
-          independentemente do estado editorial das fichas. Nomes técnicos,
-          traduções e relações com técnicas só aparecem após publicação
-          específica. A geometria é aproximada, não uma ilustração oficial da Kukkiwon.
+          As áreas coloridas são ilustrações didáticas independentes. A geometria é
+          esquemática e não constitui uma ilustração oficial da Kukkiwon.
         </p>
       </section>
     </div>

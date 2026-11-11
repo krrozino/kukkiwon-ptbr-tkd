@@ -1,6 +1,6 @@
 import {useEffect,useId,useRef,useState,type CSSProperties} from 'react';
 import {createPortal} from 'react-dom';
-import {useGlossary,glossaryReviewMode,type GlossaryWord,type GlossaryExpression} from '../lib/glossary';
+import {useGlossary,type GlossaryWord,type GlossaryExpression} from '../lib/glossary';
 import {useTermDetail} from '../lib/use-term-detail';
 
 type Props={wordId?:string;expressionId?:string;script?:'romanization'|'hangul';fallback?:string|null;publishedTerm?:{slug:string;publication_status:string}};
@@ -53,12 +53,11 @@ export default function KoreanExpression({wordId,expressionId,script='romanizati
  const popup=(open||hover)&&typeof document!=='undefined'?createPortal(
   open?<div ref={floating} style={position} role="dialog" tabIndex={-1} aria-labelledby={id+'-title'} className="glossary-popover">
    <button className="glossary-close" aria-label="Fechar explicação" onClick={()=>close()}>×</button>
-   {glossaryReviewMode&&<p className="tag">Conteúdo em revisão</p>}
    {focusedWord?<>
     <h2 id={id+'-title'}>Significado de {focusedWord.romanization}</h2>
     <p lang="ko" className="hangul">{focusedWord.hangul}</p>
     <p><strong>{focusedWord.meaning_pt}</strong></p><h3>No contexto</h3><p>{focusedWord.context_pt}</p>
-    <p className="fine-print">Pronúncia: {focusedWord.pronunciation_pt||'ainda não conferida'}</p>{sourceList(focusedWord)}
+    {focusedWord.pronunciation_pt&&<p className="fine-print">Pronúncia: {focusedWord.pronunciation_pt}</p>}{sourceList(focusedWord)}
    </>:focusedExpression?<>
     <p className="tag">Expressão completa</p><h2 id={id+'-title'}>{focusedExpression.romanization}</h2>
     <p className="hangul" lang="ko">{focusedExpression.hangul}</p><p><strong>{focusedExpression.translation_pt}</strong></p>
