@@ -38,10 +38,9 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
     }
   });
 
-  it('todas as categorias possuem itens catalogados com fontes documentais', () => {
+  it('itens públicos presentes têm identidade e fonte; categorias podem aguardar conteúdo próprio', () => {
     for (const catId of REQUIRED_CATEGORIES) {
       const items = getItemsByCategory(catId);
-      expect(items.length, `Categoria ${catId} deve conter itens catalogados`).toBeGreaterThan(0);
       for (const item of items) {
         expect(item.slug).toBeTruthy();
         expect(item.name).toBeTruthy();
@@ -51,24 +50,11 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
     }
   });
 
-  it('Matchuo Kyorugi contém sequências numeradas de Sebon (1 a 5 e até 10)', () => {
-    const sebonItems = LIBRARY_ITEMS.filter(
-      i => i.categoryId === 'matchuo-kyorugi' && i.subcategoryId === 'sebon'
-    );
-    expect(sebonItems.length).toBeGreaterThanOrEqual(5);
-
-    const sebon1 = getItemBySlug('sebon-kyorugi-1');
-    expect(sebon1).toBeDefined();
-    expect(sebon1?.sequenceNumber).toBe(1);
-    expect(sebon1?.steps).toBeDefined();
-    expect(sebon1?.steps?.length).toBeGreaterThanOrEqual(3);
-
-    const sebon5 = getItemBySlug('sebon-kyorugi-5');
-    expect(sebon5).toBeDefined();
-    expect(sebon5?.sequenceNumber).toBe(5);
-
-    const sebon6to10 = getItemBySlug('sebon-kyorugi-6-10');
-    expect(sebon6to10).toBeDefined();
+  it('não expõe sequências locais Sebon com passos sem fonte específica de execução', () => {
+    expect(getCategoryById('matchuo-kyorugi')).toBeDefined();
+    expect(getItemsByCategory('matchuo-kyorugi')).toEqual([]);
+    expect(getItemBySlug('sebon-kyorugi-1')).toBeUndefined();
+    expect(LIBRARY_ITEMS.some(i => i.categoryId === 'matchuo-kyorugi' && i.steps?.length)).toBe(false);
   });
 
   it('Poomsae contém Taegeuk documentados e formas superiores', () => {
@@ -82,12 +68,10 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
     expect(koryo?.hangul).toBe('고려');
   });
 
-  it('Palgwae é mantido em seção própria separada dos Taegeuk', () => {
-    const palgwaeCat = getCategoryById('palgwae');
-    expect(palgwaeCat).toBeDefined();
-    const items = getItemsByCategory('palgwae');
-    expect(items.length).toBeGreaterThan(0);
-    expect(items[0].slug).toContain('palgwae');
+  it('mantém Palgwae como categoria própria sem declarar contagens de movimentos não comprovadas', () => {
+    expect(getCategoryById('palgwae')).toBeDefined();
+    expect(getItemsByCategory('palgwae')).toEqual([]);
+    expect(getItemBySlug('palgwae-il-jang')).toBeUndefined();
   });
 
   it('Iron aborda teoria, bases, chutes, princípios e Hwarang-do', () => {
@@ -130,7 +114,6 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
     const searchPT = searchLibrary('frontal');
     expect(searchPT.length).toBeGreaterThan(0);
 
-    const searchSebon = searchLibrary('Sebon', 'matchuo-kyorugi');
-    expect(searchSebon.length).toBeGreaterThanOrEqual(5);
+    expect(searchLibrary('Sebon', 'matchuo-kyorugi')).toEqual([]);
   });
 });
