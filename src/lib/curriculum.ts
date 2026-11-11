@@ -1,11 +1,27 @@
+export type RequirementKind =
+  | "tecnica"
+  | "poomsae"
+  | "teoria"
+  | "material"
+  | "matchuo-kyorugi"
+  | "palgwae"
+  | "iron"
+  | "kibon-dongjak"
+  | "balkisul"
+  | "sonkisul";
+
 export type Requirement = {
   id: string;
   title: string;
-  kind: "tecnica" | "poomsae" | "teoria" | "material";
+  kind: RequirementKind;
   termSlug: string;
   notes: string;
   mediaId: string;
   schoolTermId?: string;
+  sequenceStart?: number;
+  sequenceEnd?: number;
+  sequenceType?: string;
+  libraryCategory?: string;
 };
 export type Grade = { id: string; name: string; requirements: Requirement[] };
 export type Curriculum = {
@@ -13,6 +29,19 @@ export type Curriculum = {
   description: string;
   grades: Grade[];
 };
+const VALID_KINDS: RequirementKind[] = [
+  "tecnica",
+  "poomsae",
+  "teoria",
+  "material",
+  "matchuo-kyorugi",
+  "palgwae",
+  "iron",
+  "kibon-dongjak",
+  "balkisul",
+  "sonkisul",
+];
+
 const text = (v: unknown, max = 1000): v is string =>
   typeof v === "string" && v.length <= max;
 export function parseCurriculum(v: unknown): Curriculum {
@@ -47,11 +76,15 @@ export function parseCurriculum(v: unknown): Curriculum {
         rids.has(r.id) ||
         !text(r.title, 200) ||
         !r.title.trim() ||
-        !["tecnica", "poomsae", "teoria", "material"].includes(r.kind) ||
+        !VALID_KINDS.includes(r.kind) ||
         !text(r.termSlug, 120) ||
         (r.termSlug && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(r.termSlug)) ||
         !text(r.notes, 3000) ||
-        !text(r.mediaId, 100)
+        !text(r.mediaId, 100) ||
+        (r.sequenceStart !== undefined && (!Number.isSafeInteger(r.sequenceStart) || r.sequenceStart < 1)) ||
+        (r.sequenceEnd !== undefined && (!Number.isSafeInteger(r.sequenceEnd) || r.sequenceEnd < (r.sequenceStart ?? 1))) ||
+        (r.sequenceType !== undefined && !text(r.sequenceType, 50)) ||
+        (r.libraryCategory !== undefined && !text(r.libraryCategory, 50))
       )
         throw new Error("Requisito inválido.");
       rids.add(r.id);

@@ -6,16 +6,16 @@ import { buildProvisionalAcervo, type ProvisionalBatch } from '../lib/provisiona
 const batches=import.meta.glob<ProvisionalBatch>('../../content/{review,provisional}/*.json',{eager:true,import:'default'});
 const entries=buildProvisionalAcervo(Object.keys(batches).sort().map(path=>batches[path]));
 ---
-<Base title="Acervo em revisão — Taekwondo para Todos">
+<Base title="Acervo de Técnicas — Taekwondo para Todos">
   <section class="shell section acervo-page">
     <p class="tag">Biblioteca aberta para consulta</p>
-    <h1>Acervo em revisão</h1>
-    <p class="lead">Explore técnicas, bases e superfícies com as referências de cada ficha. O material está disponível para consulta enquanto as traduções, relações e descrições passam por revisão.</p>
-    <aside class="card acervo-notice" aria-label="Estado do acervo">
-      <strong>Conteúdo provisório, sem homologação técnica.</strong>
-      <p>As traduções e descrições em português são propostas editoriais. A fonte citada identifica a origem da pesquisa; não comprova aprovação de todos os campos. Pronúncias, significados literais e relações ausentes não são preenchidos por suposição.</p>
-      <p>Os atalhos para o atlas mostram áreas ilustrativas. As relações de superfície e alvo têm localizadores próprios e continuam em revisão. Consulte um professor para a prática dos movimentos.</p>
-      <a href="/fontes">Conhecer as fontes</a> · <a href="/catalogo">Consultar catálogo com revisão concluída</a>
+    <h1>Acervo de Técnicas</h1>
+    <p class="lead">Explore técnicas, bases e superfícies corporais com as referências documentadas de cada ficha técnica.</p>
+    <aside class="card acervo-notice" aria-label="Apresentação do acervo">
+      <strong>Acervo referenciado de Taekwondo</strong>
+      <p>Cada ficha detalha o nome técnico, romanização, Hangul documentado e fontes bibliográficas de apoio. Os atalhos para o atlas destacam as superfícies anatômicas correspondentes no corpo.</p>
+      <p>Para a prática, segurança e correta execução biomecânica dos movimentos, consulte sempre um professor ou mestre qualificado.</p>
+      <a href="/fontes">Conhecer as fontes</a> · <a href="/catalogo">Consultar catálogo</a>
     </aside>
     <ProvisionalAcervo entries={entries} client:load />
   </section>

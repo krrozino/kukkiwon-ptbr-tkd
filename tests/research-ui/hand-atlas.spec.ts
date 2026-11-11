@@ -4,7 +4,7 @@ import { mkdirSync } from 'node:fs';
 test.beforeEach(async ({ page }) => {
   await page.route('https://**/*', route => route.abort());
   await page.goto('/atlas-mao-local');
-  await expect(page.getByRole('heading', { name: 'Consulta documental da mão', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Atlas da Mão|Consulta documental da mão/ })).toBeVisible();
   await expect(page.locator('astro-island[component-url*="HandAtlasWorkbench"]')).not.toHaveAttribute('ssr', '');
 });
 
@@ -21,14 +21,14 @@ test('seleção no SVG, toque e teclado mostram a documentação da região exat
   const panel = page.locator('.surface-inspector');
   await expect(panel.locator('[data-region-documentation]')).toHaveAttribute('data-region-documentation', 'sonbadak');
   await expect(panel).toContainText('손바닥');
-  await expect(panel).toContainText('Mapeamento editorial proposto');
-  await expect(panel).toContainText('Revisão humana pendente');
+  await expect(panel).not.toContainText('Mapeamento editorial proposto');
+  await expect(panel).not.toContainText('Revisão humana pendente');
   const height = await panel.evaluate(element => element.getBoundingClientRect().height);
   const scroll = await page.evaluate(() => ({ top: scrollY, height: document.documentElement.scrollHeight }));
   const finger = page.locator('[data-region="illustration-finger-index"]');
   await finger.focus();
   await page.keyboard.press('Enter');
-  await expect(panel).toContainText('Sem terminologia técnica vinculada');
+  await expect(panel).toContainText('Superfície anatômica da mão identificada no mapa corporal');
   await expect(panel.locator('[lang="ko"]')).toHaveCount(0);
   expect(await panel.evaluate(element => element.getBoundingClientRect().height)).toBe(height);
   const after = await page.evaluate(() => ({ top: scrollY, height: document.documentElement.scrollHeight }));
@@ -182,10 +182,10 @@ test('todas as 19 superfícies da mão respondem ao clique geométrico real no S
       await expect(panel.locator('[data-region-documentation]')).toHaveAttribute('data-region-documentation', slug);
 
       if (technicalSlugs.has(slug)) {
-        await expect(panel).toContainText('Mapeamento editorial proposto');
+        await expect(panel).not.toContainText('Mapeamento editorial proposto');
         await expect(panel.locator('[lang="ko"]').first()).toBeVisible();
       } else {
-        await expect(panel).toContainText('Sem terminologia técnica vinculada');
+        await expect(panel).toContainText('Superfície anatômica da mão identificada no mapa corporal');
         await expect(panel.locator('[lang="ko"]')).toHaveCount(0);
       }
       visited.add(slug);

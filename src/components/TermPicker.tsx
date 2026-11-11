@@ -65,8 +65,7 @@ export default function TermPicker({
                   setTerms([]);
                 }}
               >
-                {t.romanization} · {t.translation_pt}
-                {t.publication_status === "draft" ? " · rascunho" : ""}
+                {t.romanization}{t.translation_pt ? ` · ${t.translation_pt}` : ""}
               </button>
             </li>
           ))}

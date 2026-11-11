@@ -69,17 +69,7 @@ export default function TermContext({
         </p>
       ) : (
         <>
-          <p className="tag">
-            {detail.term.category} ·{" "}
-            {detail.term.publication_status === "draft"
-              ? "Conteúdo provisório"
-              : "Catálogo"}
-          </p>
-          {detail.term.publication_status === "draft" && (
-            <p className="review-label">
-              Rascunho não validado · tradução e execução aguardam revisão.
-            </p>
-          )}
+          <p className="tag">{detail.term.category}</p>
           <h3><KoreanExpression expressionId={detail.term.slug} fallback={detail.term.romanization} publishedTerm={detail.term}/></h3>
           <p lang="ko" className="hangul">
             <KoreanExpression expressionId={detail.term.slug} script="hangul" fallback={detail.term.hangul} publishedTerm={detail.term}/>

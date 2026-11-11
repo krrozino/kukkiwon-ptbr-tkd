@@ -90,18 +90,58 @@ export default function CurriculumEditor({
               Remover graduação
             </button>
           </div>
-          {g.requirements.map((r) => (
+          {g.requirements.map((r, rIndex) => (
             <div className="requirement-editor stack" key={r.id}>
+              <div className="req-header-row">
+                <span className="req-num">Conteúdo {rIndex + 1}</span>
+                {r.sequenceStart !== undefined && r.sequenceEnd !== undefined && (
+                  <span className="req-seq-badge">
+                    {r.sequenceType || "Sequência"} {r.sequenceStart} a {r.sequenceEnd}
+                  </span>
+                )}
+                <div className="req-reorder-actions">
+                  <button
+                    type="button"
+                    disabled={rIndex === 0}
+                    aria-label={`Subir conteúdo ${rIndex + 1}`}
+                    onClick={() => {
+                      grade(g.id, (g) => {
+                        const next = [...g.requirements];
+                        [next[rIndex - 1], next[rIndex]] = [next[rIndex], next[rIndex - 1]];
+                        return { ...g, requirements: next };
+                      });
+                    }}
+                  >
+                    ↑ Subir
+                  </button>
+                  <button
+                    type="button"
+                    disabled={rIndex === g.requirements.length - 1}
+                    aria-label={`Descer conteúdo ${rIndex + 1}`}
+                    onClick={() => {
+                      grade(g.id, (g) => {
+                        const next = [...g.requirements];
+                        [next[rIndex + 1], next[rIndex]] = [next[rIndex], next[rIndex + 1]];
+                        return { ...g, requirements: next };
+                      });
+                    }}
+                  >
+                    ↓ Descer
+                  </button>
+                </div>
+              </div>
+
               <label className="field">
-                Conteúdo
+                Conteúdo / Título do requisito
                 <input
                   value={r.title}
                   maxLength={200}
                   onChange={(e) => req(g.id, r.id, { title: e.target.value })}
                 />
               </label>
+
               <label className="field">
-                Tipo de requisito
+                Área / Tipo de requisito
                 <select
                   value={r.kind}
                   onChange={(e) =>
@@ -110,12 +150,112 @@ export default function CurriculumEditor({
                     })
                   }
                 >
-                  <option value="tecnica">Técnica</option>
-                  <option value="poomsae">Poomsae</option>
+                  <option value="tecnica">Técnica Geral</option>
+                  <option value="matchuo-kyorugi">Matchuo Kyorugi (Luta Combinada)</option>
+                  <option value="poomsae">Poomsae (Formas)</option>
+                  <option value="palgwae">Palgwae (Formas Históricas)</option>
+                  <option value="iron">Iron (Teoria / Filosofia)</option>
+                  <option value="kibon-dongjak">Kibon Dongjak (Fundamentos)</option>
+                  <option value="balkisul">Balkisul (Chutes / Pernas)</option>
+                  <option value="sonkisul">Sonkisul (Mãos / Punhos)</option>
                   <option value="teoria">Conhecimento teórico</option>
                   <option value="material">Material de estudo</option>
                 </select>
               </label>
+
+              <div className="card sequence-range-config">
+                <strong>Configuração de Sequências Numeradas</strong>
+                <p className="fine-print">
+                  Defina intervalos numerados específicos para a graduação (ex: Sebon 1 ao 5 para Faixa Amarela, ou 1 ao 10 para Ponta Verde).
+                </p>
+                <div className="sequence-inputs-row" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <label className="field" style={{ flex: '1 1 120px' }}>
+                    Modalidade
+                    <select
+                      value={r.sequenceType || "sebon"}
+                      onChange={(e) => req(g.id, r.id, { sequenceType: e.target.value })}
+                    >
+                      <option value="sebon">Sebon (3 passos)</option>
+                      <option value="dubon">Dubon (2 passos)</option>
+                      <option value="anjoa">Anjoa (sentado)</option>
+                      <option value="sequência">Outra sequência</option>
+                    </select>
+                  </label>
+                  <label className="field" style={{ flex: '1 1 90px' }}>
+                    Do nº
+                    <input
+                      type="number"
+                      min={1}
+                      max={100}
+                      value={r.sequenceStart ?? ""}
+                      placeholder="Início"
+                      onChange={(e) => {
+                        const val = e.target.value ? parseInt(e.target.value, 10) : undefined;
+                        req(g.id, r.id, { sequenceStart: val });
+                      }}
+                    />
+                  </label>
+                  <label className="field" style={{ flex: '1 1 90px' }}>
+                    Ao nº
+                    <input
+                      type="number"
+                      min={r.sequenceStart || 1}
+                      max={100}
+                      value={r.sequenceEnd ?? ""}
+                      placeholder="Fim"
+                      onChange={(e) => {
+                        const val = e.target.value ? parseInt(e.target.value, 10) : undefined;
+                        req(g.id, r.id, { sequenceEnd: val });
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <div className="sequence-presets-row" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      req(g.id, r.id, {
+                        kind: "matchuo-kyorugi",
+                        sequenceType: "sebon",
+                        sequenceStart: 1,
+                        sequenceEnd: 5,
+                        title: "Matchuo Kyorugi — Sebon 1 ao 5",
+                      });
+                    }}
+                  >
+                    Exemplo: Sebon 1 ao 5 (Faixa Amarela)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      req(g.id, r.id, {
+                        kind: "matchuo-kyorugi",
+                        sequenceType: "sebon",
+                        sequenceStart: 1,
+                        sequenceEnd: 10,
+                        title: "Matchuo Kyorugi — Sebon 1 ao 10",
+                      });
+                    }}
+                  >
+                    Exemplo: Sebon 1 ao 10 (Ponta Verde)
+                  </button>
+                  {(r.sequenceStart !== undefined || r.sequenceEnd !== undefined) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        req(g.id, r.id, {
+                          sequenceStart: undefined,
+                          sequenceEnd: undefined,
+                          sequenceType: undefined,
+                        });
+                      }}
+                    >
+                      Remover numeração
+                    </button>
+                  )}
+                </div>
+              </div>
               <label className="field">
                 Orientação compartilhada do professor
                 <textarea
