@@ -259,7 +259,7 @@ export default function DetailMap({
                 <strong>{focused.name_pt}</strong>
                 <span>{inspectedDetail?.term.romanization || "Identificação em consulta"}</span>
                 <span lang="ko">{inspectedDetail?.term.hangul || "Hangul em consulta"}</span>
-                <span>Pronúncia: {inspectedDetail?.term.pronunciation_pt || "ainda não conferida"}</span>
+                {inspectedDetail?.term.pronunciation_pt && <span>Pronúncia: {inspectedDetail.term.pronunciation_pt}</span>}
                 <small>{inspectedDetail?.term.definition_pt?.slice(0, 160) || "Consulte os vínculos desta superfície."}</small>
                 <a className="inline-link" href={`/tecnica?slug=${encodeURIComponent(focused.slug)}`}>Abrir ficha técnica →</a>
                 <AtlasSourceEvidence kind="technical" sources={inspectedDetail?.sources} />
