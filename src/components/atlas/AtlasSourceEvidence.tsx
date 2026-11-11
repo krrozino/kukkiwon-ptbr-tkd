@@ -20,24 +20,16 @@ export default function AtlasSourceEvidence({
           Desenho esquemático do projeto. A identificação visual em português
           não constitui nomenclatura oficial da Kukkiwon.
         </small>
-        <a href="/fontes">Como conferimos as fontes e as técnicas</a>
+        <a href="/fontes">Fontes e referências</a>
       </div>
     );
   }
   const checked = sources.filter(hasCheckedSource);
+  if (!checked.length) return null;
   return (
     <div className="atlas-source-evidence" aria-label="Referências desta região">
-      <span className="atlas-source-heading">Fonte documental desta ficha</span>
-      {checked.length ? (
-        <KnowledgeReferences sources={checked} />
-      ) : (
-        <p className="fine-print">
-          Esta prévia ainda não apresenta fonte individual com localizador e
-          conferência registrados. A referência técnica precisa ser verificada.
-          {" "}
-          <a href="/fontes">Entenda os critérios de publicação</a>.
-        </p>
-      )}
+      <span className="atlas-source-heading">Fontes desta região</span>
+      <KnowledgeReferences sources={checked} />
     </div>
   );
 }

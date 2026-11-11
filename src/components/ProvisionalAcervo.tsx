@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { filterProvisionalAcervo, type ProvisionalEntry, type ProvisionalEvidence } from '../lib/provisional-acervo';
 
-const fieldLabels={romanization:'Romanização documentada',hangul:'Hangul documentado',translation_pt:'Tradução proposta',definition_pt:'Descrição proposta'};
+const fieldLabels={romanization:'Romanização',hangul:'Hangul',translation_pt:'Tradução',definition_pt:'Descrição'};
 const roleLabels:Record<string,string>={surface:'Superfície usada',target:'Região alvo',movement:'Região em movimento',anatomy:'Referência anatômica'};
 const kindLabels:Record<string,string>={family:'Família',variant:'Variante',surface:'Superfície',anatomy:'Referência anatômica',technique:'Técnica'};
 function Evidence({evidence}:Readonly<{evidence:ProvisionalEvidence}>) {

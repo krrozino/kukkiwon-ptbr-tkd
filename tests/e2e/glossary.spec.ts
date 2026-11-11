@@ -10,7 +10,7 @@ test('busca aceita aliases nas expressões completas',async({page})=>{
 test('glossário explica palavra e expressão em ambos os alfabetos sem reflow',async({page,isMobile})=>{
  await page.goto('/glossario');
  await expect(page.getByRole('heading',{name:'Entenda o coreano do Taekwondo',exact:true})).toBeVisible();
- await expect(page.getByText('Prévia local de conteúdo em revisão',{exact:true})).toBeVisible();
+ await expect(page.getByText('Prévia local de conteúdo em revisão',{exact:true})).toHaveCount(0);
  await page.getByRole('searchbox',{name:'Buscar palavra ou expressão'}).fill('makki');
  await expect(page.locator('[data-word-card="makgi"]')).toBeVisible();
  await page.getByRole('searchbox').fill('montong');

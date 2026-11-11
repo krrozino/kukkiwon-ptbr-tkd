@@ -39,7 +39,7 @@ test('zona ilustrada explica a anatomia sem consultar ficha técnica não public
   await expect(panel).toContainText('Palma da mão');
   await expect(panel).toContainText('Superfície interna');
   await expect(panel.locator('[lang="ko"],a[href^="/tecnica"]')).toHaveCount(0);
-  await expect(panel.getByRole("link",{name:"Como conferimos as fontes e as técnicas"})).toHaveAttribute("href","/fontes");
+  await expect(panel.getByRole("link",{name:"Fontes e referências"})).toHaveAttribute("href","/fontes");
   expect(queries).toEqual([]);
 });
 

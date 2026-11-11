@@ -100,9 +100,6 @@ export default function CurriculumView({
                             .description
                         }
                       </p>
-                      <small>
-                        Técnica própria da escola · sem homologação editorial
-                      </small>
                     </div>
                   ) : (
                     <p className="fine-print">

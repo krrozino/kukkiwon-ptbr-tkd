@@ -28,7 +28,7 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   await expect(tip).toContainText("Sonnal");
   await expect(tip).toContainText("Borda externa da mão");
   await expect(tip.locator('[lang="ko"]')).toHaveText('손날');
-  await expect(tip).toContainText('Pronúncia: ainda não conferida');
+  await expect(tip).not.toContainText('Pronúncia:');
   await expect(tip).toContainText('Superfície junto ao dedo mínimo.');
   await expect(tip.getByRole('link',{name:'Abrir ficha técnica'})).toHaveAttribute('href','/tecnica?slug=sonnal');
   const illustration=page.locator(".surface-canvas .detail-svg");
@@ -44,7 +44,7 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   await page.locator('[data-legend-zone="illustration-thumb"]').click();
   await expect(tip).toContainText('Polegar');
   await expect(tip.getByRole("link",{name:"Abrir ficha técnica"})).toHaveCount(0);
-  await expect(tip.getByRole("link",{name:"Como conferimos as fontes e as técnicas"})).toHaveAttribute("href","/fontes");
+  await expect(tip.getByRole("link",{name:"Fontes e referências"})).toHaveAttribute("href","/fontes");
   await expect(page.locator('.detail-svg [data-region="illustration-thumb"]')).toHaveAttribute('aria-pressed','true');
   await page.locator('[data-legend-zone="sonnal"]').click();
   // Tab percorre os recortes seguintes sem apagar a ficha selecionada.

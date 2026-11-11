@@ -21,11 +21,11 @@ import { competitionReferences, kukkiwonSparringIndex, martialFamilies, sparring
     <div class="grid ky-families">
       {martialFamilies.map((family) =>
         <article class="card">
-          <p class="fine-print">Índice de estudo · fonte institucional · tradução técnica em revisão</p>
+          <p class="fine-print">Família técnica · referência Kukkiwon</p>
           <h3>{family.name}</h3>
           <h4>{family.label}</h4>
           <p>{family.summary}</p>
-          <p class="fine-print">Referência: {family.evidence.document}, {family.evidence.locator}. Consulta em {family.evidence.sourceCheckedAt}. Interpretação em português em revisão técnica.</p>
+          <p class="fine-print">Fonte: {family.evidence.document}, {family.evidence.locator}.</p>
           <div class="ky-card-links">
             <a href={'/atlas?region='+family.atlas+'&zoom=1'}>Explorar {family.atlasLabel}</a>
             <a href={sparringSource(family.boardNo)} target="_blank" rel="noopener noreferrer" aria-label={'Ler fonte Kukkiwon: '+family.name}>Fonte Kukkiwon · artigo {family.boardNo}</a>
@@ -33,7 +33,7 @@ import { competitionReferences, kukkiwonSparringIndex, martialFamilies, sparring
         </article>
       )}
     </div>
-    <p class="fine-print">As descrições são resumos editoriais de orientação. A <a href={kukkiwonSparringIndex} target="_blank" rel="noopener noreferrer">coleção institucional de técnicas</a> é a fonte-base. Fichas individuais com Hangul, execução e aplicações somente aparecem no catálogo após revisão documental.</p>
+    <p class="fine-print">Conheça também a <a href={kukkiwonSparringIndex} target="_blank" rel="noopener noreferrer">coleção institucional de técnicas</a> e explore as fichas disponíveis no catálogo.</p>
   </section>
   <section class="shell section" id="combinado">
     <div class="card ky-feature">

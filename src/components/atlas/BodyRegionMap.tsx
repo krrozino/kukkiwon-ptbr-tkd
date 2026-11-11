@@ -55,13 +55,13 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     </svg>
     <section className="surface-inspector" aria-label="Detalhes da região selecionada">
       {focused?<div role="tooltip" className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={focused.id}>
-        {record?<><strong>{record.name_pt}</strong><span>{inspectedDetail?.term.romanization||'Identificação em consulta'}</span>
-          <span lang="ko">{inspectedDetail?.term.hangul||'Hangul em consulta'}</span>
-          <span>Pronúncia: {inspectedDetail?.term.pronunciation_pt||'ainda não conferida'}</span>
+        {record?<><strong>{record.name_pt}</strong>{inspectedDetail?.term.romanization&&<span>{inspectedDetail.term.romanization}</span>}
+          {inspectedDetail?.term.hangul&&<span lang="ko">{inspectedDetail.term.hangul}</span>}
+          {inspectedDetail?.term.pronunciation_pt&&<span>Pronúncia: {inspectedDetail.term.pronunciation_pt}</span>}
           <small>{inspectedDetail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
           <a className="inline-link" href={'/tecnica?slug='+encodeURIComponent(record.slug)}>Abrir ficha técnica →</a>
           <AtlasSourceEvidence kind="technical" sources={inspectedDetail?.sources}/>
-        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><small>Descrição anatômica para estudo; a nomenclatura técnica ainda exige conferência.</small><AtlasSourceEvidence kind="illustrative"/></>}
+        </>:<><strong>{zoneCopy[focused.id]?.title||'Região anatômica ilustrativa'}</strong><span>{zoneCopy[focused.id]?.description||'Região selecionada na ilustração.'}</span><AtlasSourceEvidence kind="illustrative"/></>}
       </div>:<div className="surface-placeholder" aria-hidden="true"><span className="surface-placeholder-icon">◎</span><strong>Explore as áreas coloridas</strong><small>Selecione uma zona no desenho ou na legenda.</small></div>}
     </section>
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">

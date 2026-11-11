@@ -8,7 +8,7 @@ export function PoomsaeSequence({form,steps}:{form:PoomsaeForm;steps:PoomsaeStep
     <h2>{form.technical_terms.romanization}</h2>
     {form.technical_terms.hangul&&<p lang="ko">{form.technical_terms.hangul}</p>}
     <p>{form.technical_terms.translation_pt}</p>
-    <p className="fine-print">Versão documental: {form.sequence_version}. A numeração segue os registros publicados.</p>
+    <p className="fine-print">Versão: {form.sequence_version}.</p>
     <a href={'/tecnica?slug='+encodeURIComponent(form.technical_terms.slug)}>Consultar ficha e referências da forma</a>
     <KnowledgeReferences sources={[form]}/>
     {!steps.length?<p>Nenhum movimento publicado para esta versão.</p>:<ol>{steps.map(step=><li key={step.id} value={step.step_number} className="card">
@@ -87,7 +87,7 @@ export default function PoomsaeApp() {
     <div className="card">
       <p className="tag">Conteúdo educativo de referência</p>
       <h2>Conheça os oito Taegeuk</h2>
-      <p>Os nomes e os temas gerais das oito formas Taegeuk podem ser estudados desde já. As sequências passo a passo e os vínculos técnicos continuarão separados até a validação documental.</p>
+      <p>Explore os nomes, os símbolos e os temas das oito formas Taegeuk e consulte suas referências de origem.</p>
       <div className="grid">
         {taegeukIndex.map(form=><article key={form.number} className="card">
           <p className="tag">Forma {form.number} de 8</p>
@@ -97,18 +97,18 @@ export default function PoomsaeApp() {
           <a className="inline-link" target="_blank" rel="noreferrer" href={`https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=${form.boardNo}&menuLevel=3&menuNo=72`}>Ler a descrição original na Kukkiwon →</a>
         </article>)}
       </div>
-      <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon; não substitui ensino supervisionado nem constitui uma sequência técnica homologada neste site. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
+      <p className="fine-print">Resumo introdutório independente, baseado nas descrições públicas da Kukkiwon. Não substitui a orientação de um professor. <a href={kukkiwonPoomsaeSource} target="_blank" rel="noreferrer">Consultar a referência original de Poomsae</a>.</p>
     </div>
     </section>
     <section className="card section-inner" aria-label="Poomsae de graduação Dan">
       <p className="tag">Poomsae de graduação Dan</p>
       <h2>Conheça as formas de Koryo a Ilyeo</h2>
-      <p>Os nove nomes e temas abaixo são apresentados pela Kukkiwon. Seus movimentos ainda precisam de documentação específica e revisão antes de aparecer como sequência aqui.</p>
+      <p>Conheça os nove Poomsae superiores e os temas apresentados nas referências da Kukkiwon.</p>
       <div className="grid">
         {danIndex.map(form=><article key={form.boardNo} className="card">
           <h3>{form.name}</h3>
           <p>{form.theme}</p>
-          <p className="fine-print">Kukkiwon · {form.evidence.locator}. Fonte consultada em {form.evidence.sourceCheckedAt}. Resumo editorial em revisão; sequência técnica não verificada.</p>
+          <p className="fine-print">Kukkiwon · {form.evidence.locator}.</p>
           <a className="inline-link" target="_blank" rel="noopener noreferrer"
             href={`https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=${form.boardNo}&menuLevel=3&menuNo=72`}>
             Conferir nome e contexto na Kukkiwon →
@@ -117,8 +117,8 @@ export default function PoomsaeApp() {
       </div>
     </section>
     <div className="empty" role="status">
-      <h2>Poomsae em preparação</h2>
-      <p>As sequências detalhadas aparecerão após conferência das fontes e aprovação editorial de cada movimento.</p>
+      <h2>Continue explorando</h2>
+      <p>Conheça as técnicas do catálogo e organize seu currículo de estudos.</p>
       <div className="actions"><a href="/catalogo">Consultar catálogo</a><a href="/curriculos">Montar currículo de estudos</a></div>
     </div>
   </div>;

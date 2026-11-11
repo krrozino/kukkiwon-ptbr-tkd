@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-test('consulta todos os registros provisórios, filtra e abre fonte individual',async({page})=>{
+test('consulta todos os registros catalogados, filtra e abre fonte individual',async({page})=>{
   const backend:string[]=[];
   page.on('request',r=>{if(r.url().includes('supabase.co'))backend.push(r.url());});
   await page.goto('/acervo');
-  await expect(page.getByRole('heading',{name:'Acervo em revisão',exact:true})).toBeVisible();
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
-  await expect(page.getByLabel('Estado do acervo')).toContainText('sem homologação técnica');
+  await expect(page.getByRole('heading',{name:'Acervo de Técnicas',exact:true})).toBeVisible();
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
+  await expect(page.getByRole('complementary',{name:'Apresentação do acervo'})).toContainText('Acervo referenciado');
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
   const entry=page.locator('#palgup-biteureo-kkeokgi');
   await expect(entry).toContainText('Região alvo:');
   await expect(entry).toContainText('PDF físico p. 43');
@@ -29,28 +29,32 @@ test('relações reversas, teclado e layout escuro funcionam em desktop e celula
   await expect(page.getByLabel('Região relacionada')).toHaveValue('palgup');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
+  await expect(page.locator('#palgup-biteureo-kkeokgi')).toBeVisible();
   await page.reload();
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('Palgup-biteureo');
-  const details=page.locator('#palgup-biteureo-kkeokgi summary');
-  await details.focus();await page.keyboard.press('Enter');
-  await expect(page.locator('#palgup-biteureo-kkeokgi details')).toHaveAttribute('open','');
-  await expect(page.locator('#palgup-biteureo-kkeokgi details')).toContainText('Pronúncia em português');
+  await expect(page.locator('#palgup-biteureo-kkeokgi')).toBeVisible();
+  const article=page.locator('#palgup-biteureo-kkeokgi');
+  const title=article.locator('h2 a');
+  await title.focus();
+  await expect(title).toBeFocused();
+  await expect(article.locator('dl')).toContainText('Hangul');
+  await expect(article.locator('.acervo-evidence a').first()).toHaveAttribute('rel','noopener noreferrer');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1)).toBe(true);
   await page.screenshot({path:'test-results/acervo-'+test.info().project.name+'.png',fullPage:true});
 });
 
 test('Voltar restaura os filtros depois de abrir uma âncora de ficha',async({page})=>{
   await page.goto('/acervo');
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
   await page.locator('#ap-chagi h2 a').click();
   await expect(page).toHaveURL(/#ap-chagi$/);
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
   await page.goBack();
   await expect(page).toHaveURL(/\/acervo$/);
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('');
-  await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('120 de 120 registros catalogados');
   await page.goForward();
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('Palgup-biteureo');
-  await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
+  await expect(page.getByRole('status')).toHaveText('1 de 120 registros catalogados');
 });
