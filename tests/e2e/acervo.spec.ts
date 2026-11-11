@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-test('consulta todos os registros provisórios, filtra e abre fonte individual',async({page})=>{
+test('consulta todos os registros catalogados, filtra e abre fonte individual',async({page})=>{
   const backend:string[]=[];
   page.on('request',r=>{if(r.url().includes('supabase.co'))backend.push(r.url());});
   await page.goto('/acervo');
-  await expect(page.getByRole('heading',{name:'Acervo em revisão',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Acervo de Técnicas',exact:true})).toBeVisible();
   await expect(page.getByRole('status')).toHaveText('120 de 120 registros provisórios');
-  await expect(page.getByLabel('Estado do acervo')).toContainText('sem homologação técnica');
+  await expect(page.getByRole('complementary',{name:'Apresentação do acervo'})).toContainText('Acervo referenciado');
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
   await expect(page.getByRole('status')).toHaveText('1 de 120 registros provisórios');
   const entry=page.locator('#palgup-biteureo-kkeokgi');
@@ -29,8 +29,10 @@ test('relações reversas, teclado e layout escuro funcionam em desktop e celula
   await expect(page.getByLabel('Região relacionada')).toHaveValue('palgup');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
   await page.getByRole('searchbox',{name:'Buscar no acervo'}).fill('Palgup-biteureo');
+  await expect(page.locator('#palgup-biteureo-kkeokgi')).toBeVisible();
   await page.reload();
   await expect(page.getByRole('searchbox',{name:'Buscar no acervo'})).toHaveValue('Palgup-biteureo');
+  await expect(page.locator('#palgup-biteureo-kkeokgi')).toBeVisible();
   const details=page.locator('#palgup-biteureo-kkeokgi summary');
   await details.focus();await page.keyboard.press('Enter');
   await expect(page.locator('#palgup-biteureo-kkeokgi details')).toHaveAttribute('open','');

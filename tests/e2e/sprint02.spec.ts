@@ -171,7 +171,7 @@ test("currículo: cria um plano real sem dados de exemplo, salva localmente e ma
   const grade=page.locator(".grade-editor").last();
   await grade.getByLabel("Nome da graduação",{exact:true}).fill("Segunda etapa");
   await grade.getByRole("button",{name:"Adicionar conteúdo",exact:true}).click();
-  await grade.getByLabel("Conteúdo",{exact:true}).fill("Revisão com o professor");
+  await grade.getByLabel("Conteúdo / Título do requisito",{exact:true}).fill("Revisão com o professor");
   await page.getByRole("button",{name:"Salvar currículo neste navegador",exact:true}).click();
   await expect(page.getByRole("heading",{name:"Plano da escola",exact:true})).toBeVisible();
   await page.getByRole("checkbox").first().check();
