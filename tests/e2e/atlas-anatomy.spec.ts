@@ -29,17 +29,17 @@ test('região técnica da borda do polegar mantém posição ao refinar os dedos
   }
 });
 
-test('zona ilustrada explica a anatomia sem consultar ficha técnica não publicada',async({page})=>{
+test('palma mostra terminologia e fontes mesmo sem a API de técnicas',async({page})=>{
   await emptyCatalog(page);
   const queries:string[]=[];
   page.on('request',r=>{if(r.url().includes('/technical_terms'))queries.push(r.url());});
   await page.goto('/atlas?region=hands&zoom=1');
   await page.locator('[data-legend-zone="sonbadak"]').click();
-  const panel=page.getByRole('tooltip');
+  const panel=page.locator('[data-hand-region="sonbadak"]');
   await expect(panel).toContainText('Palma da mão');
   await expect(panel).toContainText('Superfície interna');
-  await expect(panel.locator('[lang="ko"],a[href^="/tecnica"]')).toHaveCount(0);
-  await expect(panel.getByRole("link",{name:"Como conferimos as fontes e as técnicas"})).toHaveAttribute("href","/fontes");
+  await expect(panel.locator('[lang="ko"]')).toContainText('손바닥');
+  await expect(panel.locator('a[href^="/tecnica"]')).toHaveCount(0);
   expect(queries).toEqual([]);
 });
 
@@ -64,7 +64,8 @@ for(const area of ['hands','feet']) {
     const slug=area==='hands'?'sonnal':'balnal';
     await page.locator('[data-legend-zone="'+slug+'"]').click();
     await expect(page.locator('.detail-svg [data-region="'+slug+'"]')).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText(area==='hands'?'Borda do lado do dedo mínimo':'Borda externa do pé');
+    if(area==='hands') await expect(page.locator('[data-hand-region="sonnal"]')).toContainText('Sonnal');
+    else await expect(page.getByRole('tooltip')).toContainText('Borda externa do pé');
   });
 }
 
