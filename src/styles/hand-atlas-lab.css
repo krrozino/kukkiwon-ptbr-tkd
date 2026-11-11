@@ -1,0 +1,29 @@
+/* Imported only by the development workbench. Manual theme follows the site. */
+.hand-atlas-lab{--hand-border:#c5d6d1;--hand-muted:#435b63;--hand-panel:#f4f8f7;max-width:100%;min-width:0}
+.hand-atlas-lab .notice{margin-bottom:20px}
+.hand-atlas-lab .hand-documentation{font-size:.94rem;line-height:1.6;overflow-wrap:anywhere;min-width:0}
+.hand-atlas-lab .hand-documentation h3{font-size:1.2rem;line-height:1.4;margin:0 0 10px}
+.hand-atlas-lab .hand-documentation h4{font-size:1.05rem;line-height:1.4;margin:22px 0 10px}
+.hand-atlas-lab .hand-documentation h5{font-size:1rem;margin:14px 0 8px}
+.hand-atlas-lab .hand-documentation p{margin:8px 0}
+.hand-atlas-lab .hand-state{font-weight:650;color:var(--hand-muted)}
+.hand-atlas-lab .hand-evidence{padding:12px 0;border-bottom:1px solid var(--hand-border)}
+.hand-atlas-lab .hand-evidence p[lang="ko"]{font-size:1.5rem}
+.hand-atlas-lab .hand-reference{display:grid;gap:5px;margin:10px 0;color:var(--hand-muted);font-size:.88rem}
+.hand-atlas-lab .hand-reference a{font-size:inherit;line-height:1.6}
+.hand-atlas-lab .hand-basis{padding:10px;border-left:3px solid var(--hand-border);background:var(--hand-panel)}
+.hand-atlas-lab .surface-tooltip .hand-reference span{font-size:inherit;color:inherit}
+.hand-atlas-lab .hand-document-browser{border-top:1px solid var(--hand-border);padding-top:20px;margin-top:24px}
+.hand-atlas-lab .hand-document-browser label{display:grid;gap:8px;margin:12px 0}
+.hand-atlas-lab .hand-document-browser input[type="search"]{width:100%;max-width:560px;min-height:44px}
+.hand-atlas-lab .hand-document-browser .hand-filter{display:flex;align-items:center;gap:10px;min-height:44px}
+.hand-atlas-lab .hand-filter input{width:20px;height:20px;flex-shrink:0}
+.hand-atlas-lab .hand-term-results{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.hand-atlas-lab .hand-term-results li{max-width:100%}
+.hand-atlas-lab .hand-term-results button{min-height:44px;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.hand-atlas-lab .hand-term-results button[aria-pressed="true"]{border:2px solid #247778}
+.hand-atlas-lab .hand-term-detail{padding:20px;border:1px solid var(--hand-border);border-radius:12px;margin-top:22px}
+.hand-atlas-lab :focus-visible{outline:3px solid #247778;outline-offset:3px}
+[data-theme="dark"] .hand-atlas-lab{--hand-border:#385265;--hand-muted:#b5c8d2;--hand-panel:#233849}
+[data-theme="dark"] .hand-atlas-lab :focus-visible{outline-color:#80d6cc}
+@media(max-width:750px){.hand-atlas-lab .hand-term-detail{padding:14px}}
