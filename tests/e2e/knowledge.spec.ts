@@ -5,7 +5,7 @@ test('public Poomsae empty state works without calling the optional schema',asyn
   page.on('request',request=>{if(/\/poomsae_(forms|steps)/.test(request.url()))schemaRequests.push(request.url());});
   await page.goto('/poomsae');
   await expect(page.getByRole('heading',{name:'Poomsae',exact:true})).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Poomsae em preparação'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Continue explorando'})).toBeVisible();
   await expect(page.getByRole('heading',{name:'Conheça os oito Taegeuk'})).toBeVisible();
   await expect(page.locator('section[aria-label="Introdução às formas Taegeuk"] article')).toHaveCount(8);
   await expect(page.getByRole('link',{name:'Consultar a referência original de Poomsae'})).toHaveAttribute('href',/kukkiwon\.or\.kr/);
