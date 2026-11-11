@@ -170,12 +170,7 @@ export default function FichaTecnica() {
       <section className="section-inner">
         <h2>Mídia autorizada</h2>
         <TermSchoolMedia slug={term.slug} />
-        {media.length === 0 ? (
-          <p>
-            Vídeos e imagens serão incluídos após conferência de autoria e
-            permissões.
-          </p>
-        ) : (
+        {media.length > 0 && (
           <ul>
             {media.map((item) => (
               <li key={item.id}>

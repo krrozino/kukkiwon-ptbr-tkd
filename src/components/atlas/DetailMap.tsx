@@ -248,7 +248,7 @@ export default function DetailMap({
             id="surface-tooltip"
             key={focused.slug}
             role={renderInspection ? "region" : "tooltip"}
-            aria-label={renderInspection ? "Ficha documental da região" : undefined}
+            aria-label={renderInspection ? "Detalhes da região" : undefined}
             className={"surface-tooltip" + (published.has(focused.slug) ? "" : " surface-tooltip-compact")}
             data-placement={placement}
           >
