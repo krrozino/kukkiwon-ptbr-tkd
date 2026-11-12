@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import {
   LIBRARY_CATEGORIES,
-  LIBRARY_ITEMS,
+  searchLibrary,
   type LibraryCategoryId,
 } from '../../lib/library';
 import { getHandRegion } from '../../lib/public-hand';
@@ -17,20 +17,11 @@ export default function LibraryExplorer({ initialCategory }: { initialCategory?:
   }, [selectedCategory]);
 
   const filteredItems = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    return LIBRARY_ITEMS.filter((item) => {
-      if (selectedCategory !== 'all' && item.categoryId !== selectedCategory) return false;
-      if (selectedSubcategory !== 'all' && item.subcategoryId !== selectedSubcategory) return false;
-      if (!q) return true;
-      return (
-        item.name.toLowerCase().includes(q) ||
-        (item.hangul && item.hangul.includes(q)) ||
-        (item.romanization && item.romanization.toLowerCase().includes(q)) ||
-        (item.pronunciation_pt && item.pronunciation_pt.toLowerCase().includes(q)) ||
-        item.description.toLowerCase().includes(q) ||
-        (item.literalMeaning && item.literalMeaning.toLowerCase().includes(q))
-      );
-    });
+    const category = selectedCategory === 'all' ? undefined : selectedCategory;
+    const entries = searchLibrary(searchQuery, category);
+    return selectedSubcategory === 'all'
+      ? entries
+      : entries.filter(item => item.subcategoryId === selectedSubcategory);
   }, [selectedCategory, selectedSubcategory, searchQuery]);
 
   return (
