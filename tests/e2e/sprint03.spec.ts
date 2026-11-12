@@ -86,9 +86,9 @@ test("professor salva, recarrega, vincula imagem e técnica própria, compartilh
   await expect(page.getByText("Responsável conectado:")).toBeVisible();
   await page.getByRole("button", { name: "Escola Piloto", exact: true }).click();
   await page.getByLabel("Abrir currículo salvo").selectOption(curriculumId);
-  await expect(page.getByLabel("Conteúdo", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Conteúdo / Título do requisito", { exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "Adicionar conteúdo", exact: true }).first().click();
-  await page.getByLabel("Conteúdo", { exact: true }).first().fill("Prática inicial da escola");
+  await page.getByLabel("Conteúdo / Título do requisito", { exact: true }).first().fill("Prática inicial da escola");
 
   await page.getByText("Técnicas próprias da escola", { exact: true }).click();
   await page.getByLabel("Nome da técnica própria").fill("Base adaptada da escola");
