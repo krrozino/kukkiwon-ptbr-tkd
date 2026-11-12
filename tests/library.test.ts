@@ -45,7 +45,7 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
         expect(item.slug).toBeTruthy();
         expect(item.name).toBeTruthy();
         expect(item.description).toBeTruthy();
-        if (item.subcategoryId === 'superficies-configuracoes') expect(item.sources.length).toBeGreaterThan(0);
+        if (item.subcategoryId === 'superficies-configuracoes' && item.slug !== 'seun-pyeonjumeok') expect(item.sources.length).toBeGreaterThan(0);
       }
     }
   });
@@ -121,9 +121,11 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
     expect(new Set(LIBRARY_ITEMS.map(item => item.slug)).size).toBe(48);
     const hand = LIBRARY_ITEMS.filter(item => item.subcategoryId === 'superficies-configuracoes');
     expect(hand).toHaveLength(23);
+    expect(hand.filter(item => item.sources.length > 0)).toHaveLength(22);
+    expect(hand.find(item => item.slug === 'seun-pyeonjumeok')?.sources).toEqual([]);
     for (const item of hand) {
       expect(item.categoryId).toBe('sonkisul');
-      expect(item.sources.length).toBeGreaterThan(0);
+      if (item.slug !== 'seun-pyeonjumeok') expect(item.sources.length).toBeGreaterThan(0);
       expect(item.steps).toBeUndefined();
       expect(item.execution).toBeUndefined();
       expect(item.sources.every(source => source.url?.startsWith('https://'))).toBe(true);
