@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Curriculum } from "../lib/curriculum";
+import { sequenceLabel, type Curriculum } from "../lib/curriculum";
 import TermContext from "./TermContext";
 import MediaPlayer, { type SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
@@ -85,6 +85,7 @@ export default function CurriculumView({
                   <strong>{r.title}</strong>
                 </label>
                 <span className="pill">{r.kind}</span>
+                {sequenceLabel(r) && <span className="pill" aria-label="Sequência definida pela escola">{sequenceLabel(r)}</span>}
                 {r.schoolTermId &&
                   (schoolTerms.find((t) => t.id === r.schoolTermId) ? (
                     <div className="school-technique">
@@ -100,9 +101,6 @@ export default function CurriculumView({
                             .description
                         }
                       </p>
-                      <small>
-                        Técnica própria da escola · sem homologação editorial
-                      </small>
                     </div>
                   ) : (
                     <p className="fine-print">

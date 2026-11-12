@@ -401,3 +401,8 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .hand-term-index-results button[aria-pressed=true]{background:#205353;border-color:#72cbb9}
 [data-theme="dark"] .hand-current-region,[data-theme="dark"] .hand-term-selected{border-color:var(--theme-border)}
 @media(max-width:750px){.hand-term-index-results{max-height:310px}.hand-term-sources{padding:10px}}
+
+/* Intervalos numéricos específicos de cada currículo escolar. */
+.sequence-range-config{padding:14px;border:1px solid var(--theme-border,#dce6e8);border-radius:12px}
+.req-seq-badge{display:inline-flex;align-items:center;padding:4px 9px;border-radius:20px;font-size:.82rem;font-weight:700;background:var(--theme-panel-alt,#edf4f4)}
+.sequence-presets-row button{white-space:normal;text-align:left}
