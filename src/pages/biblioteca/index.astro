@@ -1,0 +1,238 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryNav from '../../components/library/LibraryNav';
+import LibraryExplorer from '../../components/library/LibraryExplorer';
+import { LIBRARY_CATEGORIES } from '../../lib/library';
+---
+
+<Base title="Biblioteca Geral — Taekwondo para Todos">
+  <div class="shell section library-portal">
+    <header class="library-hero card">
+      <span class="logo-mark" aria-hidden="true">도서관</span>
+      <p class="tag">Enciclopédia Comunitária</p>
+      <h1>Biblioteca Geral do Taekwondo</h1>
+      <p class="lead">
+        Conhecimento técnico, filosófico e histórico do Taekwondo organizado em sete grandes áreas.
+        Pesquise técnicas, consulte termos em Hangul, pronúncias didáticas em português e relações com o atlas corporal.
+      </p>
+      <LibraryNav />
+    </header>
+
+    <section class="library-categories-overview" aria-label="Sete Grandes Áreas">
+      <h2>As 7 Grandes Áreas do Taekwondo</h2>
+      <div class="categories-cards-grid">
+        {LIBRARY_CATEGORIES.map((cat) => (
+          <a href={`/biblioteca/${cat.id}`} class="card category-overview-card">
+            <div class="cat-header">
+              <span lang="ko" class="cat-hangul-badge">{cat.koreanHangul}</span>
+              <span class="cat-korean-name">{cat.koreanName}</span>
+            </div>
+            <h3>{cat.name}</h3>
+            <p class="cat-summary">{cat.summary}</p>
+            <div class="cat-subcategories-list">
+              {cat.subcategories.map((sub) => (
+                <span class="subcat-tag">{sub.name}</span>
+              ))}
+            </div>
+            <span class="cat-explore-link">Explorar área →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-inner" aria-label="Acervo Completo e Busca">
+      <h2>Explorar Itens e Técnicas</h2>
+      <p class="fine-print">Busque em todas as categorias simultaneamente com filtros instantâneos.</p>
+      <LibraryExplorer client:load />
+    </section>
+  </div>
+</Base>
+
+<style is:global>
+  .library-portal {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .library-hero {
+    background: linear-gradient(135deg, var(--theme-card-bg, #ffffff) 0%, rgba(36, 119, 120, 0.05) 100%);
+    border-left: 6px solid var(--theme-link, #247778);
+  }
+  .library-nav {
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 14px;
+  }
+  .library-nav-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .library-nav-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    background: var(--theme-bg, #f4f6f8);
+    color: var(--theme-text, #111c29);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .library-nav-item:hover, .library-nav-item.active {
+    background: var(--theme-link, #247778);
+    color: #ffffff;
+  }
+  .library-nav-hangul {
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+  .library-nav-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .categories-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .category-overview-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-top: 4px solid var(--theme-link, #247778);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .category-overview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+  .cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .cat-hangul-badge {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--theme-link, #247778);
+  }
+  .cat-korean-name {
+    font-size: 0.85rem;
+    color: #667085;
+  }
+  .cat-summary {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 12px;
+  }
+  .cat-subcategories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .subcat-tag {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    background: rgba(36, 119, 120, 0.08);
+    border-radius: 4px;
+    color: var(--theme-link, #247778);
+  }
+  .cat-explore-link {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--theme-link, #247778);
+  }
+  .category-chips, .subcategory-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .chip {
+    padding: 6px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: inherit;
+    transition: background 0.15s ease;
+  }
+  .chip.active {
+    background: var(--theme-link, #247778);
+    color: #ffffff;
+    border-color: var(--theme-link, #247778);
+  }
+  .subchip {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .library-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .library-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .library-card-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--theme-link, #247778);
+  }
+  .library-seq-badge {
+    font-size: 0.75rem;
+    background: #0284c7;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .library-card-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .library-body-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 6px;
+  }
+  .pill-link {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+    text-decoration: none;
+  }
+  .pill-link:hover {
+    background: var(--theme-link, #247778);
+    color: white;
+  }
+  .library-card-footer {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+</style>

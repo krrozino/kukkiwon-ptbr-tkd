@@ -1,0 +1,161 @@
+---
+import Base from '../../../layouts/Base.astro';
+import LibraryNav from '../../../components/library/LibraryNav';
+import LibraryFicha from '../../../components/library/LibraryFicha';
+import {
+  LIBRARY_CATEGORIES,
+  LIBRARY_ITEMS,
+  type LibraryCategory,
+  type LibraryItem,
+} from '../../../lib/library';
+
+export function getStaticPaths() {
+  return LIBRARY_ITEMS.map((item) => {
+    const category = LIBRARY_CATEGORIES.find((c) => c.id === item.categoryId);
+    return {
+      params: {
+        categoria: item.categoryId,
+        item: item.slug,
+      },
+      props: {
+        item,
+        category,
+      },
+    };
+  });
+}
+
+interface Props {
+  item: LibraryItem;
+  category?: LibraryCategory;
+}
+
+const { item, category } = Astro.props;
+---
+
+<Base title={`${item.name} — ${category?.name || 'Biblioteca'}`}>
+  <div class="shell section library-detail-page">
+    <LibraryNav activeCategory={item.categoryId} />
+    <LibraryFicha item={item} category={category} />
+  </div>
+</Base>
+
+<style is:global>
+  .library-detail-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .ficha-breadcrumb {
+    font-size: 0.85rem;
+    color: #667085;
+    margin-bottom: 12px;
+  }
+  .ficha-breadcrumb a {
+    color: var(--theme-link, #247778);
+    text-decoration: none;
+  }
+  .ficha-terminology-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-block: 20px;
+    padding: 16px;
+    background: rgba(36, 119, 120, 0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(36, 119, 120, 0.12);
+  }
+  .term-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .term-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #667085;
+  }
+  .term-value-large {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--theme-text, #111c29);
+  }
+  .term-value {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .ficha-lead {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .execution-box {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.03);
+    border-left: 4px solid var(--theme-link, #247778);
+    border-radius: 4px;
+  }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .step-item {
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .step-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .atlas-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .atlas-region-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: var(--theme-link, #247778);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .media-placeholder-notice {
+    padding: 14px;
+    background: rgba(2, 132, 199, 0.06);
+    border: 1px dashed rgba(2, 132, 199, 0.3);
+    border-radius: 8px;
+    color: #0369a1;
+  }
+  .sources-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .source-item {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .source-link {
+    color: var(--theme-link, #247778);
+    font-weight: 600;
+  }
+</style>

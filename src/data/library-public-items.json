@@ -1,0 +1,594 @@
+[
+  {
+    "slug": "taegeuk-il-jang",
+    "categoryId": "poomsae",
+    "subcategoryId": "taegeuk",
+    "name": "Taegeuk 1 Jang (Il Jang)",
+    "hangul": "태극 1장",
+    "romanization": "Taegeuk Il Jang",
+    "pronunciation_pt": "Téguk Il Djang",
+    "literalMeaning": "Taegeuk número 1 — Símbolo Keon (Céu e Luz)",
+    "technicalMeaning": "Primeira forma básica com 18 movimentos, enfatizando a base Ap Seogi e Ap Kubi com defesas Arae Makgi e socos Momtong Jirugi.",
+    "description": "Representa o Céu (Keon), a origem de todas as coisas, a criação e a luz. É a base fundamental que todo praticante aprende ao iniciar sua caminhada no Taekwondo.",
+    "stances": [
+      "ap-seogi",
+      "ap-kubi"
+    ],
+    "bodyRegions": [
+      "palm",
+      "sonnal",
+      "apchook"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Poomsae",
+        "editionOrYear": "2022",
+        "locator": "Taegeuk 1 Jang, pp. 240-249",
+        "url": "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72"
+      }
+    ]
+  },
+  {
+    "slug": "taegeuk-ee-jang",
+    "categoryId": "poomsae",
+    "subcategoryId": "taegeuk",
+    "name": "Taegeuk 2 Jang (Ee Jang)",
+    "hangul": "태극 2장",
+    "romanization": "Taegeuk Ee Jang",
+    "pronunciation_pt": "Téguk I Djang",
+    "literalMeaning": "Taegeuk número 2 — Símbolo Tae (Lago e Firmeza Interna)",
+    "technicalMeaning": "Segunda forma básica com 18 movimentos, introduzindo Olgul Jirugi e chutes frontais Ap Chagi.",
+    "description": "Simboliza a alegria e a calma do lago, com postura firme por dentro e flexível por fora. Desenvolve ataques na altura do rosto combinados com chutes frontais precisos.",
+    "stances": [
+      "ap-seogi",
+      "ap-kubi"
+    ],
+    "bodyRegions": [
+      "apchook",
+      "palm"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Poomsae",
+        "editionOrYear": "2022",
+        "locator": "Taegeuk 2 Jang",
+        "url": "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72"
+      }
+    ]
+  },
+  {
+    "slug": "taegeuk-sam-jang",
+    "categoryId": "poomsae",
+    "subcategoryId": "taegeuk",
+    "name": "Taegeuk 3 Jang (Sam Jang)",
+    "hangul": "태극 3장",
+    "romanization": "Taegeuk Sam Jang",
+    "pronunciation_pt": "Téguk Sam Djang",
+    "literalMeaning": "Taegeuk número 3 — Símbolo Ri (Fogo e Clareza)",
+    "technicalMeaning": "Terceira forma com 20 movimentos, introduzindo a defesa e ataque com Sonnal (faca da mão) e defesas duplas.",
+    "description": "Simboliza o fogo e o calor, com movimentos rápidos e decisivos alternados com momentos de estabilidade e foco.",
+    "stances": [
+      "ap-seogi",
+      "ap-kubi",
+      "dwit-kubi"
+    ],
+    "bodyRegions": [
+      "sonnal",
+      "apchook"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Poomsae",
+        "editionOrYear": "2022",
+        "locator": "Taegeuk 3 Jang",
+        "url": "https://www.kukkiwon.or.kr/eng/board/list?boardManagementNo=55&menuLevel=3&menuNo=72"
+      }
+    ]
+  },
+  {
+    "slug": "poomsae-koryo",
+    "categoryId": "poomsae",
+    "subcategoryId": "superiores",
+    "name": "Poomsae Koryo",
+    "hangul": "고려",
+    "romanization": "Koryo",
+    "pronunciation_pt": "Corio",
+    "literalMeaning": "Dinastia Koryo (918-1392 d.C.)",
+    "technicalMeaning": "Primeira forma superior para 1º Dan, com 30 movimentos, enfatizando a força inabalável e a herança histórica do povo coreano.",
+    "description": "Koryo é o nome da dinastia antiga da qual se origina a palavra \"Coreia\". Esta forma representa o espírito marcial determinado, a defesa firme de ideais e posturas heróicas.",
+    "stances": [
+      "ap-kubi",
+      "dwit-kubi",
+      "juchum-seogi"
+    ],
+    "bodyRegions": [
+      "sonnal",
+      "batangson",
+      "me-jumeok",
+      "apchook",
+      "balnal"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Composition of Taekwondo — Poomsae",
+        "editionOrYear": "2022",
+        "locator": "Board 55 / Artigo 1356",
+        "url": "https://www.kukkiwon.or.kr/eng/board/read?boardManagementNo=55&boardNo=1356&menuLevel=3&menuNo=72"
+      }
+    ]
+  },
+  {
+    "slug": "o-que-e-sogi",
+    "categoryId": "iron",
+    "subcategoryId": "terminologia-conceitos",
+    "name": "O que é Sogi (Bases no Taekwondo)",
+    "hangul": "서기",
+    "romanization": "Seogi",
+    "pronunciation_pt": "Sogui",
+    "literalMeaning": "Ato de ficar em pé, postura, base",
+    "technicalMeaning": "Conjunto de posturas e alinhamentos corporais dos pés, pernas e centro de gravidade que sustentam qualquer movimento marcial.",
+    "description": "No Taekwondo, Sogi é o alicerce de toda técnica. Sem uma base estável, a força gerada pelos quadris e pelo tronco não pode ser transmitida eficazmente. As bases regulam a distribuição de peso, a altura do centro de gravidade e a mobilidade de esquiva e avanço.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Chapter 2: Seogi (Stances)"
+      }
+    ]
+  },
+  {
+    "slug": "o-que-e-chagi",
+    "categoryId": "iron",
+    "subcategoryId": "terminologia-conceitos",
+    "name": "O que é Chagi (Chutes no Taekwondo)",
+    "hangul": "차기",
+    "romanization": "Chagi",
+    "pronunciation_pt": "Tchagui",
+    "literalMeaning": "Chutar, golpear com a perna/pé",
+    "technicalMeaning": "Técnica de perna que utiliza o quadril, joelho e tornozelo para gerar energia cinética contra um alvo.",
+    "description": "Chagi é a assinatura mais reconhecida do Taekwondo internacional. O princípio técnico envolve dobrar o joelho (recolhimento prévio), rotacionar o quadril e a perna de apoio, estender explosivamente e recolher a perna após o impacto para garantir o equilíbrio.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Chapter 3: Chagi (Kicking)"
+      }
+    ]
+  },
+  {
+    "slug": "hwarang-do-historia",
+    "categoryId": "iron",
+    "subcategoryId": "historia",
+    "name": "Hwarang-do e o Contexto Histórico",
+    "hangul": "화랑도",
+    "romanization": "Hwarang-do",
+    "pronunciation_pt": "Huarang-dô",
+    "literalMeaning": "Caminho dos Cavaleiros Floridos (Jovens nobres guerreiros de Silla)",
+    "technicalMeaning": "Corpo de elite de jovens guerreiros do antigo reino de Silla (século VI d.C.) cujo código ético e treinamento influenciaram a cultura marcial coreana.",
+    "description": "O Hwarang-do combinava treinamento em artes marciais, arco e flecha, equitação, poesia, filosofia budista e confucionista. O código dos cinco mandamentos de Won Gwang (Sesok O-gye) inspirou diretamente os princípios de honra, lealdade e cortesia do Taekwondo contemporâneo.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "History of Taekwondo and Martial Traditions",
+        "editionOrYear": "2020",
+        "locator": "Ancient Martial Origins — Silla Period"
+      }
+    ]
+  },
+  {
+    "slug": "principios-juramento",
+    "categoryId": "iron",
+    "subcategoryId": "filosofia-principios",
+    "name": "Princípios Morais e Juramento do Taekwondo",
+    "hangul": "태권도 정신",
+    "romanization": "Taekwondo Jeongshin",
+    "pronunciation_pt": "Tékuondô Djongshin",
+    "literalMeaning": "Espírito e princípios do Taekwondo",
+    "technicalMeaning": "Os cinco princípios essenciais: Cortesia (Ye-Ui), Integridade (Yom-Chi), Perseverança (In-Nae), Autocontrole (Guk-Gi) e Espírito Indomável (Baekjul-bool-gool).",
+    "description": "O Taekwondo não é apenas um sistema de combate, mas uma disciplina formativa do caráter humano. O juramento reforça o compromisso do praticante em respeitar seus mestres e colegas, nunca fazer mau uso da arte marcial e trabalhar pela construção de uma sociedade mais justa e pacífica.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Philosophy and Spirit",
+        "editionOrYear": "2022",
+        "locator": "Philosophy of Taekwondo"
+      }
+    ]
+  },
+  {
+    "slug": "ap-kubi",
+    "categoryId": "kibon-dongjak",
+    "subcategoryId": "bases",
+    "name": "Ap Kubi (Base Frontal Avançada)",
+    "hangul": "앞굽이",
+    "romanization": "Ap Gubi",
+    "pronunciation_pt": "Ap Cubi",
+    "literalMeaning": "Dobrar para a frente",
+    "technicalMeaning": "Base longa e firme onde a perna da frente está flexionada a 90° e a de trás estendida, suportando dois terços do peso corporal.",
+    "description": "A base mais potente para ataques frontais e deslocamentos de avanço. O pé dianteiro aponta para a frente e o pé de trás está angulado em aproximadamente 30 graus, com o tronco ereto e o quadril encaixado.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Seogi: Ap Gubi, p. 112"
+      }
+    ]
+  },
+  {
+    "slug": "dwit-kubi",
+    "categoryId": "kibon-dongjak",
+    "subcategoryId": "bases",
+    "name": "Dwit Kubi (Base Traseira Defensiva)",
+    "hangul": "뒷굽이",
+    "romanization": "Dwit Gubi",
+    "pronunciation_pt": "Duit Cubi",
+    "literalMeaning": "Dobrar para trás",
+    "technicalMeaning": "Base defensiva em forma de \"L\" com 70% do peso corporal na perna de trás e 30% na perna da frente.",
+    "description": "Ideal para esquivas e defesas recuadas. A perna de trás absorve o peso facilitando o contra-ataque rápido com a perna dianteira.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Seogi: Dwit Gubi, p. 116"
+      }
+    ]
+  },
+  {
+    "slug": "juchum-seogi",
+    "categoryId": "kibon-dongjak",
+    "subcategoryId": "bases",
+    "name": "Juchum Seogi (Base do Cavaleiro)",
+    "hangul": "주춤서기",
+    "romanization": "Juchum Seogi",
+    "pronunciation_pt": "Djutchum Sogui",
+    "literalMeaning": "Postura de montar a cavalo",
+    "technicalMeaning": "Base paralela e rebaixada, duas vezes a largura dos ombros, com peso dividido igualmente entre as duas pernas.",
+    "description": "Postura clássica para treinamento de socos repetidos, fortalecimento dos quadríceps e estabilização da respiração diafragmática.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Seogi: Juchum Seogi, p. 110"
+      }
+    ]
+  },
+  {
+    "slug": "arae-makgi",
+    "categoryId": "kibon-dongjak",
+    "subcategoryId": "defesas",
+    "name": "Arae Makgi (Defesa Baixa)",
+    "hangul": "아래막기",
+    "romanization": "Arae Makgi",
+    "pronunciation_pt": "Aré Maqui",
+    "literalMeaning": "Bloqueio para baixo",
+    "technicalMeaning": "Defesa descendente executada com a parte externa do antebraço para proteger a virilha e o abdômen inferior contra ataques frontais.",
+    "description": "O punho parte do ombro oposto com o dorso para fora e desliza em trajetória descendente até parar a dois punhos de distância da coxa dianteira.",
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Makgi: Arae Makgi, p. 142"
+      }
+    ]
+  },
+  {
+    "slug": "ap-chagi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-basicos",
+    "name": "Ap Chagi (Chute Frontal)",
+    "hangul": "앞차기",
+    "romanization": "Ap Chagi",
+    "pronunciation_pt": "Ap Tchagui",
+    "literalMeaning": "Chute para a frente",
+    "technicalMeaning": "Chute linear vertical executado com a bola do pé (Apchook) ou ponta dos dedos recolhidos.",
+    "description": "O chute mais fundamental do Taekwondo. A perna é flexionada elevando o joelho ao nível do peito; a perna então se estende rapidamente atingindo o alvo frontal e recolhe imediatamente.",
+    "bodyRegions": [
+      "apchook",
+      "baldeung"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Ap Chagi, pp. 180-185"
+      }
+    ]
+  },
+  {
+    "slug": "dollyo-chagi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-basicos",
+    "name": "Dollyo Chagi (Chute Circular)",
+    "hangul": "돌려차기",
+    "romanization": "Dollyo Chagi",
+    "pronunciation_pt": "Dólio Tchagui",
+    "literalMeaning": "Chute girado / circular",
+    "technicalMeaning": "Chute circular executado com o peito do pé (Baldeung) ou com a bola do pé (Apchook), com rotação de quadril e apoio a 180°.",
+    "description": "O chute mais utilizado em competições e treinamentos modernos. O praticante gira sobre o pé de apoio, flexiona o joelho na diagonal e chicoteia o pé contra as costelas ou têmpora do oponente.",
+    "bodyRegions": [
+      "baldeung",
+      "apchook"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Dollyo Chagi, pp. 190-195"
+      }
+    ]
+  },
+  {
+    "slug": "yop-chagi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-basicos",
+    "name": "Yop Chagi (Chute Lateral)",
+    "hangul": "옆차기",
+    "romanization": "Yeop Chagi",
+    "pronunciation_pt": "Ióp Tchagui",
+    "literalMeaning": "Chute de lado",
+    "technicalMeaning": "Chute linear lateral penetrante executado com a faca do pé (Balnal) ou calcanhar (Dwichook).",
+    "description": "Conhecido por sua força penetrante de arrombamento. O praticante gira o corpo lateralmente, encolhe o joelho contra o peito e estende toda a perna em linha reta com o quadril.",
+    "bodyRegions": [
+      "balnal",
+      "dwichook"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Yeop Chagi, pp. 186-189"
+      }
+    ]
+  },
+  {
+    "slug": "naeryo-chagi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-basicos",
+    "name": "Naeryo Chagi (Chute Descendente / Martelo)",
+    "hangul": "내려차기",
+    "romanization": "Naeryo Chagi",
+    "pronunciation_pt": "Nério Tchagui",
+    "literalMeaning": "Chute descendo",
+    "technicalMeaning": "Chute elevado acima da cabeça que desce perpendicularmente com o calcanhar (Dwichook) sobre a cabeça ou clavícula.",
+    "description": "Técnica de grande alcance e impacto vertical. A perna sobe relaxada e desce acelerando fortemente pela ação dos músculos abdominais e glúteos.",
+    "bodyRegions": [
+      "dwichook",
+      "balbadak"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Naeryo Chagi, pp. 200-203"
+      }
+    ]
+  },
+  {
+    "slug": "ap-cha-oligi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-especiais",
+    "name": "Ap Cha Oligi (Elevação Frontal de Perna)",
+    "hangul": "앞차올리기",
+    "romanization": "Ap Cha Oligi",
+    "pronunciation_pt": "Ap Tchá Olikí",
+    "literalMeaning": "Subir a perna para a frente",
+    "technicalMeaning": "Movimento de alongamento balístico com a perna estendida, sem flexionar o joelho, preparando a musculatura e a flexibilidade dinâmica.",
+    "description": "Fundamental no aquecimento técnico e na verificação do alinhamento da pelve para os chutes com a bola do pé.",
+    "bodyRegions": [
+      "apchook"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Fundamentals",
+        "editionOrYear": "2022",
+        "locator": "Stretching and Basic Kicks"
+      }
+    ]
+  },
+  {
+    "slug": "bitro-chagi",
+    "categoryId": "balkisul",
+    "subcategoryId": "chutes-especiais",
+    "name": "Bitro Chagi (Chute Diagonal Torcido)",
+    "hangul": "비틀어차기",
+    "romanization": "Biteureo Chagi",
+    "pronunciation_pt": "Bitrô Tchagui",
+    "literalMeaning": "Chute torcendo para fora",
+    "technicalMeaning": "Chute com peito do pé projetado em trajetória diagonal reversa, desviando de bloqueios frontais.",
+    "description": "Técnica sutil e enganosa onde o pé sai como um chute frontal mas gira externamente atingindo a lateral do oponente.",
+    "bodyRegions": [
+      "baldeung"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Chagi",
+        "editionOrYear": "2022",
+        "locator": "Biteureo Chagi"
+      }
+    ]
+  },
+  {
+    "slug": "ap-bandae-jirugi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "socos-jireugi",
+    "name": "Bandae Jirugi (Soco Invertido)",
+    "hangul": "반대지르기",
+    "romanization": "Bandae Jireugi",
+    "pronunciation_pt": "Bandê Djirukí",
+    "literalMeaning": "Soco do lado contrário",
+    "technicalMeaning": "Soco direto executado com o braço oposto à perna que está avançada na base (ex: perna esquerda na frente, soco com mão direita).",
+    "description": "Um dos socos mais fortes e profundos do Taekwondo, pois aproveita a rotação máxima da cintura e da bacia em base Ap Kubi.",
+    "bodyRegions": [
+      "knuckles",
+      "palm",
+      "wrist"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Jireugi: Bandae Jireugi, p. 128"
+      }
+    ]
+  },
+  {
+    "slug": "ap-baro-jirugi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "socos-jireugi",
+    "name": "Baro Jirugi (Soco Direto)",
+    "hangul": "바로지르기",
+    "romanization": "Baro Jireugi",
+    "pronunciation_pt": "Barô Djirukí",
+    "literalMeaning": "Soco do mesmo lado / soco correto",
+    "technicalMeaning": "Soco direto executado com o mesmo braço da perna dianteira (ex: perna direita na frente, soco com mão direita).",
+    "description": "Soco veloz e direto com menor rotação de tronco, ideal para manter a estabilidade da postura e o tempo de reação.",
+    "bodyRegions": [
+      "knuckles",
+      "wrist"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Jireugi: Baro Jireugi, p. 126"
+      }
+    ]
+  },
+  {
+    "slug": "dollyo-jirugi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "socos-jireugi",
+    "name": "Dollyo Jirugi (Soco Circular / Gancho)",
+    "hangul": "돌려지르기",
+    "romanization": "Dollyo Jireugi",
+    "pronunciation_pt": "Dólio Djirukí",
+    "literalMeaning": "Soco circular",
+    "technicalMeaning": "Soco com trajetória semi-circular visando a têmpora ou as costelas flutuantes do adversário.",
+    "description": "Executado com o cotovelo dobrado em ângulo de 90 graus, rotacionando o tronco para gerar impacto lateral concentrado nos nós dos dedos.",
+    "bodyRegions": [
+      "knuckles"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Jireugi: Dollyo Jireugi, p. 132"
+      }
+    ]
+  },
+  {
+    "slug": "chi-jirugi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "socos-jireugi",
+    "name": "Chi Jirugi (Soco Ascendente / Uppercut)",
+    "hangul": "치지르기",
+    "romanization": "Chi Jireugi",
+    "pronunciation_pt": "Tchi Djirukí",
+    "literalMeaning": "Soco subindo / soco para cima",
+    "technicalMeaning": "Soco vertical ascendente direcionado ao queixo ou ao plexo solar, com o punho com a palma voltada para o praticante.",
+    "description": "Utilizado em combate a curta distância, subindo explosivamente através do impulso das pernas e da extensão do quadril.",
+    "bodyRegions": [
+      "knuckles",
+      "wrist"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Jireugi: Chi Jireugi, p. 134"
+      }
+    ]
+  },
+  {
+    "slug": "deung-jumeok-chigi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "impactos-chigi",
+    "name": "Deung Jumeok Chigi (Golpe com o Dorso do Punho)",
+    "hangul": "등주먹치기",
+    "romanization": "Deung Jumeok Chigi",
+    "pronunciation_pt": "Deung Djumóqui Tchigui",
+    "literalMeaning": "Golpe com as costas do punho",
+    "technicalMeaning": "Golpe de chicoteamento utilizando os nós dos dedos no dorso do punho, mirando o nariz ou a têmpora.",
+    "description": "Movimento flexível de chicote que parte da flexão do cotovelo, aproveitando a velocidade de estalo da articulação do punho.",
+    "bodyRegions": [
+      "sondeung",
+      "knuckles"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Chigi: Deung Jumeok, p. 150"
+      }
+    ]
+  },
+  {
+    "slug": "sonnal-chigi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "impactos-chigi",
+    "name": "Sonnal Chigi (Golpe com a Faca da Mão)",
+    "hangul": "손날치기",
+    "romanization": "Sonnal Chigi",
+    "pronunciation_pt": "Sonnal Tchigui",
+    "literalMeaning": "Golpe com a lâmina/faca da mão",
+    "technicalMeaning": "Golpe cortante com a borda externa da mão aberta (do dedo mínimo ao pulso), visando o pescoço ou a clavícula.",
+    "description": "A mão permanece aberta com os dedos firmemente unidos e o polegar dobrado rente à palma, concentrando a massa muscular na borda externa lateral.",
+    "bodyRegions": [
+      "sonnal",
+      "palm"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Chigi: Sonnal Chigi, p. 154"
+      }
+    ]
+  },
+  {
+    "slug": "batangson-chigi",
+    "categoryId": "sonkisul",
+    "subcategoryId": "impactos-chigi",
+    "name": "Batangson Chigi (Golpe com a Base da Palma)",
+    "hangul": "바탕손치기",
+    "romanization": "Batangson Chigi",
+    "pronunciation_pt": "Batangson Tchigui",
+    "literalMeaning": "Golpe com o calcanhar da mão / base da palma",
+    "technicalMeaning": "Golpe com a base carnosa inferior da palma da mão com os dedos fletidos para trás, direcionado ao queixo ou peito.",
+    "description": "Excelente golpe de defesa pessoal pois não expõe os ossos delicados dos dedos ou do punho a fraturas.",
+    "bodyRegions": [
+      "batangson",
+      "palm"
+    ],
+    "sources": [
+      {
+        "institution": "Kukkiwon",
+        "title": "Taekwondo Textbook — Hand Techniques",
+        "editionOrYear": "2022",
+        "locator": "Chigi: Batangson, p. 158"
+      }
+    ]
+  }
+]

@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryNav from '../../components/library/LibraryNav';
+import LibraryExplorer from '../../components/library/LibraryExplorer';
+import { LIBRARY_CATEGORIES, type LibraryCategory } from '../../lib/library';
+
+export function getStaticPaths() {
+  return LIBRARY_CATEGORIES.map((category) => ({
+    params: { categoria: category.id },
+    props: { category },
+  }));
+}
+
+interface Props {
+  category: LibraryCategory;
+}
+
+const { category } = Astro.props;
+---
+
+<Base title={`${category.name} — Biblioteca Geral do Taekwondo`}>
+  <div class="shell section library-portal">
+    <header class="library-hero card">
+      <div class="cat-top-header">
+        <span lang="ko" class="cat-hangul-badge">{category.koreanHangul}</span>
+        <span class="tag">{category.koreanName}</span>
+      </div>
+      <h1>{category.name}</h1>
+      <p class="lead">{category.description}</p>
+
+      <div class="subcategories-bar">
+        <strong>Subdivisões:</strong>
+        <div class="cat-subcategories-list">
+          {category.subcategories.map((sub) => (
+            <span class="subcat-tag">{sub.name} — {sub.description}</span>
+          ))}
+        </div>
+      </div>
+
+      <LibraryNav activeCategory={category.id} />
+    </header>
+
+    <section class="section-inner" aria-label={`Técnicas de ${category.name}`}>
+      <h2>Itens Catalogados em {category.name}</h2>
+      <LibraryExplorer initialCategory={category.id} client:load />
+    </section>
+  </div>
+</Base>
+
+<style is:global>
+  .cat-top-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .subcategories-bar {
+    margin-block: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+  }
+  .subcategories-bar .cat-subcategories-list {
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+</style>
