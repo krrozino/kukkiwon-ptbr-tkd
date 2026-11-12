@@ -116,4 +116,18 @@ describe('Issue #65 — Fundação da Biblioteca Geral (7 Categorias)', () => {
 
     expect(searchLibrary('Sebon', 'matchuo-kyorugi')).toEqual([]);
   });
+  it('não duplica termos do atlas e mantém as 23 fichas da mão', () => {
+    expect(LIBRARY_ITEMS).toHaveLength(48);
+    expect(new Set(LIBRARY_ITEMS.map(item => item.slug)).size).toBe(48);
+    const hand = LIBRARY_ITEMS.filter(item => item.subcategoryId === 'superficies-configuracoes');
+    expect(hand).toHaveLength(23);
+    for (const item of hand) {
+      expect(item.categoryId).toBe('sonkisul');
+      expect(item.sources.length).toBeGreaterThan(0);
+      expect(item.steps).toBeUndefined();
+      expect(item.execution).toBeUndefined();
+      expect(item.sources.every(source => source.url?.startsWith('https://'))).toBe(true);
+    }
+  });
+
 });
