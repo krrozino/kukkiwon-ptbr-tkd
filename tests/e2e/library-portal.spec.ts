@@ -16,10 +16,10 @@ test('Biblioteca apresenta as sete áreas e busca termos existentes', async ({pa
 
 test('terminologia da mão tem ficha com Hangul e link seguro para o Atlas', async ({page}) => {
   await page.goto('/biblioteca/sonkisul/sonnal');
-  await expect(page.getByRole('heading',{name:/Sonnal/}).first()).toBeVisible();
+  await expect(page.getByRole('heading',{name:/Borda externa da mão/}).first()).toBeVisible();
   await expect(page.locator('[lang="ko"]').filter({hasText:'손날'}).first()).toBeVisible();
   await expect(page.locator('a[href="/atlas?region=sonnal&zoom=1"]').first()).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Fontes Documentais e Referências'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Fontes e referências'})).toBeVisible();
 });
 
 test('categorias sem sequências documentadas continuam acessíveis sem inventar movimentos', async ({page}) => {
@@ -35,5 +35,5 @@ test('Taegeuk 1 não publica sequência parcial de 5 passos', async ({page}) => 
   await page.goto('/biblioteca/poomsae/taegeuk-il-jang');
   await expect(page.getByRole('heading',{name:/Taegeuk 1 Jang/}).first()).toBeVisible();
   await expect(page.getByRole('heading',{name:'Sequência de Movimentos'})).toHaveCount(0);
-  await expect(page.getByRole('heading',{name:'Fontes Documentais e Referências'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Fontes e referências'})).toBeVisible();
 });
