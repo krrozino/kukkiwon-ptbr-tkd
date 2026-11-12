@@ -1,0 +1,167 @@
+[
+  {
+    "id": "poomsae",
+    "name": "Poomsae",
+    "koreanName": "Poomsae",
+    "koreanHangul": "품새",
+    "summary": "Formas padronizadas de movimentos de ataque e defesa contra adversários imaginários.",
+    "description": "Sequências codificadas que desenvolvem equilíbrio, foco, respiração, coordenação e a filosofia do Taekwondo.",
+    "subcategories": [
+      {
+        "id": "taegeuk",
+        "name": "Taegeuk (1º ao 8º Jang)",
+        "description": "Formas básicas para graduações de faixas coloridas (Gub)."
+      },
+      {
+        "id": "superiores",
+        "name": "Formas Superiores (Dan)",
+        "description": "Formas avançadas para graduações de faixa preta (Dan)."
+      }
+    ]
+  },
+  {
+    "id": "matchuo-kyorugi",
+    "name": "Matchuo Kyorugi",
+    "koreanName": "Matchwo Gyeorugi",
+    "koreanHangul": "맞춰겨루기",
+    "summary": "Luta combinada predeterminada para treino de distância, precisão e tempo de resposta.",
+    "description": "Exercícios práticos de combate em passos combinados entre dois praticantes, incluindo Sebon (3 passos), Dubon (2 passos) e Anjoa (sentado).",
+    "subcategories": [
+      {
+        "id": "sebon",
+        "name": "Sebon Kyorugi (3 passos)",
+        "description": "Sequências de ataque e defesa em três passos com contra-ataques específicos."
+      },
+      {
+        "id": "dubon",
+        "name": "Dubon Kyorugi (2 passos)",
+        "description": "Sequências de combate combinado em dois passos."
+      },
+      {
+        "id": "anjoa",
+        "name": "Anjoa Kyorugi (Sentado)",
+        "description": "Defesas e contra-ataques a partir de posições sentadas ou ajoelhadas."
+      }
+    ]
+  },
+  {
+    "id": "palgwae",
+    "name": "Palgwae",
+    "koreanName": "Palgwae",
+    "koreanHangul": "팔괘",
+    "summary": "Formas históricas baseadas nos oito trigramas do I Ching.",
+    "description": "Série de oito formas criadas no final da década de 1960 que antecederam os Taegeuk, preservadas como patrimônio técnico histórico.",
+    "subcategories": [
+      {
+        "id": "palgwae-formas",
+        "name": "As Oito Formas Palgwae",
+        "description": "Palgwae 1 Jang a 8 Jang com seus respectivos trigramas e aplicações."
+      }
+    ]
+  },
+  {
+    "id": "iron",
+    "name": "Iron (Teoria)",
+    "koreanName": "Iron",
+    "koreanHangul": "이론",
+    "summary": "Teoria, filosofia, princípios morais e história do Taekwondo.",
+    "description": "Conhecimento fundamental sobre a história marcial, o código de honra dos Hwarang, a formação da Kukkiwon, mestres e terminologia.",
+    "subcategories": [
+      {
+        "id": "filosofia-principios",
+        "name": "Filosofia e Princípios",
+        "description": "Juramento, princípios morais, cortesia e valores da arte marcial."
+      },
+      {
+        "id": "historia",
+        "name": "História e Organizações",
+        "description": "Hwarang-do, os Kwans originais, fundação da Kukkiwon e evolução mundial."
+      },
+      {
+        "id": "terminologia-conceitos",
+        "name": "Conceitos e Terminologia",
+        "description": "Estrutura da escrita coreana (Hangul), noções de Sogi, Chagi e comandos."
+      }
+    ]
+  },
+  {
+    "id": "kibon-dongjak",
+    "name": "Kibon Dongjak",
+    "koreanName": "Kibon Dongjak",
+    "koreanHangul": "기본동작",
+    "summary": "Fundamentos corporais, bases (Sogi), defesas (Makgi) e golpes básicos.",
+    "description": "Os tijolos essenciais da biomecânica do Taekwondo: alinhamento postural, centro de gravidade, alturas e direções.",
+    "subcategories": [
+      {
+        "id": "bases",
+        "name": "Bases (Sogi)",
+        "description": "Posturas fundamentais de equilíbrio, avanço e recuo."
+      },
+      {
+        "id": "defesas",
+        "name": "Defesas (Makgi)",
+        "description": "Bloqueios fundamentais com braços, antebraços e mãos."
+      },
+      {
+        "id": "alturas-direcoes",
+        "name": "Alturas e Direções",
+        "description": "Linhas Olgul, Momtong, Arae e trajetórias de ataque."
+      }
+    ]
+  },
+  {
+    "id": "balkisul",
+    "name": "Balkisul (Chutes)",
+    "koreanName": "Bal Kisul",
+    "koreanHangul": "발기술",
+    "summary": "Técnicas de chute e golpes com os membros inferiores.",
+    "description": "O vasto repertório de chutes frontais, circulares, laterais, giratórios e saltados característicos do Taekwondo.",
+    "subcategories": [
+      {
+        "id": "chutes-basicos",
+        "name": "Chutes Básicos",
+        "description": "Ap Chagi, Dollyo Chagi, Yop Chagi e Naeryo Chagi."
+      },
+      {
+        "id": "chutes-giratorios",
+        "name": "Chutes Giratórios",
+        "description": "Dwi Chagi, Mondolyo Chagi e variações com rotação."
+      },
+      {
+        "id": "chutes-especiais",
+        "name": "Técnicas Lineares e Balísticas",
+        "description": "Ap Cha Oligi, Bitro Chagi e chutes em crescente."
+      }
+    ]
+  },
+  {
+    "id": "sonkisul",
+    "name": "Sonkisul (Mãos)",
+    "koreanName": "Son Kisul",
+    "koreanHangul": "손기술",
+    "summary": "Técnicas de ataque, impacto e defesas executadas com as mãos e punhos.",
+    "description": "Socos, golpes com o dorso do punho, faca da mão (Sonnal), base da palma (Batangson) e suas conexões com o Atlas anatômico.",
+    "subcategories": [
+      {
+        "id": "socos-jireugi",
+        "name": "Socos (Jirugi)",
+        "description": "Ataques diretos, circulares e ascendentes com o punho fechado."
+      },
+      {
+        "id": "impactos-chigi",
+        "name": "Golpes de Impacto (Chigi)",
+        "description": "Golpes com o dorso do punho (Deung Jumeok), martelo (Me Jumeok) e faca da mão."
+      },
+      {
+        "id": "defesas-manuais",
+        "name": "Defesas Manuais",
+        "description": "Bloqueios e aparadas com a palma, bordas e superfícies da mão."
+      },
+      {
+        "id": "superficies-configuracoes",
+        "name": "Superfícies e Configurações",
+        "description": "Regiões da mão e configurações usadas no Taekwondo."
+      }
+    ]
+  }
+]
