@@ -57,7 +57,7 @@ test('atlas: toque expande pé e Escape retorna, sem overflow',async({page,isMob
 test('atlas: região desconhecida e ausência de dados não inventam termos',async({page})=>{
   await api(page,{empty:true});await page.goto('/atlas?region=inexistente');
   await expect(page.getByText(/Região não encontrada ou ainda não publicada/)).toBeVisible();
-  await expect(page.getByText(/As nomenclaturas desta área serão adicionadas/)).toBeVisible();
+  await expect(page.getByText('23 de 23 termos')).toBeVisible();
   await expect(page.getByRole('link',{name:'Ap-chagi'})).toHaveCount(0);
 });
 test('atlas: carregamento e erro de API permitem tentar novamente',async({page})=>{
@@ -83,7 +83,7 @@ test('catálogo: rede indisponível não aparece como catálogo vazio',async({pa
 });
 test('atlas: hover preserva seleção e histórico restaura a região',async({page,isMobile})=>{
   await api(page);await page.goto('/atlas?region=hands');
-  await expect(page.getByText(/As nomenclaturas desta área serão adicionadas/)).toBeVisible();
+  await expect(page.getByText('23 de 23 termos')).toBeVisible();
   // A consulta inicial precisa terminar antes de contar requisições provocadas pelo hover.
   await expect(page.locator('.atlas-information')).toHaveAttribute('aria-busy','false');
   let requests=0;page.on('request',r=>{if(r.url().includes('/rest/v1/'))requests++;});
@@ -113,7 +113,7 @@ test('atlas: histórico preserva o lado do detalhe técnico',async({page})=>{
 });
 test('atlas: navegação cancelada não altera a região que está carregando',async({page})=>{
   await api(page);await page.goto('/atlas?region=hands');
-  await expect(page.getByText(/As nomenclaturas desta área serão adicionadas/)).toBeVisible();
+  await expect(page.getByText('23 de 23 termos')).toBeVisible();
   let release!:()=>void;
   const held=new Promise<void>(resolve=>{release=resolve;});
   await page.route('**/rest/v1/body_regions?**',async route=>{

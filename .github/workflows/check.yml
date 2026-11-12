@@ -20,6 +20,7 @@ jobs:
       - run: npm run acervo:check
       - run: npm run sources:audit
       - run: npm run research:audit
+      - run: npm run atlas:hand:check
       - run: npm run check
       - run: npm test
       - run: npm run build

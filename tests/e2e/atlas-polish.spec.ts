@@ -28,7 +28,7 @@ test("tooltip em cascata permanece fora do desenho, no maior espaço disponível
   await expect(tip).toContainText("Sonnal");
   await expect(tip).toContainText("Borda externa da mão");
   await expect(tip.locator('[lang="ko"]')).toHaveText('손날');
-  await expect(tip).toContainText('Pronúncia: ainda não conferida');
+  await expect(tip).not.toContainText('Pronúncia:');
   await expect(tip).toContainText('Superfície junto ao dedo mínimo.');
   await expect(tip.getByRole('link',{name:'Abrir ficha técnica'})).toHaveAttribute('href','/tecnica?slug=sonnal');
   const illustration=page.locator(".surface-canvas .detail-svg");
@@ -82,7 +82,7 @@ test("corpo integral mostra ilustração com detalhes de uniforme, sem números 
 });
 
 
-test("recortes coloridos persistem em produção mesmo sem regiões técnicas publicadas",async({page,isMobile})=>{
+test("recortes coloridos recebem fichas mesmo sem regiões no Supabase",async({page,isMobile})=>{
   // Reproduz a produção: consulta anônima retorna zero regiões (todas em draft).
   await page.route("**/rest/v1/**",route=>route.fulfill({json:[]}));
   await page.goto("/atlas?region=hands&zoom=1");
@@ -93,8 +93,8 @@ test("recortes coloridos persistem em produção mesmo sem regiões técnicas pu
   expect(color).not.toBe("none");
   expect(color).not.toBe("transparent");
   if(isMobile)await cutouts.first().tap();else await cutouts.first().hover();
-  await expect(page.getByRole("tooltip")).toContainText("Palma da mão");
-  await expect(page.getByRole("tooltip")).not.toContainText("Sonnal");
+  await expect(page.locator('[data-hand-region="sonbadak"]')).toContainText("Palma da mão");
+  await expect(page.locator('[data-hand-region="sonbadak"] [lang="ko"]')).toContainText("손바닥");
   await page.getByRole("button",{name:"Dorso",exact:true}).click();
   await expect(cutouts.first()).toBeVisible();
   await page.getByRole("button",{name:"Punho",exact:true}).click();
@@ -126,7 +126,7 @@ test("primeiro toque no pé seleciona a zona e não desloca a página",async({pa
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
-test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados",async({page,isMobile})=>{
+test("legenda anatômica navega pelos recortes e mostra nomes com fonte",async({page,isMobile})=>{
   await page.route("**/rest/v1/**",route=>route.fulfill({json:[]}));
   await page.goto("/atlas?region=hands&zoom=1");
   const legend=page.getByRole("navigation",{name:"Selecionar zona ilustrada"});
@@ -135,8 +135,8 @@ test("legenda anatômica navega pelos recortes sem mostrar termos não aprovados
   await expect(buttons).toHaveCount(11);
   await buttons.nth(1).click();
   await expect(buttons.nth(1)).toHaveAttribute("aria-pressed","true");
-  await expect(page.getByRole("tooltip")).toContainText("Base da palma");
-  await expect(page.getByRole("tooltip")).not.toContainText("Batangson");
+  await expect(page.locator('[data-hand-region="batangson"]')).toContainText("Batangson");
+  await expect(page.locator('[data-hand-region="batangson"] [lang="ko"]')).toContainText("바탕손");
   const inspector=page.locator(".surface-inspector");
   const before=await inspector.boundingBox();
   await buttons.nth(2).click();
