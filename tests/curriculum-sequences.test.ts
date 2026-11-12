@@ -28,7 +28,7 @@ describe('Currículo por escola — sequências numeradas (#65)', () => {
     expect(sequenceLabel({sequenceStart:1,sequenceEnd:3})).toBe('Sequência 1 a 3');
     expect(sequenceLabel({sequenceStart:1})).toBeNull();
   });
-  it.each([
+  const invalidCases: Array<[Partial<Requirement>, string]> = [
     [{sequenceStart:1,sequenceEnd:undefined},'incompleto'],
     [{sequenceStart:undefined,sequenceEnd:5},'sem início'],
     [{sequenceStart:0},'zero'],
@@ -38,7 +38,8 @@ describe('Currículo por escola — sequências numeradas (#65)', () => {
     [{sequenceStart:1.5},'decimal'],
     [{sequenceType:'inventada'},'modalidade inválida'],
     [{libraryCategory:'sem-categoria'},'categoria inválida'],
-  ])('rejeita dados fora do contrato: %s (%s)', (patch) => {
+  ];
+  it.each(invalidCases)('rejeita dados fora do contrato: %s (%s)', (patch) => {
     expect(() => parseCurriculum(make(patch as Partial<Requirement>))).toThrow('Requisito inválido.');
   });
   it('não exige que duas escolas usem a mesma progressão de faixa', () => {
