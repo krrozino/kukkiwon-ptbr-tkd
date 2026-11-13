@@ -5,6 +5,8 @@ export type {TermDetail} from '../lib/use-term-detail';
 import KoreanExpression from './KoreanExpression';
 import KnowledgeReferences from './KnowledgeReferences';
 import TermSemanticsPanel from './TermSemanticsPanel';
+import { getLibraryItem, libraryItemHref } from '../lib/library';
+import { PublicHandTerm } from './atlas/PublicHandContent';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
   return (
     <div className="pronunciation">
@@ -46,11 +48,12 @@ export default function TermContext({
   onClose?: () => void;
 }) {
   const { detail, error } = useTermDetail(slug);
+  const libraryItem = getLibraryItem(slug);
   return (
     <section
       className={"term-context " + (compact ? "compact" : "")}
       aria-label="Ficha contextual"
-      aria-busy={!detail && !error}
+      aria-busy={!detail && !libraryItem && !error}
     >
       {onClose && (
         <button
@@ -61,7 +64,12 @@ export default function TermContext({
           ×
         </button>
       )}
-      {!detail ? (
+      {!detail && libraryItem ? <>
+        <p className="tag">Biblioteca · Mãos e punhos</p>
+        <PublicHandTerm term={libraryItem.term} compact={compact} />
+        <div className="actions"><FavoriteButton slug={slug} title={libraryItem.term.romanization || libraryItem.term.name} />
+          <a className="inline-link" href={libraryItemHref(slug)!}>Abrir ficha completa →</a></div>
+      </> : !detail ? (
         <p role="status">
           {error
             ? "Ficha indisponível ou ainda não publicada."

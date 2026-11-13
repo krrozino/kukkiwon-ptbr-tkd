@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryExplorer from '../../components/library/LibraryExplorer';
+import { libraryCategories, libraryItems, categoryResources } from '../../lib/library';
+export function getStaticPaths() { return libraryCategories.map(category => ({ params: { categoria: category.id }, props: { category } })); }
+const { category } = Astro.props;
+---
+<Base title={`${category.title} · ${category.label} — Taekwondo para Todos`}>
+  <section class="shell section library-page">
+    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/">Início</a><span aria-hidden="true">/</span><a href="/biblioteca">Biblioteca</a><span aria-hidden="true">/</span><span>{category.label}</span></nav>
+    <header class="page-intro"><p class="eyebrow">{category.number} · {category.label}</p><h1>{category.title}</h1><p class="lead">{category.description}</p><a class="inline-link" href={category.href}>{category.destination} →</a></header>
+    <nav class="collection-nav" aria-label="Áreas da biblioteca">{libraryCategories.map(item => <a href={`/biblioteca/${item.id}`} aria-current={item.id === category.id ? 'page' : undefined}>{item.label}</a>)}</nav>
+    {libraryItems.some(item => item.categoryId === category.id) ? <LibraryExplorer categoryId={category.id} client:load /> : <section class="category-materials"><h2>Comece por estes materiais</h2><div class="learning-path-grid">{categoryResources[category.id].map(resource => <a class="category-resource" href={resource.href}><h3>{resource.title}</h3><p>{resource.description}</p><span class="inline-link">Consultar material →</span></a>)}</div><a href="/biblioteca#fichas" class="inline-link">Buscar em toda a biblioteca →</a></section>}
+    <aside class="reading-strip"><div><h2>Estude com a sua escola</h2><p>Relacione suas leituras aos conteúdos definidos pelo professor.</p></div><a class="button button-outline" href="/curriculos">Abrir currículos →</a></aside>
+  </section>
+</Base>

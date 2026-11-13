@@ -359,14 +359,14 @@ export default function Atlas() {
         aria-busy={loading || linksLoading}
       >
         <p className="tag">Exploração corporal</p>
-        <h2>{selected?.name_pt || area.title}</h2>
-        <p>{area.summary}</p>
+        <h2>{curatedHand ? area.title : selected?.name_pt || area.title}</h2>
+        <p>{curatedHand ? 'Selecione uma região no desenho ou busque um termo pelo nome.' : area.summary}</p>
         {notice && <p role="status">{notice}</p>}
         {curatedHand ? (
           <>
             {selected && <section className="hand-current-region" aria-label="Informações da área escolhida">
-              <h3>{selected.name_pt}</h3>
-              {handRegionDescription(selected.slug) && <p>{handRegionDescription(selected.slug)}</p>}
+              {!getHandTermForRegion(selected.slug) && <><h3>{selected.name_pt}</h3>
+                {handRegionDescription(selected.slug) && <p>{handRegionDescription(selected.slug)}</p>}</>}
               {getHandTermForRegion(selected.slug) && <PublicHandTerm term={getHandTermForRegion(selected.slug)!} />}
             </section>}
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}

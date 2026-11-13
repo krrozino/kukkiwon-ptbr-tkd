@@ -1,0 +1,13 @@
+---
+import { libraryItems, type libraryCategories } from '../../lib/library';
+type Props = { category: typeof libraryCategories[number] };
+const { category } = Astro.props;
+const count = libraryItems.filter(item => item.categoryId === category.id).length;
+---
+<a class="category-card" href={`/biblioteca/${category.id}`}>
+  <span class="category-number">{category.number}<span aria-hidden="true">↗</span></span>
+  <span class="category-romanization">{category.label}</span>
+  <h3>{category.title}</h3>
+  <p>{category.description}</p>
+  <span class="category-footer">{count ? `${count} fichas para explorar` : 'Ver caminhos de estudo'} <span aria-hidden="true">→</span></span>
+</a>

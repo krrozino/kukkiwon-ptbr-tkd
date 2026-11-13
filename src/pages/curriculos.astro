@@ -2,41 +2,11 @@
 import Base from '../layouts/Base.astro';
 import CurriculumApp from '../components/CurriculumApp';
 ---
-<Base title="Currículos de Taekwondo — Taekwondo para Todos">
-  <section class="shell section">
-    <p class="tag">Aprendizado por graduação</p>
-    <h1>O caminho da sua escola, no seu celular</h1>
-    <p class="lead">Cada escola organiza suas próprias graduações e conteúdos. Recebeu um currículo do professor? Abra o link enviado para acompanhar requisitos, orientações e demonstrações.</p>
-    <section class="section-inner" aria-label="Exemplo de organização de estudos">
-      <p class="tag">Modelo de organização pessoal</p>
-      <h2>Um roteiro para começar a estudar</h2>
-      <p>Este roteiro é apenas uma sugestão pedagógica. Cada escola e professor define suas próprias graduações, critérios de exame e conteúdos.</p>
-      <div class="grid community-features">
-        <article class="card">
-          <p class="tag">01 · Preparação</p>
-          <h3>Segurança e organização</h3>
-          <p>Conheça as orientações do professor, organize os materiais e anote os objetivos de aprendizagem.</p>
-        </article>
-        <article class="card">
-          <p class="tag">02 · Fundamentos</p>
-          <h3>Corpo, bases e direções</h3>
-          <p>Estude as regiões anatômicas, as referências de altura, o equilíbrio e os deslocamentos.</p>
-          <a href="/fundamentos/alturas-e-direcoes" class="inline-link">Alturas e direções →</a>
-        </article>
-        <article class="card">
-          <p class="tag">03 · Prática</p>
-          <h3>Movimentos e Poomsae</h3>
-          <p>Registre as técnicas e as formas realmente ensinadas na sua turma, com feedback do instrutor.</p>
-          <a href="/poomsae" class="inline-link">Conhecer os Taegeuk →</a>
-        </article>
-        <article class="card">
-          <p class="tag">04 · Acompanhamento</p>
-          <h3>Revisões e anotações</h3>
-          <p>Organize o que aprendeu e o que precisa praticar novamente. Nenhuma etapa equivale a uma graduação oficial.</p>
-          <a href="/estudos" class="inline-link">Meu espaço de estudos →</a>
-        </article>
-      </div>
-    </section>
+<Base title="Currículos — Taekwondo para Todos">
+  <section class="shell section curriculum-page">
+    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/">Início</a><span aria-hidden="true">/</span><span>Currículos</span></nav>
+    <header class="page-intro"><p class="eyebrow">Seu aprendizado, sua escola</p><h1>Cada caminho tem<br/>seu próprio ritmo.</h1><p class="lead">Consulte o plano do professor ou organize um currículo neste aparelho. Cada escola define suas graduações e seus critérios.</p></header>
     <CurriculumApp client:load />
+    <details class="curriculum-guide"><summary>Um roteiro para organizar seus estudos</summary><div class="learning-path-grid"><article><p class="eyebrow">01 / Conhecer</p><h2>Encontre as referências</h2><p>Consulte os conteúdos da biblioteca e relacione-os ao que o professor ensina.</p><a class="inline-link" href="/biblioteca">Explorar biblioteca →</a></article><article><p class="eyebrow">02 / Organizar</p><h2>Dê forma ao seu estudo</h2><p>Reúna os materiais por graduação e anote as orientações da sua escola.</p><a class="inline-link" href="/estudos">Abrir meu estudo →</a></article><article><p class="eyebrow">03 / Acompanhar</p><h2>Revise com seu professor</h2><p>Use o checklist para acompanhar seu estudo. A avaliação da graduação cabe ao professor.</p></article></div></details>
   </section>
 </Base>

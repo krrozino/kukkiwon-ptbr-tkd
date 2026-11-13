@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchCatalogPage, type TechnicalTerm } from "../lib/catalog-api";
+import { searchLibrary } from '../lib/library';
+type PickedTerm = Pick<TechnicalTerm, 'slug' | 'romanization' | 'translation_pt'> & { publication_status?: string };
 export default function TermPicker({
   onPick,
 }: {
-  onPick: (t: TechnicalTerm) => void;
+  onPick: (t: PickedTerm) => void;
 }) {
   const [q, setQ] = useState(""),
     [terms, setTerms] = useState<TechnicalTerm[]>([]),
@@ -34,6 +36,10 @@ export default function TermPicker({
       clearTimeout(timer);
     };
   }, [q]);
+  const local: PickedTerm[] = q.trim().length >= 2 ? searchLibrary(q).slice(0, 6).map(({ term }) => ({
+    slug: term.slug, romanization: term.romanization || term.name, translation_pt: term.name,
+  })) : [];
+  const results: PickedTerm[] = [...local, ...terms.filter(term => !local.some(item => item.slug === term.slug))];
   return (
     <div className="term-picker">
       <label className="field">
@@ -49,14 +55,14 @@ export default function TermPicker({
           maxLength={200}
         />
       </label>
-      {error && (
+      {error && !local.length && (
         <p role="status" className="fine-print">
           {error}
         </p>
       )}
-      {terms.length > 0 && (
+      {results.length > 0 && (
         <ul className="picker-results">
-          {terms.map((t) => (
+          {results.map((t) => (
             <li key={t.slug}>
               <button
                 onClick={() => {
