@@ -107,3 +107,8 @@ aceite visual humano, validação anatômica ou editorial.
 Conferência final: `seun-pyeonjumeok` não tem fonte individual na projeção
 existente. A ficha agora informa essa ausência e mantém Hangul ausente;
 regressão reproduzida e corrigida em desktop/mobile (dois testes adicionais).
+
+CI remota: o teste de caminho foi tornado independente do nome da worktree.
+A suíte completa seguinte passou 152/154 casos e identificou o acesso direto
+a Kyorugi ausente na home; o link foi restaurado no rodapé, mantendo o menu
+principal curto. O resultado da execução sucessora está no handoff da PR.
