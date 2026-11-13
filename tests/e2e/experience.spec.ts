@@ -53,6 +53,13 @@ test('favorito da biblioteca continua acessível no caderno de estudos', async (
   await expect(page.getByRole('link', { name: 'Abrir ficha completa' })).toHaveAttribute('href', '/biblioteca/sonkisul/sonnal');
 });
 
+test('configuração sem fonte individual não recebe Hangul ou referência inventada', async ({ page }) => {
+  await page.goto('/biblioteca/sonkisul/seun-pyeonjumeok');
+  await expect(page.locator('main [lang="ko"]')).toHaveCount(0);
+  await expect(page.getByText('A coleção atual não traz uma referência individual para esta configuração.')).toBeVisible();
+  await expect(page.locator('.ficha-sources a')).toHaveCount(0);
+});
+
 test('menu móvel funciona com teclado e atalho pula para o conteúdo', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/');

@@ -103,3 +103,7 @@ implementador: manter as seis áreas sem fichas novas com links a materiais
 existentes, preservar PRs #74/#75 independentes e deixar aliases/integridade
 semântica Argon para revisão por campo. Não confundir revisão de código com
 aceite visual humano, validação anatômica ou editorial.
+
+Conferência final: `seun-pyeonjumeok` não tem fonte individual na projeção
+existente. A ficha agora informa essa ausência e mantém Hangul ausente;
+regressão reproduzida e corrigida em desktop/mobile (dois testes adicionais).
