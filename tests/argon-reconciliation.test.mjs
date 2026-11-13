@@ -26,7 +26,7 @@ describe('reconciliação Argon é conservação, não aprovação', () => {
     for (const folder of ['src','public','dist','content/review','.github']) {
       expect(() => assertPrivateOutput(root + '/' + folder + '/matrix.json', root)).toThrow(/externa/);
     }
-    expect(() => assertPrivateOutput(root + '/../kukkiwon-experience-20261113/dist/x', root)).toThrow(/externa/);
+    expect(() => assertPrivateOutput(root + '/src/../dist/x', root)).toThrow(/externa/);
     expect(assertPrivateOutput(root + '/../private-argon/matrix.json', root)).toContain('private-argon');
   });
   it('recusa extensão que faria o CSV substituir o bundle integral', () => {
