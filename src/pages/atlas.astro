@@ -4,9 +4,11 @@ import Atlas from '../components/Atlas';
 ---
 <Base title="Atlas corporal — Taekwondo para Todos">
   <section class="shell section">
-    <p class="tag">Exploração didática</p>
+    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/biblioteca">Biblioteca</a><span aria-hidden="true">/</span><span>Atlas corporal</span></nav>
+    <header class="page-intro atlas-intro"><p class="eyebrow">Conhecimento em cada região</p>
     <h1>Atlas corporal</h1>
-    <p>Explore regiões da mão, aprenda os nomes em coreano e português e consulte significados e fontes. O mapa interativo também apresenta outras áreas do corpo.</p>
+    <p class="lead">Escolha uma região. Explore seus termos, consulte as referências e leve o que descobriu para a biblioteca.</p></header>
+    <div class="atlas-route-links"><a href="/biblioteca/sonkisul#fichas">Buscar um termo da mão →</a><a href="/biblioteca">Consultar a biblioteca →</a></div>
     <Atlas client:load />
   </section>
 </Base>
