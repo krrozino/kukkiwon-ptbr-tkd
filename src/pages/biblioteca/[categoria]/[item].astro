@@ -1,0 +1,36 @@
+---
+import Base from '../../../layouts/Base.astro';
+import FavoriteButton from '../../../components/FavoriteButton';
+import { atlasHref, libraryItems, libraryItemHref } from '../../../lib/library';
+import { safeReferenceUrl } from '../../../lib/published-knowledge';
+export function getStaticPaths() { return libraryItems.map(item => ({ params: { categoria: item.categoryId, item: item.slug }, props: { item } })); }
+const { item } = Astro.props;
+const term = item.term;
+const regionHref = atlasHref(item.slug);
+const title = term.romanization || term.name;
+const references = term.evidence.filter(row => row.reference && safeReferenceUrl(row.reference.url));
+---
+<Base title={`${title} — Biblioteca de Taekwondo`}>
+  <article class="shell section term-page">
+    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/biblioteca">Biblioteca</a><span aria-hidden="true">/</span><a href="/biblioteca/sonkisul">Mãos e punhos</a><span aria-hidden="true">/</span><span>{title}</span></nav>
+    <header class="term-heading"><div><p class="eyebrow">Sonkisul · Superfícies e configurações</p><h1>{title}</h1><p class="lead">{term.name}</p></div>{term.hangul && <div class="term-korean"><span lang="ko">{term.hangul}</span><small>Escrita coreana</small></div>}</header>
+    <nav class="term-quicklinks" aria-label="Nesta ficha">{regionHref && <a href={regionHref}>Ver no Atlas ↗</a>}<a href="#referencias">Fontes desta ficha ↓</a></nav>
+    <div class="term-layout">
+      <div class="term-reading">
+        <section class="reading-section"><h2>Conheça o termo</h2><p>{term.description}</p><p class="field-origin">Descrição em português: adaptação didática do projeto.</p>
+          {term.pronunciation && <div class="pronunciation-note"><span>Pronúncia aproximada em português</span><strong>{term.pronunciation}</strong><small>Adaptação didática; não é áudio nem transcrição fonética oficial.</small></div>}
+        </section>
+        {term.meanings.length > 0 && <section class="reading-section"><h2>Significados nas referências</h2>{term.meanings.map(meaning => <div class="meaning-row"><span class="eyebrow">{meaning.kind === 'literal' ? 'Sentido literal' : 'Termo técnico'} · {meaning.language === 'en' ? 'Inglês' : meaning.language}</span><p>{meaning.value}</p>{meaning.reference && safeReferenceUrl(meaning.reference.url) && <a class="claim-source" href={meaning.reference.url} target="_blank" rel="noopener noreferrer">{meaning.reference.institution} · {meaning.reference.edition} · {meaning.reference.locator} ↗</a>}</div>)}</section>}
+        {term.related.length > 0 && <section class="reading-section"><h2>Relações nas fontes</h2><p class="muted">Nomes relacionados no documento de referência.</p><ul class="related-list">{term.related.map(related => <li><strong>{related.name}</strong>{related.reference && safeReferenceUrl(related.reference.url) && <a class="claim-source" href={related.reference.url} target="_blank" rel="noopener noreferrer">{related.reference.institution} · {related.reference.locator} ↗</a>}</li>)}</ul></section>}
+        {term.variants.length > 0 && <section class="reading-section"><h2>Outras grafias</h2><ul>{term.variants.map(variant => <li>{variant.value}</li>)}</ul></section>}
+        <section class="reading-section" id="referencias"><p class="eyebrow">Leia na origem</p><h2>Fontes desta ficha</h2><p class="muted">Referência individual da escrita e da romanização. Tradução, descrição e pronúncia em português são adaptações do projeto.</p><ul class="ficha-sources">{references.map(row => <li><span class="source-field">{row.field === 'hangul' ? 'Hangul' : 'Romanização'}</span><a href={row.reference.url} target="_blank" rel="noopener noreferrer">{row.reference.institution} · {row.reference.title} ↗</a><span>{row.reference.edition} · {row.reference.locator}</span></li>)}</ul><a class="inline-link" href="/fontes">Entenda como usamos as fontes →</a></section>
+      </div>
+      <aside class="term-sidebar" aria-label="Continue seu estudo">
+        <div class="study-card"><p class="eyebrow">Da palavra à região</p><h2>Explore no Atlas</h2><p>{regionHref ? 'Encontre a região da mão no desenho interativo e consulte os termos no contexto.' : 'Conheça as regiões da mão e as outras configurações disponíveis no índice.'}</p><a class="button" href={regionHref || `/atlas?region=hands&zoom=1&term=${term.slug}`}>{regionHref ? 'Localizar no Atlas' : 'Ver termo no índice do Atlas'} <span aria-hidden="true">↗</span></a></div>
+        <div class="study-card study-card-plain"><h2>Leve para o seu estudo</h2><p>Salve a ficha no seu caderno ou use a busca de conteúdos ao montar um currículo.</p><FavoriteButton slug={term.slug} title={title} client:load /><a class="inline-link" href="/curriculos">Organizar currículo →</a></div>
+        <a class="back-to-library" href="/biblioteca/sonkisul">← Mais termos de mãos e punhos</a>
+      </aside>
+    </div>
+    <aside class="reading-strip"><div><h2>Continue explorando</h2><p>Cada termo pode abrir um novo caminho de estudo.</p></div><div class="reading-links">{libraryItems.filter(other => other.slug !== item.slug).slice(0,3).map(other => <a href={libraryItemHref(other.slug)!}>{other.term.romanization} →</a>)}</div></aside>
+  </article>
+</Base>

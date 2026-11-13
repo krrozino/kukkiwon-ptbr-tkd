@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryCard from '../../components/library/CategoryCard.astro';
+import LibraryExplorer from '../../components/library/LibraryExplorer';
+import { libraryCategories } from '../../lib/library';
+---
+<Base title="Biblioteca de Taekwondo — Taekwondo para Todos">
+  <div class="shell section library-page">
+    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/">Início</a><span aria-hidden="true">/</span><span>Biblioteca</span></nav>
+    <header class="page-intro"><p class="eyebrow">Conhecimento para o seu caminho</p><h1>Biblioteca de Taekwondo</h1><p class="lead">Uma palavra, uma região do corpo, um novo assunto. Encontre seu ponto de partida e siga as referências.</p></header>
+    <nav class="collection-nav" aria-label="Áreas da biblioteca">{libraryCategories.map(category => <a href={`/biblioteca/${category.id}`}>{category.label}</a>)}</nav>
+    <div class="section-heading library-results-heading"><div><p class="eyebrow">Consulta rápida</p><h2>Encontre uma ficha</h2></div><span class="muted">Português · Coreano · Romanização</span></div>
+    <LibraryExplorer client:load />
+    <details class="library-areas"><summary>Conheça as sete áreas da biblioteca</summary><div class="category-grid">{libraryCategories.map(category => <CategoryCard category={category} />)}</div></details>
+    <aside class="reading-strip"><div><h2>Mais formas de consultar</h2><p>Glossário, fundamentos e catálogo fazem parte da mesma biblioteca.</p></div><div class="reading-links"><a href="/glossario">Glossário →</a><a href="/fundamentos/alturas-e-direcoes">Fundamentos →</a><a href="/catalogo">Catálogo técnico →</a><a href="/acervo">Acervo com referências →</a></div></aside>
+  </div>
+</Base>
