@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { buildArgonMatrix, assertPrivateOutput, run } from '../scripts/argon-reconciliation.mjs';
+import {
+  buildArgonMatrix,
+  assertPrivateOutput,
+  loadExistingInventory,
+  summarizeArgonReconciliation,
+  CANONICAL_RECONCILIATION_MODULES,
+  run,
+} from '../scripts/argon-reconciliation.mjs';
 const row = (id, slug, raw = {}) => ({ id, number: Number(id.slice(4)), candidate_slug: slug, section: 'Anatomia e superfícies', page_start: 52, page_end: 53, raw_cells: { variants: 'Son\nnal', source_audit: 'A\n(SRC-01)', ...raw }, raw_evidence_class: 'A' });
 describe('reconciliação Argon é conservação, não aprovação', () => {
   it('preserva células e variantes sem fundir uma correspondência textual', () => {
@@ -34,4 +41,36 @@ describe('reconciliação Argon é conservação, não aprovação', () => {
     expect(() => run({ source: external + 'input-not-present', output: external + 'matrix.csv' })).toThrow(/\.json/);
     expect(() => run({ source: external + 'input-not-present', output: external + 'matrix' })).toThrow(/\.json/);
   });
+  it('mapeia inventário completo das 7 áreas da Biblioteca e do Atlas sem autopublicação', async () => {
+    const { libraryItems } = await import('../src/lib/library.ts');
+    const existing = loadExistingInventory();
+    const existingSlugs = new Set(existing.map(e => e.slug));
+    for (const item of libraryItems) {
+      expect(existingSlugs.has(item.slug), item.slug).toBe(true);
+    }
+    expect(existing.some(e => e.slug === 'sonnal' && e.origin === 'public-hand-v1')).toBe(true);
+    expect(existing.some(e => e.slug === 'apchuk' && e.origin === 'library:balkisul')).toBe(true);
+    expect(existing.some(e => e.slug === 'apchuk' && e.origin === 'atlas-geometry')).toBe(true);
+    expect(existing.some(e => e.slug === 'palgup' && e.origin === 'atlas-geometry')).toBe(true);
+    expect(existing.some(e => e.slug === 'taegeuk-1-jang' && e.origin === 'library:poomsae')).toBe(true);
+
+    const sampleRecords = [
+      { ...row('TKD-001', 'apgubi'), number: 1 },
+      { ...row('TKD-002', 'apchuk'), number: 90 },
+      { ...row('TKD-003', 'candidato-novo'), number: 355 },
+    ];
+    // Re-number IDs sequentially for buildArgonMatrix invariant
+    const normalized = sampleRecords.map((r, i) => ({
+      ...r,
+      id: 'TKD-' + String(i + 1).padStart(3, '0'),
+    }));
+    const matrix = buildArgonMatrix({ records: normalized }, { existing, expected: 3 });
+    const summary = summarizeArgonReconciliation(matrix);
+    expect(Object.keys(summary.byProposedModule)).toEqual(CANONICAL_RECONCILIATION_MODULES);
+    expect(summary.autoPublishedCount).toBe(0);
+    expect(summary.aliasesIndependentlyVerified).toBe(false);
+    expect(summary.rawAliasLinesCount).toBe(6);
+    expect(matrix.records[1].matches.some(m => m.origin === 'library:balkisul')).toBe(true);
+  });
 });
+
