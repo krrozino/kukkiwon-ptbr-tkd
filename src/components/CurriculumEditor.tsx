@@ -1,5 +1,12 @@
 import { useState } from "react";
-import type { Curriculum, Grade, Requirement } from "../lib/curriculum";
+import {
+  sequenceTypeLabels,
+  sequenceTypes,
+  type Curriculum,
+  type Grade,
+  type Requirement,
+  type SequenceType,
+} from "../lib/curriculum";
 import TermPicker from "./TermPicker";
 import type { SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
@@ -90,7 +97,7 @@ export default function CurriculumEditor({
               Remover graduação
             </button>
           </div>
-          {g.requirements.map((r) => (
+          {g.requirements.map((r, rIndex) => (
             <div className="requirement-editor stack" key={r.id}>
               <label className="field">
                 Conteúdo
@@ -103,19 +110,130 @@ export default function CurriculumEditor({
               <label className="field">
                 Tipo de requisito
                 <select
+                  aria-label="Tipo de requisito"
                   value={r.kind}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    const nextKind = e.target.value as Requirement["kind"];
                     req(g.id, r.id, {
-                      kind: e.target.value as Requirement["kind"],
-                    })
-                  }
+                      kind: nextKind,
+                      ...(nextKind === "matchuo-kyorugi" && !r.sequenceType
+                        ? { sequenceType: "sebon", sequenceStart: 1, sequenceEnd: 5 }
+                        : {}),
+                    });
+                  }}
                 >
                   <option value="tecnica">Técnica</option>
                   <option value="poomsae">Poomsae</option>
+                  <option value="matchuo-kyorugi">Matchuo Kyorugi (Combate combinado)</option>
+                  <option value="palgwae">Palgwae (Coleção histórica)</option>
+                  <option value="iron">Iron (Teoria e história)</option>
+                  <option value="kibon-dongjak">Kibon Dongjak (Fundamentos)</option>
+                  <option value="balkisul">Balkisul (Pés e chutes)</option>
+                  <option value="sonkisul">Sonkisul (Mãos e punhos)</option>
                   <option value="teoria">Conhecimento teórico</option>
                   <option value="material">Material de estudo</option>
                 </select>
               </label>
+              {(r.kind === "matchuo-kyorugi" || r.sequenceType) && (
+                <div className="sequence-range-fields stack">
+                  <label className="field">
+                    Modalidade de sequência da escola
+                    <select
+                      aria-label="Modalidade de sequência da escola"
+                      value={r.sequenceType || ""}
+                      onChange={(e) => {
+                        const val = e.target.value as SequenceType | "";
+                        req(
+                          g.id,
+                          r.id,
+                          val
+                            ? {
+                                sequenceType: val,
+                                sequenceStart: r.sequenceStart ?? 1,
+                                sequenceEnd: r.sequenceEnd ?? 5,
+                              }
+                            : {
+                                sequenceType: undefined,
+                                sequenceStart: undefined,
+                                sequenceEnd: undefined,
+                              },
+                        );
+                      }}
+                    >
+                      <option value="">Sem intervalo numérico</option>
+                      {sequenceTypes.map((st) => (
+                        <option key={st} value={st}>
+                          {sequenceTypeLabels[st]}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  {r.sequenceType && (
+                    <>
+                      <div className="actions">
+                        <label className="field">
+                          Sequência inicial (1–100)
+                          <input
+                            type="number"
+                            min={1}
+                            max={100}
+                            value={r.sequenceStart ?? 1}
+                            onChange={(e) => {
+                              const start = Math.max(1, Math.min(100, Number(e.target.value) || 1));
+                              req(g.id, r.id, {
+                                sequenceStart: start,
+                                sequenceEnd: Math.max(start, r.sequenceEnd ?? start),
+                              });
+                            }}
+                          />
+                        </label>
+                        <label className="field">
+                          Sequência final (1–100)
+                          <input
+                            type="number"
+                            min={1}
+                            max={100}
+                            value={r.sequenceEnd ?? r.sequenceStart ?? 1}
+                            onChange={(e) => {
+                              const end = Math.max(
+                                r.sequenceStart ?? 1,
+                                Math.min(100, Number(e.target.value) || 1),
+                              );
+                              req(g.id, r.id, { sequenceEnd: end });
+                            }}
+                          />
+                        </label>
+                      </div>
+                      <div className="actions">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            req(g.id, r.id, { sequenceStart: 1, sequenceEnd: 5 })
+                          }
+                        >
+                          Intervalo 1 a 5
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            req(g.id, r.id, { sequenceStart: 1, sequenceEnd: 10 })
+                          }
+                        >
+                          Intervalo 1 a 10
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            req(g.id, r.id, { sequenceStart: 6, sequenceEnd: 10 })
+                          }
+                        >
+                          Intervalo 6 a 10
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
               <label className="field">
                 Orientação compartilhada do professor
                 <textarea
@@ -177,16 +295,50 @@ export default function CurriculumEditor({
                   ))}
                 </select>
               </label>
-              <button
-                onClick={() =>
-                  grade(g.id, (g) => ({
-                    ...g,
-                    requirements: g.requirements.filter((x) => x.id !== r.id),
-                  }))
-                }
-              >
-                Remover conteúdo
-              </button>
+              <div className="actions">
+                <button
+                  type="button"
+                  disabled={rIndex === 0}
+                  onClick={() =>
+                    grade(g.id, (gr) => {
+                      const next = [...gr.requirements];
+                      [next[rIndex - 1], next[rIndex]] = [
+                        next[rIndex],
+                        next[rIndex - 1],
+                      ];
+                      return { ...gr, requirements: next };
+                    })
+                  }
+                >
+                  Subir conteúdo
+                </button>
+                <button
+                  type="button"
+                  disabled={rIndex === g.requirements.length - 1}
+                  onClick={() =>
+                    grade(g.id, (gr) => {
+                      const next = [...gr.requirements];
+                      [next[rIndex + 1], next[rIndex]] = [
+                        next[rIndex],
+                        next[rIndex + 1],
+                      ];
+                      return { ...gr, requirements: next };
+                    })
+                  }
+                >
+                  Descer conteúdo
+                </button>
+                <button
+                  onClick={() =>
+                    grade(g.id, (g) => ({
+                      ...g,
+                      requirements: g.requirements.filter((x) => x.id !== r.id),
+                    }))
+                  }
+                >
+                  Remover conteúdo
+                </button>
+              </div>
             </div>
           ))}
           <button

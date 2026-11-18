@@ -4,6 +4,7 @@ export type StudyItem = {
   title: string;
   folderId: string | null;
   studied: boolean;
+  review?: boolean;
 };
 export type Reference = {
   kind: "term" | "url" | "folder" | "curriculum";
@@ -22,6 +23,112 @@ export type Studies = {
   items: StudyItem[];
   notes: StudyNote[];
 };
+
+export type StudyTrail = {
+  id: string;
+  title: string;
+  audience: string;
+  description: string;
+  folderName: string;
+  items: readonly { slug: string; title: string }[];
+};
+
+export const studyTrails: readonly StudyTrail[] = [
+  {
+    id: "iniciante",
+    title: "Sou iniciante",
+    audience: "Primeiros passos",
+    description: "Significado do Taekwondo, cortesia no dojang, alturas, primeiras bases, defesa baixa, soco e chute frontal.",
+    folderName: "Trilha · Primeiros passos",
+    items: [
+      { slug: "iron-significado-taekwondo", title: "Significado de Tae · Kwon · Do" },
+      { slug: "iron-espirito-cortesia-dojang", title: "Espírito do Taekwondo e cortesia no dojang" },
+      { slug: "kibon-alturas-direcoes", title: "Alturas e direções (Olgul, Momtong, Arae)" },
+      { slug: "ap-seogi", title: "Ap-seogi" },
+      { slug: "apgubi", title: "Apgubi" },
+      { slug: "naeryeo-makgi", title: "Naeryeo-makgi" },
+      { slug: "jeocheo-jireugi", title: "Jeocheo-jireugi" },
+      { slug: "ap-chagi", title: "Ap-chagi" },
+    ],
+  },
+  {
+    id: "chutes-balkisul",
+    title: "Chutes e superfícies do pé",
+    audience: "Balkisul + Atlas",
+    description: "Conecte cada superfície anatômica do pé no Atlas aos principais chutes lineares, circulares e giratórios.",
+    folderName: "Trilha · Chutes e pés",
+    items: [
+      { slug: "apchuk", title: "Apchuk" },
+      { slug: "baldeung", title: "Baldeung" },
+      { slug: "balnal", title: "Balnal" },
+      { slug: "dwichuk", title: "Dwichuk" },
+      { slug: "ap-chagi", title: "Ap-chagi" },
+      { slug: "dollyeo-chagi", title: "Dollyeo-chagi" },
+      { slug: "yeop-chagi", title: "Yeop-chagi" },
+      { slug: "dwi-chagi", title: "Dwi-chagi" },
+    ],
+  },
+  {
+    id: "poomsae-taegeuk",
+    title: "Poomsae (Série Taegeuk)",
+    audience: "Formas e trigramas",
+    description: "Estude os primeiros Taegeuk com trigramas, posturas de preparação e bases fundamentais.",
+    folderName: "Trilha · Série Taegeuk",
+    items: [
+      { slug: "gibon-junbi", title: "Gibon-junbi" },
+      { slug: "taegeuk-1-jang", title: "Taegeuk 1 Jang" },
+      { slug: "taegeuk-2-jang", title: "Taegeuk 2 Jang" },
+      { slug: "taegeuk-3-jang", title: "Taegeuk 3 Jang" },
+      { slug: "taegeuk-4-jang", title: "Taegeuk 4 Jang" },
+      { slug: "dwitgubi", title: "Dwitgubi" },
+    ],
+  },
+  {
+    id: "maos-sonkisul",
+    title: "Mãos, punhos e defesas",
+    audience: "Sonkisul + Kibon",
+    description: "Relacione superfícies da mão e configurações de dedos às defesas e golpes da base técnica.",
+    folderName: "Trilha · Mãos e defesas",
+    items: [
+      { slug: "jumeok", title: "Jumeok" },
+      { slug: "sonnal", title: "Sonnal" },
+      { slug: "batangson", title: "Batangson" },
+      { slug: "pyeonsonkkeut", title: "Pyeonsonkkeut" },
+      { slug: "an-makgi", title: "An-makgi" },
+      { slug: "sonnal-makgi-familia", title: "Sonnal-bakkat-makgi" },
+      { slug: "sonnal-an-chigi", title: "Sonnal-an-chigi" },
+    ],
+  },
+  {
+    id: "matchuo-escola",
+    title: "Combate combinado",
+    audience: "Matchuo Kyorugi",
+    description: "Estruture Sebon, Dubon, Hanbon e Anjoa conforme o currículo praticado no seu dojang.",
+    folderName: "Trilha · Combate combinado",
+    items: [
+      { slug: "matchuo-kyorugi-fundamentos", title: "Matchuo Kyorugi (Combate combinado)" },
+      { slug: "sebon-kyorugi", title: "Sebon Kyorugi" },
+      { slug: "dubon-kyorugi", title: "Dubon Kyorugi" },
+      { slug: "hanbon-kyorugi", title: "Hanbon Kyorugi" },
+      { slug: "anjoa-kyorugi", title: "Anjoa Kyorugi" },
+    ],
+  },
+  {
+    id: "teoria-terminologia",
+    title: "Teoria, história e terminologia",
+    audience: "Iron + Palgwae",
+    description: "Compreenda a história documentada pós-1945, instituições, morfologia coreana e a coleção Palgwae.",
+    folderName: "Trilha · Teoria e história",
+    items: [
+      { slug: "iron-historia-pos-1945", title: "Formação moderna pós-1945 e unificação" },
+      { slug: "iron-instituicoes-kukkiwon-wt-cbtkd", title: "Kukkiwon, World Taekwondo e entidades esportivas" },
+      { slug: "iron-morfologia-terminologia", title: "Como ler nomes técnicos em coreano" },
+      { slug: "iron-padronizacao-romanizacao", title: "Romanização Revisada e variantes gráficas" },
+      { slug: "palgwae-contexto-historico", title: "Coleção Palgwae" },
+    ],
+  },
+];
+
 export const emptyStudies = (): Studies => ({
   version: 1,
   folders: [],
@@ -65,6 +172,7 @@ export function parseStudies(raw: string): Studies {
         !/^[a-z0-9-]+$/.test(i.slug) ||
         !validText(i.title, 200) ||
         typeof i.studied !== "boolean" ||
+        (i.review !== undefined && typeof i.review !== "boolean") ||
         (i.folderId !== null && !s.folders.some((f) => f.id === i.folderId)),
     )
   )
