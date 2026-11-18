@@ -30,9 +30,25 @@ test('busca tem filtros, vazio útil e histórico reproduzível', async ({ page 
   await expect(page.locator('.library-results a')).toHaveCount(17);
   await page.getByRole('button', { name: 'Limpar filtros' }).click();
   await page.getByRole('searchbox', { name: 'Buscar na biblioteca', exact: true }).fill('손날');
-  await expect(page.locator('.library-results a')).toHaveCount(2);
+  await expect(page.locator('.library-results a')).toHaveCount(4);
   await page.reload();
+  await expect(page.locator('.library-results a')).toHaveCount(4);
+  await page.getByLabel('Área de estudo', { exact: true }).selectOption('sonkisul');
   await expect(page.locator('.library-results a')).toHaveCount(2);
+});
+
+test('Iron filtra níveis teóricos e valida revisão rápida com fonte', async ({ page }) => {
+  await page.goto('/biblioteca/iron');
+  await expect(page.locator('.library-results a')).toHaveCount(12);
+  await page.getByRole('button', { name: 'Básico (Iniciante)' }).click();
+  await expect(page.locator('.library-results a')).toHaveCount(4);
+  const quiz = page.getByRole('region', { name: 'Revisão rápida de compreensão teórica' });
+  await quiz.getByRole('button', { name: 'Kukkiwon', exact: true }).click();
+  await expect(quiz.getByText('Correto:')).toBeVisible();
+  await expect(quiz.getByRole('link', { name: /Abrir ficha de referência/ })).toHaveAttribute(
+    'href',
+    '/biblioteca/iron/iron-instituicoes-kukkiwon-wt-cbtkd',
+  );
 });
 
 test('professor vincula a biblioteca ao currículo local e o aluno reabre a ficha', async ({ page }) => {

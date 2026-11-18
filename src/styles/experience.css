@@ -442,6 +442,26 @@ h1, h2, h3, p { overflow-wrap: break-word; }
   .matchuo-organizer { padding: 20px; }
   .matchuo-form-grid, .matchuo-entry-grid { grid-template-columns: 1fr; }
 }
+.iron-study-panel { margin: 0 0 28px; display: grid; gap: 22px; }
+.iron-levels-box, .iron-quiz-section { padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); display: grid; gap: 16px; }
+.iron-levels-box h2, .iron-quiz-head h2 { margin: 4px 0 6px; }
+.iron-levels-box p, .iron-quiz-head p { margin: 0; color: var(--muted); max-width: 70ch; }
+.iron-quiz-head { display: flex; justify-content: space-between; align-items: start; gap: 18px; flex-wrap: wrap; }
+.iron-quiz-score { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: .84rem; color: var(--ink); }
+.iron-quiz-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.iron-quiz-card { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.iron-quiz-card h3 { margin: 0; font-size: 1.02rem; line-height: 1.45; }
+.iron-quiz-options { display: grid; gap: 8px; }
+.iron-option-btn { text-align: left; padding: 11px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: .84rem; line-height: 1.45; cursor: pointer; white-space: normal; }
+.iron-option-btn:hover { border-color: var(--green); }
+.iron-option-btn[aria-pressed="true"].is-correct { background: var(--control-selected-bg); color: var(--control-selected-fg); border-color: var(--control-selected-border); font-weight: 600; }
+.iron-option-btn[aria-pressed="true"].is-wrong { background: var(--surface-soft); color: var(--ink); border: 2px solid var(--ink); font-weight: 600; }
+.iron-quiz-feedback { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); font-size: .83rem; display: grid; gap: 6px; }
+.iron-quiz-feedback p { margin: 0; color: var(--ink); }
+@media (max-width: 840px) {
+  .iron-levels-box, .iron-quiz-section { padding: 20px; }
+  .iron-quiz-grid { grid-template-columns: 1fr; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }

@@ -2,6 +2,8 @@ import { handTerms, getHandRegionForTerm } from './public-hand';
 import { allPoomsaeGuides } from '../data/poomsae-guide';
 import { palgwaeEntries } from '../data/palgwae-guide';
 import { matchuoEntries } from '../data/matchuo-kyorugi-guide';
+import { ironEntries } from '../data/iron-guide';
+import { kibonEntries } from '../data/kibon-guide';
 
 export type LibraryReference = {
   title: string;
@@ -428,12 +430,104 @@ const matchuoItems: LibraryItem[] = matchuoEntries.map((entry) => ({
   },
 }));
 
+const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'iron',
+  kindLabel: entry.levelLabel,
+  moduleLink:
+    entry.moduleHref && entry.moduleLabel
+      ? { href: entry.moduleHref, label: entry.moduleLabel }
+      : { href: '/fontes', label: 'Consultar fontes e critérios do projeto' },
+  studyPoints: entry.keyTakeaways,
+  scopeNotice:
+    'Síntese teórica e histórica em português brasileiro fundamentada nas fontes institucionais citadas abaixo; distingue documentação verificada de tradições próprias de cada escola.',
+  relatedLibrarySlugs: entry.relatedLibrarySlugs,
+  term: {
+    slug: entry.slug,
+    name: entry.subtitle,
+    hangul: null,
+    romanization: entry.title,
+    pronunciation: null,
+    description: entry.summary,
+    meanings: [
+      {
+        kind: entry.level === 'avancado' ? 'historical' : 'symbolic',
+        language: 'pt-BR',
+        value: `${entry.levelLabel} — ${entry.subtitle}.`,
+        reference: entry.references[0]?.reference ?? null,
+      },
+    ],
+    variants: entry.variants.map((value) => ({ value })),
+    related: entry.references.map((row) => ({
+      name: `${row.reference.institution}: ${row.reference.title}`,
+      reference: row.reference,
+    })),
+    evidence: entry.references.map((row) => ({
+      field: row.field,
+      reference: row.reference,
+    })),
+  },
+}));
+
+const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'kibon-dongjak',
+  kindLabel: entry.kindLabel,
+  illustrativeBodyArea: {
+    region: entry.atlasRegion,
+    label: entry.atlasLabel,
+    note: 'Ligação ilustrativa para explorar a região corporal envolvida no movimento; não substitui correção presencial de postura.',
+  },
+  acervoLink: entry.acervoSlug
+    ? {
+        href: `/acervo#${entry.acervoSlug}`,
+        label: `Ver registro ${entry.romanization} no Acervo`,
+        note: 'Registro provisório com localizador na terminologia Kukkiwon 2011/2012.',
+      }
+    : undefined,
+  moduleLink:
+    entry.moduleHref && entry.moduleLabel
+      ? { href: entry.moduleHref, label: entry.moduleLabel }
+      : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
+  studyPoints: entry.studyPoints,
+  scopeNotice:
+    'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.',
+  relatedLibrarySlugs: entry.relatedLibrarySlugs,
+  term: {
+    slug: entry.slug,
+    name: entry.subtitlePt,
+    hangul: entry.hangul,
+    romanization: entry.romanization,
+    pronunciation: entry.pronunciationPt,
+    description: entry.summary,
+    meanings: [
+      {
+        kind: 'technical',
+        language: 'pt-BR',
+        value: `${entry.kindLabel} · ${entry.subtitlePt}.`,
+        reference: entry.references[0]?.reference ?? null,
+      },
+    ],
+    variants: entry.variants.map((value) => ({ value })),
+    related: entry.references.map((row) => ({
+      name: `${row.reference.title} (${row.reference.locator})`,
+      reference: row.reference,
+    })),
+    evidence: entry.references.map((row) => ({
+      field: row.field,
+      reference: row.reference,
+    })),
+  },
+}));
+
 // One identity, verified institutional sources only: zero raw Argon/Gemini research leakage.
 export const libraryItems: LibraryItem[] = [
   ...sonkisulItems,
   ...poomsaeItems,
   ...palgwaeItems,
   ...matchuoItems,
+  ...ironItems,
+  ...kibonItems,
 ];
 
 export const getLibraryItem = (slug: string) => libraryItems.find((item) => item.slug === slug);

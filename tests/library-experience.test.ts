@@ -78,5 +78,19 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(searchLibrary('Anjoa', 'matchuo-kyorugi').map((item) => item.slug)).toContain('anjoa-kyorugi');
     expect(libraryItemHref('sebon-kyorugi')).toBe('/biblioteca/matchuo-kyorugi/sebon-kyorugi');
   });
+
+  it('organiza Iron em três níveis progressivos e Kibon Dongjak em famílias com Hangul verificado', () => {
+    expect(searchLibrary('', 'iron')).toHaveLength(12);
+    expect(searchLibrary('', 'iron', false, 'Iron · Básico')).toHaveLength(4);
+    expect(searchLibrary('', 'iron', false, 'Iron · Intermediário')).toHaveLength(4);
+    expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(4);
+
+    const kibon = searchLibrary('', 'kibon-dongjak');
+    expect(kibon).toHaveLength(18);
+    expect(searchLibrary('앞굽이', 'kibon-dongjak').map((item) => item.slug)).toEqual(['apgubi']);
+    expect(searchLibrary('Arae-makgi', 'kibon-dongjak').map((item) => item.slug)).toContain('naeryeo-makgi');
+    expect(getLibraryItem('apgubi')?.acervoLink?.href).toBe('/acervo#apgubi');
+  });
 });
+
 

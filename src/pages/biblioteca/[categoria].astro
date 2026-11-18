@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import LibraryExplorer from '../../components/library/LibraryExplorer';
 import MatchuoOrganizer from '../../components/kyorugi/MatchuoOrganizer';
+import IronStudyPanel from '../../components/iron/IronStudyPanel';
 import { libraryCategories, libraryItems, categoryResources } from '../../lib/library';
 export function getStaticPaths() { return libraryCategories.map(category => ({ params: { categoria: category.id }, props: { category } })); }
 const { category } = Astro.props;
@@ -18,6 +19,7 @@ const resources = categoryResources[category.id];
         <strong>Coleção histórica separada dos Taegeuk vigentes:</strong> o portal atual de Poomsae da Kukkiwon (Board 55) lista os oito Taegeuk e as nove formas Dan como coleção institucional ativa. As fichas de Palgwae preservam o contexto histórico da década de 1960 e apoiam escolas que mantêm a série em seus currículos, sem inventar passos padronizados.
       </aside>
     )}
+    {category.id === 'iron' && <IronStudyPanel client:load />}
     {hasItems ? (
       <>
         <LibraryExplorer categoryId={category.id} client:load />
