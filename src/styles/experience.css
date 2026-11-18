@@ -155,14 +155,17 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .library-areas summary { cursor: pointer; font-weight: 600; }
 .library-areas .category-grid { margin-top: 24px; }
 .library-search-panel { background: var(--green-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-.library-filters { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; }
+.library-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+@media (min-width: 960px) { .library-filters > .field:first-child { grid-column: span 2; } }
 .library-filters:has(> :only-child) { grid-template-columns: 1fr; }
-.library-filters .field { font-size: .78rem; color: var(--ink); gap: 8px; }
-.library-filters input, .library-filters select { font-size: .87rem; background: var(--surface); border-color: var(--line); min-height: 48px; color: var(--ink); }
+.library-filters .field { font-size: .78rem; color: var(--ink); gap: 8px; min-width: 0; }
+.library-filters input, .library-filters select { font-size: .87rem; background: var(--surface); border-color: var(--line); min-height: 48px; color: var(--ink); width: 100%; min-width: 0; }
 .library-filter-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; font-size: .76rem; }
 .library-filter-footer p { margin: 0; color: var(--muted); }
 .library-filter-footer .check-label { align-items: center; }
 .library-filter-footer input { width: 17px; height: 17px; accent-color: var(--green); }
+.library-filter-status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.library-filter-status button { min-height: 36px; padding: 6px 12px; font-size: .76rem; }
 .library-results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
 .library-entry { position: relative; padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); display: flex; flex-direction: column; }
 .library-entry:hover { border-color: var(--green); }
@@ -202,13 +205,16 @@ h1, h2, h3, p { overflow-wrap: break-word; }
   border-color: var(--control-selected-border);
 }
 .study-sidebar button[aria-pressed='true'], .study-card button[aria-pressed='true'], .actions button[aria-pressed='true'],
-[data-theme='dark'] .study-sidebar button[aria-pressed='true'], [data-theme='dark'] .study-card button[aria-pressed='true'], [data-theme='dark'] .actions button[aria-pressed='true'] {
+.poomsae-card-actions button[aria-pressed='true'], .poomsae-mode-bar button[aria-pressed='true'],
+[data-theme='dark'] .study-sidebar button[aria-pressed='true'], [data-theme='dark'] .study-card button[aria-pressed='true'], [data-theme='dark'] .actions button[aria-pressed='true'],
+[data-theme='dark'] .poomsae-card-actions button[aria-pressed='true'], [data-theme='dark'] .poomsae-mode-bar button[aria-pressed='true'] {
   color: var(--control-selected-ink);
   background: var(--control-selected-bg);
   border-color: var(--control-selected-border);
   font-weight: 700;
   box-shadow: inset 0 0 0 1px var(--control-selected-border);
 }
+.category-materials { margin-top: 36px; }
 .category-materials > h2 { font: 400 1.9rem Georgia, serif; margin-bottom: 24px; }
 .category-materials .learning-path-grid { margin-bottom: 24px; }
 .category-resource { display: block; text-decoration: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 24px; border-radius: 10px; }
@@ -386,6 +392,29 @@ h1, h2, h3, p { overflow-wrap: break-word; }
   .category-card > p { margin-bottom: 16px; }
   .atlas-discovery h3 { margin-top: 0; }
   .atlas-discovery .category-number { grid-column: 1/-1; grid-row: auto; margin-bottom: 20px; }
+}
+.term-visual-badge { background: var(--green-soft); border: 1px solid var(--line); border-radius: 10px; padding: 18px 24px; min-width: 170px; text-align: center; color: var(--green); }
+.trigram-diagram, .poomsae-line-diagram { margin: 0; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; color: var(--green); }
+.trigram-diagram figcaption, .poomsae-line-diagram figcaption { font-size: .66rem; color: var(--muted); max-width: 18ch; line-height: 1.35; }
+.poomsae-school-box { margin-top: 22px; padding: 18px 22px; background: var(--surface-soft); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; display: grid; gap: 8px; }
+.poomsae-school-box p { margin: 0; font-size: .86rem; }
+.poomsae-belt-note { font-size: .78rem; color: var(--muted); margin: 8px 0; }
+.poomsae-card { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.poomsae-card-head { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+.poomsae-card-head h3 { margin: 4px 0 0; }
+.poomsae-card-actions { display: flex; flex-direction: column; align-items: start; gap: 10px; margin-top: auto; padding-top: 14px; }
+.poomsae-dossier { margin-bottom: 28px; border-left: 4px solid var(--green); scroll-margin-top: 24px; }
+.poomsae-dossier-top { display: flex; justify-content: space-between; align-items: start; gap: 24px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 22px; }
+.poomsae-dossier-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 18px; }
+.poomsae-dossier-block h3 { font-size: 1.15rem; margin: 0 0 10px; }
+.poomsae-dossier-block ul { padding-left: 20px; display: grid; gap: 8px; margin: 12px 0; }
+.poomsae-dossier-relations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+.poomsae-dossier-actions { margin-top: 20px; flex-wrap: wrap; }
+.poomsae-sequence-head { display: flex; justify-content: space-between; align-items: start; gap: 20px; flex-wrap: wrap; }
+.poomsae-mode-bar { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.poomsae-stepper { border-left: 4px solid var(--green); }
+@media (max-width: 760px) {
+  .poomsae-dossier-grid, .poomsae-dossier-relations { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }

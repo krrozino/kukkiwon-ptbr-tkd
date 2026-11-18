@@ -1,36 +1,283 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import FavoriteButton from '../../../components/FavoriteButton';
-import { atlasHref, libraryItems, libraryItemHref } from '../../../lib/library';
+import { PoomsaeLineDiagram, SchoolBeltStatus, TrigramDiagram } from '../../../components/poomsae/PoomsaeVisuals';
+import { getPoomsaeGuide } from '../../../data/poomsae-guide';
+import { atlasHref, getLibraryCategory, getLibraryItem, libraryItems, libraryItemHref } from '../../../lib/library';
 import { safeReferenceUrl } from '../../../lib/published-knowledge';
-export function getStaticPaths() { return libraryItems.map(item => ({ params: { categoria: item.categoryId, item: item.slug }, props: { item } })); }
+
+export function getStaticPaths() {
+  return libraryItems.map((item) => ({
+    params: { categoria: item.categoryId, item: item.slug },
+    props: { item },
+  }));
+}
+
 const { item } = Astro.props;
+const category = getLibraryCategory(item.categoryId)!;
 const term = item.term;
 const regionHref = atlasHref(item.slug);
 const title = term.romanization || term.name;
-const references = term.evidence.filter(row => row.reference && safeReferenceUrl(row.reference.url));
+const references = term.evidence.filter((row) => row.reference && safeReferenceUrl(row.reference.url));
+const poomsaeGuide = item.poomsaeSlug ? getPoomsaeGuide(item.poomsaeSlug) : null;
+
+const fieldLabelMap: Record<string, string> = {
+  hangul: 'Hangul',
+  romanization: 'Romanização',
+  context: 'Contexto institucional',
+  terminology: 'Terminologia',
+  historical: 'Registro histórico',
+};
+
+const meaningKindMap: Record<string, string> = {
+  literal: 'Sentido literal',
+  symbolic: 'Simbolismo e contexto',
+  technical: 'Termo técnico',
+  historical: 'Contexto histórico',
+};
+
+const suggestedItems = (
+  item.relatedLibrarySlugs?.length
+    ? item.relatedLibrarySlugs
+        .map((slug) => getLibraryItem(slug))
+        .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry && entry.slug !== item.slug))
+    : libraryItems.filter((other) => other.categoryId === item.categoryId && other.slug !== item.slug)
+).slice(0, 3);
 ---
 <Base title={`${title} — Biblioteca de Taekwondo`}>
   <article class="shell section term-page">
-    <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/biblioteca">Biblioteca</a><span aria-hidden="true">/</span><a href="/biblioteca/sonkisul">Mãos e punhos</a><span aria-hidden="true">/</span><span>{title}</span></nav>
-    <header class="term-heading"><div><p class="eyebrow">Sonkisul · Superfícies e configurações</p><h1>{title}</h1><p class="lead">{term.name}</p></div>{term.hangul && <div class="term-korean"><span lang="ko">{term.hangul}</span><small>Escrita coreana</small></div>}</header>
-    <nav class="term-quicklinks" aria-label="Nesta ficha">{regionHref && <a href={regionHref}>Ver no Atlas ↗</a>}<a href="#referencias">Fontes desta ficha ↓</a></nav>
+    <nav class="breadcrumbs" aria-label="Caminho da página">
+      <a href="/biblioteca">Biblioteca</a>
+      <span aria-hidden="true">/</span>
+      <a href={`/biblioteca/${category.id}`}>{category.title}</a>
+      <span aria-hidden="true">/</span>
+      <span>{title}</span>
+    </nav>
+
+    <header class="term-heading">
+      <div>
+        <p class="eyebrow">{category.label} · {item.kindLabel}</p>
+        <h1>{title}</h1>
+        <p class="lead">{term.name}</p>
+      </div>
+      {term.hangul ? (
+        <div class="term-korean">
+          <span lang="ko">{term.hangul}</span>
+          <small>Escrita coreana</small>
+        </div>
+      ) : poomsaeGuide?.kind === 'taegeuk' ? (
+        <div class="term-visual-badge">
+          <TrigramDiagram bars={poomsaeGuide.trigram.bars} label={`${poomsaeGuide.trigram.romanization} (${poomsaeGuide.symbol})`} />
+        </div>
+      ) : poomsaeGuide?.kind === 'dan' && poomsaeGuide.poomsaeLine ? (
+        <div class="term-visual-badge">
+          <PoomsaeLineDiagram
+            kind={poomsaeGuide.poomsaeLine.kind}
+            character={poomsaeGuide.poomsaeLine.character}
+            label={poomsaeGuide.name}
+          />
+        </div>
+      ) : null}
+    </header>
+
+    <nav class="term-quicklinks" aria-label="Nesta ficha">
+      {regionHref && <a href={regionHref}>Ver no Atlas ↗</a>}
+      {!regionHref && item.illustrativeBodyArea && (
+        <a href={`/atlas?region=${item.illustrativeBodyArea.region}&zoom=1`}>Explorar corpo no Atlas ↗</a>
+      )}
+      {item.moduleLink && <a href={item.moduleLink.href}>{item.moduleLink.label} ↗</a>}
+      {item.acervoLink && <a href={item.acervoLink.href}>{item.acervoLink.label} ↗</a>}
+      <a href="#referencias">Fontes desta ficha ↓</a>
+    </nav>
+
     <div class="term-layout">
       <div class="term-reading">
-        <section class="reading-section"><h2>Conheça o termo</h2><p>{term.description}</p><p class="field-origin">Descrição em português: adaptação didática do projeto.</p>
-          {term.pronunciation && <div class="pronunciation-note"><span>Pronúncia aproximada em português</span><strong>{term.pronunciation}</strong><small>Adaptação didática; não é áudio nem transcrição fonética oficial.</small></div>}
+        <section class="reading-section">
+          <h2>{item.categoryId === 'sonkisul' ? 'Conheça o termo' : 'Síntese de estudo'}</h2>
+          <p>{term.description}</p>
+          <p class="field-origin">
+            {item.scopeNotice || 'Descrição em português: adaptação didática do projeto.'}
+          </p>
+          {term.pronunciation && (
+            <div class="pronunciation-note">
+              <span>Pronúncia aproximada em português</span>
+              <strong>{term.pronunciation}</strong>
+              <small>Adaptação didática; não é áudio nem transcrição fonética oficial.</small>
+            </div>
+          )}
+          {poomsaeGuide && <SchoolBeltStatus slug={poomsaeGuide.slug} formName={poomsaeGuide.name} client:load />}
         </section>
-        {term.meanings.length > 0 && <section class="reading-section"><h2>Significados nas referências</h2>{term.meanings.map(meaning => <div class="meaning-row"><span class="eyebrow">{meaning.kind === 'literal' ? 'Sentido literal' : 'Termo técnico'} · {meaning.language === 'en' ? 'Inglês' : meaning.language}</span><p>{meaning.value}</p>{meaning.reference && safeReferenceUrl(meaning.reference.url) && <a class="claim-source" href={meaning.reference.url} target="_blank" rel="noopener noreferrer">{meaning.reference.institution} · {meaning.reference.edition} · {meaning.reference.locator} ↗</a>}</div>)}</section>}
-        {term.related.length > 0 && <section class="reading-section"><h2>Relações nas fontes</h2><p class="muted">Nomes relacionados no documento de referência.</p><ul class="related-list">{term.related.map(related => <li><strong>{related.name}</strong>{related.reference && safeReferenceUrl(related.reference.url) && <a class="claim-source" href={related.reference.url} target="_blank" rel="noopener noreferrer">{related.reference.institution} · {related.reference.locator} ↗</a>}</li>)}</ul></section>}
-        {term.variants.length > 0 && <section class="reading-section"><h2>Outras grafias</h2><ul>{term.variants.map(variant => <li>{variant.value}</li>)}</ul></section>}
-        <section class="reading-section" id="referencias"><p class="eyebrow">Leia na origem</p><h2>Fontes desta ficha</h2>{references.length ? <p class="muted">Referência individual da escrita e da romanização. Tradução, descrição e pronúncia em português são adaptações do projeto.</p> : <p class="muted">A coleção atual não traz uma referência individual para esta configuração.</p>}<ul class="ficha-sources">{references.map(row => <li><span class="source-field">{row.field === 'hangul' ? 'Hangul' : 'Romanização'}</span><a href={row.reference.url} target="_blank" rel="noopener noreferrer">{row.reference.institution} · {row.reference.title} ↗</a><span>{row.reference.edition} · {row.reference.locator}</span></li>)}</ul><a class="inline-link" href="/fontes">Entenda como usamos as fontes →</a></section>
+
+        {item.studyPoints && item.studyPoints.length > 0 && (
+          <section class="reading-section">
+            <h2>Pontos de atenção para o estudo</h2>
+            <ul class="related-list">
+              {item.studyPoints.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {item.illustrativeBodyArea && (
+          <section class="reading-section">
+            <h2>Relação com o corpo</h2>
+            <p>
+              <strong>{item.illustrativeBodyArea.label}:</strong> {item.illustrativeBodyArea.note}
+            </p>
+            <a class="inline-link" href={`/atlas?region=${item.illustrativeBodyArea.region}&zoom=1`}>
+              Explorar área ilustrativa no Atlas corporal →
+            </a>
+          </section>
+        )}
+
+        {term.meanings.length > 0 && (
+          <section class="reading-section">
+            <h2>Significados nas referências</h2>
+            {term.meanings.map((meaning) => (
+              <div class="meaning-row">
+                <span class="eyebrow">
+                  {meaningKindMap[meaning.kind] || 'Termo técnico'} ·{' '}
+                  {meaning.language === 'en' ? 'Inglês' : meaning.language === 'pt-BR' ? 'Síntese PT-BR' : meaning.language}
+                </span>
+                <p>{meaning.value}</p>
+                {meaning.reference && safeReferenceUrl(meaning.reference.url) && (
+                  <a class="claim-source" href={meaning.reference.url} target="_blank" rel="noopener noreferrer">
+                    {meaning.reference.institution} · {meaning.reference.edition} · {meaning.reference.locator} ↗
+                  </a>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {term.related.length > 0 && (
+          <section class="reading-section">
+            <h2>Relações nas fontes</h2>
+            <p class="muted">Nomes e registros relacionados nos documentos consultados.</p>
+            <ul class="related-list">
+              {term.related.map((related) => (
+                <li>
+                  <strong>{related.name}</strong>
+                  {related.reference && safeReferenceUrl(related.reference.url) && (
+                    <a class="claim-source" href={related.reference.url} target="_blank" rel="noopener noreferrer">
+                      {related.reference.institution} · {related.reference.locator} ↗
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {item.acervoLink && (
+              <p class="field-origin">
+                <a class="inline-link" href={item.acervoLink.href}>
+                  {item.acervoLink.label} →
+                </a>{' '}
+                — {item.acervoLink.note}
+              </p>
+            )}
+          </section>
+        )}
+
+        {term.variants.length > 0 && (
+          <section class="reading-section">
+            <h2>Outras grafias e buscas</h2>
+            <ul>
+              {term.variants.map((variant) => (
+                <li>{variant.value}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="reading-section" id="referencias">
+          <p class="eyebrow">Leia na origem</p>
+          <h2>Fontes desta ficha</h2>
+          {references.length ? (
+            <p class="muted">
+              Referência individual de cada afirmação documentada. Tradução, síntese didática e pronúncia em português
+              são adaptações independentes do projeto.
+            </p>
+          ) : (
+            <p class="muted">A coleção atual não traz uma referência individual para esta configuração.</p>
+          )}
+          <ul class="ficha-sources">
+            {references.map((row) => (
+              <li>
+                <span class="source-field">{fieldLabelMap[row.field] || 'Referência'}</span>
+                <a href={row.reference.url} target="_blank" rel="noopener noreferrer">
+                  {row.reference.institution} · {row.reference.title} ↗
+                </a>
+                <span>
+                  {row.reference.edition} · {row.reference.locator}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <a class="inline-link" href="/fontes">
+            Entenda como usamos as fontes →
+          </a>
+        </section>
       </div>
+
       <aside class="term-sidebar" aria-label="Continue seu estudo">
-        <div class="study-card"><p class="eyebrow">Da palavra à região</p><h2>Explore no Atlas</h2><p>{regionHref ? 'Encontre a região da mão no desenho interativo e consulte os termos no contexto.' : 'Conheça as regiões da mão e as outras configurações disponíveis no índice.'}</p><a class="button" href={regionHref || `/atlas?region=hands&zoom=1&term=${term.slug}`}>{regionHref ? 'Localizar no Atlas' : 'Ver termo no índice do Atlas'} <span aria-hidden="true">↗</span></a></div>
-        <div class="study-card study-card-plain"><h2>Leve para o seu estudo</h2><p>Salve a ficha no seu caderno ou use a busca de conteúdos ao montar um currículo.</p><FavoriteButton slug={term.slug} title={title} client:load /><a class="inline-link" href="/curriculos">Organizar currículo →</a></div>
-        <a class="back-to-library" href="/biblioteca/sonkisul">← Mais termos de mãos e punhos</a>
+        {item.categoryId === 'sonkisul' ? (
+          <div class="study-card">
+            <p class="eyebrow">Da palavra à região</p>
+            <h2>Explore no Atlas</h2>
+            <p>
+              {regionHref
+                ? 'Encontre a região da mão no desenho interativo e consulte os termos no contexto.'
+                : 'Conheça as regiões da mão e as outras configurações disponíveis no índice.'}
+            </p>
+            <a class="button" href={regionHref || `/atlas?region=hands&zoom=1&term=${term.slug}`}>
+              {regionHref ? 'Localizar no Atlas' : 'Ver termo no índice do Atlas'} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        ) : regionHref ? (
+          <div class="study-card">
+            <p class="eyebrow">Da palavra à região</p>
+            <h2>Explore no Atlas</h2>
+            <p>Localize esta superfície diretamente no desenho interativo do Atlas corporal.</p>
+            <a class="button" href={regionHref}>
+              Localizar no Atlas <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        ) : item.moduleLink ? (
+          <div class="study-card">
+            <p class="eyebrow">Módulo interativo</p>
+            <h2>Aprofunde este tema</h2>
+            <p>Explore o painel dedicado desta área com recursos visuais, filtros e referências.</p>
+            <a class="button" href={item.moduleLink.href}>
+              {item.moduleLink.label} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        ) : null}
+
+        <div class="study-card study-card-plain">
+          <h2>Leve para o seu estudo</h2>
+          <p>Salve a ficha no seu caderno ou use a busca de conteúdos ao montar um currículo.</p>
+          <FavoriteButton slug={term.slug} title={title} client:load />
+          <a class="inline-link" href="/curriculos">
+            Organizar currículo →
+          </a>
+        </div>
+
+        <a class="back-to-library" href={`/biblioteca/${category.id}`}>
+          ← Mais fichas de {category.title.toLocaleLowerCase('pt-BR')}
+        </a>
       </aside>
     </div>
-    <aside class="reading-strip"><div><h2>Continue explorando</h2><p>Cada termo pode abrir um novo caminho de estudo.</p></div><div class="reading-links">{libraryItems.filter(other => other.slug !== item.slug).slice(0,3).map(other => <a href={libraryItemHref(other.slug)!}>{other.term.romanization} →</a>)}</div></aside>
+
+    <aside class="reading-strip">
+      <div>
+        <h2>Você também pode estudar</h2>
+        <p>Cada ficha conecta fundamentos, regiões do corpo e referências.</p>
+      </div>
+      <div class="reading-links">
+        {suggestedItems.map((other) => (
+          <a href={libraryItemHref(other.slug)!}>{other.term.romanization || other.term.name} →</a>
+        ))}
+      </div>
+    </aside>
   </article>
 </Base>
