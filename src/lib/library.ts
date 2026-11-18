@@ -1,5 +1,7 @@
 import { handTerms, getHandRegionForTerm } from './public-hand';
 import { allPoomsaeGuides } from '../data/poomsae-guide';
+import { palgwaeEntries } from '../data/palgwae-guide';
+import { matchuoEntries } from '../data/matchuo-kyorugi-guide';
 
 export type LibraryReference = {
   title: string;
@@ -324,8 +326,115 @@ const poomsaeItems: LibraryItem[] = allPoomsaeGuides.map((guide) => ({
   },
 }));
 
+const palgwaeItems: LibraryItem[] = palgwaeEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'palgwae',
+  kindLabel: entry.kind === 'context' ? 'Contexto histórico' : 'Forma histórica Palgwae',
+  moduleLink: {
+    href: `/biblioteca/poomsae/${entry.relatedTaegeukSlug}`,
+    label: `Comparar com ${entry.relatedTaegeukLabel} (coleção vigente)`,
+  },
+  studyPoints: entry.studyPoints,
+  scopeNotice:
+    'Registro histórico e curricular independente. O portal atual de Poomsae da Kukkiwon (Board 55) lista a série Taegeuk e as formas Dan como coleção vigente; sequências e faixas de Palgwae dependem da linhagem de cada escola.',
+  relatedLibrarySlugs:
+    entry.kind === 'context'
+      ? ['palgwae-1-jang', 'palgwae-2-jang', 'taegeuk-1-jang']
+      : [
+          entry.relatedTaegeukSlug,
+          'palgwae-contexto-historico',
+          entry.number && entry.number < 8 ? `palgwae-${entry.number + 1}-jang` : 'palgwae-1-jang',
+        ],
+  term: {
+    slug: entry.slug,
+    name: entry.subtitle,
+    hangul: null,
+    romanization: entry.title,
+    pronunciation: null,
+    description: `${entry.summary} ${entry.historicalContext}`,
+    meanings: [
+      {
+        kind: 'historical',
+        language: 'pt-BR',
+        value: entry.historicalContext,
+        reference: entry.references[0]?.reference ?? null,
+      },
+    ],
+    variants: entry.variants.map((value) => ({ value })),
+    related: [
+      {
+        name: `${entry.relatedTaegeukLabel} (forma vigente correspondente em numeração na série Taegeuk)`,
+        reference: entry.references[1]?.reference ?? null,
+      },
+    ],
+    evidence: entry.references.map((row) => ({
+      field: row.field,
+      reference: row.reference,
+    })),
+  },
+}));
+
+const matchuoItems: LibraryItem[] = matchuoEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'matchuo-kyorugi',
+  kindLabel: entry.kindLabel,
+  illustrativeBodyArea: {
+    region: entry.atlasRegion,
+    label: entry.atlasLabel,
+    note: 'Ligação ilustrativa para explorar a anatomia relacionada no Atlas corporal; não define alvo regulamentar único.',
+  },
+  acervoLink:
+    entry.acervoHref && entry.acervoLabel
+      ? {
+          href: entry.acervoHref,
+          label: entry.acervoLabel,
+          note: 'Registros provisórios da família técnica na base Kukkiwon 2011/2012.',
+        }
+      : undefined,
+  moduleLink: {
+    href: '/kyorugi#combinado',
+    label: 'Abrir guia e organizador de combate combinado',
+  },
+  studyPoints: entry.pedagogicalFocus,
+  scopeNotice:
+    'Síntese pedagógica independente. As famílias marciais (Makgi, Jireugi, Chigi, Chagi, Pihagi, Ppaegi, Kkeokgi, Neomgigi, Nakbeop) são documentadas pela Kukkiwon (Board 56), enquanto a numeração de Sebon, Dubon, Hanbon e Anjoa pertence ao currículo de cada escola.',
+  relatedLibrarySlugs: entry.relatedLibrarySlugs,
+  term: {
+    slug: entry.slug,
+    name: entry.subtitle,
+    hangul: null,
+    romanization: entry.title,
+    pronunciation: null,
+    description: entry.summary,
+    meanings: entry.stepCountLabel
+      ? [
+          {
+            kind: 'technical',
+            language: 'pt-BR',
+            value: `${entry.stepCountLabel} — estrutura organizada pelo professor conforme a faixa na escola.`,
+            reference: entry.references[0]?.reference ?? null,
+          },
+        ]
+      : [],
+    variants: entry.variants.map((value) => ({ value })),
+    related: entry.references.slice(0, 2).map((row) => ({
+      name: `${row.reference.title} (${row.reference.locator})`,
+      reference: row.reference,
+    })),
+    evidence: entry.references.map((row) => ({
+      field: row.field,
+      reference: row.reference,
+    })),
+  },
+}));
+
 // One identity, verified institutional sources only: zero raw Argon/Gemini research leakage.
-export const libraryItems: LibraryItem[] = [...sonkisulItems, ...poomsaeItems];
+export const libraryItems: LibraryItem[] = [
+  ...sonkisulItems,
+  ...poomsaeItems,
+  ...palgwaeItems,
+  ...matchuoItems,
+];
 
 export const getLibraryItem = (slug: string) => libraryItems.find((item) => item.slug === slug);
 export const getLibraryCategory = (id: string) => libraryCategories.find((category) => category.id === id);

@@ -416,6 +416,33 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 @media (max-width: 760px) {
   .poomsae-dossier-grid, .poomsae-dossier-relations { grid-template-columns: 1fr; gap: 16px; }
 }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.area-context-banner { margin: 0 0 24px; padding: 18px 22px; background: var(--surface-soft); border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 10px; font-size: .88rem; line-height: 1.65; color: var(--ink); }
+.matchuo-organizer { margin-top: 32px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); display: grid; gap: 22px; max-width: 100%; }
+.matchuo-organizer-head { display: flex; justify-content: space-between; align-items: start; gap: 20px; flex-wrap: wrap; }
+.matchuo-organizer-head h2 { margin: 4px 0 8px; }
+.matchuo-organizer-head p { margin: 0; max-width: 68ch; color: var(--muted); }
+.matchuo-curriculum-banner { padding: 14px 18px; border-radius: 8px; background: var(--green-soft); border: 1px solid var(--line); font-size: .86rem; }
+.matchuo-curriculum-banner ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.matchuo-curriculum-banner li span { font-weight: 600; color: var(--green); }
+.matchuo-form { display: grid; gap: 16px; padding: 20px; border-radius: 10px; background: var(--surface-soft); border: 1px solid var(--line); }
+.matchuo-form-grid { display: grid; grid-template-columns: minmax(190px, 2fr) minmax(90px, .8fr) minmax(90px, .8fr) minmax(180px, 1.8fr); gap: 14px; }
+.matchuo-form-grid .field, .matchuo-single-note { min-width: 0; font-size: .8rem; gap: 6px; }
+.matchuo-form input, .matchuo-form select { width: 100%; min-width: 0; background: var(--surface); border-color: var(--line); color: var(--ink); min-height: 44px; }
+.matchuo-form-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.matchuo-filter-bar { display: flex; flex-wrap: wrap; gap: 10px; }
+.matchuo-entry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.matchuo-entry-card { padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); display: grid; gap: 12px; min-width: 0; }
+.matchuo-entry-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.matchuo-entry-card input { width: 100%; min-width: 0; background: var(--surface); border-color: var(--line); color: var(--ink); min-height: 42px; font-size: .84rem; }
+.matchuo-entry-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.inline-delete-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 6px 14px; min-height: 36px; font-size: .78rem; cursor: pointer; }
+.inline-delete-btn:hover { border-color: var(--red, #b42318); color: var(--ink); }
+@media (max-width: 840px) {
+  .matchuo-organizer { padding: 20px; }
+  .matchuo-form-grid, .matchuo-entry-grid { grid-template-columns: 1fr; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+

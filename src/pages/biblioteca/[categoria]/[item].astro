@@ -105,7 +105,9 @@ const suggestedItems = (
               <small>Adaptação didática; não é áudio nem transcrição fonética oficial.</small>
             </div>
           )}
-          {poomsaeGuide && <SchoolBeltStatus slug={poomsaeGuide.slug} formName={poomsaeGuide.name} client:load />}
+          {(poomsaeGuide || item.categoryId === 'palgwae' || item.categoryId === 'matchuo-kyorugi') && (
+            <SchoolBeltStatus slug={item.slug} formName={title} client:load />
+          )}
         </section>
 
         {item.studyPoints && item.studyPoints.length > 0 && (

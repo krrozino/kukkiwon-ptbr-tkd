@@ -64,4 +64,19 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(findSchoolGradesForPoomsae(sample, 'taegeuk-2-jang', 'Taegeuk 2 Jang')).toEqual([]);
     expect(findSchoolGradesForPoomsae(null, 'taegeuk-1-jang', 'Taegeuk 1 Jang')).toEqual([]);
   });
+
+  it('separa Palgwae da coleção Taegeuk e organiza Matchuo Kyorugi sem passos inventados', () => {
+    const palgwae = searchLibrary('', 'palgwae');
+    expect(palgwae).toHaveLength(9);
+    expect(palgwae.every((item) => item.term.hangul === null)).toBe(true);
+    expect(libraryItemHref('palgwae-1-jang')).toBe('/biblioteca/palgwae/palgwae-1-jang');
+    expect(searchLibrary('Palgwae', 'poomsae')).toEqual([]);
+
+    const matchuo = searchLibrary('', 'matchuo-kyorugi');
+    expect(matchuo).toHaveLength(6);
+    expect(searchLibrary('Sebon', 'matchuo-kyorugi').map((item) => item.slug)).toContain('sebon-kyorugi');
+    expect(searchLibrary('Anjoa', 'matchuo-kyorugi').map((item) => item.slug)).toContain('anjoa-kyorugi');
+    expect(libraryItemHref('sebon-kyorugi')).toBe('/biblioteca/matchuo-kyorugi/sebon-kyorugi');
+  });
 });
+

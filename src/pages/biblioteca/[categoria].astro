@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LibraryExplorer from '../../components/library/LibraryExplorer';
+import MatchuoOrganizer from '../../components/kyorugi/MatchuoOrganizer';
 import { libraryCategories, libraryItems, categoryResources } from '../../lib/library';
 export function getStaticPaths() { return libraryCategories.map(category => ({ params: { categoria: category.id }, props: { category } })); }
 const { category } = Astro.props;
@@ -12,9 +13,15 @@ const resources = categoryResources[category.id];
     <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/">Início</a><span aria-hidden="true">/</span><a href="/biblioteca">Biblioteca</a><span aria-hidden="true">/</span><span>{category.label}</span></nav>
     <header class="page-intro"><p class="eyebrow">{category.number} · {category.label}</p><h1>{category.title}</h1><p class="lead">{category.description}</p><a class="inline-link" href={category.href}>{category.destination} →</a></header>
     <nav class="collection-nav" aria-label="Áreas da biblioteca">{libraryCategories.map(item => <a href={`/biblioteca/${item.id}`} aria-current={item.id === category.id ? 'page' : undefined}>{item.label}</a>)}</nav>
+    {category.id === 'palgwae' && (
+      <aside class="area-context-banner" aria-label="Escopo histórico da coleção Palgwae">
+        <strong>Coleção histórica separada dos Taegeuk vigentes:</strong> o portal atual de Poomsae da Kukkiwon (Board 55) lista os oito Taegeuk e as nove formas Dan como coleção institucional ativa. As fichas de Palgwae preservam o contexto histórico da década de 1960 e apoiam escolas que mantêm a série em seus currículos, sem inventar passos padronizados.
+      </aside>
+    )}
     {hasItems ? (
       <>
         <LibraryExplorer categoryId={category.id} client:load />
+        {category.id === 'matchuo-kyorugi' && <MatchuoOrganizer client:load />}
         {resources.length > 0 && (
           <section class="category-materials">
             <h2>Módulos e recursos complementares</h2>
