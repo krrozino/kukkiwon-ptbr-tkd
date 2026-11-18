@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import type { Curriculum } from "../lib/curriculum";
+import {
+  formatRequirementSequence,
+  requirementKindLabels,
+  type Curriculum,
+} from "../lib/curriculum";
 import TermContext from "./TermContext";
 import MediaPlayer, { type SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
@@ -85,7 +89,10 @@ export default function CurriculumView({
                   />
                   <strong>{r.title}</strong>
                 </label>
-                <span className="pill">{r.kind}</span>
+                <span className="pill">{requirementKindLabels[r.kind] || r.kind}</span>
+                {formatRequirementSequence(r) && (
+                  <span className="pill">{formatRequirementSequence(r)}</span>
+                )}
                 {r.schoolTermId &&
                   (schoolTerms.find((t) => t.id === r.schoolTermId) ? (
                     <div className="school-technique">

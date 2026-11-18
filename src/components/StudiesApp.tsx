@@ -3,9 +3,12 @@ import { useStudies } from "../lib/useStudies";
 import {
   moveFolder,
   removeFolder,
+  studyTrails,
   type StudyNote,
+  type StudyTrail,
   type Reference,
 } from "../lib/studies";
+import { libraryItemHref } from "../lib/library";
 import TermPicker from "./TermPicker";
 import TermContext from "./TermContext";
 const blank = (): StudyNote => ({
@@ -57,7 +60,8 @@ export default function StudiesApp() {
     [preview, setPreview] = useState<string | null>(null),
     [note, setNote] = useState<StudyNote | null>(null),
     [message, setMessage] = useState(""),
-    [url, setUrl] = useState("");
+    [url, setUrl] = useState(""),
+    [statusFilter, setStatusFilter] = useState<"all" | "pending" | "studied" | "review">("all");
   useEffect(() => {
     if (ready) {
       const id = new URLSearchParams(location.search).get("folder");
@@ -65,7 +69,49 @@ export default function StudiesApp() {
     }
   }, [ready]);
   const current = state.folders.find((f) => f.id === folder);
-  const items = state.items.filter((i) => i.folderId === folder);
+  const folderItems = state.items.filter((i) => i.folderId === folder);
+  const items = folderItems.filter((i) => {
+    if (statusFilter === "pending") return !i.studied;
+    if (statusFilter === "studied") return i.studied;
+    if (statusFilter === "review") return Boolean(i.review);
+    return true;
+  });
+  const totalSaved = state.items.length;
+  const totalStudied = state.items.filter((i) => i.studied).length;
+  const totalReview = state.items.filter((i) => i.review).length;
+
+  const importTrail = (trail: StudyTrail) => {
+    let targetFolderId = state.folders.find((f) => f.name === trail.folderName)?.id || "";
+    const creatingNewFolder = !targetFolderId;
+    if (!targetFolderId) targetFolderId = crypto.randomUUID();
+    const ok = update((s) => {
+      const nextFolders = creatingNewFolder
+        ? [...s.folders, { id: targetFolderId, name: trail.folderName, parentId: null }]
+        : s.folders;
+      const existingBySlug = new Map(s.items.map((item) => [item.slug, item]));
+      for (const entry of trail.items) {
+        const prev = existingBySlug.get(entry.slug);
+        existingBySlug.set(entry.slug, {
+          slug: entry.slug,
+          title: prev?.title || entry.title,
+          folderId: targetFolderId,
+          studied: prev?.studied ?? false,
+          ...(prev?.review ? { review: true } : {}),
+        });
+      }
+      return {
+        ...s,
+        folders: nextFolders,
+        items: [...existingBySlug.values()],
+      };
+    });
+    if (ok) {
+      setFolder(targetFolderId);
+      setStatusFilter("all");
+      setMessage(`Trilha “${trail.title}” pronta na pasta “${trail.folderName}”.`);
+    }
+  };
+
   const addRef = (r: Reference) =>
     setNote((n) =>
       n
@@ -95,6 +141,18 @@ export default function StudiesApp() {
         <p className="fine-print">
           Salvo neste navegador. Não há sincronização entre aparelhos.
         </p>
+        <div className="study-progress-summary" aria-label="Resumo do seu progresso">
+          <div className="study-progress-counts">
+            <span><strong>{totalStudied}</strong> de <strong>{totalSaved}</strong> estudados</span>
+            {totalReview > 0 && <span><strong>{totalReview}</strong> em revisão</span>}
+          </div>
+          <progress
+            className="study-progress-bar"
+            max={Math.max(1, totalSaved)}
+            value={totalStudied}
+            aria-label="Progresso geral do caderno"
+          />
+        </div>
         <button aria-pressed={!folder} onClick={() => setFolder(null)}>
           ★ Todos na raiz
         </button>
@@ -135,7 +193,7 @@ export default function StudiesApp() {
             {folder ? "Nova subpasta" : "Nova pasta"}
             <input
               value={name}
-                  disabled={!ready}
+              disabled={!ready}
               maxLength={120}
               onChange={(e) => setName(e.target.value)}
               required
@@ -197,8 +255,61 @@ export default function StudiesApp() {
         <h2>{current?.name || "Favoritos e aprendizado"}</h2>
         {error && <p role="alert">{error}</p>}
         {message && <p role="status">{message}</p>}
+        <details className="study-trails-panel" open={totalSaved === 0}>
+          <summary>Trilhas guiadas de estudo ({studyTrails.length} caminhos)</summary>
+          <p className="fine-print">
+            Escolha um ponto de partida para criar uma pasta temática com fichas verificadas da Biblioteca.
+          </p>
+          <div className="study-trails-grid">
+            {studyTrails.map((trail) => (
+              <article className="study-trail-card" key={trail.id}>
+                <span className="eyebrow">{trail.audience}</span>
+                <h3>{trail.title}</h3>
+                <p>{trail.description}</p>
+                <button
+                  type="button"
+                  onClick={() => importTrail(trail)}
+                >
+                  Adicionar trilha: {trail.title}
+                </button>
+              </article>
+            ))}
+          </div>
+        </details>
+        {folderItems.length > 0 && (
+          <div className="atlas-controls study-filter-bar" role="group" aria-label="Filtrar itens da pasta">
+            <button
+              type="button"
+              aria-pressed={statusFilter === "all"}
+              onClick={() => setStatusFilter("all")}
+            >
+              Todos ({folderItems.length})
+            </button>
+            <button
+              type="button"
+              aria-pressed={statusFilter === "pending"}
+              onClick={() => setStatusFilter("pending")}
+            >
+              Pendentes ({folderItems.filter((i) => !i.studied).length})
+            </button>
+            <button
+              type="button"
+              aria-pressed={statusFilter === "studied"}
+              onClick={() => setStatusFilter("studied")}
+            >
+              Estudados ({folderItems.filter((i) => i.studied).length})
+            </button>
+            <button
+              type="button"
+              aria-pressed={statusFilter === "review"}
+              onClick={() => setStatusFilter("review")}
+            >
+              Em revisão ({folderItems.filter((i) => i.review).length})
+            </button>
+          </div>
+        )}
         {!items.length && (
-          <p>Salve técnicas pelo catálogo, pela ficha ou pela busca abaixo.</p>
+          <p>Salve técnicas pelo catálogo, pela ficha, pelas trilhas guiadas ou pela busca abaixo.</p>
         )}
         <TermPicker
           onPick={(t) =>
@@ -241,6 +352,27 @@ export default function StudiesApp() {
                 onClick={() => setPreview(i.slug)}
               >
                 {i.title}
+              </button>
+              {libraryItemHref(i.slug) && (
+                <a className="inline-link" href={libraryItemHref(i.slug)!}>
+                  Ir à biblioteca ↗
+                </a>
+              )}
+              <button
+                type="button"
+                aria-pressed={Boolean(i.review)}
+                onClick={() =>
+                  update((s) => ({
+                    ...s,
+                    items: s.items.map((x) =>
+                      x.slug === i.slug
+                        ? { ...x, review: !x.review }
+                        : x,
+                    ),
+                  }))
+                }
+              >
+                {i.review ? "Em revisão" : "Marcar revisão"}
               </button>
               <label className="field">
                 Pasta de {i.title}
