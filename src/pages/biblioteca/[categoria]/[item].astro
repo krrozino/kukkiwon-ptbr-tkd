@@ -3,7 +3,15 @@ import Base from '../../../layouts/Base.astro';
 import FavoriteButton from '../../../components/FavoriteButton';
 import { PoomsaeLineDiagram, SchoolBeltStatus, TrigramDiagram } from '../../../components/poomsae/PoomsaeVisuals';
 import { getPoomsaeGuide } from '../../../data/poomsae-guide';
-import { atlasHref, getLibraryCategory, getLibraryItem, libraryItems, libraryItemHref } from '../../../lib/library';
+import { multiFingerCareNotes } from '../../../data/sonkisul-finger-guide';
+import {
+  atlasHref,
+  getItemsReferencingSlug,
+  getLibraryCategory,
+  getLibraryItem,
+  libraryItems,
+  libraryItemHref,
+} from '../../../lib/library';
 import { safeReferenceUrl } from '../../../lib/published-knowledge';
 
 export function getStaticPaths() {
@@ -20,6 +28,8 @@ const regionHref = atlasHref(item.slug);
 const title = term.romanization || term.name;
 const references = term.evidence.filter((row) => row.reference && safeReferenceUrl(row.reference.url));
 const poomsaeGuide = item.poomsaeSlug ? getPoomsaeGuide(item.poomsaeSlug) : null;
+const fingerCareNote = item.categoryId === 'sonkisul' ? multiFingerCareNotes[item.slug] : undefined;
+const referencedByItems = getItemsReferencingSlug(item.slug).slice(0, 8);
 
 const fieldLabelMap: Record<string, string> = {
   hangul: 'Hangul',
@@ -108,6 +118,7 @@ const suggestedItems = (
           {(poomsaeGuide || item.categoryId === 'palgwae' || item.categoryId === 'matchuo-kyorugi') && (
             <SchoolBeltStatus slug={item.slug} formName={title} client:load />
           )}
+          {fingerCareNote && <p class="field-origin">{fingerCareNote}</p>}
         </section>
 
         {item.studyPoints && item.studyPoints.length > 0 && (
@@ -116,6 +127,25 @@ const suggestedItems = (
             <ul class="related-list">
               {item.studyPoints.map((point) => (
                 <li>{point}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {referencedByItems.length > 0 && (
+          <section class="reading-section">
+            <h2>Técnicas e formas que utilizam ou relacionam este item</h2>
+            <p class="muted">
+              Navegue diretamente para fundamentos, chutes, formas ou tópicos da enciclopédia conectados a {title}.
+            </p>
+            <ul class="related-list">
+              {referencedByItems.map((linked) => (
+                <li>
+                  <a class="inline-link" href={libraryItemHref(linked.slug)!}>
+                    {linked.term.romanization || linked.term.name}
+                  </a>{' '}
+                  <span class="muted">· {linked.kindLabel}</span>
+                </li>
               ))}
             </ul>
           </section>

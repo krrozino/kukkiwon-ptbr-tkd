@@ -4,6 +4,7 @@ import { palgwaeEntries } from '../data/palgwae-guide';
 import { matchuoEntries } from '../data/matchuo-kyorugi-guide';
 import { ironEntries } from '../data/iron-guide';
 import { kibonEntries } from '../data/kibon-guide';
+import { balkisulEntries } from '../data/balkisul-guide';
 
 export type LibraryReference = {
   title: string;
@@ -520,6 +521,57 @@ const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
   },
 }));
 
+const balkisulItems: LibraryItem[] = balkisulEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'balkisul',
+  kindLabel: entry.kindLabel,
+  atlasZone: entry.atlasZone ?? null,
+  illustrativeBodyArea: entry.atlasZone
+    ? undefined
+    : {
+        region: 'legs',
+        label: 'Pernas, joelho (Mureup) e superfícies do pé',
+        note: 'Ligação ilustrativa para explorar os segmentos dos membros inferiores e abrir o detalhe dos pés no Atlas.',
+      },
+  acervoLink: {
+    href: `/acervo#${entry.acervoSlug}`,
+    label: `Ver registro ${entry.romanization} no Acervo`,
+    note: 'Registro provisório com localizador na terminologia Kukkiwon 2011/2012.',
+  },
+  moduleLink: entry.atlasZone
+    ? { href: `/atlas?region=${entry.atlasZone}&zoom=1`, label: 'Localizar superfície no Atlas do pé' }
+    : { href: '/kyorugi', label: 'Explorar guia de Kyorugi e família Chagi' },
+  studyPoints: entry.studyPoints,
+  scopeNotice:
+    'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.',
+  relatedLibrarySlugs: entry.relatedLibrarySlugs,
+  term: {
+    slug: entry.slug,
+    name: entry.subtitlePt,
+    hangul: entry.hangul,
+    romanization: entry.romanization,
+    pronunciation: entry.pronunciationPt,
+    description: entry.summary,
+    meanings: [
+      {
+        kind: 'technical',
+        language: 'pt-BR',
+        value: `${entry.kindLabel} · ${entry.subtitlePt}.`,
+        reference: entry.references[0]?.reference ?? null,
+      },
+    ],
+    variants: entry.variants.map((value) => ({ value })),
+    related: entry.references.map((row) => ({
+      name: `${row.reference.title} (${row.reference.locator})`,
+      reference: row.reference,
+    })),
+    evidence: entry.references.map((row) => ({
+      field: row.field,
+      reference: row.reference,
+    })),
+  },
+}));
+
 // One identity, verified institutional sources only: zero raw Argon/Gemini research leakage.
 export const libraryItems: LibraryItem[] = [
   ...sonkisulItems,
@@ -528,10 +580,17 @@ export const libraryItems: LibraryItem[] = [
   ...matchuoItems,
   ...ironItems,
   ...kibonItems,
+  ...balkisulItems,
 ];
 
 export const getLibraryItem = (slug: string) => libraryItems.find((item) => item.slug === slug);
 export const getLibraryCategory = (id: string) => libraryCategories.find((category) => category.id === id);
+
+export function getItemsReferencingSlug(slug: string): LibraryItem[] {
+  return libraryItems.filter(
+    (candidate) => candidate.slug !== slug && Boolean(candidate.relatedLibrarySlugs?.includes(slug)),
+  );
+}
 
 export function libraryItemHref(slug: string) {
   const item = getLibraryItem(slug);

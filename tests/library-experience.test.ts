@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { getLibraryItem, getLibraryKinds, libraryItems, searchLibrary, libraryItemHref, atlasHref } from '../src/lib/library';
+import {
+  getItemsReferencingSlug,
+  getLibraryItem,
+  getLibraryKinds,
+  libraryCategories,
+  libraryItems,
+  searchLibrary,
+  libraryItemHref,
+  atlasHref,
+} from '../src/lib/library';
 import { allPoomsaeGuides, danForms, getPoomsaeGuide, taegeukForms } from '../src/data/poomsae-guide';
+import { fingerAnatomyGuides, multiFingerCareNotes } from '../src/data/sonkisul-finger-guide';
 import { findSchoolGradesForPoomsae } from '../src/components/poomsae/PoomsaeVisuals';
 
 describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fontes', () => {
@@ -12,6 +22,7 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
 
   it('combina busca com categoria, subdivisão, ordenação e relação geométrica sem inventar hotspots', () => {
     expect(searchLibrary('손날', 'balkisul')).toEqual([]);
+    expect(searchLibrary('palma', 'balkisul')).toEqual([]);
     expect(searchLibrary('Sonnal', 'sonkisul').map((item) => item.slug)).toContain('sonnal');
     expect(searchLibrary('Lago sereno', 'poomsae').map((item) => item.slug)).toEqual(['taegeuk-2-jang']);
     expect(searchLibrary('Keon', 'poomsae').map((item) => item.slug)).toContain('taegeuk-1-jang');
@@ -21,6 +32,9 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(az[0]?.slug).toBe('chonkwon');
     expect(getLibraryKinds('poomsae')).toEqual(['Forma Taegeuk', 'Forma Yudanja (Dan)']);
     expect(atlasHref('sonnal')).toBe('/atlas?region=sonnal&zoom=1');
+    expect(atlasHref('apchuk')).toBe('/atlas?region=apchuk&zoom=1');
+    expect(atlasHref('dwikkumchi')).toBe('/atlas?region=dwikkumchi&zoom=1');
+    expect(atlasHref('ap-chagi')).toBeNull();
     expect(atlasHref('modumsonkkeut')).toBeNull();
     expect(atlasHref('taegeuk-1-jang')).toBeNull();
     expect(atlasHref('desconhecido')).toBeNull();
@@ -28,6 +42,8 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
 
   it('gera URLs estáveis e recusa termos desconhecidos', () => {
     expect(libraryItemHref('sonnal')).toBe('/biblioteca/sonkisul/sonnal');
+    expect(libraryItemHref('apchuk')).toBe('/biblioteca/balkisul/apchuk');
+    expect(libraryItemHref('ap-chagi')).toBe('/biblioteca/balkisul/ap-chagi');
     expect(libraryItemHref('taegeuk-5-jang')).toBe('/biblioteca/poomsae/taegeuk-5-jang');
     expect(libraryItemHref('koryo')).toBe('/biblioteca/poomsae/koryo');
     expect(libraryItemHref('desconhecido')).toBeNull();
@@ -91,6 +107,30 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(searchLibrary('Arae-makgi', 'kibon-dongjak').map((item) => item.slug)).toContain('naeryeo-makgi');
     expect(getLibraryItem('apgubi')?.acervoLink?.href).toBe('/acervo#apgubi');
   });
+
+  it('popula as sete áreas da biblioteca com Balkisul (pés e chutes), dedos anatômicos e conexões bidirecionais', () => {
+    for (const cat of libraryCategories) {
+      expect(searchLibrary('', cat.id).length, cat.id).toBeGreaterThan(0);
+    }
+    expect(libraryItems).toHaveLength(105);
+    expect(searchLibrary('', 'balkisul', false, 'Superfícies do pé')).toHaveLength(8);
+    expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(12);
+    expect(searchLibrary('', 'balkisul', true)).toHaveLength(8);
+
+    const usingApchuk = getItemsReferencingSlug('apchuk').map((item) => item.slug);
+    expect(usingApchuk).toContain('ap-chagi');
+    expect(usingApchuk).toContain('dollyeo-chagi');
+
+    const usingSonnal = getItemsReferencingSlug('sonnal').map((item) => item.slug);
+    expect(usingSonnal).toContain('sonnal-makgi-familia');
+    expect(usingSonnal).toContain('sonnal-an-chigi');
+
+    expect(Object.keys(fingerAnatomyGuides)).toHaveLength(5);
+    for (const guide of Object.values(fingerAnatomyGuides)) {
+      for (const rel of guide.relatedConfigSlugs) {
+        expect(getLibraryItem(rel.slug), rel.slug).toBeDefined();
+      }
+    }
+    expect(multiFingerCareNotes.gawisonkkeut).toMatch(/pendentes de confirmação documental/);
+  });
 });
-
-
