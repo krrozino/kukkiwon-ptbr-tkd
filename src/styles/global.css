@@ -100,7 +100,7 @@ footer{border-top:1px solid #e4e7ec;color:#64748b;padding-top:25px!important;pad
 /* Recursos de aprendizado: mesma base para aluno e professor */
 textarea{font:inherit;border:1px solid #cbd5e1;padding:12px;border-radius:8px;width:100%;resize:vertical;min-height:84px}
 textarea:focus-visible{outline:3px solid #4769d6;outline-offset:3px}
-.stack{display:grid;gap:14px}.stack>p{margin:0}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0}.actions a{color:#247778;font-weight:650}
+.stack{display:grid;gap:14px}.stack>p{margin:0}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0}.actions a:not(.button){color:#247778;font-weight:650}
 .learning-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,2fr);gap:22px;align-items:start}.learning-layout>*{min-width:0}
 .study-sidebar button{width:100%;text-align:left}.folder-list{padding:0;list-style:none;display:grid;gap:5px}.study-sidebar form{border-top:1px solid #e4e7ec;padding-top:18px;margin-top:22px}.study-sidebar form button{margin-top:8px}
 .study-items,.notes-list{list-style:none;padding:0;display:grid;gap:16px}.study-items>li,.notes-list>li{border:1px solid #e4e7ec;border-radius:10px;padding:16px;display:grid;gap:10px;overflow-wrap:anywhere}
@@ -295,11 +295,11 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 [data-theme="dark"] .surface-canvas .surface-placeholder small,[data-theme="dark"] .school-technique small,
 [data-theme="dark"] .term-context .fine-print{color:var(--theme-muted)}
 [data-theme="dark"] .tag,[data-theme="dark"] .inline-link,
-[data-theme="dark"] .actions a,[data-theme="dark"] .context-link,
+[data-theme="dark"] .actions a:not(.button),[data-theme="dark"] .context-link,
 [data-theme="dark"] .text-button,[data-theme="dark"] .direction-arrow,
 [data-theme="dark"] .grade-editor legend,[data-theme="dark"] .term-context .hangul,
 [data-theme="dark"] .surface-inspector .surface-tooltip a,[data-theme="dark"] .source-list a,
-[data-theme="dark"] .atlas-source-evidence a,[data-theme="dark"] main a:not(.button):not(.link-card):not(.term-card):not(.inline-link),[data-theme="dark"] footer a{color:var(--theme-link)}
+[data-theme="dark"] .atlas-source-evidence a,:where([data-theme="dark"] main) a:where(:not(.button):not(.link-card):not(.term-card):not(.inline-link)),[data-theme="dark"] footer a{color:var(--theme-link)}
 [data-theme="dark"] .surface-canvas .surface-panel-eyebrow,[data-theme="dark"] .surface-legend-heading strong,
 [data-theme="dark"] .surface-inspector .surface-tooltip-compact strong{color:var(--theme-text)}
 [data-theme="dark"] .button-outline{border-color:#f8a4a8;color:#f8a4a8;background:transparent}

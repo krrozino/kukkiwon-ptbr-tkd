@@ -71,3 +71,47 @@ for(const [area,count] of [['head',5],['torso',4],['arms',4],['legs',3]] as cons
     expect(errors).toEqual([]);
   });
 }
+
+test('recortes corporais não se sobrepõem e links diretos de superfícies do pé resolvem sem Supabase',async({page})=>{
+  for(const area of ['head','torso','arms','legs'] as const){
+    for(const view of ['front','back'] as const){
+      await page.goto(`/atlas?region=${area}&view=${view}&zoom=1`);
+      await expect(page.locator('.body-detail .surface-cutout').first()).toBeVisible();
+      const overlaps=await page.evaluate(()=>{
+        const svg=document.querySelector('.body-detail .detail-svg') as SVGSVGElement;
+        const paths=[...svg.querySelectorAll('.surface-cutout path')] as SVGGeometryElement[];
+        const vb=svg.viewBox.baseVal;
+        let count=0;
+        for(let x=vb.x+2;x<vb.x+vb.width;x+=3){
+          for(let y=vb.y+2;y<vb.y+vb.height;y+=3){
+            const pt=new DOMPoint(x,y);
+            const hits=paths.filter(p=>p.isPointInFill(pt));
+            if(hits.length>1)count++;
+          }
+        }
+        return count;
+      });
+      expect(overlaps,`${area}-${view}`).toBe(0);
+    }
+  }
+  await page.goto('/atlas?region=dwikkumchi&zoom=1');
+  await expect(page.getByRole('img',{name:'Detalhe original do pé — dorso'})).toBeVisible();
+  await expect(page.locator('.surface-cutout[data-region="dwikkumchi"]')).toHaveAttribute('aria-pressed','true');
+  await expect(page.getByRole('link',{name:/Abrir ficha de Dwikkumchi na Biblioteca/})).toHaveAttribute('href','/biblioteca/balkisul/dwikkumchi');
+});
+
+
+test('superfície do pé mantém o retorno à ficha com catálogo de regiões preenchido', async ({ page }) => {
+  await page.route('**/rest/v1/**', (route) => {
+    const table = new URL(route.request().url()).pathname.split('/').pop();
+    return route.fulfill({ json: table === 'body_regions' ? [{
+      id: 'apchuk', slug: 'apchuk', region_group: 'feet', atlas_area: 'feet',
+      name_pt: 'Apchuk publicado no catálogo', detail_view: 'front', detail_x: null, detail_y: null,
+    }] : [] });
+  });
+  await page.goto('/biblioteca/balkisul/apchuk');
+  await page.getByRole('link', { name: 'Localizar superfície no Atlas do pé' }).click();
+  await expect(page.getByRole('heading', { name: 'Superfícies e regiões' })).toBeVisible();
+  await page.getByRole('link', { name: /Abrir ficha de Apchuk na Biblioteca/ }).click();
+  await expect(page).toHaveURL(/\/biblioteca\/balkisul\/apchuk$/);
+});

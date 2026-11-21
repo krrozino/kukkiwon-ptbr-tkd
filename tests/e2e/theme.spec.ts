@@ -64,3 +64,73 @@ test("seleção do atlas continua destacada no tema escuro", async ({ page }) 
   const after = await costas.evaluate(el => getComputedStyle(el).backgroundColor);
   expect(after).toBe(first);
 });
+
+test("categorias selecionadas e botões mantêm contraste WCAG AA e distinção visual nos dois temas (#79)", async ({ page }) => {
+  await page.route("**/rest/v1/**", route => route.fulfill({ json: [] }));
+  for (const theme of ["dark", "light"] as const) {
+    await page.emulateMedia({ colorScheme: theme });
+    for (const width of [375, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/biblioteca/poomsae");
+      const active = page.locator(".collection-nav a[aria-current='page']");
+      const inactive = page.locator(".collection-nav a:not([aria-current='page'])").first();
+      await expect(active).toHaveText("Poomsae");
+      await expect(inactive).toBeVisible();
+
+      const metrics = await page.evaluate(() => {
+        function parse(str: string) {
+          const m = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+          return m ? [+m[1], +m[2], +m[3]] : [0, 0, 0];
+        }
+        function lum([r, g, b]: number[]) {
+          const [rs, gs, bs] = [r, g, b].map(v => {
+            const s = v / 255;
+            return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+          });
+          return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+        }
+        function ratio(el: Element) {
+          const s = getComputedStyle(el);
+          const l1 = lum(parse(s.color));
+          const l2 = lum(parse(s.backgroundColor));
+          return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+        }
+        const act = document.querySelector(".collection-nav a[aria-current='page']")!;
+        const inact = document.querySelector(".collection-nav a:not([aria-current='page'])")!;
+        const actStyle = getComputedStyle(act);
+        const inactStyle = getComputedStyle(inact);
+        return {
+          activeContrast: ratio(act),
+          inactiveContrast: ratio(inact),
+          activeWeight: Number(actStyle.fontWeight),
+          inactiveWeight: Number(inactStyle.fontWeight),
+          activeDecoration: actStyle.textDecorationLine,
+          inactiveDecoration: inactStyle.textDecorationLine,
+        };
+      });
+
+      expect(metrics.activeContrast).toBeGreaterThanOrEqual(4.5);
+      expect(metrics.inactiveContrast).toBeGreaterThanOrEqual(4.5);
+      expect(metrics.activeWeight).toBeGreaterThan(metrics.inactiveWeight);
+      expect(metrics.activeDecoration).toContain("underline");
+      expect(metrics.inactiveDecoration).not.toContain("underline");
+
+      await active.hover();
+      const hoverContrast = await active.evaluate(el => {
+        const parse = (str: string) => (str.match(/\d+/g) || [0, 0, 0]).slice(0, 3).map(Number);
+        const lum = (rgb: number[]) => {
+          const [r, g, b] = rgb.map(v => {
+            const s = v / 255;
+            return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+          });
+          return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        };
+        const s = getComputedStyle(el);
+        const l1 = lum(parse(s.color));
+        const l2 = lum(parse(s.backgroundColor));
+        return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      });
+      expect(hoverContrast).toBeGreaterThanOrEqual(4.5);
+    }
+  }
+});

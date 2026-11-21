@@ -11,6 +11,17 @@ test('public Poomsae empty state works without calling the optional schema',asyn
   await expect(page.getByRole('link',{name:'Consultar a referência original de Poomsae'})).toHaveAttribute('href',/kukkiwon\.or\.kr/);
   await expect(page.getByRole('link',{name:'Consultar catálogo',exact:true})).toHaveAttribute('href','/catalogo');
   expect(schemaRequests).toEqual([]);
+
+  // Interactive Poomsae dossier + SVG trigram + Biblioteca ficha
+  await page.locator('section[aria-label="Introdução às formas Taegeuk"] article').first().getByRole('button',{name:'Explorar dossiê'}).click();
+  const dossier=page.getByRole('region',{name:'Dossiê de estudo da forma'});
+  await expect(dossier).toBeVisible();
+  await expect(dossier).toContainText('Keon');
+  await expect(dossier.locator('svg[role="img"]')).toBeVisible();
+  await dossier.getByRole('link',{name:/Abrir ficha completa na Biblioteca/}).click();
+  await expect(page).toHaveURL(/\/biblioteca\/poomsae\/taegeuk-1-jang/);
+  await expect(page.getByRole('heading',{name:'Taegeuk 1 Jang',exact:true})).toBeVisible();
+  await expect(page.locator('svg[role="img"]').first()).toBeVisible();
 });
 
 test('learning has an honest empty state and no synthetic exercises',async({page})=>{

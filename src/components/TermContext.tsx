@@ -5,7 +5,7 @@ export type {TermDetail} from '../lib/use-term-detail';
 import KoreanExpression from './KoreanExpression';
 import KnowledgeReferences from './KnowledgeReferences';
 import TermSemanticsPanel from './TermSemanticsPanel';
-import { getLibraryItem, libraryItemHref } from '../lib/library';
+import { getLibraryCategory, getLibraryItem, libraryItemHref } from '../lib/library';
 import { PublicHandTerm } from './atlas/PublicHandContent';
 export function Pronunciation({ term }: { term: TermDetail["term"] }) {
   return (
@@ -65,8 +65,17 @@ export default function TermContext({
         </button>
       )}
       {!detail && libraryItem ? <>
-        <p className="tag">Biblioteca · Mãos e punhos</p>
-        <PublicHandTerm term={libraryItem.term} compact={compact} />
+        <p className="tag">Biblioteca · {getLibraryCategory(libraryItem.categoryId)?.title || libraryItem.categoryId}</p>
+        {libraryItem.categoryId === 'sonkisul' ? (
+          <PublicHandTerm term={libraryItem.term as Parameters<typeof PublicHandTerm>[0]['term']} compact={compact} />
+        ) : (
+          <div className={'hand-term-card' + (compact ? ' hand-term-card-compact' : '')}>
+            <strong>{libraryItem.term.romanization || libraryItem.term.name}</strong>
+            <p>{libraryItem.term.name}</p>
+            {libraryItem.term.hangul && <span lang="ko" className="hand-term-hangul">{libraryItem.term.hangul}</span>}
+            {libraryItem.term.description && <p>{libraryItem.term.description}</p>}
+          </div>
+        )}
         <div className="actions"><FavoriteButton slug={slug} title={libraryItem.term.romanization || libraryItem.term.name} />
           <a className="inline-link" href={libraryItemHref(slug)!}>Abrir ficha completa →</a></div>
       </> : !detail ? (
