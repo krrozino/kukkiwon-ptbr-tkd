@@ -8,6 +8,7 @@ import TermContext from "./TermContext";
 import MediaPlayer, { type SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
 import { getLibraryItem, libraryItemHref } from '../lib/library';
+import { matchuoEntries } from '../data/matchuo-kyorugi-guide';
 export default function CurriculumView({
   value,
   school = "Currículo pessoal",
@@ -78,71 +79,79 @@ export default function CurriculumView({
           </p>
           {g.requirements.length === 0 && <p className="fine-print">Esta graduação ainda não possui conteúdos definidos pelo professor.</p>}
           <ul className="requirements">
-            {g.requirements.map((r) => (
-              <li key={r.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    disabled={loadedKey!==key}
-                    checked={checked.includes(g.id + ":" + r.id)}
-                    onChange={() => toggle(g.id + ":" + r.id)}
-                  />
-                  <strong>{r.title}</strong>
-                </label>
-                <span className="pill">{requirementKindLabels[r.kind] || r.kind}</span>
-                {formatRequirementSequence(r) && (
-                  <span className="pill">{formatRequirementSequence(r)}</span>
-                )}
-                {r.schoolTermId &&
-                  (schoolTerms.find((t) => t.id === r.schoolTermId) ? (
-                    <div className="school-technique">
-                      <strong>
-                        {
-                          schoolTerms.find((t) => t.id === r.schoolTermId)!
-                            .title
-                        }
-                      </strong>
-                      <p>
-                        {
-                          schoolTerms.find((t) => t.id === r.schoolTermId)!
-                            .description
-                        }
-                      </p>
-                      <small>
-                        Técnica própria da escola · sem homologação editorial
-                      </small>
-                    </div>
-                  ) : (
-                    <p className="fine-print">
-                      Técnica própria privada ou indisponível neste acesso.
-                    </p>
-                  ))}
-                <p>{r.notes}</p>
-                {r.termSlug && (
-                  libraryItemHref(r.termSlug) ? <a className="inline-link curriculum-library-link" href={libraryItemHref(r.termSlug)!}>
-                    Consultar {getLibraryItem(r.termSlug)!.term.romanization || getLibraryItem(r.termSlug)!.term.name} na biblioteca
-                  </a> :
-                  <button
-                    className="text-button"
-                    disabled={loadedKey!==key}
-                    onClick={() => setPreview(r.termSlug)}
-                  >
-                    Consultar {r.termSlug} aqui ↗
-                  </button>
-                )}
-                {r.mediaId &&
-                  (media.find((m) => m.id === r.mediaId) ? (
-                    <MediaPlayer
-                      media={media.find((m) => m.id === r.mediaId)!}
-                      ownerAccess={ownerAccess}
+            {g.requirements.map((r) => {
+              const sequenceLabel = formatRequirementSequence(r);
+              const modality = r.kind === "matchuo-kyorugi" && r.sequenceType && !r.termSlug && !r.schoolTermId
+                ? matchuoEntries.find((entry) => entry.modalityKey === r.sequenceType)
+                : undefined;
+              const slug = r.termSlug || modality?.slug || "";
+              const libraryItem = getLibraryItem(slug);
+              const libraryHref = libraryItemHref(slug);
+              return (
+                <li key={r.id}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      disabled={loadedKey!==key}
+                      checked={checked.includes(g.id + ":" + r.id)}
+                      onChange={() => toggle(g.id + ":" + r.id)}
                     />
-                  ) : (
-                    <p className="fine-print">
-                      Demonstração privada ou indisponível neste acesso.
-                    </p>
-                  ))}
-              </li>
-            ))}
+                    <strong>{r.title}</strong>
+                  </label>
+                  <span className="pill">{requirementKindLabels[r.kind] || r.kind}</span>
+                  {sequenceLabel && <span className="pill">{sequenceLabel}</span>}
+                  {r.schoolTermId &&
+                    (schoolTerms.find((t) => t.id === r.schoolTermId) ? (
+                      <div className="school-technique">
+                        <strong>
+                          {
+                            schoolTerms.find((t) => t.id === r.schoolTermId)!
+                              .title
+                          }
+                        </strong>
+                        <p>
+                          {
+                            schoolTerms.find((t) => t.id === r.schoolTermId)!
+                              .description
+                          }
+                        </p>
+                        <small>
+                          Técnica própria da escola · sem homologação editorial
+                        </small>
+                      </div>
+                    ) : (
+                      <p className="fine-print">
+                        Técnica própria privada ou indisponível neste acesso.
+                      </p>
+                    ))}
+                  <p>{r.notes}</p>
+                  {libraryItem && libraryHref ? (
+                    <a className="inline-link curriculum-library-link" href={libraryHref}>
+                      Consultar {libraryItem.term.romanization || libraryItem.term.name} na biblioteca
+                    </a>
+                  ) : r.termSlug && (
+                    <button
+                      className="text-button"
+                      disabled={loadedKey!==key}
+                      onClick={() => setPreview(r.termSlug)}
+                    >
+                      Consultar {r.termSlug} aqui ↗
+                    </button>
+                  )}
+                  {r.mediaId &&
+                    (media.find((m) => m.id === r.mediaId) ? (
+                      <MediaPlayer
+                        media={media.find((m) => m.id === r.mediaId)!}
+                        ownerAccess={ownerAccess}
+                      />
+                    ) : (
+                      <p className="fine-print">
+                        Demonstração privada ou indisponível neste acesso.
+                      </p>
+                    ))}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ))}

@@ -39,71 +39,34 @@ export type LibraryTerm = {
 };
 
 /** Product navigation, not a new technical classification or Korean dictionary. */
-export const libraryCategories = [
-  {
-    id: 'poomsae',
-    label: 'Poomsae',
-    title: 'Formas e sequências',
-    description: 'Estude os oito Taegeuk e as nove formas Dan com trigramas, linhas e fontes.',
-    href: '/poomsae',
-    destination: 'Explorar Poomsae',
-    number: '01',
-  },
-  {
-    id: 'matchuo-kyorugi',
-    label: 'Matchuo Kyorugi',
-    title: 'Combate combinado',
-    description: 'Organize Sebon, Dubon, Anjoa e sequências ensinadas na sua escola.',
-    href: '/kyorugi#combinado',
-    destination: 'Explorar combate combinado',
-    number: '02',
-  },
-  {
-    id: 'palgwae',
-    label: 'Palgwae',
-    title: 'Coleção Palgwae',
-    description: 'Contexto histórico pré-Taegeuk, trigramas e registro nos currículos escolares.',
-    href: '/fontes',
-    destination: 'Conhecer as fontes',
-    number: '03',
-  },
-  {
-    id: 'iron',
-    label: 'Iron',
-    title: 'Teoria e terminologia',
-    description: 'Fundamentos conceituais, história documentada, espírito do Taekwondo e glossário.',
-    href: '/glossario',
-    destination: 'Abrir o glossário',
-    number: '04',
-  },
-  {
-    id: 'kibon-dongjak',
-    label: 'Kibon Dongjak',
-    title: 'Fundamentos',
-    description: 'Bases, defesas, socos, golpes, alturas e direções para estruturar a técnica.',
-    href: '/fundamentos/alturas-e-direcoes',
-    destination: 'Estudar fundamentos',
-    number: '05',
-  },
-  {
-    id: 'balkisul',
-    label: 'Balkisul',
-    title: 'Pés e pernas',
-    description: 'Superfícies de contato do pé no Atlas e famílias de chutes do Taekwondo.',
-    href: '/atlas?region=feet&zoom=1',
-    destination: 'Explorar pés no Atlas',
-    number: '06',
-  },
-  {
-    id: 'sonkisul',
-    label: 'Sonkisul',
-    title: 'Mãos e punhos',
-    description: 'Consulte superfícies, dedos e configurações com acesso direto ao Atlas.',
-    href: '/atlas?region=hands&zoom=1',
-    destination: 'Explorar a mão no Atlas',
-    number: '07',
-  },
+const categoryNavigation = [
+  ['poomsae', 'Poomsae', 'Formas e sequências',
+    'Estude os oito Taegeuk e as nove formas Dan com trigramas, linhas e fontes.',
+    '/poomsae', 'Explorar Poomsae'],
+  ['matchuo-kyorugi', 'Matchuo Kyorugi', 'Combate combinado',
+    'Organize Sebon, Dubon, Anjoa e sequências ensinadas na sua escola.',
+    '/kyorugi#combinado', 'Explorar combate combinado'],
+  ['palgwae', 'Palgwae', 'Coleção Palgwae',
+    'Contexto histórico pré-Taegeuk, trigramas e registro nos currículos escolares.',
+    '/fontes', 'Conhecer as fontes'],
+  ['iron', 'Iron', 'Teoria e terminologia',
+    'Fundamentos conceituais, história documentada, espírito do Taekwondo e glossário.',
+    '/glossario', 'Abrir o glossário'],
+  ['kibon-dongjak', 'Kibon Dongjak', 'Fundamentos',
+    'Bases, defesas, socos, golpes, alturas e direções para estruturar a técnica.',
+    '/fundamentos/alturas-e-direcoes', 'Estudar fundamentos'],
+  ['balkisul', 'Balkisul', 'Pés e pernas',
+    'Superfícies de contato do pé no Atlas e famílias de chutes do Taekwondo.',
+    '/atlas?region=feet&zoom=1', 'Explorar pés no Atlas'],
+  ['sonkisul', 'Sonkisul', 'Mãos e punhos',
+    'Consulte superfícies, dedos e configurações com acesso direto ao Atlas.',
+    '/atlas?region=hands&zoom=1', 'Explorar a mão no Atlas'],
 ] as const;
+
+export const libraryCategories = categoryNavigation.map(([id, label, title, description, href, destination], index) => ({
+  id, label, title, description, href, destination,
+  number: String(index + 1).padStart(2, '0'),
+}));
 
 export type LibraryCategoryId = (typeof libraryCategories)[number]['id'];
 
@@ -470,31 +433,21 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
   },
 }));
 
-const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
-  slug: entry.slug,
-  categoryId: 'kibon-dongjak',
-  kindLabel: entry.kindLabel,
-  illustrativeBodyArea: {
-    region: entry.atlasRegion,
-    label: entry.atlasLabel,
-    note: 'Ligação ilustrativa para explorar a região corporal envolvida no movimento; não substitui correção presencial de postura.',
-  },
-  acervoLink: entry.acervoSlug
-    ? {
-        href: `/acervo#${entry.acervoSlug}`,
-        label: `Ver registro ${entry.romanization} no Acervo`,
-        note: 'Registro provisório com localizador na terminologia Kukkiwon 2011/2012.',
-      }
-    : undefined,
-  moduleLink:
-    entry.moduleHref && entry.moduleLabel
-      ? { href: entry.moduleHref, label: entry.moduleLabel }
-      : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
-  studyPoints: entry.studyPoints,
-  scopeNotice:
-    'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.',
-  relatedLibrarySlugs: entry.relatedLibrarySlugs,
-  term: {
+type MovementCard = (typeof kibonEntries)[number] | (typeof balkisulEntries)[number];
+
+const movementScopeNotice =
+  'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.';
+
+function movementAcervoLink(slug: string, romanization: string) {
+  return {
+    href: `/acervo#${slug}`,
+    label: `Ver registro ${romanization} no Acervo`,
+    note: 'Registro provisório com localizador na terminologia Kukkiwon 2011/2012.',
+  };
+}
+
+function movementTerm(entry: MovementCard): LibraryTerm {
+  return {
     slug: entry.slug,
     name: entry.subtitlePt,
     hangul: entry.hangul,
@@ -518,7 +471,27 @@ const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
       field: row.field,
       reference: row.reference,
     })),
+  };
+}
+
+const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
+  slug: entry.slug,
+  categoryId: 'kibon-dongjak',
+  kindLabel: entry.kindLabel,
+  illustrativeBodyArea: {
+    region: entry.atlasRegion,
+    label: entry.atlasLabel,
+    note: 'Ligação ilustrativa para explorar a região corporal envolvida no movimento; não substitui correção presencial de postura.',
   },
+  acervoLink: entry.acervoSlug ? movementAcervoLink(entry.acervoSlug, entry.romanization) : undefined,
+  moduleLink:
+    entry.moduleHref && entry.moduleLabel
+      ? { href: entry.moduleHref, label: entry.moduleLabel }
+      : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
+  studyPoints: entry.studyPoints,
+  scopeNotice: movementScopeNotice,
+  relatedLibrarySlugs: entry.relatedLibrarySlugs,
+  term: movementTerm(entry),
 }));
 
 const balkisulItems: LibraryItem[] = balkisulEntries.map((entry) => ({
@@ -533,43 +506,14 @@ const balkisulItems: LibraryItem[] = balkisulEntries.map((entry) => ({
         label: 'Pernas, joelho (Mureup) e superfícies do pé',
         note: 'Ligação ilustrativa para explorar os segmentos dos membros inferiores e abrir o detalhe dos pés no Atlas.',
       },
-  acervoLink: {
-    href: `/acervo#${entry.acervoSlug}`,
-    label: `Ver registro ${entry.romanization} no Acervo`,
-    note: 'Registro provisório com localizador na terminologia Kukkiwon 2011/2012.',
-  },
+  acervoLink: movementAcervoLink(entry.acervoSlug, entry.romanization),
   moduleLink: entry.atlasZone
     ? { href: `/atlas?region=${entry.atlasZone}&zoom=1`, label: 'Localizar superfície no Atlas do pé' }
     : { href: '/kyorugi', label: 'Explorar guia de Kyorugi e família Chagi' },
   studyPoints: entry.studyPoints,
-  scopeNotice:
-    'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.',
+  scopeNotice: movementScopeNotice,
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
-  term: {
-    slug: entry.slug,
-    name: entry.subtitlePt,
-    hangul: entry.hangul,
-    romanization: entry.romanization,
-    pronunciation: entry.pronunciationPt,
-    description: entry.summary,
-    meanings: [
-      {
-        kind: 'technical',
-        language: 'pt-BR',
-        value: `${entry.kindLabel} · ${entry.subtitlePt}.`,
-        reference: entry.references[0]?.reference ?? null,
-      },
-    ],
-    variants: entry.variants.map((value) => ({ value })),
-    related: entry.references.map((row) => ({
-      name: `${row.reference.title} (${row.reference.locator})`,
-      reference: row.reference,
-    })),
-    evidence: entry.references.map((row) => ({
-      field: row.field,
-      reference: row.reference,
-    })),
-  },
+  term: movementTerm(entry),
 }));
 
 // One identity, verified institutional sources only: zero raw Argon/Gemini research leakage.

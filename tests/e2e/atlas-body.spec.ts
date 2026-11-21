@@ -100,3 +100,18 @@ test('recortes corporais não se sobrepõem e links diretos de superfícies do p
   await expect(page.getByRole('link',{name:/Abrir ficha de Dwikkumchi na Biblioteca/})).toHaveAttribute('href','/biblioteca/balkisul/dwikkumchi');
 });
 
+
+test('superfície do pé mantém o retorno à ficha com catálogo de regiões preenchido', async ({ page }) => {
+  await page.route('**/rest/v1/**', (route) => {
+    const table = new URL(route.request().url()).pathname.split('/').pop();
+    return route.fulfill({ json: table === 'body_regions' ? [{
+      id: 'apchuk', slug: 'apchuk', region_group: 'feet', atlas_area: 'feet',
+      name_pt: 'Apchuk publicado no catálogo', detail_view: 'front', detail_x: null, detail_y: null,
+    }] : [] });
+  });
+  await page.goto('/biblioteca/balkisul/apchuk');
+  await page.getByRole('link', { name: 'Localizar superfície no Atlas do pé' }).click();
+  await expect(page.getByRole('heading', { name: 'Superfícies e regiões' })).toBeVisible();
+  await page.getByRole('link', { name: /Abrir ficha de Apchuk na Biblioteca/ }).click();
+  await expect(page).toHaveURL(/\/biblioteca\/balkisul\/apchuk$/);
+});

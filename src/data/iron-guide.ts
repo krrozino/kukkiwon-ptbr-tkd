@@ -367,89 +367,77 @@ export const ironEntries: readonly IronEntry[] = [
   },
 ];
 
+function quizQuestion(
+  id: string,
+  level: IronLevel,
+  relatedSlug: string,
+  question: string,
+  options: readonly string[],
+  correctIndex: number,
+  explanation: string,
+): IronQuizQuestion {
+  return { id, level, relatedSlug, question, options, correctIndex, explanation };
+}
+
 export const ironQuizQuestions: readonly IronQuizQuestion[] = [
-  {
-    id: 'q-roles',
-    level: 'basico',
-    question: 'Qual instituição atua como referência mundial para padronização técnica de Poomsae e certificação internacional Dan?',
-    options: [
+  quizQuestion('q-roles', 'basico', 'iron-instituicoes-kukkiwon-wt-cbtkd',
+    'Qual instituição atua como referência mundial para padronização técnica de Poomsae e certificação internacional Dan?',
+    [
       'Kukkiwon',
       'Comitê Olímpico Internacional diretamente em cada dojang',
       'Apenas o regulamento de arbitragem de cada torneio local',
     ],
-    correctIndex: 0,
-    explanation:
-      'A Kukkiwon é a referência técnico-educacional e certificadora Poom/Dan, enquanto a World Taekwondo regulamenta as competições esportivas.',
-    relatedSlug: 'iron-instituicoes-kukkiwon-wt-cbtkd',
-  },
-  {
-    id: 'q-belts',
-    level: 'basico',
-    question: 'Sobre as faixas coloridas (Gup) e os requisitos de exame como intervalos de Sebon:',
-    options: [
+    0,
+    'A Kukkiwon é a referência técnico-educacional e certificadora Poom/Dan, enquanto a World Taekwondo regulamenta as competições esportivas.',
+  ),
+  quizQuestion('q-belts', 'basico', 'iron-graduacoes-gup-dan',
+    'Sobre as faixas coloridas (Gup) e os requisitos de exame como intervalos de Sebon:',
+    [
       'Existe uma única tabela idêntica obrigatória de cores e números de Sebon em todas as escolas do mundo.',
       'A organização das faixas coloridas e dos intervalos numerados varia conforme o currículo de cada escola e entidade.',
       'Faixas coloridas não estudam fundamentos nem teoria.',
     ],
-    correctIndex: 1,
-    explanation:
-      'Cada escola e federação estrutura seus graus Gup e intervalos pedagógicos; por isso a plataforma permite personalizar currículos por escola.',
-    relatedSlug: 'iron-graduacoes-gup-dan',
-  },
-  {
-    id: 'q-morphology',
-    level: 'intermediario',
-    question: 'No termo documentado "Sonnal-an-chigi", o elemento final "chigi" indica:',
-    options: [
+    1,
+    'Cada escola e federação estrutura seus graus Gup e intervalos pedagógicos; por isso a plataforma permite personalizar currículos por escola.',
+  ),
+  quizQuestion('q-morphology', 'intermediario', 'iron-morfologia-terminologia',
+    'No termo documentado "Sonnal-an-chigi", o elemento final "chigi" indica:',
+    [
       'Uma base de pernas em recuo',
       'A família técnica de golpes de impacto',
       'Um rolamento de amortecimento de queda',
     ],
-    correctIndex: 1,
-    explanation:
-      'Na terminologia Kukkiwon (2012), Sonnal identifica a faca da mão, An indica a direção para dentro e Chigi designa a família de golpes de impacto.',
-    relatedSlug: 'iron-morfologia-terminologia',
-  },
-  {
-    id: 'q-poomsae-series',
-    level: 'intermediario',
-    question: 'Qual série de formas para graus Gup integra atualmente a listagem oficial ativa do Board 55 da Kukkiwon?',
-    options: [
+    1,
+    'Na terminologia Kukkiwon (2012), Sonnal identifica a faca da mão, An indica a direção para dentro e Chigi designa a família de golpes de impacto.',
+  ),
+  quizQuestion('q-poomsae-series', 'intermediario', 'iron-evolucao-poomsae',
+    'Qual série de formas para graus Gup integra atualmente a listagem oficial ativa do Board 55 da Kukkiwon?',
+    [
       'Os oito Taegeuk (Taegeuk 1 a 8 Jang)',
       'Exclusivamente a coleção histórica Palgwae',
       'Apenas sequências livres sem linha de deslocamento',
     ],
-    correctIndex: 0,
-    explanation:
-      'O Board 55 da Kukkiwon publica os oito Taegeuk e as nove formas Dan como coleção vigente; Palgwae é preservada separadamente como coleção histórica e complementar.',
-    relatedSlug: 'iron-evolucao-poomsae',
-  },
-  {
-    id: 'q-romanization',
-    level: 'avancado',
-    question: 'Por que encontramos tanto "Dollyo Chagi" quanto "Dollyeo-chagi" em materiais sérios?',
-    options: [
+    0,
+    'O Board 55 da Kukkiwon publica os oito Taegeuk e as nove formas Dan como coleção vigente; Palgwae é preservada separadamente como coleção histórica e complementar.',
+  ),
+  quizQuestion('q-romanization', 'avancado', 'iron-padronizacao-romanizacao',
+    'Por que encontramos tanto "Dollyo Chagi" quanto "Dollyeo-chagi" em materiais sérios?',
+    [
       'Porque são chutes executados com partes opostas do corpo.',
       'Porque refletem sistemas diferentes de romanização da mesma escrita coreana (돌려차기).',
       'Porque a escrita Hangul muda a cada campeonato.',
     ],
-    correctIndex: 1,
-    explanation:
-      'A vogal coreana ㅓ era transcrita frequentemente como "o" em adaptações antigas e passou a "eo" na Romanização Revisada adotada em publicações recentes da Kukkiwon.',
-    relatedSlug: 'iron-padronizacao-romanizacao',
-  },
-  {
-    id: 'q-historiography',
-    level: 'avancado',
-    question: 'Como a página institucional History of Taekwondo da Kukkiwon apresenta o surgimento das escolas modernas (Cinco Kwans)?',
-    options: [
+    1,
+    'A vogal coreana ㅓ era transcrita frequentemente como "o" em adaptações antigas e passou a "eo" na Romanização Revisada adotada em publicações recentes da Kukkiwon.',
+  ),
+  quizQuestion('q-historiography', 'avancado', 'iron-historia-pos-1945',
+    'Como a página institucional History of Taekwondo da Kukkiwon apresenta o surgimento das escolas modernas (Cinco Kwans)?',
+    [
       'No período pós-libertação a partir de 1945/1946, culminando na unificação associativa nos anos 1960 e na fundação da Kukkiwon em 1972.',
       'Como federação olímpica já existente com regras eletrônicas no século XIX.',
       'Sem qualquer relação com mestres coreanos do século XX.',
     ],
-    correctIndex: 0,
-    explanation:
-      'A Kukkiwon distingue antecedentes culturais antigos/modernos (Subak, Taekkyeon) da organização moderna iniciada com os Cinco Kwans (1946–1960), unificação (1961–1970) e Kukkiwon (1972).',
-    relatedSlug: 'iron-historia-pos-1945',
-  },
+    0,
+    'A Kukkiwon distingue antecedentes culturais antigos/modernos (Subak, Taekkyeon) da organização moderna iniciada com os Cinco Kwans (1946–1960), unificação (1961–1970) e Kukkiwon (1972).',
+  ),
 ];

@@ -79,7 +79,7 @@ function resolveStaticAtlasLocation(
 const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; label: string }[]> = {
   feet: [
     { href: "/biblioteca/balkisul", label: "Explorar superfícies do pé e chutes em Balkisul →" },
-    { href: "/acervo?categoria=chagi", label: "Consultar registros de chutes no Acervo →" },
+    { href: "/acervo?categoria=chute", label: "Consultar registros de chutes no Acervo →" },
   ],
   legs: [
     { href: "/biblioteca/balkisul", label: "Estudar chutes e superfícies em Balkisul →" },
@@ -301,6 +301,9 @@ export default function Atlas() {
     });
   };
   const area = areas.find((a) => a.id === location.area)!;
+  const footCard = location.area === "feet" && location.region
+    ? balkisulEntries.find((entry) => entry.atlasZone === location.region)
+    : undefined;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
   return (
     <div
@@ -463,35 +466,10 @@ export default function Atlas() {
               onSelect={chooseHandTerm}/>
           </>
         ) : !isCatalogConfigured() ? (
-          <>
-            <div className="empty" role="status">
-              Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
-              exibido sem dados publicados.
-            </div>
-            {location.area !== "hands" && (
-              <div className="atlas-library-bridge">
-                <h3>Estudar na Biblioteca</h3>
-                {location.area === "feet" &&
-                  location.region &&
-                  balkisulEntries.find((e) => e.atlasZone === location.region) && (
-                    <p>
-                      <a className="inline-link" href={`/biblioteca/balkisul/${location.region}`}>
-                        Abrir ficha de {balkisulEntries.find((e) => e.atlasZone === location.region)!.romanization} na Biblioteca →
-                      </a>
-                    </p>
-                  )}
-                <ul className="related-list">
-                  {areaStudyLinks[location.area].map((link) => (
-                    <li key={link.href}>
-                      <a className="inline-link" href={link.href}>
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </>
+          <div className="empty" role="status">
+            Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
+            exibido sem dados publicados.
+          </div>
         ) : !ready || loading ? (
           <p role="status">Carregando regiões publicadas...</p>
         ) : error ? (
@@ -502,32 +480,7 @@ export default function Atlas() {
             </button>
           </div>
         ) : regions.length === 0 ? (
-          <>
-            <p>As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.</p>
-            {location.area !== "hands" && (
-              <div className="atlas-library-bridge">
-                <h3>Estudar na Biblioteca</h3>
-                {location.area === "feet" &&
-                  location.region &&
-                  balkisulEntries.find((e) => e.atlasZone === location.region) && (
-                    <p>
-                      <a className="inline-link" href={`/biblioteca/balkisul/${location.region}`}>
-                        Abrir ficha de {balkisulEntries.find((e) => e.atlasZone === location.region)!.romanization} na Biblioteca →
-                      </a>
-                    </p>
-                  )}
-                <ul className="related-list">
-                  {areaStudyLinks[location.area].map((link) => (
-                    <li key={link.href}>
-                      <a className="inline-link" href={link.href}>
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </>
+          <p>As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.</p>
         ) : (
           <>
             <h3>Superfícies e regiões</h3>
@@ -575,6 +528,27 @@ export default function Atlas() {
               </p>
             )}
           </>
+        )}
+        {location.area !== "hands" && (
+          <div className="atlas-library-bridge">
+            <h3>Estudar na Biblioteca</h3>
+            {footCard && (
+              <p>
+                <a className="inline-link" href={`/biblioteca/balkisul/${footCard.slug}`}>
+                  Abrir ficha de {footCard.romanization} na Biblioteca →
+                </a>
+              </p>
+            )}
+            <ul className="related-list">
+              {areaStudyLinks[location.area].map((link) => (
+                <li key={link.href}>
+                  <a className="inline-link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <p className="fine-print">
           As áreas coloridas são ilustrações didáticas esquemáticas, independentes da Kukkiwon.

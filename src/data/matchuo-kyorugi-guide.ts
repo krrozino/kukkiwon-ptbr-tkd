@@ -1,5 +1,5 @@
 import type { LibraryReference } from '../lib/library';
-import { sparringSource } from './kyorugi-guide';
+import { kukkiwonSparringReference } from './movement-sources';
 
 export type MatchuoEntry = {
   slug: string;
@@ -46,13 +46,9 @@ const kukkiwonCurriculumRef: LibraryReference = {
   locator: 'Article 55579 — organização progressiva de habilidades no currículo escolar',
 };
 
-const board56Ref = (boardNo: number, familyName: string): LibraryReference => ({
-  institution: 'Kukkiwon',
-  title: `Composition of Taekwondo — Sparring (${familyName})`,
-  edition: 'Portal institucional em inglês (Board 56)',
-  url: sparringSource(boardNo),
-  locator: `Board 56 / article ${boardNo} (${familyName})`,
-});
+function stepModality(card: Omit<MatchuoEntry, 'kindLabel'>): MatchuoEntry {
+  return { ...card, kindLabel: 'Modalidade em passos' };
+}
 
 export const matchuoEntries: readonly MatchuoEntry[] = [
   {
@@ -83,11 +79,10 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
     ],
     relatedLibrarySlugs: ['sebon-kyorugi', 'dubon-kyorugi', 'hanbon-kyorugi'],
   },
-  {
+  stepModality({
     slug: 'sebon-kyorugi',
     title: 'Sebon Kyorugi',
     subtitle: 'Combate combinado em três passos — cadência, recuo e contra-ataque',
-    kindLabel: 'Modalidade em passos',
     modalityKey: 'sebon',
     stepCountLabel: '3 tempos de ataque e defesa',
     atlasRegion: 'arms',
@@ -108,17 +103,16 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
     acervoHref: '/acervo?categoria=defesa',
     acervoLabel: 'Consultar defesas (Makgi) em revisão no Acervo',
     references: [
-      { field: 'context', reference: board56Ref(1365, 'Makgi') },
-      { field: 'context', reference: board56Ref(1366, 'Jireugi') },
+      { field: 'context', reference: kukkiwonSparringReference(1365, 'Makgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1366, 'Jireugi') },
       { field: 'historical', reference: cbtkdHistoricalExamRef },
     ],
     relatedLibrarySlugs: ['matchuo-kyorugi-fundamentos', 'dubon-kyorugi', 'jumeok'],
-  },
-  {
+  }),
+  stepModality({
     slug: 'dubon-kyorugi',
     title: 'Dubon Kyorugi',
     subtitle: 'Combate combinado em dois passos — transição rítmica e resposta rápida',
-    kindLabel: 'Modalidade em passos',
     modalityKey: 'dubon',
     stepCountLabel: '2 tempos de ataque e defesa',
     atlasRegion: 'feet',
@@ -139,17 +133,16 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
     acervoHref: '/acervo?categoria=chute',
     acervoLabel: 'Consultar família de chutes (Chagi) no Acervo',
     references: [
-      { field: 'context', reference: board56Ref(1365, 'Makgi') },
-      { field: 'context', reference: board56Ref(1368, 'Chagi') },
+      { field: 'context', reference: kukkiwonSparringReference(1365, 'Makgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1368, 'Chagi') },
       { field: 'context', reference: wtaMasterCourseRef },
     ],
     relatedLibrarySlugs: ['sebon-kyorugi', 'hanbon-kyorugi', 'sonnal'],
-  },
-  {
+  }),
+  stepModality({
     slug: 'hanbon-kyorugi',
     title: 'Hanbon Kyorugi',
     subtitle: 'Combate combinado em um passo — esquiva, precisão e resposta imediata',
-    kindLabel: 'Modalidade em passos',
     modalityKey: 'hanbon',
     stepCountLabel: '1 ataque e resposta imediata',
     atlasRegion: 'hands',
@@ -168,15 +161,15 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
       'One-step sparring',
       'Luta combinada de 1 passo',
     ],
-    acervoHref: '/acervo?categoria=golpe',
+    acervoHref: '/acervo?categoria=chigi',
     acervoLabel: 'Consultar golpes (Chigi) em revisão no Acervo',
     references: [
-      { field: 'context', reference: board56Ref(1371, 'Pihagi') },
-      { field: 'context', reference: board56Ref(1367, 'Chigi') },
-      { field: 'context', reference: board56Ref(1370, 'Kkeokgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1371, 'Pihagi') },
+      { field: 'context', reference: kukkiwonSparringReference(1367, 'Chigi') },
+      { field: 'context', reference: kukkiwonSparringReference(1370, 'Kkeokgi') },
     ],
     relatedLibrarySlugs: ['dubon-kyorugi', 'sonnal', 'batangson'],
-  },
+  }),
   {
     slug: 'anjoa-kyorugi',
     title: 'Anjoa Kyorugi',
@@ -200,8 +193,8 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
       'Defesa sentada predefinida',
     ],
     references: [
-      { field: 'context', reference: board56Ref(1365, 'Makgi') },
-      { field: 'context', reference: board56Ref(1370, 'Kkeokgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1365, 'Makgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1370, 'Kkeokgi') },
       { field: 'terminology', reference: kukkiwonCurriculumRef },
     ],
     relatedLibrarySlugs: ['sebon-kyorugi', 'ppaegi-kkeokgi-aplicacoes', 'batangson'],
@@ -227,13 +220,13 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
       'Nakbeop (queda segura)',
       'Hosinsul (defesa pessoal no ensino)',
     ],
-    acervoHref: '/acervo#anpalmok-kkeokgi',
+    acervoHref: '/acervo',
     acervoLabel: 'Consultar controles e projeções provisórios no Acervo',
     references: [
-      { field: 'context', reference: board56Ref(1369, 'Ppaegi') },
-      { field: 'context', reference: board56Ref(1370, 'Kkeokgi') },
-      { field: 'context', reference: board56Ref(1372, 'Neomgigi') },
-      { field: 'context', reference: board56Ref(1373, 'Nakbeop') },
+      { field: 'context', reference: kukkiwonSparringReference(1369, 'Ppaegi') },
+      { field: 'context', reference: kukkiwonSparringReference(1370, 'Kkeokgi') },
+      { field: 'context', reference: kukkiwonSparringReference(1372, 'Neomgigi') },
+      { field: 'context', reference: kukkiwonSparringReference(1373, 'Nakbeop') },
     ],
     relatedLibrarySlugs: ['matchuo-kyorugi-fundamentos', 'ageumson', 'sonnal'],
   },
