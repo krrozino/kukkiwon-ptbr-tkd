@@ -33,100 +33,95 @@ export type StudyTrail = {
   items: readonly { slug: string; title: string }[];
 };
 
+const trailItemTitles = {
+  "iron-significado-taekwondo": "Significado de Tae · Kwon · Do",
+  "iron-espirito-cortesia-dojang": "Espírito do Taekwondo e cortesia no dojang",
+  "kibon-alturas-direcoes": "Alturas e direções (Olgul, Momtong, Arae)",
+  "ap-seogi": "Ap-seogi",
+  "apgubi": "Apgubi",
+  "naeryeo-makgi": "Naeryeo-makgi",
+  "jeocheo-jireugi": "Jeocheo-jireugi",
+  "ap-chagi": "Ap-chagi",
+  "apchuk": "Apchuk",
+  "baldeung": "Baldeung",
+  "balnal": "Balnal",
+  "dwichuk": "Dwichuk",
+  "dollyeo-chagi": "Dollyeo-chagi",
+  "yeop-chagi": "Yeop-chagi",
+  "dwi-chagi": "Dwi-chagi",
+  "gibon-junbi": "Gibon-junbi",
+  "taegeuk-1-jang": "Taegeuk 1 Jang",
+  "taegeuk-2-jang": "Taegeuk 2 Jang",
+  "taegeuk-3-jang": "Taegeuk 3 Jang",
+  "taegeuk-4-jang": "Taegeuk 4 Jang",
+  "dwitgubi": "Dwitgubi",
+  "jumeok": "Jumeok",
+  "sonnal": "Sonnal",
+  "batangson": "Batangson",
+  "pyeonsonkkeut": "Pyeonsonkkeut",
+  "an-makgi": "An-makgi",
+  "sonnal-makgi-familia": "Sonnal-bakkat-makgi",
+  "sonnal-an-chigi": "Sonnal-an-chigi",
+  "matchuo-kyorugi-fundamentos": "Matchuo Kyorugi (Combate combinado)",
+  "sebon-kyorugi": "Sebon Kyorugi",
+  "dubon-kyorugi": "Dubon Kyorugi",
+  "hanbon-kyorugi": "Hanbon Kyorugi",
+  "anjoa-kyorugi": "Anjoa Kyorugi",
+  "iron-historia-pos-1945": "Formação moderna pós-1945 e unificação",
+  "iron-instituicoes-kukkiwon-wt-cbtkd": "Kukkiwon, World Taekwondo e entidades esportivas",
+  "iron-morfologia-terminologia": "Como ler nomes técnicos em coreano",
+  "iron-padronizacao-romanizacao": "Romanização Revisada e variantes gráficas",
+  "palgwae-contexto-historico": "Coleção Palgwae",
+};
+
+function studyTrail(
+  id: string,
+  title: string,
+  audience: string,
+  description: string,
+  folderName: string,
+  slugs: readonly (keyof typeof trailItemTitles)[],
+): StudyTrail {
+  return { id, title, audience, description, folderName, items: slugs.map((slug) => ({ slug, title: trailItemTitles[slug] })) };
+}
+
 export const studyTrails: readonly StudyTrail[] = [
-  {
-    id: "iniciante",
-    title: "Sou iniciante",
-    audience: "Primeiros passos",
-    description: "Significado do Taekwondo, cortesia no dojang, alturas, primeiras bases, defesa baixa, soco e chute frontal.",
-    folderName: "Trilha · Primeiros passos",
-    items: [
-      { slug: "iron-significado-taekwondo", title: "Significado de Tae · Kwon · Do" },
-      { slug: "iron-espirito-cortesia-dojang", title: "Espírito do Taekwondo e cortesia no dojang" },
-      { slug: "kibon-alturas-direcoes", title: "Alturas e direções (Olgul, Momtong, Arae)" },
-      { slug: "ap-seogi", title: "Ap-seogi" },
-      { slug: "apgubi", title: "Apgubi" },
-      { slug: "naeryeo-makgi", title: "Naeryeo-makgi" },
-      { slug: "jeocheo-jireugi", title: "Jeocheo-jireugi" },
-      { slug: "ap-chagi", title: "Ap-chagi" },
+  studyTrail("iniciante", "Sou iniciante", "Primeiros passos",
+    "Significado do Taekwondo, cortesia no dojang, alturas, primeiras bases, defesa baixa, soco e chute frontal.",
+    "Trilha · Primeiros passos", [
+      "iron-significado-taekwondo", "iron-espirito-cortesia-dojang", "kibon-alturas-direcoes", "ap-seogi", "apgubi", "naeryeo-makgi", "jeocheo-jireugi", "ap-chagi",
     ],
-  },
-  {
-    id: "chutes-balkisul",
-    title: "Chutes e superfícies do pé",
-    audience: "Balkisul + Atlas",
-    description: "Conecte cada superfície anatômica do pé no Atlas aos principais chutes lineares, circulares e giratórios.",
-    folderName: "Trilha · Chutes e pés",
-    items: [
-      { slug: "apchuk", title: "Apchuk" },
-      { slug: "baldeung", title: "Baldeung" },
-      { slug: "balnal", title: "Balnal" },
-      { slug: "dwichuk", title: "Dwichuk" },
-      { slug: "ap-chagi", title: "Ap-chagi" },
-      { slug: "dollyeo-chagi", title: "Dollyeo-chagi" },
-      { slug: "yeop-chagi", title: "Yeop-chagi" },
-      { slug: "dwi-chagi", title: "Dwi-chagi" },
+  ),
+  studyTrail("chutes-balkisul", "Chutes e superfícies do pé", "Balkisul + Atlas",
+    "Conecte cada superfície anatômica do pé no Atlas aos principais chutes lineares, circulares e giratórios.",
+    "Trilha · Chutes e pés", [
+      "apchuk", "baldeung", "balnal", "dwichuk", "ap-chagi", "dollyeo-chagi", "yeop-chagi", "dwi-chagi",
     ],
-  },
-  {
-    id: "poomsae-taegeuk",
-    title: "Poomsae (Série Taegeuk)",
-    audience: "Formas e trigramas",
-    description: "Estude os primeiros Taegeuk com trigramas, posturas de preparação e bases fundamentais.",
-    folderName: "Trilha · Série Taegeuk",
-    items: [
-      { slug: "gibon-junbi", title: "Gibon-junbi" },
-      { slug: "taegeuk-1-jang", title: "Taegeuk 1 Jang" },
-      { slug: "taegeuk-2-jang", title: "Taegeuk 2 Jang" },
-      { slug: "taegeuk-3-jang", title: "Taegeuk 3 Jang" },
-      { slug: "taegeuk-4-jang", title: "Taegeuk 4 Jang" },
-      { slug: "dwitgubi", title: "Dwitgubi" },
+  ),
+  studyTrail("poomsae-taegeuk", "Poomsae (Série Taegeuk)", "Formas e trigramas",
+    "Estude os primeiros Taegeuk com trigramas, posturas de preparação e bases fundamentais.",
+    "Trilha · Série Taegeuk", [
+      "gibon-junbi", "taegeuk-1-jang", "taegeuk-2-jang", "taegeuk-3-jang", "taegeuk-4-jang", "dwitgubi",
     ],
-  },
-  {
-    id: "maos-sonkisul",
-    title: "Mãos, punhos e defesas",
-    audience: "Sonkisul + Kibon",
-    description: "Relacione superfícies da mão e configurações de dedos às defesas e golpes da base técnica.",
-    folderName: "Trilha · Mãos e defesas",
-    items: [
-      { slug: "jumeok", title: "Jumeok" },
-      { slug: "sonnal", title: "Sonnal" },
-      { slug: "batangson", title: "Batangson" },
-      { slug: "pyeonsonkkeut", title: "Pyeonsonkkeut" },
-      { slug: "an-makgi", title: "An-makgi" },
-      { slug: "sonnal-makgi-familia", title: "Sonnal-bakkat-makgi" },
-      { slug: "sonnal-an-chigi", title: "Sonnal-an-chigi" },
+  ),
+  studyTrail("maos-sonkisul", "Mãos, punhos e defesas", "Sonkisul + Kibon",
+    "Relacione superfícies da mão e configurações de dedos às defesas e golpes da base técnica.",
+    "Trilha · Mãos e defesas", [
+      "jumeok", "sonnal", "batangson", "pyeonsonkkeut", "an-makgi", "sonnal-makgi-familia", "sonnal-an-chigi",
     ],
-  },
-  {
-    id: "matchuo-escola",
-    title: "Combate combinado",
-    audience: "Matchuo Kyorugi",
-    description: "Estruture Sebon, Dubon, Hanbon e Anjoa conforme o currículo praticado no seu dojang.",
-    folderName: "Trilha · Combate combinado",
-    items: [
-      { slug: "matchuo-kyorugi-fundamentos", title: "Matchuo Kyorugi (Combate combinado)" },
-      { slug: "sebon-kyorugi", title: "Sebon Kyorugi" },
-      { slug: "dubon-kyorugi", title: "Dubon Kyorugi" },
-      { slug: "hanbon-kyorugi", title: "Hanbon Kyorugi" },
-      { slug: "anjoa-kyorugi", title: "Anjoa Kyorugi" },
+  ),
+  studyTrail("matchuo-escola", "Combate combinado", "Matchuo Kyorugi",
+    "Estruture Sebon, Dubon, Hanbon e Anjoa conforme o currículo praticado no seu dojang.",
+    "Trilha · Combate combinado", [
+      "matchuo-kyorugi-fundamentos", "sebon-kyorugi", "dubon-kyorugi", "hanbon-kyorugi", "anjoa-kyorugi",
     ],
-  },
-  {
-    id: "teoria-terminologia",
-    title: "Teoria, história e terminologia",
-    audience: "Iron + Palgwae",
-    description: "Compreenda a história documentada pós-1945, instituições, morfologia coreana e a coleção Palgwae.",
-    folderName: "Trilha · Teoria e história",
-    items: [
-      { slug: "iron-historia-pos-1945", title: "Formação moderna pós-1945 e unificação" },
-      { slug: "iron-instituicoes-kukkiwon-wt-cbtkd", title: "Kukkiwon, World Taekwondo e entidades esportivas" },
-      { slug: "iron-morfologia-terminologia", title: "Como ler nomes técnicos em coreano" },
-      { slug: "iron-padronizacao-romanizacao", title: "Romanização Revisada e variantes gráficas" },
-      { slug: "palgwae-contexto-historico", title: "Coleção Palgwae" },
+  ),
+  studyTrail("teoria-terminologia", "Teoria, história e terminologia", "Iron + Palgwae",
+    "Compreenda a história documentada pós-1945, instituições, morfologia coreana e a coleção Palgwae.",
+    "Trilha · Teoria e história", [
+      "iron-historia-pos-1945", "iron-instituicoes-kukkiwon-wt-cbtkd", "iron-morfologia-terminologia", "iron-padronizacao-romanizacao", "palgwae-contexto-historico",
     ],
-  },
+  ),
 ];
 
 export const emptyStudies = (): Studies => ({
@@ -240,6 +235,46 @@ export function moveFolder(
     folders: s.folders.map((f) => (f.id === id ? { ...f, parentId } : f)),
   };
 }
+export function addStudyItems(
+  state: Studies,
+  folderId: string | null,
+  entries: readonly Pick<StudyItem, "slug" | "title">[],
+): Studies {
+  const saved = new Map(state.items.map((item) => [item.slug, item]));
+  const inFolder = new Set(state.items.filter((item) => item.folderId === folderId).map((item) => item.slug));
+  const items = [...state.items];
+  for (const entry of entries) {
+    if (inFolder.has(entry.slug)) continue;
+    const previous = saved.get(entry.slug);
+    items.push({ studied: false, ...entry, ...previous, folderId });
+    inFolder.add(entry.slug);
+  }
+  return { ...state, items };
+}
+
+function moveStudyItems(
+  items: StudyItem[],
+  folderId: string | null,
+  matches: (item: StudyItem) => boolean,
+): StudyItem[] {
+  const atDestination = new Set(items.filter((item) => item.folderId === folderId && !matches(item)).map((item) => item.slug));
+  return items.flatMap((item) => {
+    if (!matches(item)) return [item];
+    if (atDestination.has(item.slug)) return [];
+    atDestination.add(item.slug);
+    return [{ ...item, folderId }];
+  });
+}
+
+export function moveStudyItem(state: Studies, item: StudyItem, folderId: string | null): Studies {
+  return {
+    ...state,
+    items: moveStudyItems(state.items, folderId, (candidate) =>
+      candidate.slug === item.slug && candidate.folderId === item.folderId,
+    ),
+  };
+}
+
 export function removeFolder(s: Studies, id: string): Studies {
   const folder = s.folders.find((f) => f.id === id);
   if (!folder) throw new Error("Pasta não encontrada.");
@@ -250,8 +285,6 @@ export function removeFolder(s: Studies, id: string): Studies {
       .map((f) =>
         f.parentId === id ? { ...f, parentId: folder.parentId } : f,
       ),
-    items: s.items.map((i) =>
-      i.folderId === id ? { ...i, folderId: folder.parentId } : i,
-    ),
+    items: moveStudyItems(s.items, folder.parentId, (item) => item.folderId === id),
   };
 }

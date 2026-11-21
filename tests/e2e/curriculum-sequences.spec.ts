@@ -28,6 +28,9 @@ test('currículo local suporta intervalos de Sebon por graduação (1 a 5 e 1 a 
   await page.reload();
   await expect(page.getByText('Sebon Kyorugi · 1 a 5', { exact: true })).toBeVisible();
   await expect(page.getByText('Sebon Kyorugi · 1 a 10', { exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Consultar Sebon Kyorugi na biblioteca', exact: true })).toHaveCount(2);
+  await page.getByRole('link', { name: 'Consultar Sebon Kyorugi na biblioteca', exact: true }).first().click();
+  await expect(page).toHaveURL(/\/biblioteca\/matchuo-kyorugi\/sebon-kyorugi$/);
 });
 
 test('Meu Estudo importa trilha guiada, marca item para revisão e filtra progresso', async ({ page }) => {
@@ -44,4 +47,22 @@ test('Meu Estudo importa trilha guiada, marca item para revisão e filtra progre
     'href',
     '/biblioteca/iron/iron-significado-taekwondo',
   );
+});
+
+test('trilhas que compartilham uma ficha preservam o conteúdo e o progresso da primeira pasta', async ({ page }) => {
+  await page.route('**/rest/v1/**', route => route.fulfill({ json: [] }));
+  await page.goto('/estudos');
+  await page.getByRole('button', { name: 'Adicionar trilha: Sou iniciante', exact: true }).click();
+  const apChagi = page.locator('.study-items li').filter({ has: page.getByRole('button', { name: 'Ap-chagi', exact: true }) });
+  await apChagi.getByRole('checkbox').check();
+  await apChagi.getByRole('button', { name: 'Marcar revisão', exact: true }).click();
+  await page.getByText('Trilhas guiadas de estudo', { exact: false }).click();
+  await page.getByRole('button', { name: 'Adicionar trilha: Chutes e superfícies do pé', exact: true }).click();
+  await expect(apChagi.getByRole('checkbox')).toBeChecked();
+  await expect(apChagi.getByRole('button', { name: 'Em revisão', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Trilha · Primeiros passos', exact: true }).click();
+  await expect(page.locator('.study-items li')).toHaveCount(8);
+  await expect(apChagi.getByRole('checkbox')).toBeChecked();
+  await apChagi.getByRole('link', { name: 'Ir à biblioteca ↗' }).click();
+  await expect(page).toHaveURL(/\/biblioteca\/balkisul\/ap-chagi$/);
 });

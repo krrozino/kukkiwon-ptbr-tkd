@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useStudies } from "../lib/useStudies";
 import {
+  addStudyItems,
   moveFolder,
+  moveStudyItem,
   removeFolder,
   studyTrails,
   type StudyNote,
@@ -76,34 +78,20 @@ export default function StudiesApp() {
     if (statusFilter === "review") return Boolean(i.review);
     return true;
   });
-  const totalSaved = state.items.length;
-  const totalStudied = state.items.filter((i) => i.studied).length;
-  const totalReview = state.items.filter((i) => i.review).length;
+  const savedItems = [...new Map(state.items.map((item) => [item.slug, item])).values()];
+  const totalSaved = savedItems.length;
+  const totalStudied = savedItems.filter((i) => i.studied).length;
+  const totalReview = savedItems.filter((i) => i.review).length;
 
   const importTrail = (trail: StudyTrail) => {
-    let targetFolderId = state.folders.find((f) => f.name === trail.folderName)?.id || "";
-    const creatingNewFolder = !targetFolderId;
-    if (!targetFolderId) targetFolderId = crypto.randomUUID();
+    let targetFolderId = "";
     const ok = update((s) => {
-      const nextFolders = creatingNewFolder
-        ? [...s.folders, { id: targetFolderId, name: trail.folderName, parentId: null }]
-        : s.folders;
-      const existingBySlug = new Map(s.items.map((item) => [item.slug, item]));
-      for (const entry of trail.items) {
-        const prev = existingBySlug.get(entry.slug);
-        existingBySlug.set(entry.slug, {
-          slug: entry.slug,
-          title: prev?.title || entry.title,
-          folderId: targetFolderId,
-          studied: prev?.studied ?? false,
-          ...(prev?.review ? { review: true } : {}),
-        });
-      }
-      return {
-        ...s,
-        folders: nextFolders,
-        items: [...existingBySlug.values()],
-      };
+      const folder = s.folders.find((f) => f.name === trail.folderName && f.parentId === null);
+      targetFolderId = folder?.id ?? crypto.randomUUID();
+      const folders = folder
+        ? s.folders
+        : [...s.folders, { id: targetFolderId, name: trail.folderName, parentId: null }];
+      return addStudyItems({ ...s, folders }, targetFolderId, trail.items);
     });
     if (ok) {
       setFolder(targetFolderId);
@@ -312,19 +300,8 @@ export default function StudiesApp() {
           <p>Salve técnicas pelo catálogo, pela ficha, pelas trilhas guiadas ou pela busca abaixo.</p>
         )}
         <TermPicker
-          onPick={(t) =>
-            update((s) => ({
-              ...s,
-              items: [
-                ...s.items.filter((i) => i.slug !== t.slug),
-                {
-                  slug: t.slug,
-                  title: t.romanization,
-                  folderId: folder,
-                  studied: false,
-                },
-              ],
-            }))
+          onPick={(term) =>
+            update((s) => addStudyItems(s, folder, [{ slug: term.slug, title: term.romanization }]))
           }
         />
         <ul className="study-items">
@@ -366,7 +343,7 @@ export default function StudiesApp() {
                     ...s,
                     items: s.items.map((x) =>
                       x.slug === i.slug
-                        ? { ...x, review: !x.review }
+                        ? { ...x, review: !i.review }
                         : x,
                     ),
                   }))
@@ -379,14 +356,7 @@ export default function StudiesApp() {
                 <select
                   value={i.folderId || ""}
                   onChange={(e) =>
-                    update((s) => ({
-                      ...s,
-                      items: s.items.map((x) =>
-                        x.slug === i.slug
-                          ? { ...x, folderId: e.target.value || null }
-                          : x,
-                      ),
-                    }))
+                    update((s) => moveStudyItem(s, i, e.target.value || null))
                   }
                 >
                   <option value="">Raiz</option>
@@ -401,7 +371,7 @@ export default function StudiesApp() {
                 onClick={() =>
                   update((s) => ({
                     ...s,
-                    items: s.items.filter((x) => x.slug !== i.slug),
+                    items: s.items.filter((x) => x.slug !== i.slug || x.folderId !== folder),
                   }))
                 }
               >
