@@ -9,63 +9,73 @@ export type FingerAnatomyGuide = {
   }[];
 };
 
-export const fingerAnatomyGuides: Record<string, FingerAnatomyGuide> = {
-  'illustration-thumb': {
-    zoneSlug: 'illustration-thumb',
-    anatomySummary:
-      'Composto por duas falanges (proximal e distal) articuladas ao primeiro metacarpo. Na prática técnica, deve permanecer firme e encaixado: travado sob os dedos médios ao fechar o punho, ou aduzido junto à borda radial nas técnicas de mão aberta.',
-    jointsLabel: 'Articulações carpometacarpal, metacarpofalângica (MCF) e interfalângica (IF)',
-    relatedConfigSlugs: [
-      { slug: 'jumeok', label: 'Jumeok (punho fechado)', context: 'Polegar travado sobre indicador e médio, nunca escondido dentro do punho.' },
-      { slug: 'ageumson', label: 'Ageumson (arco do polegar)', context: 'Abertura funcional entre polegar e indicador.' },
-      { slug: 'pyeonsonkkeut', label: 'Pyeonsonkkeut (mão em lança)', context: 'Polegar flexionado junto à palma estabilizando os quatro dedos.' },
+type FingerConfig = readonly [slug: string, label: string, context: string];
+
+function fingerGuide(
+  zoneSlug: string,
+  jointsLabel: string,
+  anatomySummary: string,
+  configurations: readonly FingerConfig[],
+): FingerAnatomyGuide {
+  return {
+    zoneSlug, jointsLabel, anatomySummary,
+    relatedConfigSlugs: configurations.map(([slug, label, context]) => ({ slug, label, context })),
+  };
+}
+
+const threePhalanxJoints = 'Articulações metacarpofalângica (MCF), interfalângica proximal (IFP) e distal (IFD)';
+
+const guides = [
+  fingerGuide('illustration-thumb',
+    'Articulações carpometacarpal, metacarpofalângica (MCF) e interfalângica (IF)',
+    'Composto por duas falanges (proximal e distal) articuladas ao primeiro metacarpo. Na prática técnica, deve permanecer firme e encaixado: travado sob os dedos médios ao fechar o punho, ou aduzido junto à borda radial nas técnicas de mão aberta.',
+    [
+      ['jumeok', 'Jumeok (punho fechado)', 'Polegar travado sobre indicador e médio, nunca escondido dentro do punho.'],
+      ['ageumson', 'Ageumson (arco do polegar)', 'Abertura funcional entre polegar e indicador.'],
+      ['pyeonsonkkeut', 'Pyeonsonkkeut (mão em lança)', 'Polegar flexionado junto à palma estabilizando os quatro dedos.'],
     ],
-  },
-  'illustration-finger-index': {
-    zoneSlug: 'illustration-finger-index',
-    anatomySummary:
-      'Formado por três falanges (proximal, média e distal). Participa diretamente do alinhamento de impacto frontal do punho fechado (ao lado do médio) e das configurações de pontas de um, dois, três ou quatro dedos.',
-    jointsLabel: 'Articulações metacarpofalângica (MCF), interfalângica proximal (IFP) e distal (IFD)',
-    relatedConfigSlugs: [
-      { slug: 'hansonkkeut', label: 'Hansonkkeut (ponta de um dedo)', context: 'Configuração focada na extremidade do indicador.' },
-      { slug: 'moeundusonkkeut', label: 'Moeundusonkkeut (dois dedos unidos)', context: 'Indicador e médio unidos e alinhados.' },
-      { slug: 'gawisonkkeut', label: 'Gawisonkkeut (dedos em tesoura)', context: 'Indicador e médio afastados em V (aplicações permanecem em revisão documental).' },
+  ),
+  fingerGuide('illustration-finger-index',
+    threePhalanxJoints,
+    'Formado por três falanges (proximal, média e distal). Participa diretamente do alinhamento de impacto frontal do punho fechado (ao lado do médio) e das configurações de pontas de um, dois, três ou quatro dedos.',
+    [
+      ['hansonkkeut', 'Hansonkkeut (ponta de um dedo)', 'Configuração focada na extremidade do indicador.'],
+      ['moeundusonkkeut', 'Moeundusonkkeut (dois dedos unidos)', 'Indicador e médio unidos e alinhados.'],
+      ['gawisonkkeut', 'Gawisonkkeut (dedos em tesoura)', 'Indicador e médio afastados em V (aplicações permanecem em revisão documental).'],
     ],
-  },
-  'illustration-finger-middle': {
-    zoneSlug: 'illustration-finger-middle',
-    anatomySummary:
-      'Dedo central e mais longo da mão, com três falanges. Em configurações de estocada como Pyeonsonkkeut, pode ser levemente fletido na ponta para nivelar o alinhamento com indicador e anelar, protegendo as articulações.',
-    jointsLabel: 'Articulações metacarpofalângica (MCF), interfalângica proximal (IFP) e distal (IFD)',
-    relatedConfigSlugs: [
-      { slug: 'pyeonsonkkeut', label: 'Pyeonsonkkeut (quatro dedos alinhados)', context: 'Eixo central da mão em lança em estocadas (Jjireugi).' },
-      { slug: 'moeundusonkkeut', label: 'Moeundusonkkeut (dois dedos unidos)', context: 'Atua unido ao indicador.' },
-      { slug: 'moeunsesonkkeut', label: 'Moeunsesonkkeut (três dedos unidos)', context: 'Unido ao indicador e ao anelar.' },
+  ),
+  fingerGuide('illustration-finger-middle',
+    threePhalanxJoints,
+    'Dedo central e mais longo da mão, com três falanges. Em configurações de estocada como Pyeonsonkkeut, pode ser levemente fletido na ponta para nivelar o alinhamento com indicador e anelar, protegendo as articulações.',
+    [
+      ['pyeonsonkkeut', 'Pyeonsonkkeut (quatro dedos alinhados)', 'Eixo central da mão em lança em estocadas (Jjireugi).'],
+      ['moeundusonkkeut', 'Moeundusonkkeut (dois dedos unidos)', 'Atua unido ao indicador.'],
+      ['moeunsesonkkeut', 'Moeunsesonkkeut (três dedos unidos)', 'Unido ao indicador e ao anelar.'],
     ],
-  },
-  'illustration-finger-ring': {
-    zoneSlug: 'illustration-finger-ring',
-    anatomySummary:
-      'Composto por três falanges entre o dedo médio e o mínimo. Contribui para a coesão estrutural da mão aberta e integra as configurações de três, quatro e cinco pontas de dedos.',
-    jointsLabel: 'Articulações metacarpofalângica (MCF), interfalângica proximal (IFP) e distal (IFD)',
-    relatedConfigSlugs: [
-      { slug: 'moeunsesonkkeut', label: 'Moeunsesonkkeut (três dedos unidos)', context: 'Indicador, médio e anelar unidos.' },
-      { slug: 'pyeonsonkkeut', label: 'Pyeonsonkkeut (mão plana em lança)', context: 'Quatro dedos firmemente coesos.' },
-      { slug: 'modumsonkkeut', label: 'Modumsonkkeut (cinco pontas reunidas)', context: 'Convergência das cinco pontas digitais.' },
+  ),
+  fingerGuide('illustration-finger-ring',
+    threePhalanxJoints,
+    'Composto por três falanges entre o dedo médio e o mínimo. Contribui para a coesão estrutural da mão aberta e integra as configurações de três, quatro e cinco pontas de dedos.',
+    [
+      ['moeunsesonkkeut', 'Moeunsesonkkeut (três dedos unidos)', 'Indicador, médio e anelar unidos.'],
+      ['pyeonsonkkeut', 'Pyeonsonkkeut (mão plana em lança)', 'Quatro dedos firmemente coesos.'],
+      ['modumsonkkeut', 'Modumsonkkeut (cinco pontas reunidas)', 'Convergência das cinco pontas digitais.'],
     ],
-  },
-  'illustration-finger-little': {
-    zoneSlug: 'illustration-finger-little',
-    anatomySummary:
-      'Quinto dígito na extremidade ulnar da mão, formado por três falanges. Sua coesão junto ao anelar estabiliza toda a musculatura hipotenar nas técnicas de borda externa da mão e de base lateral do punho.',
-    jointsLabel: 'Articulações metacarpofalângica (MCF), interfalângica proximal (IFP) e distal (IFD)',
-    relatedConfigSlugs: [
-      { slug: 'mejumeok', label: 'Mejumeok (base lateral do punho)', context: 'Região hipotenar com os dedos firmemente enrolados.' },
-      { slug: 'pyeonsonkkeut', label: 'Pyeonsonkkeut (quatro dedos alinhados)', context: 'Mínimo unido ao anelar sem abrir lateralmente.' },
-      { slug: 'modumsonkkeut', label: 'Modumsonkkeut (cinco pontas reunidas)', context: 'Fechamento externo da pinça de cinco dedos.' },
+  ),
+  fingerGuide('illustration-finger-little',
+    threePhalanxJoints,
+    'Quinto dígito na extremidade ulnar da mão, formado por três falanges. Sua coesão junto ao anelar estabiliza toda a musculatura hipotenar nas técnicas de borda externa da mão e de base lateral do punho.',
+    [
+      ['mejumeok', 'Mejumeok (base lateral do punho)', 'Região hipotenar com os dedos firmemente enrolados.'],
+      ['pyeonsonkkeut', 'Pyeonsonkkeut (quatro dedos alinhados)', 'Mínimo unido ao anelar sem abrir lateralmente.'],
+      ['modumsonkkeut', 'Modumsonkkeut (cinco pontas reunidas)', 'Fechamento externo da pinça de cinco dedos.'],
     ],
-  },
-};
+  ),
+];
+
+export const fingerAnatomyGuides: Record<string, FingerAnatomyGuide> = Object.fromEntries(
+  guides.map((guide) => [guide.zoneSlug, guide]),
+);
 
 export const multiFingerCareNotes: Record<string, string> = {
   hansonkkeut:

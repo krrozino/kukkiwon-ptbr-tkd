@@ -139,8 +139,6 @@ export function loadExistingInventory(root = ROOT) {
     ['poomsae', 'src/data/poomsae-guide.ts'],
     ['matchuo-kyorugi', 'src/data/matchuo-kyorugi-guide.ts'],
     ['iron', 'src/data/iron-guide.ts'],
-    ['kibon-dongjak', 'src/data/kibon-guide.ts'],
-    ['balkisul', 'src/data/balkisul-guide.ts'],
   ];
   for (const [categoryId, relPath] of guideFiles) {
     const src = readFileSync(join(root, relPath), 'utf8');
@@ -150,6 +148,16 @@ export function loadExistingInventory(root = ROOT) {
         seen.add(match[1]);
         output.push({ slug: match[1], origin: 'library:' + categoryId, state: 'published_library_guide' });
       }
+    }
+  }
+  const movementCatalogs = {
+    'kibon-dongjak': 'src/data/kibon-cards.json',
+    balkisul: 'src/data/balkisul-cards.json',
+  };
+  for (const [categoryId, relPath] of Object.entries(movementCatalogs)) {
+    const cardsByFamily = JSON.parse(readFileSync(join(root, relPath), 'utf8'));
+    for (const { slug } of Object.values(cardsByFamily).flat()) {
+      output.push({ slug, origin: 'library:' + categoryId, state: 'published_library_guide' });
     }
   }
   const surfacesSrc = readFileSync(join(root, 'src/components/atlas/surfaces.ts'), 'utf8');
