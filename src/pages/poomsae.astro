@@ -1,14 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 import PoomsaeApp from '../components/PoomsaeApp';
+import { getPoomsaeGuide } from '../data/poomsae-guide';
+import { loadPoomsaePreviews } from '../lib/poomsae-preview';
+
+const previews = await loadPoomsaePreviews();
 ---
 <Base title="Poomsae — Taekwondo para Todos">
   <section class="shell section">
     <p class="tag">Formas e movimentos</p><h1>Poomsae</h1>
     <p class="lead">Consulte sequências documentadas e as técnicas relacionadas a cada movimento publicado.</p>
-    {import.meta.env.DEV && (
+    {previews.length > 0 && (
       <div class="card">
-        <a class="button" href="/poomsae/taegeuk-1-jang">Estudar Taegeuk 1 Jang</a>
+        <div class="actions">
+          {previews.map(({ slug }) => (
+            <a class="button" href={`/poomsae/${slug}`}>Estudar {getPoomsaeGuide(slug)?.name}</a>
+          ))}
+        </div>
         <p class="fine-print">Prévia local da sequência visual · revisão docente pendente</p>
       </div>
     )}

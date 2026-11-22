@@ -56,6 +56,10 @@ for (const scheme of ['light', 'dark'] as const) {
     await page.getByRole('button', { name: 'Visão geral' }).click();
     await page.getByRole('button', { name: 'Movimento 18: Soco médio com kihap' }).click();
     await expect(movement.getByRole('button', { name: 'Próximo' })).toBeDisabled();
+    await page.getByRole('button', { name: 'Ficha de revisão' }).click();
+    const reviewRegion = page.getByRole('region', { name: 'Ficha de revisão docente' });
+    await expect(reviewRegion.locator('.study-review-card')).toHaveCount(18);
+    await expect(reviewRegion.getByText('Pontos para confirmação docente')).toHaveCount(18);
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       page.viewportSize()!.width,
     );

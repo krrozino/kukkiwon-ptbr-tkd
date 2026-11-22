@@ -11,7 +11,36 @@ export const studyDirections: Record<StudyDirection, { label: string; arrow: str
   ra3: { label: 'Ra 3', arrow: '←', angle: 180 },
 };
 
-export type StudyLink = { label: string; href: string };
+export type StudyLink = { label: string; href: string; note?: string };
+export type StudyTerm = { label: string; href: string | null; hangul?: string };
+
+export type StudyDiscrepancyVariant = {
+  summary: string;
+  reference: StudyReference;
+};
+
+export type StudyDiscrepancy = {
+  note?: string;
+  variants: readonly StudyDiscrepancyVariant[];
+};
+
+export type StudyReference = {
+  institution: string;
+  title: string;
+  url: string;
+  locator: string;
+  page?: number;
+};
+
+export type StudyFrame = {
+  id: string;
+  label: string;
+  hangul: string;
+  romanization: string;
+  reference: StudyReference;
+  additionalReferences: readonly StudyReference[];
+  link?: StudyLink;
+};
 
 const body = '/biblioteca/kibon-dongjak/';
 const ready = { label: 'Gibon-junbi', href: body + 'gibon-junbi' };
@@ -36,17 +65,24 @@ export type StudyMovement = {
   number: number;
   title: string;
   direction: StudyDirection;
-  description: string;
-  base: StudyLink;
+  description: string | null;
+  base: StudyTerm;
   lead: 'Esquerda' | 'Direita';
   related: readonly StudyLink[];
   citation: { page: number; locator: string };
+  frameCount?: number;
+  frames?: readonly StudyFrame[];
+  transitionPending?: boolean;
+  discrepancy?: StudyDiscrepancy;
+  reviewPoints?: readonly string[];
+  references?: readonly StudyReference[];
 };
 
 type StudyBoundary = {
   title: string;
   direction: StudyDirection;
-  base: StudyLink;
+  base: StudyTerm;
+  stance?: StudyTerm;
   citation: StudyMovement['citation'];
 };
 
@@ -55,6 +91,16 @@ export type PoomsaeStudy = {
   hangul: string;
   meaning: string;
   identityUrl: string;
+  identityLocator: string;
+  trigramHangul: string;
+  actionCount?: number;
+  references?: readonly StudyReference[];
+  demonstration?: {
+    description: string;
+    recording: StudyLink;
+    lesson: StudyLink & { credit: string };
+    embed: { url: string; title: string };
+  };
   movements: readonly StudyMovement[];
   readingNote: string;
   source: {
@@ -71,6 +117,20 @@ export type PoomsaeStudy = {
 
 export const taegeukOneStudy = {
   slug: 'taegeuk-1-jang',
+  identityLocator: 'Board 37, nº 980',
+  trigramHangul: '건',
+  demonstration: {
+    description: 'Assista à forma completa da Enciclopédia Digital da Kukkiwon, publicada pela Mookas TV em 2019.',
+    recording: { label: 'Demonstração completa na Mookas TV', href: 'https://www.mookas.com/news/17083' },
+    lesson: {
+      label: 'Aula da Kukkiwon no YouTube', href: 'https://www.youtube.com/watch?v=__4pltpaPJo',
+      credit: 'Kukkiwon / World Taekwondo Academy, 2025',
+    },
+    embed: {
+      url: 'https://www.youtube-nocookie.com/embed/T6J2C1QJLts',
+      title: 'Taegeuk 1 Jang — demonstração completa da Enciclopédia Digital da Kukkiwon',
+    },
+  },
   source: studySource,
   readingNote: 'Os dois quadros dos movimentos 14 e 16 aparecem juntos na contagem da fonte.',
   hangul: '태극 1장',
@@ -145,7 +205,7 @@ export const taegeukOneStudy = {
       base: walking, lead: 'Esquerda', related: [highBlock], citation: { page: 59, locator: '13' },
     },
     {
-      number: 14, title: 'Chute frontal e soco médio', direction: 'da3',
+      number: 14, title: 'Chute frontal e soco médio', direction: 'da3', frameCount: 2,
       description: 'O quadro 14-1 mostra o Ap-chagi com a perna direita. No 14-2, o pé direito está à frente em Ap-seogi e o Momtong-bandae-jireugi é com o punho direito.',
       base: walking, lead: 'Direita', related: [frontKick, fist], citation: { page: 60, locator: '14-1 e 14-2' },
     },
@@ -155,7 +215,7 @@ export const taegeukOneStudy = {
       base: walking, lead: 'Direita', related: [highBlock], citation: { page: 61, locator: '15' },
     },
     {
-      number: 16, title: 'Chute frontal e soco médio', direction: 'ra3',
+      number: 16, title: 'Chute frontal e soco médio', direction: 'ra3', frameCount: 2,
       description: 'O quadro 16-1 mostra o Ap-chagi com a perna esquerda. No 16-2, o pé esquerdo está à frente em Ap-seogi e o Momtong-bandae-jireugi é com o punho esquerdo.',
       base: walking, lead: 'Esquerda', related: [frontKick, fist], citation: { page: 61, locator: '16-1 (16-2 na p. 62)' },
     },
