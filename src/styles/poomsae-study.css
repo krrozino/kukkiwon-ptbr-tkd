@@ -360,3 +360,36 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.study-section-heading .study-count {
+  color: var(--green);
+  font-weight: 700;
+  margin-block-end: 4px;
+}
+
+.study-frames {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.study-frames li {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.study-frames .claim-source,
+.study-references .claim-source {
+  margin: 0;
+}
+
+.study-references {
+  padding-inline-start: 18px;
+}

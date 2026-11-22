@@ -12,6 +12,25 @@ export const studyDirections: Record<StudyDirection, { label: string; arrow: str
 };
 
 export type StudyLink = { label: string; href: string };
+export type StudyTerm = { label: string; href: string | null; hangul?: string };
+
+export type StudyReference = {
+  institution: string;
+  title: string;
+  url: string;
+  locator: string;
+  page?: number;
+};
+
+export type StudyFrame = {
+  id: string;
+  label: string;
+  hangul: string;
+  romanization: string;
+  reference: StudyReference;
+  additionalReferences: readonly StudyReference[];
+  link?: StudyLink;
+};
 
 const body = '/biblioteca/kibon-dongjak/';
 const ready = { label: 'Gibon-junbi', href: body + 'gibon-junbi' };
@@ -36,17 +55,21 @@ export type StudyMovement = {
   number: number;
   title: string;
   direction: StudyDirection;
-  description: string;
-  base: StudyLink;
+  description: string | null;
+  base: StudyTerm;
   lead: 'Esquerda' | 'Direita';
   related: readonly StudyLink[];
   citation: { page: number; locator: string };
+  frames?: readonly StudyFrame[];
+  transitionPending?: boolean;
+  references?: readonly StudyReference[];
 };
 
 type StudyBoundary = {
   title: string;
   direction: StudyDirection;
-  base: StudyLink;
+  base: StudyTerm;
+  stance?: StudyTerm;
   citation: StudyMovement['citation'];
 };
 
@@ -55,6 +78,16 @@ export type PoomsaeStudy = {
   hangul: string;
   meaning: string;
   identityUrl: string;
+  identityLocator: string;
+  trigramHangul: string;
+  actionCount?: number;
+  references?: readonly StudyReference[];
+  demonstration?: {
+    description: string;
+    recording: StudyLink;
+    lesson: StudyLink & { credit: string };
+    embed: { url: string; title: string };
+  };
   movements: readonly StudyMovement[];
   readingNote: string;
   source: {
@@ -71,6 +104,20 @@ export type PoomsaeStudy = {
 
 export const taegeukOneStudy = {
   slug: 'taegeuk-1-jang',
+  identityLocator: 'Board 37, nº 980',
+  trigramHangul: '건',
+  demonstration: {
+    description: 'Assista à forma completa da Enciclopédia Digital da Kukkiwon, publicada pela Mookas TV em 2019.',
+    recording: { label: 'Demonstração completa na Mookas TV', href: 'https://www.mookas.com/news/17083' },
+    lesson: {
+      label: 'Aula da Kukkiwon no YouTube', href: 'https://www.youtube.com/watch?v=__4pltpaPJo',
+      credit: 'Kukkiwon / World Taekwondo Academy, 2025',
+    },
+    embed: {
+      url: 'https://www.youtube-nocookie.com/embed/T6J2C1QJLts',
+      title: 'Taegeuk 1 Jang — demonstração completa da Enciclopédia Digital da Kukkiwon',
+    },
+  },
   source: studySource,
   readingNote: 'Os dois quadros dos movimentos 14 e 16 aparecem juntos na contagem da fonte.',
   hangul: '태극 1장',

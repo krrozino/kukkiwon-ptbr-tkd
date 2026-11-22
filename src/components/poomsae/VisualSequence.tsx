@@ -1,9 +1,11 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import {
   studyDirections,
- type PoomsaeStudy,
+  type PoomsaeStudy,
   type StudyDirection,
   type StudyMovement,
+  type StudyReference,
+  type StudyTerm,
 } from '../../data/poomsae-study';
 
 function MovementSource({
@@ -17,6 +19,44 @@ function MovementSource({
     <a className="claim-source" href={source.url + '#page=' + citation.page} target="_blank" rel="noopener noreferrer">
       {source.institution} · p. {citation.page} · quadro {citation.locator} ↗
     </a>
+  );
+}
+
+function ReferenceLink({ reference }: { reference: StudyReference }) {
+  const { institution, title, url, page, locator } = reference;
+  const href = new URL(url);
+  if (page) href.hash = 'page=' + page;
+  return (
+    <a className="claim-source" href={href.href} target="_blank" rel="noopener noreferrer">
+      {institution} · {page ? 'p. ' + page + ' · ' : title + ' · '}{locator} ↗
+    </a>
+  );
+}
+
+function TermLink({ term }: { term: StudyTerm }) {
+  return (
+    <>
+      {term.href ? <a className="inline-link" href={term.href}>{term.label}</a> : term.label}
+      {term.hangul && <> <span lang="ko">{term.hangul}</span></>}
+    </>
+  );
+}
+
+function StudyBoundary({ label, boundary, source }: {
+  label: string;
+  boundary: PoomsaeStudy['start'];
+  source: PoomsaeStudy['source'];
+}) {
+  return (
+    <div className="study-boundary">
+      <div>
+        <span className="eyebrow">{label}</span>
+        <strong>{boundary.title}</strong>
+      </div>
+      <span><TermLink term={boundary.base} /></span>
+      {boundary.stance && <span><TermLink term={boundary.stance} /></span>}
+      <MovementSource source={source} citation={boundary.citation} />
+    </div>
   );
 }
 
@@ -76,6 +116,9 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
       <div className="study-section-heading">
         <div>
           <h2 id={id + '-sequence'}>Sequência de movimentos</h2>
+          {study.actionCount !== undefined && (
+            <p className="study-count">{movements.length} etapas numeradas · {study.actionCount} ações</p>
+          )}
           <p className="muted">{study.readingNote}</p>
         </div>
         <div className="study-mode" role="group" aria-label="Modo de estudo">
@@ -90,14 +133,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
 
       {mode === 'overview' ? (
         <>
-          <div className="study-boundary">
-            <div>
-              <span className="eyebrow">Início</span>
-              <strong>{study.start.title}</strong>
-            </div>
-            <a className="inline-link" href={study.start.base.href}>{study.start.base.label}</a>
-            <MovementSource source={study.source} citation={study.start.citation} />
-          </div>
+          <StudyBoundary label="Início" boundary={study.start} source={study.source} />
           <ol className="study-movements">
             {movements.map((movement, position) => {
               const orientation = studyDirections[movement.direction];
@@ -112,20 +148,16 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                     <span className="study-move-title">{movement.title}</span>
                     <span className="study-orientation">
                       <span aria-hidden="true">{orientation.arrow}</span> {orientation.label}
+                      {movement.frames && movement.frames.length > 1 && (
+                        <> · <span>{movement.frames.length} quadros</span></>
+                      )}
                     </span>
                   </button>
                 </li>
               );
             })}
           </ol>
-          <div className="study-boundary">
-            <div>
-              <span className="eyebrow">Fim</span>
-              <strong>{study.finish.title}</strong>
-            </div>
-            <a className="inline-link" href={study.finish.base.href}>{study.finish.base.label}</a>
-            <MovementSource source={study.source} citation={study.finish.citation} />
-          </div>
+          <StudyBoundary label="Fim" boundary={study.finish} source={study.source} />
         </>
       ) : (
         <section className="study-step" aria-label="Movimento selecionado" onKeyDown={handleKeys}>
@@ -133,23 +165,56 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
             <div>
               <p className="eyebrow" role="status">Movimento {active.number} de {movements.length}</p>
               <h3 ref={heading} tabIndex={-1}>{active.title}</h3>
-              <p>{active.description}</p>
+              {active.description && <p>{active.description}</p>}
+              {active.transitionPending && (
+                <p className="fine-print">Deslocamento em revisão docente. O diagrama indica a direção da etapa.</p>
+              )}
               <dl className="study-step-facts">
                 <div>
-                  <dt>Base</dt>
-                  <dd><a className="inline-link" href={active.base.href}>{active.base.label}</a> · {active.lead}</dd>
+                  <dt>{active.frames && active.frames.length > 1 ? 'Base final' : 'Base'}</dt>
+                  <dd><TermLink term={active.base} /> · {active.lead}</dd>
                 </div>
                 <div>
                   <dt>Direção no diagrama</dt>
                   <dd><span aria-hidden="true">{direction.arrow} </span>{direction.label}</dd>
                 </div>
               </dl>
-              <ul className="study-techniques" aria-label="Fichas relacionadas">
-                {active.related.map((term) => (
-                  <li key={term.href}><a className="inline-link" href={term.href}>{term.label}</a></li>
-                ))}
-              </ul>
-              <MovementSource source={study.source} citation={active.citation} />
+              {active.frames ? (
+                <ol className="study-frames" aria-label="Ações da etapa">
+                  {active.frames.map(({ id, label, hangul, romanization, reference, additionalReferences, link }) => (
+                    <li key={id}>
+                      <strong>Quadro {id} · {label}</strong>
+                      <span><span lang="ko">{hangul}</span> · {romanization}</span>
+                      {link && <a className="inline-link" href={link.href}>{link.label}</a>}
+                      <ReferenceLink reference={reference} />
+                      {additionalReferences.length > 0 && (
+                        <details>
+                          <summary>Outras fontes do quadro</summary>
+                          {additionalReferences.map((entry) => (
+                            <div key={entry.url + entry.locator}><ReferenceLink reference={entry} /></div>
+                          ))}
+                        </details>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <>
+                  <ul className="study-techniques" aria-label="Fichas relacionadas">
+                    {active.related.map((term) => (
+                      <li key={term.href}><a className="inline-link" href={term.href}>{term.label}</a></li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {!active.references?.length && <MovementSource source={study.source} citation={active.citation} />}
+              {active.references?.length ? (
+                <ul className="study-references" aria-label="Referências da etapa">
+                  {active.references.map((reference) => (
+                    <li key={reference.url + reference.locator}><ReferenceLink reference={reference} /></li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
             <figure className="study-direction">
               <DirectionMarker direction={active.direction} />
