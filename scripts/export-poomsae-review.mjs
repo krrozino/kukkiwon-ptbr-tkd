@@ -1,10 +1,15 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { studyDirections, taegeukOneStudy } from '../src/data/poomsae-study.ts';
 
 const defaultDossierPath = resolve('review-output/taegeuk-2-jang.research.json');
 const dossierPath = process.env.POOMSAE_RESEARCH_FILE ? resolve(process.env.POOMSAE_RESEARCH_FILE) : defaultDossierPath;
-const outputPath = resolve(process.argv[2] ?? 'review-output/revisao-docente-taegeuk-1-e-2.md');
+const outputPath = fileURLToPath(new URL('../review-output/revisao-docente-taegeuk-1-e-2.md', import.meta.url));
+
+if (process.argv.length > 2) {
+  throw new Error('O exportador usa um destino fixo em review-output e não aceita argumentos posicionais.');
+}
 
 const techniqueSlugNotes = {
   'arae-makgi': 'Na Biblioteca, Arae-makgi remete à ficha Naeryeo-makgi (`/biblioteca/kibon-dongjak/naeryeo-makgi`).',
