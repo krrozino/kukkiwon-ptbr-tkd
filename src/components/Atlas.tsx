@@ -11,11 +11,14 @@ import BodyMap, { areas, isArea, type Area, type View } from "./atlas/BodyMap";
 import DetailMap from "./atlas/DetailMap";
 import BodyRegionMap from "./atlas/BodyRegionMap";
 import TermContext from "./TermContext";
-import { surfaces } from "./atlas/surfaces";
+import { footSurfaceSlugs, surfaces } from "./atlas/surfaces";
+import { bodyZones } from "./atlas/zones";
 import AtlasRelations, {regionContextSlug} from './AtlasRelations';
 import { getHandRegion, getHandRegionForTerm, getHandTerm, getHandTermForRegion,
   handAtlasRegions, handRegionDescription } from '../lib/public-hand';
 import { PublicHandIndex, PublicHandRegionInspector, PublicHandTerm } from './atlas/PublicHandContent';
+import { fingerAnatomyGuides } from '../data/sonkisul-finger-guide';
+import { balkisulEntries } from '../data/balkisul-guide';
 type Location = {
   area: Area;
   region: string | null;
@@ -30,6 +33,72 @@ const initial: Location = {
   detailView: "front",
   zoom: false,
 };
+
+function resolveStaticAtlasLocation(
+  region: string,
+  view: View,
+  detail: string | null,
+): Location | null {
+  if (getHandRegion(region)) {
+    return {
+      area: "hands",
+      region,
+      view,
+      zoom: true,
+      detailView: detail === "back" ? "back" : "front",
+    };
+  }
+  if ((footSurfaceSlugs as readonly string[]).includes(region)) {
+    const surfaceView = surfaces[region]?.view;
+    return {
+      area: "feet",
+      region,
+      view,
+      zoom: true,
+      detailView:
+        detail === "front" || detail === "back"
+          ? detail
+          : surfaceView === "back"
+            ? "back"
+            : "front",
+    };
+  }
+  const bodyZone = bodyZones.find((z) => z.regionSlug === region);
+  if (bodyZone) {
+    return {
+      area: bodyZone.area,
+      region,
+      view: bodyZone.view !== "both" ? bodyZone.view : view,
+      zoom: true,
+      detailView: detail === "back" ? "back" : "front",
+    };
+  }
+  return null;
+}
+
+const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; label: string }[]> = {
+  feet: [
+    { href: "/biblioteca/balkisul", label: "Explorar superfícies do pé e chutes em Balkisul →" },
+    { href: "/acervo?categoria=chute", label: "Consultar registros de chutes no Acervo →" },
+  ],
+  legs: [
+    { href: "/biblioteca/balkisul", label: "Estudar chutes e superfícies em Balkisul →" },
+    { href: "/biblioteca/kibon-dongjak", label: "Consultar bases (Seogi) em Kibon Dongjak →" },
+  ],
+  arms: [
+    { href: "/biblioteca/kibon-dongjak", label: "Estudar defesas, socos e golpes em Kibon Dongjak →" },
+    { href: "/biblioteca/sonkisul", label: "Explorar mãos e punhos em Sonkisul →" },
+  ],
+  head: [
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
+    { href: "/biblioteca/kibon-dongjak", label: "Ver aplicações de altura em Kibon Dongjak →" },
+  ],
+  torso: [
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
+    { href: "/biblioteca/kibon-dongjak", label: "Consultar defesas e ataques de tronco em Kibon Dongjak →" },
+  ],
+};
+
 export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
     [ready, setReady] = useState(false);
@@ -74,18 +143,15 @@ export default function Atlas() {
         setReady(true);
         return;
       }
-      // The static hand region IDs are resolvable even without Supabase.
-      if (getHandRegion(region) && !isCatalogConfigured()) {
-        setHandTermSlug(null);
-        setLocation({ area: 'hands', region, view, zoom: true,
-          detailView: p.get('detail') === 'back' ? 'back' : 'front' });
-        setReady(true);
-        return;
-      }
       setHandTermSlug(null);
       if (!isCatalogConfigured()) {
-        setLocation({ ...initial, view });
-        setNotice("Região não encontrada ou ainda não publicada.");
+        const staticLoc = resolveStaticAtlasLocation(region, view, p.get("detail"));
+        if (staticLoc) {
+          setLocation(staticLoc);
+        } else {
+          setLocation({ ...initial, view });
+          setNotice("Região não encontrada ou ainda não publicada.");
+        }
         setReady(true);
         return;
       }
@@ -106,12 +172,14 @@ export default function Atlas() {
                   ? "back"
                   : "front",
           });
-        else if (getHandRegion(region)) {
-          setLocation({ area: 'hands', region, view, zoom: true,
-            detailView: p.get('detail') === 'back' ? 'back' : 'front' });
-        } else {
-          setLocation({ ...initial, view });
-          setNotice("Região não encontrada ou ainda não publicada.");
+        else {
+          const staticLoc = resolveStaticAtlasLocation(region, view, detail);
+          if (staticLoc) {
+            setLocation(staticLoc);
+          } else {
+            setLocation({ ...initial, view });
+            setNotice("Região não encontrada ou ainda não publicada.");
+          }
         }
       } catch {
         if (!currentController.signal.aborted) {
@@ -233,6 +301,9 @@ export default function Atlas() {
     });
   };
   const area = areas.find((a) => a.id === location.area)!;
+  const footCard = location.area === "feet" && location.region
+    ? balkisulEntries.find((entry) => entry.atlasZone === location.region)
+    : undefined;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
   return (
     <div
@@ -366,7 +437,29 @@ export default function Atlas() {
           <>
             {selected && <section className="hand-current-region" aria-label="Informações da área escolhida">
               {!getHandTermForRegion(selected.slug) && <><h3>{selected.name_pt}</h3>
-                {handRegionDescription(selected.slug) && <p>{handRegionDescription(selected.slug)}</p>}</>}
+                {handRegionDescription(selected.slug) && <p>{handRegionDescription(selected.slug)}</p>}
+                {fingerAnatomyGuides[selected.slug] && (
+                  <div className="finger-anatomy-guide">
+                    <p className="fine-print">
+                      <strong>Articulações:</strong> {fingerAnatomyGuides[selected.slug].jointsLabel}
+                    </p>
+                    <p>{fingerAnatomyGuides[selected.slug].anatomySummary}</p>
+                    <p className="fine-print">
+                      <strong>Configurações relacionadas na Biblioteca:</strong>
+                    </p>
+                    <ul className="related-list">
+                      {fingerAnatomyGuides[selected.slug].relatedConfigSlugs.map((cfg) => (
+                        <li key={cfg.slug}>
+                          <a className="inline-link" href={`/biblioteca/sonkisul/${cfg.slug}`}>
+                            {cfg.label}
+                          </a>{" "}
+                          — {cfg.context}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>}
               {getHandTermForRegion(selected.slug) && <PublicHandTerm term={getHandTermForRegion(selected.slug)!} />}
             </section>}
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
@@ -435,6 +528,27 @@ export default function Atlas() {
               </p>
             )}
           </>
+        )}
+        {location.area !== "hands" && (
+          <div className="atlas-library-bridge">
+            <h3>Estudar na Biblioteca</h3>
+            {footCard && (
+              <p>
+                <a className="inline-link" href={`/biblioteca/balkisul/${footCard.slug}`}>
+                  Abrir ficha de {footCard.romanization} na Biblioteca →
+                </a>
+              </p>
+            )}
+            <ul className="related-list">
+              {areaStudyLinks[location.area].map((link) => (
+                <li key={link.href}>
+                  <a className="inline-link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <p className="fine-print">
           As áreas coloridas são ilustrações didáticas esquemáticas, independentes da Kukkiwon.

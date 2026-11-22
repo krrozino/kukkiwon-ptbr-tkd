@@ -2,9 +2,21 @@ import { readFileSync, writeFileSync, readdirSync, realpathSync, existsSync, sta
 import { resolve, dirname, join, basename, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
+import { palgwaeEntries } from '../src/data/palgwae-guide.ts';
 
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const EXPECTED_SHA = '38dcec3822fc052c98554122b438d3db7b262f85ca390063f0ec4a7b8f1cd226';
+export const CANONICAL_RECONCILIATION_MODULES = [
+  'poomsae',
+  'matchuo-kyorugi',
+  'palgwae',
+  'iron',
+  'kibon-dongjak',
+  'balkisul',
+  'sonkisul',
+  'atlas',
+];
+
 function actualPath(path) {
   const suffix = []; let current = resolve(path);
   while (!existsSync(current)) { suffix.unshift(basename(current)); current = dirname(current); }
@@ -25,7 +37,54 @@ function modules(record) {
   if (record.number <= 291) return ['sonkisul'];
   if (record.number <= 325) return ['balkisul'];
   if (record.number <= 349) return record.number === 343 ? ['palgwae'] : ['poomsae'];
-  return ['iron', 'kyorugi'];
+  return ['iron', 'matchuo-kyorugi'];
+}
+export function summarizeArgonReconciliation(matrix) {
+  const byProposedModule = Object.fromEntries(
+    CANONICAL_RECONCILIATION_MODULES.map(mod => [
+      mod,
+      { total: 0, matchedInLibrary: 0, matchedInDraftOrAcervo: 0, unmatchedCandidates: 0 },
+    ]),
+  );
+  let rawAliasLinesCount = 0;
+  let atlasLinkedCandidates = 0;
+
+  for (const record of matrix.records || []) {
+    const aliasLines = String(record.variants_raw || '')
+      .split(/\r?\n/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    rawAliasLinesCount += aliasLines.length;
+
+    const hasLibrary = record.matches.some(
+      m => m.origin === 'public-hand-v1' || String(m.origin).startsWith('library:'),
+    );
+    const hasDraft = record.matches.some(
+      m => String(m.origin).startsWith('content/review/') || String(m.origin).startsWith('content/provisional/'),
+    );
+    const hasAtlas = record.matches.some(
+      m => m.origin === 'atlas-geometry' || m.origin === 'public-hand-v1',
+    );
+    if (hasAtlas) atlasLinkedCandidates++;
+
+    for (const mod of record.navigation_proposals || []) {
+      const bucket = byProposedModule[mod];
+      if (!bucket) continue;
+      bucket.total++;
+      if (hasLibrary) bucket.matchedInLibrary++;
+      else if (hasDraft) bucket.matchedInDraftOrAcervo++;
+      else bucket.unmatchedCandidates++;
+    }
+  }
+
+  return {
+    totalCandidates: (matrix.records || []).length,
+    byProposedModule,
+    rawAliasLinesCount,
+    atlasLinkedCandidates,
+    aliasesIndependentlyVerified: false,
+    autoPublishedCount: 0,
+  };
 }
 export function buildArgonMatrix(input, { existing = [], expected = 380 } = {}) {
   if (!Array.isArray(input?.records) || input.records.length !== expected) throw new Error(`Inventário deve conter ${expected} registros.`);
@@ -48,20 +107,72 @@ export function buildArgonMatrix(input, { existing = [], expected = 380 } = {}) 
       publication: 'research_only', external_verification: 'not_performed',
     };
   });
-  return { records, unique_ids: ids.size, sections, grades_as_printed: grades,
+  const baseMatrix = { records, unique_ids: ids.size, sections, grades_as_printed: grades,
     matching_candidates: records.filter(record => record.matches.length).length,
     claimed_aliases: 152, aliases_independently_verified: false,
     grade_summary_claim: { A: 327, B: 40, C: 13 },
     note: 'Propostas de navegação e correspondências textuais não provam identidade técnica. Células, variantes e fontes são preservadas literalmente; nenhuma publicação ou fusão automática.' };
+  return { ...baseMatrix, modular_summary: summarizeArgonReconciliation(baseMatrix) };
 }
-function loadExisting(root) {
+export function loadExistingInventory(root = ROOT) {
   const output = [];
   for (const name of readdirSync(join(root, 'content/review')).filter(name => name.endsWith('.json'))) {
     const data = JSON.parse(readFileSync(join(root, 'content/review', name), 'utf8'));
     for (const item of data.records || []) output.push({ slug: item.slug, origin: 'content/review/' + name, state: 'draft' });
   }
+  const provisionalDir = join(root, 'content/provisional');
+  if (existsSync(provisionalDir)) {
+    for (const name of readdirSync(provisionalDir).filter(name => name.endsWith('.json'))) {
+      const data = JSON.parse(readFileSync(join(provisionalDir, name), 'utf8'));
+      for (const item of data.records || []) {
+        if (item?.slug) output.push({ slug: item.slug, origin: 'content/provisional/' + name, state: 'provisional_acervo' });
+      }
+    }
+  }
   const hand = JSON.parse(readFileSync(join(root, 'src/data/public-hand-v1.json'), 'utf8'));
   for (const term of hand.publicTerms) output.push({ slug: term.slug, origin: 'public-hand-v1', state: 'existing_public_projection' });
+
+  for (const entry of palgwaeEntries) {
+    output.push({ slug: entry.slug, origin: 'library:palgwae', state: 'published_library_guide' });
+  }
+  const guideFiles = [
+    ['poomsae', 'src/data/poomsae-guide.ts'],
+    ['matchuo-kyorugi', 'src/data/matchuo-kyorugi-guide.ts'],
+    ['iron', 'src/data/iron-guide.ts'],
+  ];
+  for (const [categoryId, relPath] of guideFiles) {
+    const src = readFileSync(join(root, relPath), 'utf8');
+    const seen = new Set();
+    for (const match of src.matchAll(/^\s{4}slug:\s*'([a-z0-9-]+)'/gm)) {
+      if (!seen.has(match[1])) {
+        seen.add(match[1]);
+        output.push({ slug: match[1], origin: 'library:' + categoryId, state: 'published_library_guide' });
+      }
+    }
+  }
+  const movementCatalogs = {
+    'kibon-dongjak': 'src/data/kibon-cards.json',
+    balkisul: 'src/data/balkisul-cards.json',
+  };
+  for (const [categoryId, relPath] of Object.entries(movementCatalogs)) {
+    const cardsByFamily = JSON.parse(readFileSync(join(root, relPath), 'utf8'));
+    for (const { slug } of Object.values(cardsByFamily).flat()) {
+      output.push({ slug, origin: 'library:' + categoryId, state: 'published_library_guide' });
+    }
+  }
+  const surfacesSrc = readFileSync(join(root, 'src/components/atlas/surfaces.ts'), 'utf8');
+  const footListMatch = surfacesSrc.match(/footSurfaceSlugs\s*=\s*\[([\s\S]*?)\]\s*as\s*const/);
+  if (footListMatch) {
+    for (const m of footListMatch[1].matchAll(/'([a-z0-9-]+)'/g)) {
+      if (!m[1].startsWith('illustration-')) {
+        output.push({ slug: m[1], origin: 'atlas-geometry', state: 'atlas_zone' });
+      }
+    }
+  }
+  const zonesSrc = readFileSync(join(root, 'src/components/atlas/zones.ts'), 'utf8');
+  for (const m of zonesSrc.matchAll(/body\([^)]*,\s*'([a-z0-9-]+)'\s*\)/g)) {
+    output.push({ slug: m[1], origin: 'atlas-geometry', state: 'atlas_zone' });
+  }
   return output;
 }
 const csvValue = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
@@ -75,7 +186,7 @@ export function run({ source, output, priorLibrary }) {
   if (sha !== EXPECTED_SHA) throw new Error('Hash do PDF diverge do pacote indicado.');
   const pages = readFileSync(join(sourceRoot, 'texto_334_paginas.jsonl'), 'utf8').trim().split(/\r?\n/).map(line => JSON.parse(line));
   if (pages.length !== 334 || pages.some((page, index) => page.page !== index + 1 || typeof page.text !== 'string')) throw new Error('Extração de páginas incompleta.');
-  const existing = loadExisting(ROOT);
+  const existing = loadExistingInventory(ROOT);
   if (priorLibrary) {
     for (const term of JSON.parse(readFileSync(priorLibrary, 'utf8'))) existing.push({ slug: term.slug, origin: 'PR74-candidate', state: 'unverified_draft' });
   }
