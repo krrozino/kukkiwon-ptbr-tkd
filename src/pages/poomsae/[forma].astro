@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SchoolBeltStatus, TrigramDiagram } from '../../components/poomsae/PoomsaeVisuals';
+import VisualSequence from '../../components/poomsae/VisualSequence';
+import TaegeukCourseDiagram from '../../components/poomsae/TaegeukCourseDiagram.astro';
+import { taegeukForms } from '../../data/poomsae-guide';
+import { taegeukOneStudy as study } from '../../data/poomsae-study';
+import '../../styles/poomsae-study.css';
+
+export function getStaticPaths() {
+  // A sequência ainda aguarda revisão docente e fica disponível somente no servidor local de desenvolvimento.
+  return import.meta.env.DEV ? [{ params: { forma: study.slug } }] : [];
+}
+
+const guide = taegeukForms[0];
+const title = guide.name;
+const studySource = study.source;
+---
+
+<Base title={`${title} — Estudo de Poomsae`}>
+  <article class="shell section poomsae-study">
+    <nav class="breadcrumbs" aria-label="Caminho da página">
+      <a href="/poomsae">Poomsae</a>
+      <span aria-hidden="true">/</span>
+      <span>{title}</span>
+    </nav>
+
+    <header class="study-hero">
+      <div>
+        <p class="eyebrow">Prévia de estudo · {studySource.reviewState}</p>
+        <h1>{title}</h1>
+        <p class="lead">{study.meaning}</p>
+        <p class="study-hangul" lang="ko">{study.hangul}</p>
+        <a class="claim-source" href={study.identityUrl} target="_blank" rel="noopener noreferrer">
+          Kukkiwon · identidade em coreano (Board 37, nº 980) ↗
+        </a>
+        <nav class="study-local-nav" aria-label="Nesta forma">
+          <a class="button" href="#sequencia">Estudar movimentos ↓</a>
+          <a class="button button-outline" href="#demonstracao">Ver demonstração ↓</a>
+        </nav>
+      </div>
+      <aside class="study-symbol" aria-label="Simbolismo">
+        <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
+        <h2>{guide.trigram.romanization} <span lang="ko">건</span></h2>
+        <p class="study-symbol-meaning">{guide.trigram.symbolPt}</p>
+        <p>{guide.philosophySummary}</p>
+        <a class="claim-source" href={guide.evidence.url} target="_blank" rel="noopener noreferrer">
+          Kukkiwon · {guide.evidence.locator} ↗
+        </a>
+      </aside>
+    </header>
+
+    <div class="study-context">
+      <SchoolBeltStatus slug={study.slug} formName={title} client:load />
+      <a class="inline-link" href={`/biblioteca/poomsae/${study.slug}`}>Ficha da forma na Biblioteca →</a>
+    </div>
+
+    <VisualSequence study={study} client:load />
+
+    <section class="study-section" id="galeria" aria-labelledby="study-gallery-title">
+      <h2 id="study-gallery-title">Galeria de estudo</h2>
+      <div class="study-gallery">
+        <TaegeukCourseDiagram />
+        <div class="study-gallery-panel study-gallery-symbol">
+          <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
+          <div>
+            <strong>Trigrama {guide.trigram.romanization}</strong>
+            <p>{guide.trigram.polaritySummary}</p>
+            <p class="fine-print">Esquema original · Taekwondo para Todos</p>
+          </div>
+        </div>
+      </div>
+      <p class="muted">
+        As lâminas de referência mostram as posturas fotografadas de cada movimento. A numeração dos quadros acompanha a sequência acima.
+      </p>
+      <a class="inline-link" href={studySource.url + '#page=53'} target="_blank" rel="noopener noreferrer">
+        Consultar imagens da Kukkiwon na referência (pp. 53–64) ↗
+      </a>
+    </section>
+
+    <section class="study-section study-media" id="demonstracao" aria-labelledby="study-video-title">
+      <div>
+        <h2 id="study-video-title">Demonstração em vídeo</h2>
+        <p>Assista à forma completa da Enciclopédia Digital da Kukkiwon, publicada pela Mookas TV em 2019.</p>
+        <p>
+          <a class="inline-link" href="https://www.mookas.com/news/17083" target="_blank" rel="noopener noreferrer">
+            Demonstração completa na Mookas TV ↗
+          </a>
+        </p>
+        <p>
+          <a class="inline-link" href="https://www.youtube.com/watch?v=__4pltpaPJo" target="_blank" rel="noopener noreferrer">
+            Aula da Kukkiwon no YouTube ↗
+          </a>
+          <span class="fine-print"> · Kukkiwon / World Taekwondo Academy, 2025</span>
+        </p>
+      </div>
+      <div class="study-player" data-poomsae-player>
+        <button class="button" type="button" data-poomsae-play hidden>Carregar demonstração do YouTube</button>
+      </div>
+    </section>
+
+    <footer class="study-footer">
+      <strong>Fonte da sequência</strong>
+      <p>
+        {studySource.institution} · <cite>{studySource.title}</cite> · {studySource.edition}, pp. 53–64.
+        Consulta documental em <time datetime={studySource.sourceCheckedAt}>21/11/2026</time>.
+      </p>
+      <p>Adaptação didática em português para leitura da forma. Revisão docente pendente.</p>
+    </footer>
+  </article>
+</Base>
+
+<script>
+  const player = document.querySelector<HTMLElement>('[data-poomsae-player]');
+  const play = player?.querySelector<HTMLButtonElement>('[data-poomsae-play]');
+
+  if (player && play) {
+    play.hidden = false;
+    play.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/T6J2C1QJLts';
+      frame.title = 'Taegeuk 1 Jang — demonstração completa da Enciclopédia Digital da Kukkiwon';
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.replaceChildren(frame);
+      frame.focus();
+    }, { once: true });
+  }
+</script>
