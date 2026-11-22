@@ -162,7 +162,7 @@ test("estudos: pasta, checklist, anotação e técnica contextual sobrevivem ao 
 });
 test("currículo: cria um plano real sem dados de exemplo, salva localmente e mantém checklist", async ({page,isMobile}) => {
   await page.goto("/curriculos");
-  await expect(page.getByRole("heading",{name:"O caminho da sua escola, no seu celular"})).toBeVisible();
+  await expect(page.getByRole("heading",{name:/Cada caminho tem/})).toBeVisible();
   await expect(page.getByText("Faixa branca · exemplo")).toHaveCount(0);
   await page.getByRole("button",{name:"Montar currículo neste navegador"}).click();
   await page.getByLabel("Nome do currículo",{exact:true}).fill("Plano da escola");

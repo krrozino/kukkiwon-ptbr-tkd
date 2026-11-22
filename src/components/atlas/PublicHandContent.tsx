@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getHandRegion, getHandRegionForTerm, getHandTerm, getHandTermForRegion,
   handRegionDescription, handTerms, searchHandTerms, type HandTerm } from '../../lib/public-hand';
 import { zoneCopy } from './zone-copy';
+import { libraryItemHref } from '../../lib/library';
 
 function ReferenceLink({ reference }: { reference: { institution: string; title: string; edition: string; locator: string; url: string } }) {
   if (!/^https:\/\/[^\s/@]+/i.test(reference.url)) return null;
@@ -44,6 +45,7 @@ export function PublicHandTerm({ term, compact = false }: { term: HandTerm; comp
         <ReferenceLink reference={row.reference} />
       </li>)}</ul>
     </details>}
+    <a className="inline-link hand-library-link" href={libraryItemHref(term.slug)!}>Abrir ficha na biblioteca →</a>
   </div>;
 }
 
@@ -67,7 +69,7 @@ export function PublicHandIndex({ selectedTerm, onSelect }: {
 }) {
   const [query, setQuery] = useState('');
   const results = searchHandTerms(query);
-  return <section className="hand-term-index" aria-label="Índice dos termos da mão">
+  return <section className="hand-term-index" aria-label="Índice dos termos da mão" id="atlas-hand-index">
     <h3>Partes e configurações da mão</h3>
     <label htmlFor="hand-term-search">Buscar nome, Hangul ou romanização</label>
     <input id="hand-term-search" type="search" value={query} onChange={e => setQuery(e.target.value)}

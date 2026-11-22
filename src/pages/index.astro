@@ -1,69 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
+import CategoryCard from '../components/library/CategoryCard.astro';
+import { libraryCategories, libraryItemHref } from '../lib/library';
+import { getHandTerm } from '../lib/public-hand';
+const featured = getHandTerm('sonnal')!;
+const reference = featured.evidence[0].reference;
 ---
-<Base title="Taekwondo para Todos — Aprenda, explore e compartilhe">
-  <section class="shell hero community-hero">
-    <p class="tag">Conhecimento e ensino de Taekwondo</p>
-    <h1>Seu Taekwondo, mais perto do aprendizado.</h1>
-    <p>Explore o corpo humano, organize seus estudos e acompanhe os conteúdos da sua escola em qualquer dispositivo. Um espaço independente para alunos e professores.</p>
-    <div class="hero-actions">
-      <a class="button" href="/atlas">Explorar atlas corporal</a>
-      <a class="button button-outline" href="/curriculos">Acessar currículos</a>
+<Base title="Taekwondo para Todos — Conhecimento para o seu caminho">
+  <section class="shell home-hero">
+    <div class="hero-copy"><p class="eyebrow">Enciclopédia independente de Taekwondo</p><h1>Conhecer faz parte<br class="desktop-break" /> do <em>caminho.</em></h1><p class="lead">Das primeiras palavras aos detalhes de cada região. Um lugar para aprender, consultar e construir seu próprio estudo.</p>
+      <form class="home-search" action="/biblioteca#fichas" role="search"><label for="home-query">O que você quer estudar?</label><div><input type="search" id="home-query" name="q" placeholder="Um termo, um significado, uma curiosidade…" maxlength="200"/><button type="submit" aria-label="Buscar na biblioteca"><span aria-hidden="true">↗</span></button></div></form>
+      <div class="hero-suggestions"><span>Comece por</span><a href="/biblioteca/sonkisul">Mãos e punhos</a><a href="/poomsae">Poomsae</a><a href="/curriculos">Minha graduação</a></div>
     </div>
+    <aside class="featured-term"><div class="featured-top"><span>Uma palavra, um começo</span><span aria-hidden="true">07 / Sonkisul</span></div><span class="featured-hangul" lang="ko">{featured.hangul}</span><h2><a href={libraryItemHref(featured.slug)!}>{featured.romanization}</a></h2><p>{featured.name}</p><div class="featured-bottom"><a href={libraryItemHref(featured.slug)!}>Conhecer o termo <span aria-hidden="true">↗</span></a><a class="featured-reference" href={reference.url} target="_blank" rel="noopener noreferrer">{reference.institution} · {reference.edition}<br/>{reference.locator}</a></div></aside>
   </section>
-  <section class="shell section">
-    <p class="tag">Para aprender e ensinar</p>
-    <h2>Conhecimento que acompanha você</h2>
-    <div class="grid community-features">
-      <a class="card link-card" href="/atlas">
-        <span class="feature-index" aria-hidden="true">01</span>
-        <h3>Atlas interativo</h3>
-        <p>Explore mãos, pés e outras áreas do corpo por meio de regiões visuais selecionáveis.</p>
-        <span class="inline-link">Explorar regiões →</span>
-      </a>
-      <a class="card link-card" href="/estudos">
-        <span class="feature-index" aria-hidden="true">02</span>
-        <h3>Meu espaço de estudos</h3>
-        <p>Organize pastas, salve favoritos, registre anotações e acompanhe seus conteúdos.</p>
-        <span class="inline-link">Organizar estudos →</span>
-      </a>
-      <a class="card link-card" href="/curriculos">
-        <span class="feature-index" aria-hidden="true">03</span>
-        <h3>Currículo da sua escola</h3>
-        <p>Abra no celular o plano de aprendizado compartilhado pelo professor, com orientações e mídias.</p>
-        <span class="inline-link">Consultar currículos →</span>
-      </a>
-      <a class="card link-card" href="/poomsae">
-        <span class="feature-index" aria-hidden="true">04</span>
-        <h3>Conheça os Taegeuk</h3>
-        <p>Explore os oito Taegeuk e seus temas de referência, com acesso à fonte institucional.</p>
-        <span class="inline-link">Conhecer as formas →</span>
-      </a>
-      <a class="card link-card" href="/acervo">
-        <span class="feature-index" aria-hidden="true">05</span>
-        <h3>Acervo em revisão</h3>
-        <p>Consulte técnicas, bases e superfícies com fontes individuais, traduções provisórias e pendências visíveis.</p>
-        <span class="inline-link">Consultar o acervo →</span>
-      </a>
-      <a class="card link-card" href="/kyorugi">
-        <span class="feature-index" aria-hidden="true">06</span>
-        <h3>Kyorugi e combate combinado</h3>
-        <p>Consulte famílias técnicas, regiões corporais relacionadas e fontes separadas para prática marcial e competição.</p>
-        <span class="inline-link">Explorar Kyorugi →</span>
-      </a>
-    </div>
-  </section>
-  <section class="shell section community-schools">
-    <div>
-      <p class="tag">Para professores</p>
-      <h2>Organize o conhecimento da sua escola</h2>
-      <p>Monte graduações, reúna técnicas e demonstrações autorizadas e compartilhe materiais com os alunos por link.</p>
-      <a class="button" href="/escolas">Acessar área do professor</a>
-    </div>
-    <div class="community-aside">
-      <strong>Terminologia com referência</strong>
-      <p>O acervo em revisão permite consultar os registros provisórios e suas fontes. O catálogo técnico identifica o conteúdo com revisão concluída.</p>
-      <a href="/catalogo" class="inline-link">Conhecer a biblioteca técnica →</a>
-    </div>
-  </section>
+  <section class="home-areas"><div class="shell"><div class="section-heading"><div><p class="eyebrow">Uma biblioteca, muitos caminhos</p><h2>Encontre seu próximo assunto.</h2></div><a class="inline-link" href="/biblioteca">Ver toda a biblioteca <span aria-hidden="true">↗</span></a></div><div class="category-grid">{libraryCategories.map(category => <CategoryCard category={category} />)}<a class="category-card atlas-discovery" href="/atlas?region=hands&zoom=1"><span class="category-number">Atlas interativo <span aria-hidden="true">↗</span></span><h3>Aprenda também<br/>pelo corpo.</h3><p>Selecione uma região no desenho e descubra seus termos, significados e referências.</p><span class="category-footer">Explorar o Atlas <span aria-hidden="true">→</span></span></a></div></div></section>
+  <section class="shell learning-paths"><div class="section-heading"><div><p class="eyebrow">Do seu jeito, no seu tempo</p><h2>Estudar é criar conexões.</h2></div></div><div class="learning-path-grid"><a href="/curriculos" class="path-card"><span class="path-index">01 / Sua escola</span><h3>O próximo passo<br/>da sua graduação.</h3><p>Acompanhe o currículo do professor ou organize seu próprio roteiro neste navegador.</p><span class="inline-link">Explorar currículos →</span></a><a href="/estudos" class="path-card"><span class="path-index">02 / Seu espaço</span><h3>Guarde o que<br/>quer aprender.</h3><p>Reúna favoritos, crie pastas e anote as descobertas no seu caderno pessoal.</p><span class="inline-link">Abrir meu estudo →</span></a><a href="/fontes" class="path-card"><span class="path-index">03 / Sua curiosidade</span><h3>Vá até a origem<br/>do conhecimento.</h3><p>Consulte as referências e entenda como cada informação chega à biblioteca.</p><span class="inline-link">Conhecer as fontes →</span></a></div></section>
+  <section class="shell teacher-section"><div><p class="eyebrow">Para quem ensina</p><h2>O conhecimento da sua escola,<br/>mais perto dos alunos.</h2><p>Organize graduações, relacione conteúdos e compartilhe os materiais que fazem parte da sua prática.</p></div><a class="button" href="/escolas">Acessar área do professor <span aria-hidden="true">↗</span></a></section>
 </Base>

@@ -1,18 +1,12 @@
 ---
 import '../styles/global.css';
+import '../styles/experience.css';
 const { title = 'Taekwondo para Todos' } = Astro.props;
 const links=[
-  {label:'Acervo em revisão',href:'/acervo'},
-  {label:'Catálogo',href:'/catalogo'},
-  {label:'Atlas corporal',href:'/atlas'},
-  {label:'Glossário',href:'/glossario'},
-  {label:'Fundamentos',href:'/fundamentos/alturas-e-direcoes'},
-  {label:'Poomsae',href:'/poomsae'},
-  {label:'Aprender',href:'/aprender'},
+  {label:'Biblioteca',href:'/biblioteca'},
+  {label:'Atlas',href:'/atlas'},
   {label:'Currículos',href:'/curriculos'},
-  {label:'Meus estudos',href:'/estudos'},
-  {label:'Escolas',href:'/escolas'},
-  {label:'Fontes',href:'/fontes'},
+  {label:'Meu estudo',href:'/estudos'},
 ];
 const path=Astro.url.pathname.replace(/\/$/,'')||'/';
 ---
@@ -41,7 +35,7 @@ const path=Astro.url.pathname.replace(/\/$/,'')||'/';
         const meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute('content', dark ? '#111c29' : '#f9fafb');
         document.querySelectorAll('[data-theme-toggle]').forEach(button => {
-          button.textContent = dark ? '☀ Tema claro' : '☾ Tema escuro';
+          button.textContent = dark ? '☀' : '☾';
           button.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
           button.setAttribute('aria-pressed', String(dark));
           button.setAttribute('title', dark ? 'Mudar para tema claro' : 'Mudar para tema escuro');
@@ -66,22 +60,38 @@ const path=Astro.url.pathname.replace(/\/$/,'')||'/';
   </script>
 </head>
 <body>
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 {import.meta.env.PUBLIC_GLOSSARY_REVIEW==='true'&&<aside class="glossary-review-banner">PRÉVIA LOCAL DO GLOSSÁRIO · conteúdo ainda não aprovado, para conferência.</aside>}
 {import.meta.env.PUBLIC_CONTENT_REVIEW==='true'&&<aside class="review-banner">PRÉVIA DE REVISÃO · 108 rascunhos não validados. Traduções e técnicas aguardam revisão humana.</aside>}
 <header class="site-header">
   <nav class="shell site-navigation" aria-label="Menu principal">
     <a class="logo" href="/" aria-label="Taekwondo para Todos — página inicial">
       <span class="logo-mark" aria-hidden="true">태</span>
-      <span class="logo-name">Taekwondo <b>para Todos</b><small>Biblioteca educacional independente</small></span>
+      <span class="logo-name">Taekwondo <b>para Todos</b><small>Conhecimento que conecta.</small></span>
     </a>
-    <div class="site-links">
-      {links.map(link=><a href={link.href} class={path===link.href?'active':''}
+    <div class="site-links" id="primary-links">
+      {links.map(link=><a href={link.href} class={path===link.href||path.startsWith(link.href+'/')?'active':''}
         aria-current={path===link.href?'page':undefined}>{link.label}</a>)}
     </div>
-    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema" aria-pressed="false">☾ Tema escuro</button>
+    <div class="header-actions"><a href="/escolas" class="teacher-link">Área do professor <span aria-hidden="true">↗</span></a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema" aria-pressed="false">☾</button>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="primary-links">Menu <span aria-hidden="true">☰</span></button>
+    </div>
   </nav>
 </header>
-<main><slot /></main>
-<footer class="shell"><p>Iniciativa educacional independente. Não afiliada nem homologada pela Kukkiwon. Conteúdos e requisitos de graduação podem variar por escola.</p></footer>
+<main id="conteudo" tabindex="-1"><slot /></main>
+<footer class="site-footer"><div class="shell footer-grid"><div><a href="/" class="footer-brand">Taekwondo <span>para Todos</span></a><p>Aprender, consultar, compartilhar.<br>Um projeto comunitário, gratuito e sem fins lucrativos.</p></div><div class="footer-links"><a href="/biblioteca">Biblioteca</a><a href="/fontes">Fontes e metodologia</a><a href="/escolas">Escolas</a><a href="/aprender">Praticar meus conhecimentos</a><a href="/acervo">Acervo em revisão</a><a href="/kyorugi">Combate e Kyorugi</a></div><p class="independence-note">Iniciativa independente. Não afiliada nem homologada pela Kukkiwon. Conteúdos e requisitos de graduação podem variar por escola.</p></div></footer>
+<script>
+  const menu = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const links = document.querySelector<HTMLElement>('#primary-links');
+  const closeMenu = () => { menu?.setAttribute('aria-expanded', 'false'); links?.classList.remove('is-open'); };
+  menu?.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open)); links?.classList.toggle('is-open', open);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
+  });
+</script>
 </body>
 </html>

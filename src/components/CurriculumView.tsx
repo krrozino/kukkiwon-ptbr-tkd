@@ -3,6 +3,7 @@ import type { Curriculum } from "../lib/curriculum";
 import TermContext from "./TermContext";
 import MediaPlayer, { type SchoolMedia } from "./MediaPlayer";
 import type { SchoolTerm } from "../lib/school-api";
+import { getLibraryItem, libraryItemHref } from '../lib/library';
 export default function CurriculumView({
   value,
   school = "Currículo pessoal",
@@ -111,6 +112,9 @@ export default function CurriculumView({
                   ))}
                 <p>{r.notes}</p>
                 {r.termSlug && (
+                  libraryItemHref(r.termSlug) ? <a className="inline-link curriculum-library-link" href={libraryItemHref(r.termSlug)!}>
+                    Consultar {getLibraryItem(r.termSlug)!.term.romanization || getLibraryItem(r.termSlug)!.term.name} na biblioteca
+                  </a> :
                   <button
                     className="text-button"
                     disabled={loadedKey!==key}
