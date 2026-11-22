@@ -35,7 +35,15 @@ const dossier = () => ({
   counts: { numberedMovements: 2, actions: 3, boundaryIncluded: false },
   start: point,
   finish: { ...point, citation: { page: 5, locator: 'Retorno' } },
-  discrepancies: [{ path: 'movements[number=2].footTransition', status: 'pending_technical_review' }],
+  discrepancies: [{
+    path: 'movements[number=2].footTransition',
+    status: 'pending_technical_review',
+    note: 'Conferir deslocamento no vídeo oficial.',
+    variants: [
+      { summary: 'Legenda indica pequeno deslocamento.', evidence: { sourceId: source.id, page: 3, locator: 'Quadro 2' } },
+      { summary: 'Tabela indica pés no lugar.', evidence: { sourceId: source.id, page: 4, locator: 'Linha 2' } },
+    ],
+  }],
   movements: [
     {
       number: 1, title: 'Etapa de teste', direction: 'da1', description: null,
@@ -69,7 +77,20 @@ describe('dados locais da prévia Taegeuk 2', () => {
     expect(last.base.href).toBe('/biblioteca/kibon-dongjak/apgubi');
     expect(last.related).toEqual([]);
     expect(last.transitionPending).toBe(true);
+    expect(last.discrepancy?.variants).toHaveLength(2);
+    expect(last.discrepancy?.note).toBe('Conferir deslocamento no vídeo oficial.');
+    expect(last.reviewPoints?.length).toBeGreaterThan(0);
     expect(last.frames?.map(({ id, reference }) => [id, reference.page])).toEqual([['2-1', 3], ['2-2', 4]]);
+  });
+
+  it('explica o slug jeocheo-jireugi no link Família Jireugi', () => {
+    const withPunch = dossier();
+    withPunch.movements[0].actions[0].techniqueId = 'momtong-bandae-jireugi';
+    const study = parseTaegeukTwoStudy(withPunch);
+    const link = study.movements[0].frames?.[0].link;
+    expect(link?.label).toBe('Família Jireugi');
+    expect(link?.href).toBe('/biblioteca/kibon-dongjak/jeocheo-jireugi');
+    expect(link?.note).toContain('jeocheo-jireugi');
   });
 
   it('rejeita contagens e rótulos incompatíveis', () => {

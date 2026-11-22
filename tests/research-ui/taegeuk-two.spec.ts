@@ -79,8 +79,18 @@ for (const scheme of ['light', 'dark'] as const) {
     await expect(movement.getByRole('status')).toHaveText('Movimento 17 de 18');
     await movement.getByRole('button', { name: 'Ir para movimento 14', exact: true }).click();
     await expect(movement.getByText(/Deslocamento em revisão docente/)).toBeVisible();
+    await expect(movement.getByText(/Divergência entre fontes/)).toBeVisible();
+    await expect(movement.getByText(/deslocamento pequeno do pé direito/)).toBeVisible();
+    await expect(movement.getByText(/dois pés permanecendo no lugar/)).toBeVisible();
+    await movement.getByRole('button', { name: 'Ir para movimento 2', exact: true }).click();
+    await expect(movement.getByRole('link', { name: 'Família Jireugi' })).toHaveAttribute('href', '/biblioteca/kibon-dongjak/jeocheo-jireugi');
+    await expect(movement.getByText(/utiliza o slug jeocheo-jireugi/)).toBeVisible();
     await expect(movement.locator('svg animate, svg animateMotion, svg animateTransform')).toHaveCount(0);
     await expect(page.locator('iframe')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Ficha de revisão' }).click();
+    const reviewRegion = page.getByRole('region', { name: 'Ficha de revisão docente' });
+    await expect(reviewRegion.locator('.study-review-card')).toHaveCount(18);
+    await expect(reviewRegion.getByText('Pontos para confirmação docente')).toHaveCount(18);
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     expect(errors).toEqual([]);
     const formLink = page.getByRole('link', { name: 'Ficha da forma na Biblioteca' });

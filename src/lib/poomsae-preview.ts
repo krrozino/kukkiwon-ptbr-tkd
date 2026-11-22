@@ -23,6 +23,13 @@ const frame = z.object({
   evidence: z.array(evidence).min(1),
 });
 
+const discrepancy = z.object({
+  path: text,
+  status: text,
+  note: text.optional(),
+  variants: z.array(z.object({ summary: text, evidence })).optional(),
+});
+
 const dossierSchema = z.object({
   schemaVersion: z.literal(1),
   slug: z.literal('taegeuk-2-jang'),
@@ -35,7 +42,7 @@ const dossierSchema = z.object({
   counts: z.object({ numberedMovements: page, actions: page, boundaryIncluded: z.literal(false) }),
   start: boundary,
   finish: boundary,
-  discrepancies: z.array(z.object({ path: text, status: text })),
+  discrepancies: z.array(discrepancy),
   movements: z.array(z.object({
     number: page, title: text, direction, description: text.nullable(), base: term,
     lead: z.enum(['Esquerda', 'Direita']), citation, actions: z.array(frame).min(1),
@@ -56,6 +63,12 @@ function studyTerm({ termId, label, hangul }: z.infer<typeof term>) {
   return { label, hangul, href: libraryItemHref(slug) };
 }
 
+const techniqueSlugNotes: Readonly<Record<string, string>> = {
+  'arae-makgi': 'Na Biblioteca, Arae-makgi remete à ficha Naeryeo-makgi.',
+  'momtong-an-makgi': 'Na Biblioteca, Momtong-an-makgi remete à ficha An-makgi.',
+  'olgul-makgi': 'Na Biblioteca, Olgul-makgi remete à ficha Ollyeo-makgi.',
+};
+
 function techniqueLink(techniqueId: string): StudyLink | undefined {
   const aliases = relatedTechniqueSlugs[techniqueId];
   const item = getLibraryItem(techniqueId) ?? (aliases ? getLibraryItem(aliases) : undefined);
@@ -64,8 +77,19 @@ function techniqueLink(techniqueId: string): StudyLink | undefined {
   const href = libraryItemHref(item.slug);
   if (!href) return undefined;
 
-  const label = item.slug === 'jeocheo-jireugi' ? 'Família de socos · Jireugi' : item.term.romanization || item.term.name;
-  return { href, label };
+  if (item.slug === 'jeocheo-jireugi') {
+    return {
+      href,
+      label: 'Família Jireugi',
+      note: 'Na Biblioteca, o termo da família Jireugi utiliza o slug jeocheo-jireugi (ficha Jeocheo-jireugi).',
+    };
+  }
+
+  return {
+    href,
+    label: item.term.romanization || item.term.name,
+    note: techniqueSlugNotes[techniqueId],
+  };
 }
 
 export function parseTaegeukTwoStudy(input: unknown): PoomsaeStudy {
@@ -115,13 +139,31 @@ export function parseTaegeukTwoStudy(input: unknown): PoomsaeStudy {
       const { number } = movement;
       if (number !== index + 1) throw new Error('As etapas do dossiê devem estar em ordem consecutiva.');
 
+      const footDiscrepancy = dossier.discrepancies.find(({ path, status }) =>
+        path === `movements[number=${number}].footTransition` && status === 'pending_technical_review',
+      );
+      const reviewPoints: string[] = [];
+      if (footDiscrepancy) {
+        reviewPoints.push('Confirmar deslocamento dos pés na mudança de direção (divergência entre fontes).');
+      }
+      if (actions.length > 1) {
+        reviewPoints.push('Confirmar transição entre os dois quadros da etapa e base final.');
+      }
+      reviewPoints.push('Confirmar execução em referência audiovisual (vídeo oficial pendente no Taegeuk 2).');
+
       return {
         ...movement,
         base: studyTerm(base),
         related: [],
-        transitionPending: dossier.discrepancies.some(({ path, status }) =>
-          path === `movements[number=${number}].footTransition` && status === 'pending_technical_review',
-        ),
+        transitionPending: Boolean(footDiscrepancy),
+        discrepancy: footDiscrepancy?.variants?.length ? {
+          note: footDiscrepancy.note,
+          variants: footDiscrepancy.variants.map((variant) => ({
+            summary: variant.summary,
+            reference: reference(variant.evidence),
+          })),
+        } : undefined,
+        reviewPoints,
         references: evidence.map(reference),
         frames: actions.map((action, frameIndex) => {
           const expected = actions.length === 1 ? String(number) : `${number}-${frameIndex + 1}`;

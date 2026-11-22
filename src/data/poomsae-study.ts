@@ -11,8 +11,18 @@ export const studyDirections: Record<StudyDirection, { label: string; arrow: str
   ra3: { label: 'Ra 3', arrow: '←', angle: 180 },
 };
 
-export type StudyLink = { label: string; href: string };
+export type StudyLink = { label: string; href: string; note?: string };
 export type StudyTerm = { label: string; href: string | null; hangul?: string };
+
+export type StudyDiscrepancyVariant = {
+  summary: string;
+  reference: StudyReference;
+};
+
+export type StudyDiscrepancy = {
+  note?: string;
+  variants: readonly StudyDiscrepancyVariant[];
+};
 
 export type StudyReference = {
   institution: string;
@@ -60,8 +70,11 @@ export type StudyMovement = {
   lead: 'Esquerda' | 'Direita';
   related: readonly StudyLink[];
   citation: { page: number; locator: string };
+  frameCount?: number;
   frames?: readonly StudyFrame[];
   transitionPending?: boolean;
+  discrepancy?: StudyDiscrepancy;
+  reviewPoints?: readonly string[];
   references?: readonly StudyReference[];
 };
 
@@ -192,7 +205,7 @@ export const taegeukOneStudy = {
       base: walking, lead: 'Esquerda', related: [highBlock], citation: { page: 59, locator: '13' },
     },
     {
-      number: 14, title: 'Chute frontal e soco médio', direction: 'da3',
+      number: 14, title: 'Chute frontal e soco médio', direction: 'da3', frameCount: 2,
       description: 'O quadro 14-1 mostra o Ap-chagi com a perna direita. No 14-2, o pé direito está à frente em Ap-seogi e o Momtong-bandae-jireugi é com o punho direito.',
       base: walking, lead: 'Direita', related: [frontKick, fist], citation: { page: 60, locator: '14-1 e 14-2' },
     },
@@ -202,7 +215,7 @@ export const taegeukOneStudy = {
       base: walking, lead: 'Direita', related: [highBlock], citation: { page: 61, locator: '15' },
     },
     {
-      number: 16, title: 'Chute frontal e soco médio', direction: 'ra3',
+      number: 16, title: 'Chute frontal e soco médio', direction: 'ra3', frameCount: 2,
       description: 'O quadro 16-1 mostra o Ap-chagi com a perna esquerda. No 16-2, o pé esquerdo está à frente em Ap-seogi e o Momtong-bandae-jireugi é com o punho esquerdo.',
       base: walking, lead: 'Esquerda', related: [frontKick, fist], citation: { page: 61, locator: '16-1 (16-2 na p. 62)' },
     },
