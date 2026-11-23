@@ -1,21 +1,27 @@
-import {useEffect,useId,useRef,useState,type CSSProperties} from 'react';
+import {useEffect,useId,useRef,useState,type CSSProperties,type ReactNode} from 'react';
 import type {BodyRegion} from '../../lib/catalog-api';
 import type {Area,View} from './BodyMap';
 import BodyIllustration,{bodySilhouettePath} from './BodyIllustration';
-import {areaViewBoxes,zonesFor} from './zones';
+import {areaViewBoxes,zonesFor,type AtlasZone} from './zones';
 import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
 import AtlasSourceEvidence from './AtlasSourceEvidence';
 
-type Props={area:Area;view:View;regions:BodyRegion[];selected:string|null;onSelect:(r:BodyRegion)=>void};
-export default function BodyRegionMap({area,view,regions,selected,onSelect}:Props){
+type Props={
+  area:Area;view:View;regions:BodyRegion[];selected:string|null;onSelect:(r:BodyRegion)=>void;
+  renderInspection?:(region:BodyRegion)=>ReactNode;
+};
+export default function BodyRegionMap({area,view,regions,selected,onSelect,renderInspection}:Props){
   const zones=zonesFor(area,view),clip=useId().replace(/:/g,'')+'-body';
+  const inspectorId=clip+'-inspector';
   const [visual,setVisual]=useState<string|null>(null),[hover,setHover]=useState<string|null>(null);
   const [side,setSide]=useState(false);const canvas=useRef<HTMLDivElement>(null);
-  const published=(id:string)=>{const zone=zones.find(z=>z.id===id);return zone?.regionSlug?regions.find(r=>r.slug===zone.regionSlug):undefined;};
-  const active=visual||zones.find(z=>z.regionSlug===selected)?.id||null;
-  const focused=zones.find(z=>z.id===(hover||active)),record=focused&&published(focused.id);
-  const {detail}=useTermDetail(record?.slug||null);
+  const regionSlug=(zone:AtlasZone)=>zone.regionSlug??(renderInspection?zone.id:undefined);
+  const regionForZone=(zone:AtlasZone)=>regions.find(region=>region.slug===regionSlug(zone));
+  const active=visual||zones.find(z=>regionSlug(z)===selected)?.id||null;
+  const focused=zones.find(z=>z.id===((renderInspection&&active)||hover||active));
+  const record=focused&&regionForZone(focused);
+  const {detail}=useTermDetail(renderInspection?null:record?.slug||null);
   // A seleção pode mudar antes do efeito da consulta; nunca mostrar fonte de outra ficha.
   const inspectedDetail=record&&detail?.term.slug===record.slug?detail:null;
   useEffect(()=>{setVisual(null);setHover(null);},[area,view,selected]);
@@ -24,11 +30,11 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     const observer=new ResizeObserver(update);if(canvas.current)observer.observe(canvas.current);update();
     return ()=>observer.disconnect();
   },[]);
-  const choose=(id:string)=>{
-    setHover(id);const record=published(id);
-    if(record){setVisual(null);onSelect(record);}else setVisual(id);
+  const choose=(zone:AtlasZone)=>{
+    setHover(zone.id);const record=regionForZone(zone);
+    if(record){setVisual(null);onSelect(record);}else setVisual(zone.id);
   };
-  const label=(id:string)=>published(id)?.name_pt||zoneCopy[id]?.title||'Região anatômica ilustrativa';
+  const label=(zone:AtlasZone)=>regionForZone(zone)?.name_pt||zoneCopy[zone.id]?.title||'Região anatômica ilustrativa';
   return <div ref={canvas} className={'surface-canvas body-detail placement-'+(side?'side':'below')} onPointerLeave={()=>setHover(null)}>
     <svg className="detail-svg" viewBox={areaViewBoxes[area]} role="group" aria-label="Recortes do corpo interativos">
       <defs>
@@ -39,23 +45,24 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
       <BodyIllustration view={view}/>
       <g clipPath={`url(#${clip})`}>
         {zones.map(zone=><g key={zone.id} data-region={zone.id} data-anchor-x={zone.anchor[0]} data-anchor-y={zone.anchor[1]} role="button" tabIndex={0}
-          aria-label={label(zone.id)} aria-pressed={active===zone.id}
+          aria-label={label(zone)} aria-pressed={active===zone.id}
+          aria-controls={renderInspection?inspectorId:undefined}
           className={'surface-cutout '+(active===zone.id?'selected':'')}
           style={{'--surface-color':zone.color} as CSSProperties}
           onPointerEnter={e=>{if(e.pointerType==='mouse')setHover(zone.id);}}
           onPointerDown={e=>{if(e.pointerType==='touch'||e.pointerType==='pen'){
-            setHover(zone.id);if(!published(zone.id))setVisual(zone.id);
+            setHover(zone.id);if(!regionForZone(zone))setVisual(zone.id);
           }}}
           onFocus={()=>{if(!active)setHover(zone.id);else setHover(null);}}
-          onBlur={()=>setHover(null)} onClick={()=>choose(zone.id)}
-          onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(zone.id);}}}>
-          <path d={zone.path}/>
+          onBlur={()=>setHover(null)} onClick={()=>choose(zone)}
+          onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(zone);}}}>
+          <path d={zone.path} pointerEvents={renderInspection?'fill':undefined}/>
         </g>)}
       </g>
     </svg>
-    <section className="surface-inspector" aria-label="Detalhes da região selecionada">
-      {focused?<div role="tooltip" className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={focused.id}>
-        {record?<><strong>{record.name_pt}</strong><span>{inspectedDetail?.term.romanization||'Identificação em consulta'}</span>
+    <section id={renderInspection?inspectorId:undefined} className="surface-inspector" aria-label="Detalhes da região selecionada">
+      {focused?<div role={renderInspection&&record?undefined:'tooltip'} className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={focused.id}>
+        {renderInspection&&record?renderInspection(record):record?<><strong>{record.name_pt}</strong><span>{inspectedDetail?.term.romanization||'Identificação em consulta'}</span>
           <span lang="ko">{inspectedDetail?.term.hangul||'Hangul em consulta'}</span>
           <span>Pronúncia: {inspectedDetail?.term.pronunciation_pt||'ainda não conferida'}</span>
           <small>{inspectedDetail?.term.definition_pt?.slice(0,160)||'Consulte as referências desta região.'}</small>
@@ -67,9 +74,10 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect}:Prop
     <nav className="surface-legend" aria-label="Selecionar zona ilustrada">
       <div className="surface-legend-heading"><strong>Mapa das áreas</strong><small>{zones.length} zonas nesta vista</small></div>
       <div className="surface-legend-items">{zones.map(z=><button key={z.id} data-legend-zone={z.id}
-        className={'surface-legend-button'+(active===z.id?' selected':'')} aria-label={label(z.id)} aria-pressed={active===z.id}
-        onFocus={()=>{if(!active)setHover(z.id);else setHover(null);}} onMouseEnter={()=>setHover(z.id)} onClick={()=>choose(z.id)}>
-        <span className="surface-swatch" aria-hidden="true" style={{backgroundColor:z.color}}/><span>{label(z.id)}</span>
+        className={'surface-legend-button'+(active===z.id?' selected':'')} aria-label={label(z)} aria-pressed={active===z.id}
+        aria-controls={renderInspection?inspectorId:undefined}
+        onFocus={()=>{if(!active)setHover(z.id);else setHover(null);}} onMouseEnter={()=>setHover(z.id)} onClick={()=>choose(z)}>
+        <span className="surface-swatch" aria-hidden="true" style={{backgroundColor:z.color}}/><span>{label(z)}</span>
       </button>)}</div>
     </nav>
   </div>;

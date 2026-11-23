@@ -22,16 +22,10 @@ test('controles do corpo ficam ocultos nos detalhes e a vista anterior volta com
   await expect(page.getByRole('group',{name:'Vista do corpo',exact:true})).toBeVisible();
 });
 
-test('um toque numa região publicada cria uma só entrada no histórico e preserva antebraços',async({page,isMobile})=>{
-  await page.route('**/rest/v1/**',route=>{
-    const table=new URL(route.request().url()).pathname.split('/').pop();
-    return route.fulfill({json:table==='body_regions'?['palgup','anpalmok','bakkatpalmok'].map(slug=>({
-      id:slug,slug,region_group:'arms',atlas_area:'arms',name_pt:'Publicado '+slug,detail_view:'both',detail_x:null,detail_y:null,
-    })):[]});
-  });
+test('um toque no cotovelo cria uma só entrada no histórico e preserva antebraços',async({page,isMobile})=>{
   await page.goto('/atlas?region=arms&zoom=1');
-  await expect(page.locator('.body-detail [data-region="arms-elbow"]')).toHaveAttribute('aria-label','Publicado palgup');
-  for(const slug of ['anpalmok','bakkatpalmok'])await expect(page.locator('.body-detail').getByRole('button',{name:'Publicado '+slug,exact:true}).first()).toBeVisible();
+  await expect(page.locator('.body-detail [data-region="arms-elbow"]')).toHaveAttribute('aria-label','Cotovelo');
+  for(const label of ['Face interna do antebraço','Face externa do antebraço'])await expect(page.locator('.body-detail').getByRole('button',{name:label,exact:true}).first()).toBeVisible();
   const before=page.url(),target=page.locator('.body-detail [data-region="arms-elbow"]');
   await target.scrollIntoViewIfNeeded();
   const point=await target.evaluate(g=>new DOMPoint(68,185).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
@@ -40,7 +34,7 @@ test('um toque numa região publicada cria uma só entrada no histórico e prese
   await page.goBack();await expect(page).toHaveURL(before);
 });
 
-for(const [area,count] of [['head',5],['torso',4],['arms',4],['legs',3]] as const){
+for(const [area,count] of [['head',5],['torso',4],['arms',6],['legs',3]] as const){
   test(area+': ilustrações, primeiro toque e legenda independem de termos publicados',async({page,isMobile})=>{
     const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto('/atlas?region='+area+'&zoom=1');
@@ -52,7 +46,8 @@ for(const [area,count] of [['head',5],['torso',4],['arms',4],['legs',3]] as cons
     const point=await target.evaluate(g=>new DOMPoint(Number(g.getAttribute('data-anchor-x')),Number(g.getAttribute('data-anchor-y'))).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
     if(isMobile)await page.touchscreen.tap(point.x,point.y);else await page.mouse.click(point.x,point.y);
     await expect(target).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Coxa'} as const)[area]);
+    const inspector=area==='arms'?page.getByRole('region',{name:'Detalhes da região selecionada'}):page.getByRole('tooltip');
+    await expect(inspector).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Coxa'} as const)[area]);
     const id=await target.getAttribute('data-region');
     await expect(page.locator('[data-legend-zone="'+id+'"]')).toHaveAttribute('aria-pressed','true');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));

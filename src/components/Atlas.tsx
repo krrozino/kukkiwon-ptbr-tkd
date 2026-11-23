@@ -19,6 +19,8 @@ import { getHandRegion, getHandRegionForTerm, getHandTerm, getHandTermForRegion,
 import { PublicHandIndex, PublicHandRegionInspector, PublicHandTerm } from './atlas/PublicHandContent';
 import { fingerAnatomyGuides } from '../data/sonkisul-finger-guide';
 import { balkisulEntries } from '../data/balkisul-guide';
+import { armAtlasRegions, getArmAtlasRegion } from '../lib/public-arm';
+import PublicArmRegionInspector from './atlas/PublicArmContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -63,6 +65,10 @@ function resolveStaticAtlasLocation(
             : "front",
     };
   }
+  const armRegion = getArmAtlasRegion(region);
+  if (armRegion) {
+    return { area: "arms", region: armRegion.slug, view, zoom: true, detailView: "front" };
+  }
   const bodyZone = bodyZones.find((z) => z.regionSlug === region);
   if (bodyZone) {
     return {
@@ -103,7 +109,7 @@ export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
     [ready, setReady] = useState(false);
   const [hovered, setHovered] = useState<Area | null>(null),
-    [regions, setRegions] = useState<BodyRegion[]>([]);
+    [catalogRegions, setRegions] = useState<BodyRegion[]>([]);
   const [links, setLinks] = useState<RegionTerm[]>([]),
     [loading, setLoading] = useState(false),
     [linksLoading, setLinksLoading] = useState(false);
@@ -144,8 +150,8 @@ export default function Atlas() {
         return;
       }
       setHandTermSlug(null);
-      if (!isCatalogConfigured()) {
-        const staticLoc = resolveStaticAtlasLocation(region, view, p.get("detail"));
+      const staticLoc = resolveStaticAtlasLocation(region, view, p.get("detail"));
+      if (staticLoc?.area === "arms" || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -173,7 +179,6 @@ export default function Atlas() {
                   : "front",
           });
         else {
-          const staticLoc = resolveStaticAtlasLocation(region, view, detail);
           if (staticLoc) {
             setLocation(staticLoc);
           } else {
@@ -213,9 +218,11 @@ export default function Atlas() {
     if (next.area === 'hands' && termSlug && getHandTerm(termSlug)) p.set('term', termSlug);
     window.history.pushState(null, "", window.location.pathname + "?" + p);
   };
+  const curatedArms = location.area === 'arms';
+  const regions = curatedArms ? armAtlasRegions : catalogRegions;
   useEffect(() => {
     if (!ready) return;
-    if (!isCatalogConfigured()) {
+    if (curatedArms || !isCatalogConfigured()) {
       setRegions(location.area === 'hands' ? handAtlasRegions : []);
       setLinks([]);
       setError('');
@@ -241,7 +248,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLoading(false);
       });
     return () => c.abort();
-  }, [location.area, ready, retry]);
+  }, [curatedArms, location.area, ready, retry]);
   const selected = regions.find((r) => r.slug === location.region) || null;
   // The existing published catalog keeps precedence when it returns real records.
   const curatedHand = location.area === 'hands' &&
@@ -251,7 +258,7 @@ export default function Atlas() {
     setLinks([]);
     setLinkError("");
     setLinksLoading(false);
-    if (!selected || curatedHand) return;
+    if (!selected || curatedHand || curatedArms) return;
     const c = new AbortController();
     setLinksLoading(true);
     fetchRegionTerms(selected.id, c.signal)
@@ -266,7 +273,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLinksLoading(false);
       });
     return () => c.abort();
-  }, [selected?.id, curatedHand, retry]);
+  }, [selected?.id, curatedHand, curatedArms, retry]);
   const close = () => navigate({ ...location, zoom: false, region: null });
   const choose = (area: Area) =>
     navigate({ ...location, area, region: null, zoom: false });
@@ -376,7 +383,14 @@ export default function Atlas() {
             />
           </>
         ) : location.zoom ? (
-          <BodyRegionMap area={location.area} view={location.view} regions={regions} selected={location.region} onSelect={chooseRegion}/>
+          <BodyRegionMap
+            area={location.area}
+            view={location.view}
+            regions={regions}
+            selected={location.region}
+            onSelect={chooseRegion}
+            renderInspection={curatedArms ? region => <PublicArmRegionInspector region={region} /> : undefined}
+          />
         ) : (
           <BodyMap
             view={location.view}
@@ -430,7 +444,7 @@ export default function Atlas() {
         aria-busy={loading || linksLoading}
       >
         <p className="tag">Exploração corporal</p>
-        <h2>{curatedHand ? area.title : selected?.name_pt || area.title}</h2>
+        <h2>{curatedHand || curatedArms ? area.title : selected?.name_pt || area.title}</h2>
         <p>{curatedHand ? 'Selecione uma região no desenho ou busque um termo pelo nome.' : area.summary}</p>
         {notice && <p role="status">{notice}</p>}
         {curatedHand ? (
@@ -465,7 +479,7 @@ export default function Atlas() {
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
               onSelect={chooseHandTerm}/>
           </>
-        ) : !isCatalogConfigured() ? (
+        ) : curatedArms ? null : !isCatalogConfigured() ? (
           <div className="empty" role="status">
             Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
             exibido sem dados publicados.
