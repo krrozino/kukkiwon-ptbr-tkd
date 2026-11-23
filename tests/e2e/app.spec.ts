@@ -1,6 +1,7 @@
 import { test,expect,type Page } from '@playwright/test';
 const term={id:'t1',slug:'ap-chagi',category:'chute',hangul:'앞차기',romanization:'Ap-chagi',translation_pt:'Chute frontal',pronunciation_pt:null,definition_pt:'Fixture de teste, nunca conteúdo público.',publication_status:'published',record_kind:'technique',term_aliases:[]};
 const foot={id:'r1',slug:'apchuk',region_group:'feet',atlas_area:'feet',name_pt:'Parte anterior da planta do pé',detail_view:'front',detail_x:50,detail_y:28};
+const catalogRegion={id:'r2',slug:'legs-shin',region_group:'legs',atlas_area:'legs',name_pt:'Canela publicada',detail_view:'front',detail_x:null,detail_y:null};
 async function api(page:Page,{empty=false,error=false,delay=0}={}) {
   await page.route('**/rest/v1/**',async route=>{
     if(delay)await new Promise(r=>setTimeout(r,delay));
@@ -11,7 +12,7 @@ async function api(page:Page,{empty=false,error=false,delay=0}={}) {
       const p=route.request().postDataJSON();
       data={items:empty?[]:[{...term,...(p.page_offset?{id:'last',slug:'last-term',romanization:'Última técnica'}:{})}],total:empty?0:601};
     } else if(table==='catalog_facets')data={categories:['chute'],regions:[{slug:foot.slug,name_pt:foot.name_pt}],families:[]};
-    else if(table==='body_regions')data=!empty&&(u.searchParams.get('slug')==='eq.apchuk'||u.searchParams.get('atlas_area')==='eq.feet')?[foot]:[];
+    else if(table==='body_regions')data=!empty&&(u.searchParams.get('slug')==='eq.legs-shin'||u.searchParams.get('atlas_area')==='eq.legs')?[catalogRegion]:[];
     else if(table==='body_region_terms')data=u.searchParams.has('region_id')?[{term_id:term.id,usage_context:'surface',anatomical_role:'surface',technical_terms:{slug:term.slug,romanization:term.romanization,translation_pt:term.translation_pt}}]:[];
     else if(table==='technical_terms')data=[term];
     else if(table==='term_sources')data=[{source_locator:'§1 > Ap-chagi',checked_at:'2026-01-01T00:00:00Z',content_sources:{institution:'Fixture',title:'Fonte de teste',edition:'Teste',publication_year:2011,official_url:'https://example.org/test'}}];
@@ -35,8 +36,8 @@ test('atlas: teclado, seleção fixa, frente/costas e zoom com retorno',async({p
   await expect(page).toHaveURL(/region=feet/);
 });
 test('atlas: deep link, detalhe publicado e navegação à ficha',async({page})=>{
-  await api(page);await page.goto('/atlas?region=apchuk');
-  await expect(page.getByRole('heading',{name:foot.name_pt,exact:true})).toBeVisible();
+  await api(page);await page.goto('/atlas?region=legs-shin');
+  await expect(page.getByRole('heading',{name:catalogRegion.name_pt,exact:true})).toBeVisible();
   await expect(page.getByRole('link',{name:'Ap-chagi'})).toBeVisible();
   await page.getByRole('link',{name:'Ap-chagi'}).click();
   await expect(page).toHaveURL(/tecnica\?slug=ap-chagi/);
@@ -46,9 +47,9 @@ test('atlas: toque expande pé e Escape retorna, sem overflow',async({page,isMob
   await api(page);await page.goto('/atlas?region=feet');
   const zoom=page.getByRole('button',{name:'Ampliar região'});
   if(isMobile)await zoom.tap();else await zoom.click();
-  const hotspot=page.getByRole('button',{name:foot.name_pt,exact:true}).first();
+  const hotspot=page.locator('.detail-svg [data-region="apchuk"] path');
   if(isMobile)await hotspot.tap();else await hotspot.click();
-  await expect(page.getByRole('heading',{name:foot.name_pt,exact:true})).toBeVisible();
+  await expect(page.getByRole('region',{name:'Detalhes da região selecionada'})).toContainText('Apchuk');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button',{name:'Ampliar região'})).toBeVisible();
   await expect(page.getByRole('button',{name:'Ampliar região'})).toBeFocused();
@@ -61,7 +62,7 @@ test('atlas: região desconhecida e ausência de dados não inventam termos',asy
   await expect(page.getByRole('link',{name:'Ap-chagi'})).toHaveCount(0);
 });
 test('atlas: carregamento e erro de API permitem tentar novamente',async({page})=>{
-  await api(page,{error:true,delay:300});await page.goto('/atlas?region=feet');
+  await api(page,{error:true,delay:300});await page.goto('/atlas?region=legs');
   await expect(page.getByText('Carregando regiões publicadas...')).toBeVisible();
   await expect(page.getByRole('alert').filter({hasText:'Não foi possível carregar'})).toBeVisible();
   await expect(page.getByRole('button',{name:'Tentar novamente'})).toBeVisible();
@@ -97,11 +98,14 @@ test('atlas: hover preserva seleção e histórico restaura a região',async({pa
   await page.goBack();
   await expect(page.getByRole('heading',{name:'Mãos',exact:true})).toBeVisible();
 });
-test('atlas: captura das vistas e detalhes com fixtures isoladas',async({page},testInfo)=>{
+test('atlas: captura da vista do corpo e do dorso do pé',async({page},testInfo)=>{
   await api(page);await page.goto('/atlas?region=feet&view=back');
-  await expect(page.getByRole('button',{name:foot.name_pt,exact:true})).toBeVisible();
+  await expect(page.getByRole('img',{name:'Corpo humano — vista posterior'})).toBeVisible();
   await page.screenshot({path:'test-results/previews/atlas-'+testInfo.project.name+'.png',fullPage:true});
   await page.getByRole('button',{name:'Ampliar região'}).click();
+  await page.getByRole('button',{name:'Dorso',exact:true}).click();
+  await page.locator('[data-legend-zone="baldeung"]').click();
+  await expect(page.getByRole('region',{name:'Detalhes da região selecionada'})).toContainText('Baldeung');
   await page.screenshot({path:'test-results/previews/atlas-'+testInfo.project.name+'-detail.png',fullPage:true});
 });
 test('atlas: histórico preserva o lado do detalhe técnico',async({page})=>{
@@ -122,9 +126,9 @@ test('atlas: navegação cancelada não altera a região que está carregando',a
       try {await route.fulfill({json:[]});}catch{/* a requisição anterior foi cancelada */}
     } else await route.fallback();
   });
-  const first=page.waitForRequest(r=>r.url().includes('slug=eq.apchuk'));
+  const first=page.waitForRequest(r=>r.url().includes('slug=eq.legs-shin'));
   await page.evaluate(()=>{
-    history.pushState(null,'','/atlas?region=apchuk');dispatchEvent(new PopStateEvent('popstate'));
+    history.pushState(null,'','/atlas?region=legs-shin');dispatchEvent(new PopStateEvent('popstate'));
   });await first;
   const second=page.waitForRequest(r=>r.url().includes('slug=eq.inexistente'));
   await page.evaluate(()=>{

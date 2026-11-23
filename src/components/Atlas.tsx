@@ -11,14 +11,15 @@ import BodyMap, { areas, isArea, type Area, type View } from "./atlas/BodyMap";
 import DetailMap from "./atlas/DetailMap";
 import BodyRegionMap from "./atlas/BodyRegionMap";
 import TermContext from "./TermContext";
-import { footSurfaceSlugs, surfaces } from "./atlas/surfaces";
+import { surfaces } from "./atlas/surfaces";
 import { bodyZones } from "./atlas/zones";
 import AtlasRelations, {regionContextSlug} from './AtlasRelations';
 import { getHandRegion, getHandRegionForTerm, getHandTerm, getHandTermForRegion,
   handAtlasRegions, handRegionDescription } from '../lib/public-hand';
 import { PublicHandIndex, PublicHandRegionInspector, PublicHandTerm } from './atlas/PublicHandContent';
 import { fingerAnatomyGuides } from '../data/sonkisul-finger-guide';
-import { balkisulEntries } from '../data/balkisul-guide';
+import { footAtlasRegions, getPublicFootRegion } from '../lib/public-foot';
+import PublicFootRegionInspector from './atlas/PublicFootContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -48,7 +49,7 @@ function resolveStaticAtlasLocation(
       detailView: detail === "back" ? "back" : "front",
     };
   }
-  if ((footSurfaceSlugs as readonly string[]).includes(region)) {
+  if (getPublicFootRegion(region)) {
     const surfaceView = surfaces[region]?.view;
     return {
       area: "feet",
@@ -103,7 +104,7 @@ export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
     [ready, setReady] = useState(false);
   const [hovered, setHovered] = useState<Area | null>(null),
-    [regions, setRegions] = useState<BodyRegion[]>([]);
+    [catalogRegions, setRegions] = useState<BodyRegion[]>([]);
   const [links, setLinks] = useState<RegionTerm[]>([]),
     [loading, setLoading] = useState(false),
     [linksLoading, setLinksLoading] = useState(false);
@@ -144,8 +145,9 @@ export default function Atlas() {
         return;
       }
       setHandTermSlug(null);
-      if (!isCatalogConfigured()) {
-        const staticLoc = resolveStaticAtlasLocation(region, view, p.get("detail"));
+      const detail = p.get("detail");
+      const staticLoc = resolveStaticAtlasLocation(region, view, detail);
+      if (staticLoc?.area === "feet" || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -158,7 +160,6 @@ export default function Atlas() {
       try {
         const data = await fetchRegion(region, currentController.signal);
         if (currentController.signal.aborted) return;
-        const detail = p.get("detail");
         if (data && isArea(data.atlas_area))
           setLocation({
             area: data.atlas_area,
@@ -173,7 +174,6 @@ export default function Atlas() {
                   : "front",
           });
         else {
-          const staticLoc = resolveStaticAtlasLocation(region, view, detail);
           if (staticLoc) {
             setLocation(staticLoc);
           } else {
@@ -213,9 +213,11 @@ export default function Atlas() {
     if (next.area === 'hands' && termSlug && getHandTerm(termSlug)) p.set('term', termSlug);
     window.history.pushState(null, "", window.location.pathname + "?" + p);
   };
+  const curatedFoot = location.area === 'feet';
+  const regions = curatedFoot ? footAtlasRegions : catalogRegions;
   useEffect(() => {
     if (!ready) return;
-    if (!isCatalogConfigured()) {
+    if (curatedFoot || !isCatalogConfigured()) {
       setRegions(location.area === 'hands' ? handAtlasRegions : []);
       setLinks([]);
       setError('');
@@ -241,7 +243,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLoading(false);
       });
     return () => c.abort();
-  }, [location.area, ready, retry]);
+  }, [curatedFoot, location.area, ready, retry]);
   const selected = regions.find((r) => r.slug === location.region) || null;
   // The existing published catalog keeps precedence when it returns real records.
   const curatedHand = location.area === 'hands' &&
@@ -251,7 +253,7 @@ export default function Atlas() {
     setLinks([]);
     setLinkError("");
     setLinksLoading(false);
-    if (!selected || curatedHand) return;
+    if (!selected || curatedHand || curatedFoot) return;
     const c = new AbortController();
     setLinksLoading(true);
     fetchRegionTerms(selected.id, c.signal)
@@ -266,7 +268,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLinksLoading(false);
       });
     return () => c.abort();
-  }, [selected?.id, curatedHand, retry]);
+  }, [selected?.id, curatedHand, curatedFoot, retry]);
   const close = () => navigate({ ...location, zoom: false, region: null });
   const choose = (area: Area) =>
     navigate({ ...location, area, region: null, zoom: false });
@@ -301,9 +303,6 @@ export default function Atlas() {
     });
   };
   const area = areas.find((a) => a.id === location.area)!;
-  const footCard = location.area === "feet" && location.region
-    ? balkisulEntries.find((entry) => entry.atlasZone === location.region)
-    : undefined;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
   return (
     <div
@@ -371,8 +370,8 @@ export default function Atlas() {
               regions={regions}
               selected={location.region}
               onSelect={chooseRegion}
-              renderInspection={curatedHand ? region =>
-                <PublicHandRegionInspector regionSlug={region.slug} /> : undefined}
+              renderInspection={curatedFoot ? region => <PublicFootRegionInspector region={region} /> :
+                curatedHand ? region => <PublicHandRegionInspector regionSlug={region.slug} /> : undefined}
             />
           </>
         ) : location.zoom ? (
@@ -430,7 +429,7 @@ export default function Atlas() {
         aria-busy={loading || linksLoading}
       >
         <p className="tag">Exploração corporal</p>
-        <h2>{curatedHand ? area.title : selected?.name_pt || area.title}</h2>
+        <h2>{curatedHand || curatedFoot ? area.title : selected?.name_pt || area.title}</h2>
         <p>{curatedHand ? 'Selecione uma região no desenho ou busque um termo pelo nome.' : area.summary}</p>
         {notice && <p role="status">{notice}</p>}
         {curatedHand ? (
@@ -464,6 +463,12 @@ export default function Atlas() {
             </section>}
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
               onSelect={chooseHandTerm}/>
+          </>
+        ) : curatedFoot ? (
+          <>
+            <p>Selecione um recorte na planta ou no dorso para consultar a região anatômica e, quando houver, o termo da superfície de contato. Em Balkisul, as técnicas de chute (Chagi) têm um grupo próprio de fichas.</p>
+            <h3>Tornozelo</h3>
+            <p>O tornozelo ainda está sem recorte selecionável neste desenho.</p>
           </>
         ) : !isCatalogConfigured() ? (
           <div className="empty" role="status">
@@ -532,13 +537,6 @@ export default function Atlas() {
         {location.area !== "hands" && (
           <div className="atlas-library-bridge">
             <h3>Estudar na Biblioteca</h3>
-            {footCard && (
-              <p>
-                <a className="inline-link" href={`/biblioteca/balkisul/${footCard.slug}`}>
-                  Abrir ficha de {footCard.romanization} na Biblioteca →
-                </a>
-              </p>
-            )}
             <ul className="related-list">
               {areaStudyLinks[location.area].map((link) => (
                 <li key={link.href}>

@@ -32,7 +32,7 @@ export const areas = [
   {
     id: "feet",
     title: "Pés",
-    summary: "Amplie para consultar superfícies do pé publicadas.",
+    summary: "Explore a planta, o dorso e as superfícies de contato.",
   },
 ] as const;
 export type Area = (typeof areas)[number]["id"];
