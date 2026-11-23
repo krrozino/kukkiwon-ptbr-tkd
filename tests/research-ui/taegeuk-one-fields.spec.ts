@@ -40,3 +40,27 @@ test('percorre as 18 etapas e confere os campos documentais', async ({ page }) =
   await review.getByRole('button', { name: 'Estudar passo 6', exact: true }).click();
   await expect(movement.getByRole('status')).toHaveText('Movimento 6 de 18');
 });
+
+test('mantém o foco no movimento ao usar os controles nos limites da sequência', async ({ page }) => {
+  await page.goto('/poomsae/taegeuk-1-jang');
+  await expect(page.locator('astro-island[ssr]').filter({ has: page.locator('#sequencia') })).toHaveCount(0);
+  await page.getByRole('button', { name: /^Movimento 17:/ }).click();
+
+  const movement = page.getByRole('region', { name: 'Movimento selecionado' });
+  const heading = movement.getByRole('heading', { level: 3 });
+  const status = movement.getByRole('status');
+
+  await movement.getByRole('button', { name: 'Próximo' }).press('Enter');
+  await expect(status).toHaveText('Movimento 18 de 18');
+  await expect(heading).toBeFocused();
+  await expect(heading).toBeInViewport();
+  await page.keyboard.press('ArrowLeft');
+  await expect(status).toHaveText('Movimento 17 de 18');
+
+  await movement.getByRole('button', { name: 'Ir para movimento 2' }).click();
+  await movement.getByRole('button', { name: 'Anterior' }).press('Enter');
+  await expect(status).toHaveText('Movimento 1 de 18');
+  await expect(heading).toBeFocused();
+  await page.keyboard.press('ArrowRight');
+  await expect(status).toHaveText('Movimento 2 de 18');
+});
