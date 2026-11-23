@@ -154,7 +154,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
 
   useEffect(() => {
     if (mode === 'steps') heading.current?.focus();
-  }, [mode]);
+  }, [mode, index]);
 
   function selectMovement(next: number) {
     setIndex(next);
