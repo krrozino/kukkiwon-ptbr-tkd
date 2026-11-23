@@ -18,8 +18,8 @@ type Props = {
 function anatomyLinesPath(hand: boolean, fist: boolean, view: View): string {
   if (!hand) {
     return view === "front"
-      ? "M27 34 Q34 37 41 33 M47 32 L56 33 M63 37 L70 39 M77 42 L82 44 M29 58 Q49 68 77 58 M36 77 Q44 90 37 103 M38 120 Q49 116 60 121"
-      : "M32 43 L45 104 M48 44 L52 105 M64 46 L59 105 M35 115 Q49 111 64 115 M27 27 L38 28 M48 30 L56 31 M63 36 L70 38 M77 42 L82 44";
+      ? "M27 34 Q34 37 41 33 M47 32 L56 33 M63 37 L70 39 M77 42 L82 44 M88 46 Q91 45 93 47 M29 58 Q49 68 77 58 M36 77 Q44 90 37 103 M38 120 Q49 116 60 121"
+      : "M32 43 L45 104 M48 44 L52 105 M64 46 L59 105 M35 115 Q49 111 64 115 M27 27 L38 28 M48 30 L56 31 M63 36 L70 38 M77 42 L82 44 M88 46 L93 47";
   }
   if (fist) {
     return view === "front"
@@ -223,7 +223,7 @@ export default function DetailMap({
                 }
               }}
             >
-              <path d={s.path} />
+              <path d={s.path} pointerEvents={hand ? undefined : "fill"} />
             </g>
           );
         })}

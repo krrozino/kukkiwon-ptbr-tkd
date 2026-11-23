@@ -370,7 +370,7 @@ export default function Atlas() {
               regions={regions}
               selected={location.region}
               onSelect={chooseRegion}
-              renderInspection={curatedFoot ? region => <PublicFootRegionInspector region={region} /> :
+              renderInspection={curatedFoot ? region => <PublicFootRegionInspector region={region} view={location.detailView} /> :
                 curatedHand ? region => <PublicHandRegionInspector regionSlug={region.slug} /> : undefined}
             />
           </>
