@@ -20,6 +20,15 @@ const bilateralArmPath = (left: string) =>
 const elbowTop = 'M49 169 C64 177 79 178 94 172';
 const forearmTop = 'M45 195 C57 202 73 202 84 197';
 const medialContactEdge = 'Q66 225 63 232 C61 239 59 245 58 249';
+// O inventário Argon lê os slugs nas chamadas body(), sem avaliar TypeScript.
+const armPaths = {
+  upper: bilateralArmPath(`${elbowTop} C96 154 97 132 94 113 Q82 116 75 126 L58 147 Z`),
+  elbow: bilateralArmPath(`${elbowTop} L84 197 C73 202 57 202 45 195 Z`),
+  forearm: bilateralArmPath(`${forearmTop} L74 225 ${medialContactEdge} Q54 251 49 249 C50 244 51 237 49 232 Q46 225 37 228 Z`),
+  wrist: bilateralArmPath('M35 245 Q42 250 49 249 Q54 251 58 249 Q62 249 67 247 L60 266 Q51 270 37 262 Z'),
+  innerForearm: bilateralArmPath(`M74 225 ${medialContactEdge} Q62 249 67 247 Z`),
+  outerForearm: bilateralArmPath('M37 228 Q46 225 49 232 C51 237 50 244 49 249 Q42 250 35 245 Z'),
+};
 
 export const bodyZones:AtlasZone[]=[
   // A figura possui 260x480 unidades. Partição planar sem sobreposição que acompanha
@@ -39,18 +48,12 @@ export const bodyZones:AtlasZone[]=[
   body('torso','torso-back','back','M103 139 Q130 133 157 139 L157 183 Q130 189 103 183 Z',[130,160],4),
   body('torso','torso-lumbar','back','M103 187 Q130 193 157 187 L157 232 Q130 239 103 232 Z',[130,208],5),
 
-  body('arms','arms-upper','both',
-    bilateralArmPath(`${elbowTop} C96 154 97 132 94 113 Q82 116 75 126 L58 147 Z`),[76,150],0),
-  body('arms','arms-elbow','both',
-    bilateralArmPath(`${elbowTop} L84 197 C73 202 57 202 45 195 Z`),[68,185],1,'palgup'),
-  body('arms','arms-forearm','both',
-    bilateralArmPath(`${forearmTop} L74 225 ${medialContactEdge} Q54 251 49 249 C50 244 51 237 49 232 Q46 225 37 228 Z`),[57,219],2),
-  body('arms','arms-wrist','both',
-    bilateralArmPath('M35 245 Q42 250 49 249 Q54 251 58 249 Q62 249 67 247 L60 266 Q51 270 37 262 Z'),[50,260],3),
-  body('arms','arms-inner-forearm','both',
-    bilateralArmPath(`M74 225 ${medialContactEdge} Q62 249 67 247 Z`),[63,237],4,'anpalmok'),
-  body('arms','arms-outer-forearm','both',
-    bilateralArmPath('M37 228 Q46 225 49 232 C51 237 50 244 49 249 Q42 250 35 245 Z'),[45,237],5,'bakkatpalmok'),
+  body('arms','arms-upper','both',armPaths.upper,[76,150],0),
+  body('arms','arms-elbow','both',armPaths.elbow,[68,185],1,'palgup'),
+  body('arms','arms-forearm','both',armPaths.forearm,[57,219],2),
+  body('arms','arms-wrist','both',armPaths.wrist,[50,260],3),
+  body('arms','arms-inner-forearm','both',armPaths.innerForearm,[63,237],4,'anpalmok'),
+  body('arms','arms-outer-forearm','both',armPaths.outerForearm,[45,237],5,'bakkatpalmok'),
 
   body('legs','legs-thigh','both','M91 243 Q109 249 127 253 L121 315 Q102 320 83 314 Q81 274 91 243 Z M169 243 Q151 249 133 253 L139 315 Q158 320 177 314 Q179 274 169 243 Z',[102,282],0),
   body('legs','legs-knee','front','M83 317 Q102 322 120 318 L118 344 Q100 349 83 344 Z M177 317 Q158 322 140 318 L142 344 Q160 349 177 344 Z',[100,331],1,'mureup'),
