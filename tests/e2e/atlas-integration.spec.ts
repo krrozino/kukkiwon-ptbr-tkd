@@ -1,5 +1,31 @@
 import { expect, test, type Locator } from '@playwright/test';
 
+test('a busca da mão fica indisponível até o Atlas inicializar', async ({ page }) => {
+  const scriptReady = Promise.withResolvers<void>();
+  await page.route('**/rest/v1/**', route => route.fulfill({ json: [] }));
+  await page.route(/\/_astro\/Atlas\.[^/]+\.js$/, async route => {
+    await scriptReady.promise;
+    await route.continue();
+  });
+
+  const sidebar = page.locator('.atlas-information');
+  try {
+    await page.goto('/atlas?region=hands&zoom=1', { waitUntil: 'commit' });
+    await expect(sidebar).toHaveAttribute('inert', '');
+    await expect(sidebar).toHaveAttribute('aria-busy', 'true');
+    if (process.env.ATLAS_INTEGRATION_NO_CATALOG === '1') {
+      await expect(sidebar.locator('input[type="search"]')).toBeDisabled();
+    }
+  } finally {
+    scriptReady.resolve();
+  }
+
+  const search = sidebar.getByRole('searchbox', { name: 'Buscar nome, Hangul ou romanização' });
+  await expect(sidebar).not.toHaveAttribute('inert', '');
+  await search.fill('손날');
+  await expect(sidebar.getByRole('status')).toHaveText('2 de 23 termos');
+});
+
 test('mão, pé e braço coexistem no Atlas e preservam a navegação com a Biblioteca', async ({
   baseURL, isMobile, page,
 }) => {

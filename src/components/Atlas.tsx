@@ -443,7 +443,8 @@ export default function Atlas() {
       <section
         className="card atlas-information"
         aria-label="Informações da região"
-        aria-busy={loading || linksLoading}
+        inert={!ready}
+        aria-busy={!ready || loading || linksLoading}
       >
         <p className="tag">Exploração corporal</p>
         <h2>{curatedHand || publicRegions ? area.title : selected?.name_pt || area.title}</h2>
@@ -479,7 +480,7 @@ export default function Atlas() {
               {getHandTermForRegion(selected.slug) && <PublicHandTerm term={getHandTermForRegion(selected.slug)!} />}
             </section>}
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
-              onSelect={chooseHandTerm}/>
+              onSelect={chooseHandTerm} disabled={!ready}/>
           </>
         ) : curatedFoot ? (
           <>
