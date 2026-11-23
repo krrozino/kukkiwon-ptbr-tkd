@@ -64,3 +64,66 @@ test('mantém o foco no movimento ao usar os controles nos limites da sequência
   await page.keyboard.press('ArrowRight');
   await expect(status).toHaveText('Movimento 2 de 18');
 });
+
+for (const scheme of ['light', 'dark'] as const) {
+  test('orienta os 18 movimentos pelo referencial inicial no tema ' + scheme, async ({ page }, testInfo) => {
+    await page.setViewportSize({ width: testInfo.project.name === 'mobile' ? 375 : 1440, height: 900 });
+    await page.emulateMedia({ colorScheme: scheme });
+    await page.goto('/poomsae/taegeuk-1-jang');
+
+    const sequence = page.locator('#sequencia');
+    await expect(sequence).toBeVisible();
+    await expect(page.locator('astro-island[ssr]').filter({ has: sequence })).toHaveCount(0);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', scheme);
+
+    const course = page.getByRole('img', { name: /Na e Ga formam o eixo central/ });
+    const diagram = await course.locator('text').evaluateAll((labels) =>
+      Object.fromEntries(labels.map((label) => [label.textContent, {
+        x: Number(label.getAttribute('x')),
+        y: Number(label.getAttribute('y')),
+      }])),
+    );
+    await expect(course.getByText('Frente (Ga)', { exact: true })).toBeVisible();
+    await expect(course.getByText('Início (Na)', { exact: true })).toBeVisible();
+    expect(diagram['Frente (Ga)'].y).toBeLessThan(diagram['Início (Na)'].y);
+    for (const [line, leftSteps, rightSteps] of [[1, '1–2', '3–4'], [2, '9–10', '7–8'], [3, '13–14', '15–16']] as const) {
+      const left = diagram['Da ' + line];
+      const right = diagram['Ra ' + line];
+      expect(left.x).toBeLessThan(right.x);
+      expect(left.y).toBe(right.y);
+      expect(diagram[leftSteps]).toEqual({ x: left.x, y: left.y + 31 });
+      expect(diagram[rightSteps]).toEqual({ x: right.x, y: right.y + 31 });
+    }
+    expect(diagram['Da 1'].y).toBeGreaterThan(diagram['Da 2'].y);
+    expect(diagram['Da 2'].y).toBeGreaterThan(diagram['Da 3'].y);
+
+    const steps = [
+      ['Esquerda (Da 1)', 180], ['Esquerda (Da 1)', 180],
+      ['Direita (Ra 1)', 0], ['Direita (Ra 1)', 0],
+      ['Frente (Ga)', -90], ['Frente (Ga)', -90],
+      ['Direita (Ra 2)', 0], ['Direita (Ra 2)', 0],
+      ['Esquerda (Da 2)', 180], ['Esquerda (Da 2)', 180],
+      ['Frente (Ga)', -90], ['Frente (Ga)', -90],
+      ['Esquerda (Da 3)', 180], ['Esquerda (Da 3)', 180],
+      ['Direita (Ra 3)', 0], ['Direita (Ra 3)', 0],
+      ['Trás (Na)', 90], ['Trás (Na)', 90],
+    ] as const;
+
+    await expect(sequence.getByRole('button', { name: /^Movimento 1:/ })).toContainText('Esquerda (Da 1)');
+    await expect(sequence.getByRole('button', { name: /^Movimento 5:/ })).toContainText('Frente (Ga)');
+    await sequence.getByRole('button', { name: /^Movimento 1:/ }).click();
+
+    const movement = page.getByRole('region', { name: 'Movimento selecionado' });
+    for (const [index, [direction, angle]] of steps.entries()) {
+      await expect(movement.getByRole('status')).toHaveText('Movimento ' + (index + 1) + ' de 18');
+      const marker = movement.getByRole('img', { name: direction + ' na orientação inicial' });
+      await expect(marker.locator('path[transform]')).toHaveAttribute('transform', 'rotate(' + angle + ' 88 54)');
+      await expect(movement.locator('figcaption')).toHaveText(direction + ' · orientação inicial');
+      await expect(movement.locator('dt').filter({ hasText: 'Direção no diagrama' }).locator('+ dd')).toContainText(direction);
+      if (index < steps.length - 1) await page.keyboard.press('ArrowRight');
+    }
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+      page.viewportSize()!.width,
+    );
+  });
+}

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import {
+  studyDirectionLabel,
   studyDirections,
   type PoomsaeStudy,
   type StudyDirection,
@@ -54,7 +55,7 @@ function StudyBoundary({ label, boundary, source }: {
         <strong>{boundary.title}</strong>
       </div>
       <span><TermLink term={boundary.base} /></span>
-      <span>Posição {studyDirections[boundary.position].label} · voltado para {studyDirections[boundary.direction].label}</span>
+      <span>Posição {studyDirections[boundary.position].label} · voltado para {studyDirectionLabel(boundary.direction)}</span>
       {boundary.displacement && <span>{boundary.displacement}</span>}
       <MovementSource source={source} citation={boundary.citation} />
     </div>
@@ -62,10 +63,10 @@ function StudyBoundary({ label, boundary, source }: {
 }
 
 function DirectionMarker({ direction }: { direction: StudyDirection }) {
-  const { angle, label } = studyDirections[direction];
+  const { angle } = studyDirections[direction];
 
   return (
-    <svg viewBox="0 0 176 108" role="img" aria-label={'Esquema da direção ' + label}>
+    <svg viewBox="0 0 176 108" role="img" aria-label={studyDirectionLabel(direction) + ' na orientação inicial'}>
       <path d="M13 54H163 M88 12V96" stroke="currentColor" strokeDasharray="3 5" opacity=".45" />
       <circle cx="88" cy="54" r="40" fill="none" stroke="currentColor" opacity=".35" />
       <circle cx="88" cy="54" r="5" fill="currentColor" />
@@ -89,7 +90,7 @@ function MovementFacts({ movement }: { movement: StudyMovement }) {
       <dl className="study-step-facts">
         <div>
           <dt>Direção no diagrama</dt>
-          <dd><span aria-hidden="true">{direction.arrow} </span>{direction.label}</dd>
+          <dd><span aria-hidden="true">{direction.arrow} </span>{studyDirectionLabel(movement.direction)}</dd>
         </div>
         <div>
           <dt>Deslocamento dos pés</dt>
@@ -149,7 +150,6 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
   const [index, setIndex] = useState(0);
   const { movements } = study;
   const active = movements[index];
-  const direction = studyDirections[active.direction];
   const actionCount = movements.reduce((total, movement) => total + movement.frames.length, 0);
 
   useEffect(() => {
@@ -180,6 +180,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
           <h2 id={id + '-sequence'}>Sequência de movimentos</h2>
           <p className="study-count">{movements.length} etapas numeradas · {actionCount} ações</p>
           <p className="muted">{study.readingNote}</p>
+          <p className="muted">As setas seguem a orientação inicial de quem pratica, mesmo após os giros. Na preparação, a pessoa começa em Na e olha para Ga (frente).</p>
         </div>
         <div className="study-mode" role="group" aria-label="Modo de estudo">
           <button type="button" aria-pressed={mode === 'overview'} onClick={() => setMode('overview')}>
@@ -211,7 +212,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                     <span className="study-number">{String(movement.number).padStart(2, '0')}</span>
                     <span className="study-move-title">{movement.title}</span>
                     <span className="study-orientation">
-                      <span aria-hidden="true">{orientation.arrow}</span> {orientation.label}
+                      <span aria-hidden="true">{orientation.arrow}</span> {studyDirectionLabel(movement.direction)}
                       {frameCount > 1 && (
                         <> · <span>{frameCount} quadros</span></>
                       )}
@@ -235,7 +236,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
             </div>
             <figure className="study-direction">
               <DirectionMarker direction={active.direction} />
-              <figcaption>Direção {direction.label} · esquema autoral</figcaption>
+              <figcaption>{studyDirectionLabel(active.direction)} · orientação inicial</figcaption>
             </figure>
           </div>
           <div className="study-step-controls">

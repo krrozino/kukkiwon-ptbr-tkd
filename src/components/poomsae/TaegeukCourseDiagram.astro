@@ -1,5 +1,5 @@
 ---
-import { studyDirections, type StudyDirection, type StudyMovement } from '../../data/poomsae-study';
+import { studyDirectionLabel, studyDirections, type StudyDirection, type StudyMovement } from '../../data/poomsae-study';
 
 interface Props {
   movements: readonly StudyMovement[];
@@ -7,9 +7,9 @@ interface Props {
 
 const { movements } = Astro.props;
 const lines = [
-  { y: 67, left: 'ra1', right: 'da1' },
-  { y: 125, left: 'ra2', right: 'da2' },
-  { y: 183, left: 'ra3', right: 'da3' },
+  { y: 67, left: 'da3', right: 'ra3' },
+  { y: 125, left: 'da2', right: 'ra2' },
+  { y: 183, left: 'da1', right: 'ra1' },
 ] as const;
 
 function formatSteps(numbers: readonly number[]) {
@@ -31,15 +31,15 @@ const axialSteps = formatSteps(
 ---
 
 <figure class="study-gallery-panel">
-  <svg viewBox="0 0 360 250" role="img" aria-label="Na e Ga formam o eixo central. No diagrama, os três lados Ra ficam à esquerda e os lados Da à direita.">
+  <svg viewBox="0 0 360 250" role="img" aria-label="Na e Ga formam o eixo central. Na é o ponto de partida, na parte de baixo, e Ga é a frente, no topo. Da fica à esquerda e Ra à direita na orientação inicial do praticante.">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
       <path d="M180 37V213" opacity=".52" />
-      <path d="M175 42L180 37 185 42 M175 208L180 213 185 208" />
+      <path d="M180 211V192 M175 197L180 192 185 197" />
       {lines.map(({ y }) => <line x1="52" x2="308" y1={y} y2={y} opacity=".52" />)}
     </g>
     <g fill="currentColor" font-size="12" font-weight="650" text-anchor="middle">
-      <text x="180" y="25">Na</text>
-      <text x="180" y="233">Ga</text>
+      <text x="180" y="25">{studyDirectionLabel('ga')}</text>
+      <text x="180" y="233">Início ({studyDirections.na.label})</text>
       {lines.map(({ y, left, right }) => (
         <>
           <circle cx="180" cy={y} r="5" />
@@ -53,6 +53,6 @@ const axialSteps = formatSteps(
   </svg>
   <figcaption>
     <strong>Linhas de deslocamento</strong>
-    <span>Etapas no eixo central: {axialSteps}. Esquema autoral, sem escala.</span>
+    <span>Orientação inicial do praticante. A seta em Na indica para onde ele olha na preparação. Etapas no eixo central: {axialSteps}. Esquema autoral, sem escala.</span>
   </figcaption>
 </figure>

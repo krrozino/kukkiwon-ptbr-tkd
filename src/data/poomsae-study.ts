@@ -1,15 +1,29 @@
 export type StudyDirection = 'ga' | 'na' | 'da1' | 'ra1' | 'da2' | 'ra2' | 'da3' | 'ra3';
 
-export const studyDirections: Record<StudyDirection, { label: string; arrow: string; angle: number }> = {
-  ga: { label: 'Ga', arrow: '↓', angle: 90 },
-  na: { label: 'Na', arrow: '↑', angle: -90 },
-  da1: { label: 'Da 1', arrow: '→', angle: 0 },
-  ra1: { label: 'Ra 1', arrow: '←', angle: 180 },
-  da2: { label: 'Da 2', arrow: '→', angle: 0 },
-  ra2: { label: 'Ra 2', arrow: '←', angle: 180 },
-  da3: { label: 'Da 3', arrow: '→', angle: 0 },
-  ra3: { label: 'Ra 3', arrow: '←', angle: 180 },
-};
+const initialHeadings = {
+  left: { heading: 'Esquerda', arrow: '←', angle: 180 },
+  right: { heading: 'Direita', arrow: '→', angle: 0 },
+  front: { heading: 'Frente', arrow: '↑', angle: -90 },
+  back: { heading: 'Trás', arrow: '↓', angle: 90 },
+} as const;
+
+// Quadro de preparação, p. 53: a posição inicial é Na, olhando para Ga.
+// Os códigos permanecem os das lâminas; as setas usam essa orientação inicial.
+export const studyDirections = {
+  ga: { label: 'Ga', ...initialHeadings.front },
+  na: { label: 'Na', ...initialHeadings.back },
+  da1: { label: 'Da 1', ...initialHeadings.left },
+  ra1: { label: 'Ra 1', ...initialHeadings.right },
+  da2: { label: 'Da 2', ...initialHeadings.left },
+  ra2: { label: 'Ra 2', ...initialHeadings.right },
+  da3: { label: 'Da 3', ...initialHeadings.left },
+  ra3: { label: 'Ra 3', ...initialHeadings.right },
+} satisfies Record<StudyDirection, { label: string } & typeof initialHeadings[keyof typeof initialHeadings]>;
+
+export function studyDirectionLabel(direction: StudyDirection) {
+  const { heading, label } = studyDirections[direction];
+  return heading + ' (' + label + ')';
+}
 
 export type StudyLink = { label: string; href: string };
 export type StudyTerm = { label: string; href: string | null; hangul?: string };
