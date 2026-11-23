@@ -19,7 +19,7 @@ export default function AtlasSourceEvidence({
         <small>
           Desenho esquemático do projeto. A identificação visual em português
           não constitui nomenclatura oficial da Kukkiwon.
-        </small>
+        </small>{' '}
         <a href="/fontes">Como conferimos as fontes e as técnicas</a>
       </div>
     );
