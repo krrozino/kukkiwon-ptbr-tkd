@@ -18,8 +18,8 @@ type Props = {
 function anatomyLinesPath(hand: boolean, fist: boolean, view: View): string {
   if (!hand) {
     return view === "front"
-      ? "M27 34 Q34 37 41 33 M47 32 L56 33 M63 37 L70 39 M77 42 L82 44 M29 58 Q49 68 77 58 M36 77 Q44 90 37 103 M38 120 Q49 116 60 121"
-      : "M32 43 L45 104 M48 44 L52 105 M64 46 L59 105 M35 115 Q49 111 64 115 M27 27 L38 28 M48 30 L56 31 M63 36 L70 38 M77 42 L82 44";
+      ? "M27 34 Q34 37 41 33 M47 32 L56 33 M63 37 L70 39 M77 42 L82 44 M88 46 Q91 45 93 47 M29 58 Q49 68 77 58 M36 77 Q44 90 37 103 M38 120 Q49 116 60 121"
+      : "M32 43 L45 104 M48 44 L52 105 M64 46 L59 105 M35 115 Q49 111 64 115 M27 27 L38 28 M48 30 L56 31 M63 36 L70 38 M77 42 L82 44 M88 46 L93 47";
   }
   if (fist) {
     return view === "front"
@@ -48,12 +48,11 @@ export default function DetailMap({
   const exitTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
   );
-  const published = new Set(regions.map(r => r.slug));
-  // Only public records can resolve official/technical text.
+  const regionSlugs = new Set(regions.map(r => r.slug));
   const activeSlug = visualSelection || selected;
   // Keep the panel visible after tapping: mouse hover only changes the preview.
-  const catalogSlug = renderInspection ? null : hover && published.has(hover.slug)
-    ? hover.slug : (activeSlug && published.has(activeSlug) ? activeSlug : null);
+  const catalogSlug = renderInspection ? null : hover && regionSlugs.has(hover.slug)
+    ? hover.slug : (activeSlug && regionSlugs.has(activeSlug) ? activeSlug : null);
   const { detail } = useTermDetail(catalogSlug);
   useEffect(() => {
     setVisualSelection(null);
@@ -76,9 +75,7 @@ export default function DetailMap({
     window.addEventListener("resize",update);
     return ()=>{observer?.disconnect();window.removeEventListener("resize",update);};
   },[]);
-  // Always draw the original colored anatomical zones, regardless of the
-  // editorial status of the related term. Unpublished zones are illustrative
-  // only: no Hangul, romanization, translation or technical ficha is exposed.
+  // Draw every original cutout, including those with only an illustration.
   const visible = zonesFor(area,view,fist).map(z=>z.id)
     .map(slug => regions.find(r => r.slug === slug) ?? ({
       id: "illustration-" + slug,
@@ -104,21 +101,22 @@ export default function DetailMap({
     if (activeSlug) setHover(null);
     else enter(r);
   };
-  const focused = hover || visible.find(r => r.slug === activeSlug) || null;
+  const selectedFoot = !hand && renderInspection ? regions.find(r => r.slug === selected) : undefined;
+  const focused = selectedFoot || hover || visible.find(r => r.slug === activeSlug) || null;
   const inspectedDetail = focused && detail?.term.slug === focused.slug ? detail : null;
-  const anchor = focused && surfaces[focused.slug]?.anchor;
+  const anchor = focused && visible.some(r => r.slug === focused.slug) && surfaces[focused.slug]?.anchor;
   const anchorX = anchor && (view === "back" ? 100 - anchor[0] : anchor[0]);
   const silhouette = hand ? (fist ? fistOutline : handOutline) : footOutline;
   const chooseSurface = (r: BodyRegion) => {
     enter(r);
-    if (published.has(r.slug)) {
+    if (regionSlugs.has(r.slug)) {
       setVisualSelection(null);
       onSelect(r);
     }
     else setVisualSelection(r.slug);
   };
   const focusName = (r: BodyRegion, index: number) =>
-    published.has(r.slug) ? r.name_pt : zoneCopy[r.slug]?.title || `Região anatômica ${index + 1}`;
+    regionSlugs.has(r.slug) ? r.name_pt : zoneCopy[r.slug]?.title || `Região anatômica ${index + 1}`;
   return (
     <div
       ref={canvasRef}
@@ -212,7 +210,7 @@ export default function DetailMap({
                 // Do not prevent default: touch scrolling must continue working.
                 if (e.pointerType === "touch" || e.pointerType === "pen") {
                   enter(r);
-                  if (!published.has(r.slug)) setVisualSelection(r.slug);
+                  if (!regionSlugs.has(r.slug)) setVisualSelection(r.slug);
                 }
               }}
               onFocus={() => previewOnFocus(r)}
@@ -225,7 +223,7 @@ export default function DetailMap({
                 }
               }}
             >
-              <path d={s.path} />
+              <path d={s.path} pointerEvents={hand ? undefined : "fill"} />
             </g>
           );
         })}
@@ -251,10 +249,10 @@ export default function DetailMap({
             key={focused.slug}
             role={renderInspection ? "region" : "tooltip"}
             aria-label={renderInspection ? "Informações da região" : undefined}
-            className={"surface-tooltip" + (published.has(focused.slug) ? "" : " surface-tooltip-compact")}
+            className={"surface-tooltip" + (regionSlugs.has(focused.slug) ? "" : " surface-tooltip-compact")}
             data-placement={placement}
           >
-            {renderInspection ? renderInspection(focused) : published.has(focused.slug) ? (
+            {renderInspection ? renderInspection(focused) : regionSlugs.has(focused.slug) ? (
               <>
                 <strong>{focused.name_pt}</strong>
                 <span>{inspectedDetail?.term.romanization || "Identificação em consulta"}</span>

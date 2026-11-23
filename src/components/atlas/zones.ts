@@ -13,10 +13,12 @@ const palette=['#d6a541','#258c8b','#cf7549','#ad699b','#598bc0','#859753'];
 const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[number,number],color:number,regionSlug?:string):AtlasZone=>
   ({id,area,view,path,anchor,color:palette[color],...(regionSlug?{regionSlug}:{})});
 
-// Os recortes do braço usam pares absolutos x/y na malha de 260 unidades.
+// Os recortes do braço usam pares inteiros absolutos x/y na malha de 260 unidades.
 // Espelhar a geometria em torno de x=130 mantém a borda medial junto ao tronco.
-const bilateralArmPath = (left: string) =>
-  `${left} ${left.replace(/(\d+) (\d+)/g, (_, x, y) => `${260 - Number(x)} ${y}`)}`;
+function bilateralArmPath(left: string) {
+  const right = left.replace(/(\d{1,3}) (\d{1,3})/g, (_, x, y) => `${260 - Number(x)} ${y}`);
+  return `${left} ${right}`;
+}
 const elbowTop = 'M49 169 C64 177 79 178 94 172';
 const forearmTop = 'M45 195 C57 202 73 202 84 197';
 const medialContactEdge = 'Q66 225 63 232 C61 239 59 245 58 249';

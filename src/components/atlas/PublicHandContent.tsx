@@ -63,20 +63,21 @@ export function PublicHandRegionInspector({ regionSlug }: { regionSlug: string }
 }
 
 /** All 23 terms remain searchable even when there is no matching geometry. */
-export function PublicHandIndex({ selectedTerm, onSelect }: {
+export function PublicHandIndex({ selectedTerm, onSelect, disabled }: Readonly<{
   selectedTerm: string | null;
   onSelect: (slug: string) => void;
-}) {
+  disabled: boolean;
+}>) {
   const [query, setQuery] = useState('');
   const results = searchHandTerms(query);
   return <section className="hand-term-index" aria-label="Índice dos termos da mão" id="atlas-hand-index">
     <h3>Partes e configurações da mão</h3>
     <label htmlFor="hand-term-search">Buscar nome, Hangul ou romanização</label>
     <input id="hand-term-search" type="search" value={query} onChange={e => setQuery(e.target.value)}
-      autoComplete="off" placeholder="Ex.: Sonnal, 손날, punho" />
+      autoComplete="off" placeholder="Ex.: Sonnal, 손날, punho" disabled={disabled} />
     <p className="fine-print" role="status">{results.length} de {handTerms.length} termos</p>
     {results.length ? <ul className="hand-term-index-results">{results.map(term => <li key={term.slug}>
-      <button type="button" aria-pressed={selectedTerm === term.slug} onClick={() => onSelect(term.slug)}>
+      <button type="button" disabled={disabled} aria-pressed={selectedTerm === term.slug} onClick={() => onSelect(term.slug)}>
         <span>{term.romanization || term.name}{term.hangul && <span lang="ko"> · {term.hangul}</span>}</span>
         <small>{term.name}</small>
       </button>

@@ -65,7 +65,7 @@ for(const area of ['hands','feet']) {
     await page.locator('[data-legend-zone="'+slug+'"]').click();
     await expect(page.locator('.detail-svg [data-region="'+slug+'"]')).toHaveAttribute('aria-pressed','true');
     if(area==='hands') await expect(page.locator('[data-hand-region="sonnal"]')).toContainText('Sonnal');
-    else await expect(page.getByRole('tooltip')).toContainText('Borda externa do pé');
+    else await expect(page.getByRole('region', { name: 'Detalhes da região selecionada' })).toContainText('Borda externa do pé');
   });
 }
 
@@ -104,7 +104,7 @@ test('primeiro toque e legenda continuam estáveis nas duas vistas do pé',async
     const before=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     if(isMobile)await target.locator('path').tap();else await target.locator('path').click();
     await expect(target).toHaveAttribute('aria-pressed','true');
-    await expect(page.getByRole('tooltip')).toContainText(view==='Planta'?'Planta do pé':'Dorso do pé');
+    await expect(page.getByRole('region', { name: 'Detalhes da região selecionada' })).toContainText(view==='Planta'?'Planta do pé':'Dorso do pé');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
     expect(Math.abs(after.height-before.height)).toBeLessThan(1);
