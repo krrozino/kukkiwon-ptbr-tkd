@@ -102,7 +102,9 @@ test('recortes corporais não se sobrepõem e links diretos de superfícies do p
 
 
 test('superfície do pé mantém o retorno à ficha com catálogo de regiões preenchido', async ({ page }) => {
+  const catalogRequests: string[] = [];
   await page.route('**/rest/v1/**', (route) => {
+    catalogRequests.push(route.request().url());
     const table = new URL(route.request().url()).pathname.split('/').pop();
     return route.fulfill({ json: table === 'body_regions' ? [{
       id: 'apchuk', slug: 'apchuk', region_group: 'feet', atlas_area: 'feet',
@@ -111,7 +113,10 @@ test('superfície do pé mantém o retorno à ficha com catálogo de regiões pr
   });
   await page.goto('/biblioteca/balkisul/apchuk');
   await page.getByRole('link', { name: 'Localizar superfície no Atlas do pé' }).click();
-  await expect(page.getByRole('heading', { name: 'Superfícies e regiões' })).toBeVisible();
-  await page.getByRole('link', { name: /Abrir ficha de Apchuk na Biblioteca/ }).click();
+  await expect(page.locator('.surface-cutout[data-region="apchuk"]')).toHaveAttribute('aria-pressed', 'true');
+  const inspector = page.getByRole('region', { name: 'Detalhes da região selecionada' });
+  await expect(inspector.locator('[lang="ko"]')).toHaveText('앞축');
+  await inspector.getByRole('link', { name: /Abrir ficha de Apchuk na Biblioteca/ }).click();
   await expect(page).toHaveURL(/\/biblioteca\/balkisul\/apchuk$/);
+  expect(catalogRequests).toEqual([]);
 });
