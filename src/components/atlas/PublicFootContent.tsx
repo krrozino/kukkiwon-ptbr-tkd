@@ -16,9 +16,9 @@ export default function PublicFootRegionInspector({ region, view }: { region: Bo
 
   const regionView = region.detail_view;
   const outsideView = regionView !== 'both' && regionView !== view;
-  const viewNotice = <small role="status" className={outsideView ? 'fine-print' : 'sr-only'}>
+  const viewNotice = <output className={outsideView ? 'fine-print' : 'sr-only'}>
     {outsideView && `Região selecionada na vista ${regionView === 'front' ? 'Planta' : 'Dorso'}.`}
-  </small>;
+  </output>;
 
   if (entry.kind === 'illustrative') {
     return <article className="hand-term-card">

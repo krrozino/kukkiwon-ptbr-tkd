@@ -20,6 +20,8 @@ import { PublicHandIndex, PublicHandRegionInspector, PublicHandTerm } from './at
 import { fingerAnatomyGuides } from '../data/sonkisul-finger-guide';
 import { footAtlasRegions, getPublicFootRegion } from '../lib/public-foot';
 import PublicFootRegionInspector from './atlas/PublicFootContent';
+import { armAtlasRegions, getArmAtlasRegion } from '../lib/public-arm';
+import PublicArmRegionInspector from './atlas/PublicArmContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -63,6 +65,10 @@ function resolveStaticAtlasLocation(
             ? "back"
             : "front",
     };
+  }
+  const armRegion = getArmAtlasRegion(region);
+  if (armRegion) {
+    return { area: "arms", region: armRegion.slug, view, zoom: true, detailView: "front" };
   }
   const bodyZone = bodyZones.find((z) => z.regionSlug === region);
   if (bodyZone) {
@@ -147,7 +153,7 @@ export default function Atlas() {
       setHandTermSlug(null);
       const detail = p.get("detail");
       const staticLoc = resolveStaticAtlasLocation(region, view, detail);
-      if (staticLoc?.area === "feet" || !isCatalogConfigured()) {
+      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -214,10 +220,14 @@ export default function Atlas() {
     window.history.pushState(null, "", window.location.pathname + "?" + p);
   };
   const curatedFoot = location.area === 'feet';
-  const regions = curatedFoot ? footAtlasRegions : catalogRegions;
+  const curatedArms = location.area === 'arms';
+  let publicRegions: BodyRegion[] | undefined;
+  if (curatedFoot) publicRegions = footAtlasRegions;
+  else if (curatedArms) publicRegions = armAtlasRegions;
+  const regions = publicRegions ?? catalogRegions;
   useEffect(() => {
     if (!ready) return;
-    if (curatedFoot || !isCatalogConfigured()) {
+    if (publicRegions || !isCatalogConfigured()) {
       setRegions(location.area === 'hands' ? handAtlasRegions : []);
       setLinks([]);
       setError('');
@@ -243,7 +253,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLoading(false);
       });
     return () => c.abort();
-  }, [curatedFoot, location.area, ready, retry]);
+  }, [publicRegions, location.area, ready, retry]);
   const selected = regions.find((r) => r.slug === location.region) || null;
   // The existing published catalog keeps precedence when it returns real records.
   const curatedHand = location.area === 'hands' &&
@@ -253,7 +263,7 @@ export default function Atlas() {
     setLinks([]);
     setLinkError("");
     setLinksLoading(false);
-    if (!selected || curatedHand || curatedFoot) return;
+    if (!selected || curatedHand || publicRegions) return;
     const c = new AbortController();
     setLinksLoading(true);
     fetchRegionTerms(selected.id, c.signal)
@@ -268,7 +278,7 @@ export default function Atlas() {
         if (!c.signal.aborted) setLinksLoading(false);
       });
     return () => c.abort();
-  }, [selected?.id, curatedHand, curatedFoot, retry]);
+  }, [selected?.id, curatedHand, publicRegions, retry]);
   const close = () => navigate({ ...location, zoom: false, region: null });
   const choose = (area: Area) =>
     navigate({ ...location, area, region: null, zoom: false });
@@ -375,7 +385,14 @@ export default function Atlas() {
             />
           </>
         ) : location.zoom ? (
-          <BodyRegionMap area={location.area} view={location.view} regions={regions} selected={location.region} onSelect={chooseRegion}/>
+          <BodyRegionMap
+            area={location.area}
+            view={location.view}
+            regions={regions}
+            selected={location.region}
+            onSelect={chooseRegion}
+            renderInspection={curatedArms ? region => <PublicArmRegionInspector region={region} /> : undefined}
+          />
         ) : (
           <BodyMap
             view={location.view}
@@ -426,10 +443,11 @@ export default function Atlas() {
       <section
         className="card atlas-information"
         aria-label="Informações da região"
-        aria-busy={loading || linksLoading}
+        inert={!ready}
+        aria-busy={!ready || loading || linksLoading}
       >
         <p className="tag">Exploração corporal</p>
-        <h2>{curatedHand || curatedFoot ? area.title : selected?.name_pt || area.title}</h2>
+        <h2>{curatedHand || publicRegions ? area.title : selected?.name_pt || area.title}</h2>
         <p>{curatedHand ? 'Selecione uma região no desenho ou busque um termo pelo nome.' : area.summary}</p>
         {notice && <p role="status">{notice}</p>}
         {curatedHand ? (
@@ -462,7 +480,7 @@ export default function Atlas() {
               {getHandTermForRegion(selected.slug) && <PublicHandTerm term={getHandTermForRegion(selected.slug)!} />}
             </section>}
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
-              onSelect={chooseHandTerm}/>
+              onSelect={chooseHandTerm} disabled={!ready}/>
           </>
         ) : curatedFoot ? (
           <>
@@ -470,7 +488,7 @@ export default function Atlas() {
             <h3>Tornozelo</h3>
             <p>O tornozelo ainda está sem recorte selecionável neste desenho.</p>
           </>
-        ) : !isCatalogConfigured() ? (
+        ) : curatedArms ? null : !isCatalogConfigured() ? (
           <div className="empty" role="status">
             Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
             exibido sem dados publicados.
