@@ -22,7 +22,7 @@ export const zoneCopy: Record<string, ZoneCopy> = {
   "arms-upper": { title: "Braço", description: "Segmento proximal do membro superior, entre ombro e cotovelo." },
   "arms-elbow": { title: "Cotovelo", description: "Articulação entre o braço e o antebraço, presente em golpes de curta distância." },
   "arms-forearm": { title: "Antebraço", description: "Segmento central entre cotovelo e punho, formado por rádio e ulna." },
-  "arms-wrist": { title: "Punho (articulação)", description: "Junção radiocarpal entre antebraço e mão; alinhada para estabilidade." },
+  "arms-wrist": { title: "Punho (articulação)", description: "Articulação entre o antebraço e a mão." },
   "arms-inner-forearm": { title: "Face interna do antebraço", description: "Borda medial do antebraço voltada ao tronco na posição neutra." },
   "arms-outer-forearm": { title: "Face externa do antebraço", description: "Borda lateral do antebraço voltada para fora na posição neutra." },
 
