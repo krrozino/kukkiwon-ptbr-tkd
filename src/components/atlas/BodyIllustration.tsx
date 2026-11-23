@@ -8,6 +8,7 @@ const outlineParts = [
   'M84 395 L115 395 L115 421 Q110 431 108 440 Q92 452 66 450 L64 440 Q66 425 78 413 Z',
   'M145 395 L176 395 L182 413 Q194 425 196 440 L194 450 Q168 452 152 440 Q148 431 145 421 Z',
 ] as const;
+export { outlineParts as bodySilhouetteParts };
 export const bodySilhouettePath = outlineParts.join(" ");
 import type {View} from "./BodyMap";
 export default function BodyIllustration({view}:{view:View}) {

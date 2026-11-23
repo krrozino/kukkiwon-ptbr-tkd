@@ -22,6 +22,8 @@ import { footAtlasRegions, getPublicFootRegion } from '../lib/public-foot';
 import PublicFootRegionInspector from './atlas/PublicFootContent';
 import { armAtlasRegions, getArmAtlasRegion } from '../lib/public-arm';
 import PublicArmRegionInspector from './atlas/PublicArmContent';
+import { getHeadAtlasRegion, headAtlasRegions } from '../lib/public-head';
+import PublicHeadRegionInspector from './atlas/PublicHeadContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -39,9 +41,10 @@ const initial: Location = {
 
 function resolveStaticAtlasLocation(
   region: string,
-  view: View,
+  viewParam: string | null,
   detail: string | null,
 ): Location | null {
+  const view = viewParam === "back" ? "back" : "front";
   if (getHandRegion(region)) {
     return {
       area: "hands",
@@ -70,6 +73,12 @@ function resolveStaticAtlasLocation(
   if (armRegion) {
     return { area: "arms", region: armRegion.slug, view, zoom: true, detailView: "front" };
   }
+  const headRegion = getHeadAtlasRegion(region);
+  if (headRegion) {
+    const defaultView = headRegion.detail_view === "back" ? "back" : "front";
+    const headView = viewParam === "front" || viewParam === "back" ? view : defaultView;
+    return { area: "head", region: headRegion.slug, view: headView, zoom: true, detailView: "front" };
+  }
   const bodyZone = bodyZones.find((z) => z.regionSlug === region);
   if (bodyZone) {
     return {
@@ -97,8 +106,8 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
     { href: "/biblioteca/sonkisul", label: "Explorar mãos e punhos em Sonkisul →" },
   ],
   head: [
-    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
-    { href: "/biblioteca/kibon-dongjak", label: "Ver aplicações de altura em Kibon Dongjak →" },
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções nos Fundamentos →" },
+    { href: "/biblioteca/kibon-dongjak/kibon-alturas-direcoes", label: "Consultar alturas e direções na Biblioteca →" },
   ],
   torso: [
     { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
@@ -152,8 +161,8 @@ export default function Atlas() {
       }
       setHandTermSlug(null);
       const detail = p.get("detail");
-      const staticLoc = resolveStaticAtlasLocation(region, view, detail);
-      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || !isCatalogConfigured()) {
+      const staticLoc = resolveStaticAtlasLocation(region, p.get("view"), detail);
+      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || staticLoc?.area === "head" || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -221,9 +230,11 @@ export default function Atlas() {
   };
   const curatedFoot = location.area === 'feet';
   const curatedArms = location.area === 'arms';
+  const curatedHead = location.area === 'head';
   let publicRegions: BodyRegion[] | undefined;
   if (curatedFoot) publicRegions = footAtlasRegions;
   else if (curatedArms) publicRegions = armAtlasRegions;
+  else if (curatedHead) publicRegions = headAtlasRegions;
   const regions = publicRegions ?? catalogRegions;
   useEffect(() => {
     if (!ready) return;
@@ -314,6 +325,10 @@ export default function Atlas() {
   };
   const area = areas.find((a) => a.id === location.area)!;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
+  let renderBodyInspection;
+  if (curatedArms) renderBodyInspection = (region: BodyRegion) => <PublicArmRegionInspector region={region} />;
+  else if (curatedHead) renderBodyInspection = (region: BodyRegion) =>
+    <PublicHeadRegionInspector region={region} view={location.view} />;
   return (
     <div
       className="atlas-layout"
@@ -391,7 +406,7 @@ export default function Atlas() {
             regions={regions}
             selected={location.region}
             onSelect={chooseRegion}
-            renderInspection={curatedArms ? region => <PublicArmRegionInspector region={region} /> : undefined}
+            renderInspection={renderBodyInspection}
           />
         ) : (
           <BodyMap
@@ -488,7 +503,7 @@ export default function Atlas() {
             <h3>Tornozelo</h3>
             <p>O tornozelo ainda está sem recorte selecionável neste desenho.</p>
           </>
-        ) : curatedArms ? null : !isCatalogConfigured() ? (
+        ) : publicRegions ? null : !isCatalogConfigured() ? (
           <div className="empty" role="status">
             Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
             exibido sem dados publicados.
