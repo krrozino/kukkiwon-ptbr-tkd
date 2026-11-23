@@ -9,6 +9,11 @@ const handSignatures = [
   ...handMatrix.content_sources.filter(source => source.authority === 'editorial').map(source => source.title),
 ];
 
+const poomsaeSignatures = [
+  'Ficha de revisão docente',
+  'Após o chute, apoia o pé direito à frente, em direção a Da 3.',
+];
+
 /** Inspect the actual output, including chunks that no HTML references. */
 export function checkResearchBundle(directory) {
   let checked = 0;
@@ -19,7 +24,7 @@ export function checkResearchBundle(directory) {
       else if (entry.isFile() && ['.html', '.js', '.json', '.map', '.csv', '.md'].includes(extname(file))) {
         checked++;
         const body = readFileSync(file, 'utf8');
-        if (/TC-[A-Z]+-\d{3}|taekwondo-research-audit|taekwondo-local-review|taekwondo-atlas-hand-research|Conferência e propostas editoriais|source_locator_verified/.test(body) || handSignatures.some(signature => body.includes(signature))) throw new Error('Pesquisa privada ou laboratório incluído no pacote público: ' + file);
+        if (/TC-[A-Z]+-\d{3}|taekwondo-research-audit|taekwondo-local-review|taekwondo-atlas-hand-research|Conferência e propostas editoriais|source_locator_verified/.test(body) || poomsaeSignatures.some(signature => body.includes(signature)) || handSignatures.some(signature => body.includes(signature))) throw new Error('Pesquisa privada ou laboratório incluído no pacote público: ' + file);
       }
     }
   }
