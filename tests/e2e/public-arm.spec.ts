@@ -81,12 +81,16 @@ test('braço preserva o recorte ao trocar de vista e recarregar um link direto',
   await expect(elbow).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('braço mantém o antebraço central e as duas bordas selecionáveis sem cruzar os preenchimentos', async ({ page, isMobile }) => {
+test('braço limita as bordas técnicas à extremidade distal dos dois antebraços', async ({ page, isMobile }) => {
   await page.goto('/atlas?region=arms&zoom=1');
   const svg = page.locator('.body-detail .detail-svg');
   const probes = [
-    ['arms-outer-forearm', 49, 223], ['arms-forearm', 58, 224], ['arms-inner-forearm', 68, 225],
-    ['arms-inner-forearm', 192, 225], ['arms-forearm', 202, 224], ['arms-outer-forearm', 211, 223],
+    ['arms-outer-forearm', 45, 237], ['arms-forearm', 54, 237], ['arms-inner-forearm', 63, 237],
+    ['arms-inner-forearm', 197, 237], ['arms-forearm', 206, 237], ['arms-outer-forearm', 215, 237],
+    ['arms-forearm', 48, 222], ['arms-forearm', 70, 218],
+    ['arms-forearm', 190, 218], ['arms-forearm', 212, 222],
+    ['arms-upper', 72, 162], ['arms-elbow', 68, 185], ['arms-wrist', 50, 261],
+    ['arms-upper', 188, 162], ['arms-elbow', 192, 185], ['arms-wrist', 210, 261],
   ] as const;
   for (const view of ['Vista anterior', 'Vista posterior']) {
     await page.getByRole('button', { name: view, exact: true }).click();
@@ -102,16 +106,32 @@ test('braço mantém o antebraço central e as duas bordas selecionáveis sem cr
       };
       let overlaps = 0;
       let outside = 0;
+      let wrong = 0;
       const bounds = svg.viewBox.baseVal;
-      for (let x = bounds.x + 0.371; x < bounds.x + bounds.width; x += 2) {
-        for (let y = bounds.y + 0.277; y < bounds.y + bounds.height; y += 2) {
+      for (let x = bounds.x + 0.371; x < bounds.x + bounds.width; x += 0.75) {
+        for (let y = bounds.y + 0.277; y < bounds.y + bounds.height; y += 0.75) {
           const point = new DOMPoint(x, y);
-          if (paths.filter(path => path.isPointInFill(point)).length > 1) overlaps++;
-          if (!outline.isPointInFill(point) && hit(point)) outside++;
+          const fills = paths.filter(path => path.isPointInFill(point));
+          const clicked = hit(point);
+          if (fills.length > 1) {
+            // isPointInFill inclui a borda. Uma interseção interior precisa
+            // alcançar a vizinhança do ponto nos dois preenchimentos.
+            const neighbors = [
+              new DOMPoint(x - 0.02, y), new DOMPoint(x + 0.02, y),
+              new DOMPoint(x, y - 0.02), new DOMPoint(x, y + 0.02),
+            ];
+            if (neighbors.every(sample => fills.every(path => path.isPointInFill(sample)))) overlaps++;
+          }
+          if (!outline.isPointInFill(point)) {
+            if (clicked) outside++;
+          } else if ((fills.length || clicked) &&
+            !fills.some(path => clicked === path.parentElement?.getAttribute('data-region'))) {
+            wrong++;
+          }
         }
       }
       return {
-        overlaps, outside,
+        overlaps, outside, wrong,
         hits: probes.map(([, x, y]) => {
           const point = new DOMPoint(x, y);
           const screen = point.matrixTransform(matrix);
@@ -121,8 +141,9 @@ test('braço mantém o antebraço central e as duas bordas selecionáveis sem cr
     }, probes);
     expect(result.overlaps).toBe(0);
     expect(result.outside).toBe(0);
+    expect(result.wrong).toBe(0);
     expect(result.hits.map(({ id }) => id)).toEqual(probes.map(([id]) => id));
-    for (const { id, x, y } of result.hits.slice(0, 3)) {
+    for (const { id, x, y } of result.hits.slice(0, 6)) {
       if (isMobile) await page.touchscreen.tap(x, y);
       else await page.mouse.click(x, y);
       await expect(svg.locator(`[data-region="${id}"]`)).toHaveAttribute('aria-pressed', 'true');

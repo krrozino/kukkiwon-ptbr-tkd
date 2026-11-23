@@ -25,7 +25,7 @@ test('controles do corpo ficam ocultos nos detalhes e a vista anterior volta com
 test('um toque no cotovelo cria uma só entrada no histórico e preserva antebraços',async({page,isMobile})=>{
   await page.goto('/atlas?region=arms&zoom=1');
   await expect(page.locator('.body-detail [data-region="arms-elbow"]')).toHaveAttribute('aria-label','Cotovelo');
-  for(const label of ['Face interna do antebraço','Face externa do antebraço'])await expect(page.locator('.body-detail').getByRole('button',{name:label,exact:true}).first()).toBeVisible();
+  for(const label of ['Borda interna junto ao punho','Borda externa junto ao punho'])await expect(page.locator('.body-detail').getByRole('button',{name:label,exact:true}).first()).toBeVisible();
   const before=page.url(),target=page.locator('.body-detail [data-region="arms-elbow"]');
   await target.scrollIntoViewIfNeeded();
   const point=await target.evaluate(g=>new DOMPoint(68,185).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
@@ -72,20 +72,24 @@ test('recortes corporais não se sobrepõem e links diretos de superfícies do p
     for(const view of ['front','back'] as const){
       await page.goto(`/atlas?region=${area}&view=${view}&zoom=1`);
       await expect(page.locator('.body-detail .surface-cutout').first()).toBeVisible();
-      const overlaps=await page.evaluate(()=>{
+      const overlaps=await page.evaluate((area)=>{
         const svg=document.querySelector('.body-detail .detail-svg') as SVGSVGElement;
         const paths=[...svg.querySelectorAll('.surface-cutout path')] as SVGGeometryElement[];
+        const outline=svg.querySelector('clipPath path') as SVGPathElement;
         const vb=svg.viewBox.baseVal;
         let count=0;
         for(let x=vb.x+2;x<vb.x+vb.width;x+=3){
           for(let y=vb.y+2;y<vb.y+vb.height;y+=3){
             const pt=new DOMPoint(x,y);
+            // As emendas dos recortes do braço começam fora da silhueta
+            // recortada. Esses pontos não integram a área selecionável.
+            if(area==='arms'&&!outline.isPointInFill(pt))continue;
             const hits=paths.filter(p=>p.isPointInFill(pt));
             if(hits.length>1)count++;
           }
         }
         return count;
-      });
+      },area);
       expect(overlaps,`${area}-${view}`).toBe(0);
     }
   }

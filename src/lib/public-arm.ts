@@ -16,7 +16,7 @@ type ArmTerm = {
 );
 
 const appendix = 'Appendix > Applicable Parts of the Body';
-const forearmNote = 'A faixa colorida indica o lado. A superfície de contato fica junto ao punho.';
+const forearmNote = 'A marca colorida localiza a borda no desenho esquemático.';
 export const armDocumentCheckedOn = '2026-11-23';
 
 // A Biblioteca possui fichas de técnicas. O localizador do exemplo vincula cada
@@ -28,6 +28,7 @@ const armTerms: Record<string, ArmTerm | undefined> = {
     hangul: '팔굽',
     meaningPt: 'Parte externa da articulação entre o braço e o antebraço.',
     reference: kukkiwonTerminologyReference(`${appendix} > Palgup`),
+    mapNote: 'O recorte localiza o cotovelo no desenho esquemático.',
     example: {
       librarySlug: 'palgup-mureup-chigi',
       reference: kukkiwonTerminologyReference('§2 Chigi > Dollyeo-chigi > Palgup-dollyeo-chigi'),
