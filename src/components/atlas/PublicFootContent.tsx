@@ -1,24 +1,16 @@
 import { footContactReference, footDocumentCheckedOn, getPublicFootRegion } from '../../lib/public-foot';
-import { libraryItemHref, type LibraryReference } from '../../lib/library';
-import { safeReferenceUrl } from '../../lib/published-knowledge';
+import { libraryItemHref } from '../../lib/library';
 import type { BodyRegion } from '../../lib/catalog-api';
+import { AtlasDocumentLink, AtlasViewNotice } from './AtlasInspectionEvidence';
 import type { View } from './BodyMap';
 
-function DocumentLink({ reference, children }: { reference: LibraryReference; children: string }) {
-  return safeReferenceUrl(reference.url)
-    ? <a href={reference.url} target="_blank" rel="noopener noreferrer">{children}</a>
-    : <span>{children}</span>;
-}
+const viewLabels = { front: 'Planta', back: 'Dorso' };
 
 export default function PublicFootRegionInspector({ region, view }: { region: BodyRegion; view: View }) {
   const entry = getPublicFootRegion(region.slug);
   if (!entry) return null;
 
-  const regionView = region.detail_view;
-  const outsideView = regionView !== 'both' && regionView !== view;
-  const viewNotice = <output className={outsideView ? 'fine-print' : 'sr-only'}>
-    {outsideView && `Região selecionada na vista ${regionView === 'front' ? 'Planta' : 'Dorso'}.`}
-  </output>;
+  const viewNotice = <AtlasViewNotice regionView={region.detail_view} view={view} labels={viewLabels} />;
 
   if (entry.kind === 'illustrative') {
     return <article className="hand-term-card">
@@ -42,14 +34,14 @@ export default function PublicFootRegionInspector({ region, view }: { region: Bo
       {region.slug === 'balbadak' && ' A marca no centro representa a planta inteira.'}
     </p>
     <p>
-      <b>Uso documentado</b> · Superfície listada para chutes. <DocumentLink reference={footContactReference}>
+      <b>Uso documentado</b> · Superfície listada para chutes. <AtlasDocumentLink reference={footContactReference}>
         {footContactReference.locator}
-      </DocumentLink>.
+      </AtlasDocumentLink>.
     </p>
     <p className="fine-print">
-      <b>Fonte do termo e do sentido</b> · <DocumentLink reference={entry.terminology}>
+      <b>Fonte do termo e do sentido</b> · <AtlasDocumentLink reference={entry.terminology}>
         {`${institution} · ${title} (${edition}) · ${locator}`}
-      </DocumentLink>
+      </AtlasDocumentLink>
     </p>
     {href && <a className="inline-link" href={href}>Abrir ficha de {entry.romanization} na Biblioteca</a>}
     <small>

@@ -6,7 +6,7 @@ export const areas = [
   {
     id: "head",
     title: "Cabeça e pescoço",
-    summary: "Explore as regiões publicadas da cabeça.",
+    summary: "Explore as regiões ilustradas e a nomenclatura documentada de cabeça e pescoço.",
   },
   {
     id: "torso",

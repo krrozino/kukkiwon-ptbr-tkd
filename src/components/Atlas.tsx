@@ -22,6 +22,8 @@ import { footAtlasRegions, getPublicFootRegion } from '../lib/public-foot';
 import PublicFootRegionInspector from './atlas/PublicFootContent';
 import { armAtlasRegions, getArmAtlasRegion } from '../lib/public-arm';
 import PublicArmRegionInspector from './atlas/PublicArmContent';
+import { getHeadAtlasRegion, headAtlasRegions } from '../lib/public-head';
+import PublicHeadRegionInspector from './atlas/PublicHeadContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -37,50 +39,168 @@ const initial: Location = {
   zoom: false,
 };
 
+function parseView(value: string | null | undefined, fallback: View = "front"): View {
+  if (value === "back") return "back";
+  if (value === "front") return "front";
+  return fallback;
+}
+
 function resolveStaticAtlasLocation(
   region: string,
-  view: View,
+  viewParam: string | null,
   detail: string | null,
 ): Location | null {
+  const view = parseView(viewParam);
+  const detailView = parseView(detail);
   if (getHandRegion(region)) {
-    return {
-      area: "hands",
-      region,
-      view,
-      zoom: true,
-      detailView: detail === "back" ? "back" : "front",
-    };
+    return { area: "hands", region, view, zoom: true, detailView };
   }
   if (getPublicFootRegion(region)) {
-    const surfaceView = surfaces[region]?.view;
-    return {
-      area: "feet",
-      region,
-      view,
-      zoom: true,
-      detailView:
-        detail === "front" || detail === "back"
-          ? detail
-          : surfaceView === "back"
-            ? "back"
-            : "front",
-    };
+    const fallbackDetail = parseView(surfaces[region]?.view);
+    return { area: "feet", region, view, zoom: true, detailView: parseView(detail, fallbackDetail) };
   }
   const armRegion = getArmAtlasRegion(region);
   if (armRegion) {
     return { area: "arms", region: armRegion.slug, view, zoom: true, detailView: "front" };
+  }
+  const headRegion = getHeadAtlasRegion(region);
+  if (headRegion) {
+    const defaultView = parseView(headRegion.detail_view);
+    return { area: "head", region: headRegion.slug, view: parseView(viewParam, defaultView), zoom: true, detailView: "front" };
   }
   const bodyZone = bodyZones.find((z) => z.regionSlug === region);
   if (bodyZone) {
     return {
       area: bodyZone.area,
       region,
-      view: bodyZone.view !== "both" ? bodyZone.view : view,
+      view: bodyZone.view === "both" ? view : bodyZone.view,
       zoom: true,
-      detailView: detail === "back" ? "back" : "front",
+      detailView,
     };
   }
   return null;
+}
+
+function CatalogAreaLinks({
+  links,
+  linksLoading,
+  linkError,
+  onPreview,
+  onRetry,
+}: Readonly<{
+  links: RegionTerm[];
+  linksLoading: boolean;
+  linkError: string;
+  onPreview: (slug: string | null) => void;
+  onRetry: () => void;
+}>) {
+  if (linksLoading) return <p role="status">Carregando técnicas associadas...</p>;
+  if (linkError) {
+    return (
+      <div role="alert">
+        <p>{linkError}</p>
+        <button onClick={onRetry}>Tentar novamente</button>
+      </div>
+    );
+  }
+  if (links.filter((l) => l.technical_terms).length === 0) {
+    return (
+      <p>
+        As técnicas associadas a esta região aparecerão após a conferência das referências.
+      </p>
+    );
+  }
+  return <AtlasRelations links={links} onPreview={onPreview} />;
+}
+
+function AtlasCatalogSidebar({
+  ready,
+  loading,
+  error,
+  regions,
+  selected,
+  selectedRegionSlug,
+  selectedContextSlug,
+  links,
+  linksLoading,
+  linkError,
+  onRetry,
+  onChooseRegion,
+  onPreview,
+}: Readonly<{
+  ready: boolean;
+  loading: boolean;
+  error: string;
+  regions: BodyRegion[];
+  selected: BodyRegion | null;
+  selectedRegionSlug: string | null;
+  selectedContextSlug: string | null;
+  links: RegionTerm[];
+  linksLoading: boolean;
+  linkError: string;
+  onRetry: () => void;
+  onChooseRegion: (region: BodyRegion) => void;
+  onPreview: (slug: string | null) => void;
+}>) {
+  if (!isCatalogConfigured()) {
+    return (
+      <div className="empty" role="status">
+        Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
+        exibido sem dados publicados.
+      </div>
+    );
+  }
+  if (!ready || loading) return <p role="status">Carregando regiões publicadas...</p>;
+  if (error) {
+    return (
+      <div role="alert">
+        <p>{error}</p>
+        <button onClick={onRetry}>Tentar novamente</button>
+      </div>
+    );
+  }
+  if (regions.length === 0) {
+    return (
+      <p>
+        As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.
+      </p>
+    );
+  }
+  return (
+    <>
+      <h3>Superfícies e regiões</h3>
+      <ul className="region-list">
+        {regions.map((r) => (
+          <li key={r.id}>
+            <button
+              aria-pressed={selectedRegionSlug === r.slug}
+              onClick={() => onChooseRegion(r)}
+            >
+              {r.name_pt}
+            </button>
+          </li>
+        ))}
+      </ul>
+      {selected ? (
+        <section aria-label="Técnicas associadas">
+          {selectedContextSlug && <TermContext slug={selectedContextSlug} />}
+          <h3>Relações com o catálogo</h3>
+          <CatalogAreaLinks
+            links={links}
+            linksLoading={linksLoading}
+            linkError={linkError}
+            onPreview={onPreview}
+            onRetry={onRetry}
+          />
+          <a href={"/catalogo?region=" + encodeURIComponent(selected.slug)}>
+            Consultar catálogo desta região
+          </a>
+        </section>
+      ) : (
+        <p>Selecione uma região para consultar seus vínculos com técnicas.</p>
+      )}
+    </>
+  );
 }
 
 const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; label: string }[]> = {
@@ -97,8 +217,8 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
     { href: "/biblioteca/sonkisul", label: "Explorar mãos e punhos em Sonkisul →" },
   ],
   head: [
-    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
-    { href: "/biblioteca/kibon-dongjak", label: "Ver aplicações de altura em Kibon Dongjak →" },
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções nos Fundamentos →" },
+    { href: "/biblioteca/kibon-dongjak/kibon-alturas-direcoes", label: "Consultar alturas e direções na Biblioteca →" },
   ],
   torso: [
     { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
@@ -152,8 +272,8 @@ export default function Atlas() {
       }
       setHandTermSlug(null);
       const detail = p.get("detail");
-      const staticLoc = resolveStaticAtlasLocation(region, view, detail);
-      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || !isCatalogConfigured()) {
+      const staticLoc = resolveStaticAtlasLocation(region, p.get("view"), detail);
+      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || staticLoc?.area === "head" || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -221,9 +341,11 @@ export default function Atlas() {
   };
   const curatedFoot = location.area === 'feet';
   const curatedArms = location.area === 'arms';
+  const curatedHead = location.area === 'head';
   let publicRegions: BodyRegion[] | undefined;
   if (curatedFoot) publicRegions = footAtlasRegions;
   else if (curatedArms) publicRegions = armAtlasRegions;
+  else if (curatedHead) publicRegions = headAtlasRegions;
   const regions = publicRegions ?? catalogRegions;
   useEffect(() => {
     if (!ready) return;
@@ -314,6 +436,10 @@ export default function Atlas() {
   };
   const area = areas.find((a) => a.id === location.area)!;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
+  let renderBodyInspection;
+  if (curatedArms) renderBodyInspection = (region: BodyRegion) => <PublicArmRegionInspector region={region} />;
+  else if (curatedHead) renderBodyInspection = (region: BodyRegion) =>
+    <PublicHeadRegionInspector region={region} view={location.view} />;
   return (
     <div
       className="atlas-layout"
@@ -391,7 +517,7 @@ export default function Atlas() {
             regions={regions}
             selected={location.region}
             onSelect={chooseRegion}
-            renderInspection={curatedArms ? region => <PublicArmRegionInspector region={region} /> : undefined}
+            renderInspection={renderBodyInspection}
           />
         ) : (
           <BodyMap
@@ -450,7 +576,7 @@ export default function Atlas() {
         <h2>{curatedHand || publicRegions ? area.title : selected?.name_pt || area.title}</h2>
         <p>{curatedHand ? 'Selecione uma região no desenho ou busque um termo pelo nome.' : area.summary}</p>
         {notice && <p role="status">{notice}</p>}
-        {curatedHand ? (
+        {curatedHand && (
           <>
             {selected && <section className="hand-current-region" aria-label="Informações da área escolhida">
               {!getHandTermForRegion(selected.slug) && <><h3>{selected.name_pt}</h3>
@@ -482,75 +608,30 @@ export default function Atlas() {
             <PublicHandIndex selectedTerm={handTermSlug || getHandTermForRegion(selected?.slug)?.slug || null}
               onSelect={chooseHandTerm} disabled={!ready}/>
           </>
-        ) : curatedFoot ? (
+        )}
+        {curatedFoot && (
           <>
             <p>Selecione um recorte na planta ou no dorso para consultar a região anatômica e, quando houver, o termo da superfície de contato. Em Balkisul, as técnicas de chute (Chagi) têm um grupo próprio de fichas.</p>
             <h3>Tornozelo</h3>
             <p>O tornozelo ainda está sem recorte selecionável neste desenho.</p>
           </>
-        ) : curatedArms ? null : !isCatalogConfigured() ? (
-          <div className="empty" role="status">
-            Atlas ainda não conectado nesta versão. Nenhum conteúdo técnico é
-            exibido sem dados publicados.
-          </div>
-        ) : !ready || loading ? (
-          <p role="status">Carregando regiões publicadas...</p>
-        ) : error ? (
-          <div role="alert">
-            <p>{error}</p>
-            <button onClick={() => setRetry((n) => n + 1)}>
-              Tentar novamente
-            </button>
-          </div>
-        ) : regions.length === 0 ? (
-          <p>As nomenclaturas desta área serão adicionadas à medida que forem conferidas. Você já pode explorar as outras regiões do corpo.</p>
-        ) : (
-          <>
-            <h3>Superfícies e regiões</h3>
-            <ul className="region-list">
-              {regions.map((r) => (
-                <li key={r.id}>
-                  <button
-                    aria-pressed={location.region === r.slug}
-                    onClick={() => chooseRegion(r)}
-                  >
-                    {r.name_pt}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            {selected ? (
-              <section aria-label="Técnicas associadas">
-                {selectedContextSlug&&<TermContext slug={selectedContextSlug}/>}
-                <h3>Relações com o catálogo</h3>
-                {linksLoading ? (
-                  <p role="status">Carregando técnicas associadas...</p>
-                ) : linkError ? (
-                  <div role="alert">
-                    <p>{linkError}</p>
-                    <button onClick={() => setRetry((n) => n + 1)}>
-                      Tentar novamente
-                    </button>
-                  </div>
-                ) : links.filter((l) => l.technical_terms).length === 0 ? (
-                  <p>
-                    As técnicas associadas a esta região aparecerão após a conferência das referências.
-                  </p>
-                ) : (
-                  <AtlasRelations links={links} onPreview={setContextSlug}/>
-                )}
-                <a
-                  href={"/catalogo?region=" + encodeURIComponent(selected.slug)}
-                >
-                  Consultar catálogo desta região
-                </a>
-              </section>
-            ) : (
-              <p>
-                Selecione uma região para consultar seus vínculos com técnicas.
-              </p>
-            )}
-          </>
+        )}
+        {!curatedHand && !curatedFoot && !publicRegions && (
+          <AtlasCatalogSidebar
+            ready={ready}
+            loading={loading}
+            error={error}
+            regions={regions}
+            selected={selected}
+            selectedRegionSlug={location.region}
+            selectedContextSlug={selectedContextSlug}
+            links={links}
+            linksLoading={linksLoading}
+            linkError={linkError}
+            onRetry={() => setRetry((n) => n + 1)}
+            onChooseRegion={chooseRegion}
+            onPreview={setContextSlug}
+          />
         )}
         {location.area !== "hands" && (
           <div className="atlas-library-bridge">

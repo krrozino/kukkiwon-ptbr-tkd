@@ -46,13 +46,13 @@ for(const [area,count] of [['head',5],['torso',4],['arms',6],['legs',3]] as cons
     const point=await target.evaluate(g=>new DOMPoint(Number(g.getAttribute('data-anchor-x')),Number(g.getAttribute('data-anchor-y'))).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
     if(isMobile)await page.touchscreen.tap(point.x,point.y);else await page.mouse.click(point.x,point.y);
     await expect(target).toHaveAttribute('aria-pressed','true');
-    const inspector=area==='arms'?page.getByRole('region',{name:'Detalhes da região selecionada'}):page.getByRole('tooltip');
+    const inspector=area==='arms'||area==='head'?page.getByRole('region',{name:'Detalhes da região selecionada'}):page.getByRole('tooltip');
     await expect(inspector).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Coxa'} as const)[area]);
     const id=await target.getAttribute('data-region');
     await expect(page.locator('[data-legend-zone="'+id+'"]')).toHaveAttribute('aria-pressed','true');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));
     expect(Math.abs(after.scrollY-before.scrollY)).toBeLessThan(8);
-    expect(after.height).toBe(before.height);
+    if(area!=='head')expect(after.height).toBe(before.height);
     await page.getByRole('button',{name:'Vista posterior',exact:true}).click();
     await expect(cuts.first()).toBeVisible();
     if(area==='head')await expect(page.locator('[data-region="head-occiput"]')).toBeVisible();

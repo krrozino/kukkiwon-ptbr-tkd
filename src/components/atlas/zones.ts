@@ -4,14 +4,16 @@ import type {Area,View} from './BodyMap';
 export type AtlasZone = {
   id:string; area:Area; view:View|'both'; path:string; color:string;
   anchor:[number,number]; regionSlug?:string; posture?:'fist';
+  backPath?:string; backAnchor?:[number,number];
 };
 export const areaViewBoxes:Record<Area,string>={
   head:'90 10 80 102',torso:'65 95 130 150',arms:'25 112 210 165',
   legs:'70 240 120 162',hands:'10 255 240 90',feet:'55 385 150 85',
 };
 const palette=['#d6a541','#258c8b','#cf7549','#ad699b','#598bc0','#859753'];
-const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[number,number],color:number,regionSlug?:string):AtlasZone=>
-  ({id,area,view,path,anchor,color:palette[color],...(regionSlug?{regionSlug}:{})});
+const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[number,number],color:number,regionSlug?:string,
+  back?:{backPath?:string;backAnchor?:[number,number]}):AtlasZone=>
+  ({id,area,view,path,anchor,color:palette[color],...(regionSlug?{regionSlug}:{}),...back});
 
 // Os recortes do braço usam pares inteiros absolutos x/y na malha de 260 unidades.
 // Espelhar a geometria em torno de x=130 mantém a borda medial junto ao tronco.
@@ -36,12 +38,15 @@ export const bodyZones:AtlasZone[]=[
   // A figura possui 260x480 unidades. Partição planar sem sobreposição que acompanha
   // o contorno orgânico do rosto, dobok, articulações e calça; o clipPath limita as
   // marcas às partes do corpo. Não são áreas técnicas certificadas.
-  body('head','head-face','front','M114 51 Q130 47 146 51 L146 75 Q130 79 114 75 Z',[130,63],0),
-  body('head','head-forehead','front','M111 36 Q130 28 149 36 L148 49 Q130 45 112 49 Z',[130,42],1),
-  body('head','head-temples','front','M106 50 Q109 49 113 51 L113 73 Q108 70 106 61 Z M147 51 Q151 49 155 50 Q154 61 153 70 L147 73 Z',[110,61],2),
-  body('head','head-chin','front','M114 77 Q130 81 146 77 Q144 88 131 92 Q117 88 114 77 Z',[130,84],3),
-  body('head','head-occiput','back','M106 46 Q108 21 130 18 Q152 21 154 46 L152 72 Q146 86 131 91 Q115 86 108 72 Z',[130,54],4),
-  body('head','head-neck','both','M116 93 Q130 96 144 93 L145 103 Q130 112 115 103 Z',[130,100],5),
+  body('head','head-face','front','M113.5 49.5 Q130 46.5 146.5 49.5 L146.5 58.5 Q151.5 60.5 151.5 67.5 Q150.5 73.5 146.5 76.5 Q130 85 113.5 76.5 Q109.5 73.5 108.5 67.5 Q108.5 60.5 113.5 58.5 Z',[130,64],0),
+  body('head','head-forehead','front','M111 41 Q113.5 34.5 117.5 31 Q132.5 37 147.5 32.5 Q149 36.5 149.5 41 L146.5 48 Q130 45 113.5 48 Z',[130,41],1),
+  body('head','head-temples','front','M106.5 47 Q108 43.5 110.2 45 L112 50 Q112.5 54 111.8 58 Q108.5 58 106.5 55 Z M153.5 47 Q152 43.5 149.8 45 L148 50 Q147.5 54 148.2 58 Q151.5 58 153.5 55 Z',[109.5,51.5],2),
+  body('head','head-chin','front','M110.5 77.5 Q130 87 149.5 77.5 Q145 89 131 92.5 Q117 89 110.5 77.5 Z',[130,87],3),
+  body('head','head-occiput','back','M106 47 Q106 21 130 18 Q154 21 154 47 L150 67 Q148 76 130 78 Q112 76 110 67 Z',[130,50],4),
+  body('head','head-neck','both','M116 87 Q130 100 144 87 Q144 96 146 104 Q130 114 114 104 Q116 96 116 87 Z',[130,100],5,undefined,{
+    backPath:'M115.5 77 Q130 81 144.5 77 Q143.5 91 146 104 Q130 114 114 104 Q116.5 91 115.5 77 Z',
+    backAnchor:[130,94],
+  }),
 
   body('torso','torso-shoulders','both','M95 111 Q105 107 115 104 L126 131 L102 137 L92 131 Z M145 104 Q155 107 165 111 L168 131 L158 137 L134 131 Z',[106,122],0),
   body('torso','torso-chest','front','M103 139 Q130 132 157 139 L157 175 Q130 181 103 175 Z',[130,156],1),
