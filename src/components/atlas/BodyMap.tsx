@@ -11,7 +11,7 @@ export const areas = [
   {
     id: "torso",
     title: "Tronco",
-    summary: "Explore as regiões publicadas do tronco.",
+    summary: "Explore as regiões ilustradas e a terminologia documentada do tronco.",
   },
   {
     id: "arms",
@@ -27,7 +27,7 @@ export const areas = [
   {
     id: "legs",
     title: "Pernas",
-    summary: "Explore as regiões publicadas das pernas e dos joelhos.",
+    summary: "Explore quadril, coxas, joelhos, canelas, panturrilhas e tornozelos.",
   },
   {
     id: "feet",

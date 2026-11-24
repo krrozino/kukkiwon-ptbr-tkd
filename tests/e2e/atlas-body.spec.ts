@@ -34,7 +34,7 @@ test('um toque no cotovelo cria uma só entrada no histórico e preserva antebra
   await page.goBack();await expect(page).toHaveURL(before);
 });
 
-for(const [area,count] of [['head',5],['torso',4],['arms',6],['legs',3]] as const){
+for(const [area,count] of [['head',5],['torso',5],['arms',6],['legs',5]] as const){
   test(area+': ilustrações, primeiro toque e legenda independem de termos publicados',async({page,isMobile})=>{
     const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto('/atlas?region='+area+'&zoom=1');
@@ -46,8 +46,8 @@ for(const [area,count] of [['head',5],['torso',4],['arms',6],['legs',3]] as cons
     const point=await target.evaluate(g=>new DOMPoint(Number(g.getAttribute('data-anchor-x')),Number(g.getAttribute('data-anchor-y'))).matrixTransform((g as SVGGraphicsElement).getScreenCTM()!).toJSON());
     if(isMobile)await page.touchscreen.tap(point.x,point.y);else await page.mouse.click(point.x,point.y);
     await expect(target).toHaveAttribute('aria-pressed','true');
-    const inspector=area==='arms'||area==='head'?page.getByRole('region',{name:'Detalhes da região selecionada'}):page.getByRole('tooltip');
-    await expect(inspector).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Coxa'} as const)[area]);
+    const inspector=page.getByRole('region',{name:'Detalhes da região selecionada'});
+    await expect(inspector).toContainText(({head:'Face',torso:'Ombros',arms:'Braço',legs:'Quadril'} as const)[area]);
     const id=await target.getAttribute('data-region');
     await expect(page.locator('[data-legend-zone="'+id+'"]')).toHaveAttribute('aria-pressed','true');
     const after=await page.evaluate(()=>({scrollY,height:document.documentElement.scrollHeight}));

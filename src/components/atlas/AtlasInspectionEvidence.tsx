@@ -9,6 +9,29 @@ export function AtlasDocumentLink({ reference, children }: Readonly<{ reference:
     : <span>{children}</span>;
 }
 
+export function AtlasSourceCitation({
+  reference,
+  short = false,
+}: Readonly<{ reference: LibraryReference; short?: boolean }>) {
+  const { institution, title, edition, locator } = reference;
+  const label = short ? locator : `${institution} · ${title} (${edition}) · ${locator}`;
+  return <AtlasDocumentLink reference={reference}>{label}</AtlasDocumentLink>;
+}
+
+export function AtlasReviewStamp({ date }: Readonly<{ date: string }>) {
+  const [year, month, day] = date.split('-');
+  const display = year && month && day ? `${day}/${month}/${year}` : date;
+  return (
+    <small>
+      Conferência documental em <time dateTime={date}>{display}</time>.
+    </small>
+  );
+}
+
+export function AtlasIllustrativeCredit() {
+  return <small>Ilustração original — Taekwondo para Todos</small>;
+}
+
 export function AtlasViewNotice({ regionView, view, labels }: Readonly<{
   regionView: BodyRegion['detail_view'];
   view: View;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   fetchRegion,
   fetchRegions,
@@ -24,6 +24,10 @@ import { armAtlasRegions, getArmAtlasRegion } from '../lib/public-arm';
 import PublicArmRegionInspector from './atlas/PublicArmContent';
 import { getHeadAtlasRegion, headAtlasRegions } from '../lib/public-head';
 import PublicHeadRegionInspector from './atlas/PublicHeadContent';
+import { getTorsoAtlasRegion, torsoAtlasRegions } from '../lib/public-torso';
+import PublicTorsoRegionInspector from './atlas/PublicTorsoContent';
+import { getLegsAtlasRegion, legsAtlasRegions } from '../lib/public-legs';
+import PublicLegsRegionInspector from './atlas/PublicLegsContent';
 type Location = {
   area: Area;
   region: string | null;
@@ -45,6 +49,26 @@ function parseView(value: string | null | undefined, fallback: View = "front"): 
   return fallback;
 }
 
+const curatedBodyLookups: readonly {
+  area: Area;
+  find: (slug: string) => BodyRegion | undefined;
+}[] = [
+  { area: "arms", find: getArmAtlasRegion },
+  { area: "head", find: getHeadAtlasRegion },
+  { area: "torso", find: getTorsoAtlasRegion },
+  { area: "legs", find: getLegsAtlasRegion },
+];
+
+const staticAreas = new Set<Area>(["feet", "arms", "head", "torso", "legs"]);
+
+const publicRegionsByArea: Partial<Record<Area, BodyRegion[]>> = {
+  feet: footAtlasRegions,
+  arms: armAtlasRegions,
+  head: headAtlasRegions,
+  torso: torsoAtlasRegions,
+  legs: legsAtlasRegions,
+};
+
 function resolveStaticAtlasLocation(
   region: string,
   viewParam: string | null,
@@ -59,14 +83,18 @@ function resolveStaticAtlasLocation(
     const fallbackDetail = parseView(surfaces[region]?.view);
     return { area: "feet", region, view, zoom: true, detailView: parseView(detail, fallbackDetail) };
   }
-  const armRegion = getArmAtlasRegion(region);
-  if (armRegion) {
-    return { area: "arms", region: armRegion.slug, view, zoom: true, detailView: "front" };
-  }
-  const headRegion = getHeadAtlasRegion(region);
-  if (headRegion) {
-    const defaultView = parseView(headRegion.detail_view);
-    return { area: "head", region: headRegion.slug, view: parseView(viewParam, defaultView), zoom: true, detailView: "front" };
+  for (const entry of curatedBodyLookups) {
+    const matched = entry.find(region);
+    if (matched) {
+      const defaultView = parseView(matched.detail_view);
+      return {
+        area: entry.area,
+        region: matched.slug,
+        view: parseView(viewParam, defaultView),
+        zoom: true,
+        detailView: "front",
+      };
+    }
   }
   const bodyZone = bodyZones.find((z) => z.regionSlug === region);
   if (bodyZone) {
@@ -221,10 +249,18 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
     { href: "/biblioteca/kibon-dongjak/kibon-alturas-direcoes", label: "Consultar alturas e direções na Biblioteca →" },
   ],
   torso: [
-    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções nos Fundamentos →" },
     { href: "/biblioteca/kibon-dongjak", label: "Consultar defesas e ataques de tronco em Kibon Dongjak →" },
   ],
 };
+
+function renderBodyRegionInspector(area: Area, region: BodyRegion, view: View): ReactNode {
+  if (area === "arms") return <PublicArmRegionInspector region={region} />;
+  if (area === "head") return <PublicHeadRegionInspector region={region} view={view} />;
+  if (area === "torso") return <PublicTorsoRegionInspector region={region} view={view} />;
+  if (area === "legs") return <PublicLegsRegionInspector region={region} view={view} />;
+  return null;
+}
 
 export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
@@ -273,7 +309,7 @@ export default function Atlas() {
       setHandTermSlug(null);
       const detail = p.get("detail");
       const staticLoc = resolveStaticAtlasLocation(region, p.get("view"), detail);
-      if (staticLoc?.area === "feet" || staticLoc?.area === "arms" || staticLoc?.area === "head" || !isCatalogConfigured()) {
+      if ((staticLoc && staticAreas.has(staticLoc.area)) || !isCatalogConfigured()) {
         if (staticLoc) {
           setLocation(staticLoc);
         } else {
@@ -340,12 +376,7 @@ export default function Atlas() {
     window.history.pushState(null, "", window.location.pathname + "?" + p);
   };
   const curatedFoot = location.area === 'feet';
-  const curatedArms = location.area === 'arms';
-  const curatedHead = location.area === 'head';
-  let publicRegions: BodyRegion[] | undefined;
-  if (curatedFoot) publicRegions = footAtlasRegions;
-  else if (curatedArms) publicRegions = armAtlasRegions;
-  else if (curatedHead) publicRegions = headAtlasRegions;
+  const publicRegions = publicRegionsByArea[location.area];
   const regions = publicRegions ?? catalogRegions;
   useEffect(() => {
     if (!ready) return;
@@ -436,10 +467,14 @@ export default function Atlas() {
   };
   const area = areas.find((a) => a.id === location.area)!;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
-  let renderBodyInspection;
-  if (curatedArms) renderBodyInspection = (region: BodyRegion) => <PublicArmRegionInspector region={region} />;
-  else if (curatedHead) renderBodyInspection = (region: BodyRegion) =>
-    <PublicHeadRegionInspector region={region} view={location.view} />;
+  const hasCuratedBodyInspector =
+    location.area === "arms" || location.area === "head" || location.area === "torso" || location.area === "legs";
+  const renderBodyInspection = hasCuratedBodyInspector
+    ? (region: BodyRegion) => renderBodyRegionInspector(location.area, region, location.view)
+    : undefined;
+  let renderDetailInspection: ((region: BodyRegion) => ReactNode) | undefined;
+  if (curatedFoot) renderDetailInspection = (region) => <PublicFootRegionInspector region={region} view={location.detailView} />;
+  else if (curatedHand) renderDetailInspection = (region) => <PublicHandRegionInspector regionSlug={region.slug} />;
   return (
     <div
       className="atlas-layout"
@@ -506,8 +541,7 @@ export default function Atlas() {
               regions={regions}
               selected={location.region}
               onSelect={chooseRegion}
-              renderInspection={curatedFoot ? region => <PublicFootRegionInspector region={region} view={location.detailView} /> :
-                curatedHand ? region => <PublicHandRegionInspector regionSlug={region.slug} /> : undefined}
+              renderInspection={renderDetailInspection}
             />
           </>
         ) : location.zoom ? (
@@ -613,7 +647,12 @@ export default function Atlas() {
           <>
             <p>Selecione um recorte na planta ou no dorso para consultar a região anatômica e, quando houver, o termo da superfície de contato. Em Balkisul, as técnicas de chute (Chagi) têm um grupo próprio de fichas.</p>
             <h3>Tornozelo</h3>
-            <p>O tornozelo ainda está sem recorte selecionável neste desenho.</p>
+            <p>O tornozelo possui recorte ilustrativo selecionável na transição entre perna e pé.</p>
+            <p>
+              <a className="inline-link" href="/atlas?region=legs-ankle&zoom=1">
+                Abrir Tornozelo no Atlas das pernas →
+              </a>
+            </p>
           </>
         )}
         {!curatedHand && !curatedFoot && !publicRegions && (

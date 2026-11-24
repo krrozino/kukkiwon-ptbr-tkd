@@ -8,30 +8,51 @@ export type AtlasZone = {
 };
 export const areaViewBoxes:Record<Area,string>={
   head:'90 10 80 102',torso:'65 95 130 150',arms:'25 112 210 165',
-  legs:'70 240 120 162',hands:'10 255 240 90',feet:'55 385 150 85',
+  legs:'72 234 116 194',hands:'10 255 240 90',feet:'55 385 150 85',
 };
 const palette=['#d6a541','#258c8b','#cf7549','#ad699b','#598bc0','#859753'];
 const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[number,number],color:number,regionSlug?:string,
   back?:{backPath?:string;backAnchor?:[number,number]}):AtlasZone=>
   ({id,area,view,path,anchor,color:palette[color],...(regionSlug?{regionSlug}:{}),...back});
 
-// Os recortes do braço usam pares inteiros absolutos x/y na malha de 260 unidades.
-// Espelhar a geometria em torno de x=130 mantém a borda medial junto ao tronco.
-function bilateralArmPath(left: string) {
-  const right = left.replace(/(\d{1,3}) (\d{1,3})/g, (_, x, y) => `${260 - Number(x)} ${y}`);
-  return `${left} ${right}`;
+// Espelhar geometria em torno do eixo x=130 preserva simetria bilateral nas malhas do corpo.
+function bilateralPath(left: string) {
+  const tokens = left.trim().split(' ');
+  const mirrored: string[] = [];
+  let i = 0;
+  while (i < tokens.length) {
+    const token = tokens[i];
+    if (!token) { i += 1; continue; }
+    if (token === 'Z' || token === 'z') {
+      mirrored.push(token);
+      i += 1;
+      continue;
+    }
+    const code = token.charCodeAt(0);
+    const hasCmd = (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    if (hasCmd && token.length === 1) {
+      mirrored.push(token);
+      i += 1;
+      continue;
+    }
+    const prefix = hasCmd ? token[0] : '';
+    const xStr = hasCmd ? token.slice(1) : token;
+    mirrored.push(`${prefix}${260 - Number(xStr)}`, tokens[i + 1]);
+    i += 2;
+  }
+  return `${left} ${mirrored.join(' ')}`;
 }
 const elbowTop = 'M49 169 C64 177 79 178 94 172';
 const forearmTop = 'M45 195 C57 202 73 202 84 197';
 const medialContactEdge = 'Q66 225 63 232 C61 239 59 245 58 249';
 // O inventário Argon lê os slugs nas chamadas body(), sem avaliar TypeScript.
 const armPaths = {
-  upper: bilateralArmPath(`${elbowTop} C96 154 97 132 94 113 Q82 116 75 126 L58 147 Z`),
-  elbow: bilateralArmPath(`${elbowTop} L84 197 C73 202 57 202 45 195 Z`),
-  forearm: bilateralArmPath(`${forearmTop} L74 225 ${medialContactEdge} Q54 251 49 249 C50 244 51 237 49 232 Q46 225 37 228 Z`),
-  wrist: bilateralArmPath('M35 245 Q42 250 49 249 Q54 251 58 249 Q62 249 67 247 L60 266 Q51 270 37 262 Z'),
-  innerForearm: bilateralArmPath(`M74 225 ${medialContactEdge} Q62 249 67 247 Z`),
-  outerForearm: bilateralArmPath('M37 228 Q46 225 49 232 C51 237 50 244 49 249 Q42 250 35 245 Z'),
+  upper: bilateralPath(`${elbowTop} C96 154 97 132 94 113 Q82 116 75 126 L58 147 Z`),
+  elbow: bilateralPath(`${elbowTop} L84 197 C73 202 57 202 45 195 Z`),
+  forearm: bilateralPath(`${forearmTop} L74 225 ${medialContactEdge} Q54 251 49 249 C50 244 51 237 49 232 Q46 225 37 228 Z`),
+  wrist: bilateralPath('M35 245 Q42 250 49 249 Q54 251 58 249 Q62 249 67 247 L60 266 Q51 270 37 262 Z'),
+  innerForearm: bilateralPath(`M74 225 ${medialContactEdge} Q62 249 67 247 Z`),
+  outerForearm: bilateralPath('M37 228 Q46 225 49 232 C51 237 50 244 49 249 Q42 250 35 245 Z'),
 };
 
 export const bodyZones:AtlasZone[]=[
@@ -48,12 +69,16 @@ export const bodyZones:AtlasZone[]=[
     backAnchor:[130,94],
   }),
 
-  body('torso','torso-shoulders','both','M95 111 Q105 107 115 104 L126 131 L102 137 L92 131 Z M145 104 Q155 107 165 111 L168 131 L158 137 L134 131 Z',[106,122],0),
-  body('torso','torso-chest','front','M103 139 Q130 132 157 139 L157 175 Q130 181 103 175 Z',[130,156],1),
-  body('torso','torso-abdomen','front','M103 179 Q130 185 157 179 L157 232 Q130 239 103 232 Z',[130,205],2),
-  body('torso','torso-flanks','both','M93 139 L102 139 L102 226 L95 229 Q92 190 93 139 Z M158 139 L167 139 Q168 190 165 229 L158 226 Z',[98,182],3),
-  body('torso','torso-back','back','M103 139 Q130 133 157 139 L157 183 Q130 189 103 183 Z',[130,160],4),
-  body('torso','torso-lumbar','back','M103 187 Q130 193 157 187 L157 232 Q130 239 103 232 Z',[130,208],5),
+  body('torso','torso-shoulders','both',bilateralPath('M114 103 Q105 107 96 111 Q85 115 78 126 L89 138 Q95 137 102 137 Q114 133 126 131 Z'),[106,123],0,undefined,{
+    backPath:'M114 103 Q105 107 96 111 Q85 115 78 126 L89 138 Q95 137 102 137 Q116 132 130 132 Q144 132 158 137 Q165 137 171 138 L182 126 Q175 115 164 111 Q155 107 146 103 Q130 116 114 103 Z',
+    backAnchor:[130,124],
+  }),
+  body('torso','torso-chest','front','M102 137 Q114 133 126 131 L130 133 L134 131 Q146 133 158 137 L158 176 Q149 178 143 178 Q142 170 130 165 Q118 170 117 178 Q111 178 102 176 Z',[130,150],1),
+  body('torso','torso-solar-plexus','front','M117 178 Q118 170 130 165 Q142 170 143 178 Q142 188 130 192 Q118 188 117 178 Z',[130,178],4),
+  body('torso','torso-abdomen','front','M102 176 Q111 178 117 178 Q118 188 130 192 Q142 188 143 178 Q149 178 158 176 L158 231 Q130 240 102 231 Z',[130,212],2),
+  body('torso','torso-flanks','both',bilateralPath('M89 138 Q95 137 102 137 L102 231 Q95 230 92 228 L92 174 Z'),[98,184],3),
+  body('torso','torso-back','back','M102 137 Q116 132 130 132 Q144 132 158 137 L158 186 Q130 192 102 186 Z',[130,160],4),
+  body('torso','torso-lumbar','back','M102 186 Q130 192 158 186 L158 231 Q130 240 102 231 Z',[130,210],5),
 
   body('arms','arms-upper','both',armPaths.upper,[76,150],0),
   body('arms','arms-elbow','both',armPaths.elbow,[68,185],1,'palgup'),
@@ -62,10 +87,13 @@ export const bodyZones:AtlasZone[]=[
   body('arms','arms-inner-forearm','both',armPaths.innerForearm,[63,237],4,'anpalmok'),
   body('arms','arms-outer-forearm','both',armPaths.outerForearm,[45,237],5,'bakkatpalmok'),
 
-  body('legs','legs-thigh','both','M91 243 Q109 249 127 253 L121 315 Q102 320 83 314 Q81 274 91 243 Z M169 243 Q151 249 133 253 L139 315 Q158 320 177 314 Q179 274 169 243 Z',[102,282],0),
-  body('legs','legs-knee','front','M83 317 Q102 322 120 318 L118 344 Q100 349 83 344 Z M177 317 Q158 322 140 318 L142 344 Q160 349 177 344 Z',[100,331],1,'mureup'),
-  body('legs','legs-shin','front','M83 346 Q100 351 118 346 L115 395 L83 394 Z M177 346 Q160 351 142 346 L145 395 L176 394 Z',[99,371],2),
-  body('legs','legs-calf','back','M83 317 Q102 323 120 318 L115 395 L83 394 Z M177 317 Q158 323 140 318 L145 395 L176 394 Z',[100,354],4),
+  body('legs','legs-hip','both','M90 239 Q130 248 170 239 Q177 253 176 268 Q154 263 130 271 Q106 263 84 268 Q83 253 90 239 Z',[130,256],3),
+  body('legs','legs-thigh','both',bilateralPath('M84 268 Q106 263 130 271 L128 296 L121 316 Q102 321 82 316 Q81 292 84 268 Z'),[103,292],0),
+  body('legs','legs-knee','front',bilateralPath('M82 316 Q102 321 121 316 L119 343 Q100 348 82 343 Z'),[101,331],1,'mureup'),
+  body('legs','legs-knee-back','back',bilateralPath('M82 316 Q102 321 121 316 L119 342 Q100 347 82 342 Z'),[101,330],1),
+  body('legs','legs-shin','front',bilateralPath('M82 343 Q100 348 119 343 L116 394 Q100 396 82 394 Z'),[100,370],2,'jeonggangi'),
+  body('legs','legs-calf','back',bilateralPath('M82 342 Q100 347 119 342 L116 394 Q100 396 82 394 Z'),[100,369],4),
+  body('legs','legs-ankle','both',bilateralPath('M82 394 Q100 396 116 394 L115 419 Q100 422 76 416 Z'),[98,407],5),
 ];
 const detailZones=(area:'hands'|'feet',ids:readonly string[]):AtlasZone[]=>ids.map(id=>({
   ...surfaces[id],id,area,...(!id.startsWith('illustration-')?{regionSlug:id}:{}),
