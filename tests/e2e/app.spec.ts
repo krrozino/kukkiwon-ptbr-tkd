@@ -38,8 +38,8 @@ test('atlas: deep link offline nas pernas, biblioteca e ficha publicada no catá
   await api(page);await page.goto('/atlas?region=legs-shin');
   await expect(page.getByRole('heading',{name:'Pernas',exact:true})).toBeVisible();
   await expect(page.getByRole('region',{name:'Detalhes da região selecionada'})).toContainText('Jeonggangi');
-  await page.getByRole('link',{name:/Explorar família de defesas/}).click();
-  await expect(page).toHaveURL(/\/biblioteca\/kibon-dongjak\/an-makgi\/?$/);
+  await page.getByRole('link',{name:/Explorar defesas \(Makgi\) em Kibon Dongjak/}).click();
+  await expect(page).toHaveURL(/\/biblioteca\/kibon-dongjak\/?$/);
   await page.goto('/catalogo');
   await page.getByRole('link',{name:/Ap-chagi/}).click();
   await expect(page).toHaveURL(/tecnica\?slug=ap-chagi/);

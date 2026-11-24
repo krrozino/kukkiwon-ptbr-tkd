@@ -57,7 +57,7 @@ test('joelho (Mureup), tornozelo e vista posterior preservam URL, fontes e retor
   await expect(inspector.getByRole('status')).toHaveText('Região selecionada na vista anterior.');
 
   const mureupUrl = page.url();
-  await inspector.getByRole('link', { name: /Abrir ficha de golpes com joelho/ }).click();
+  await inspector.getByRole('link', { name: /Abrir ficha de golpes com cotovelo e joelho/ }).click();
   await expect(page).toHaveURL(/\/biblioteca\/kibon-dongjak\/palgup-mureup-chigi\/?$/);
   await page.goBack();
   await expect(page).toHaveURL(mureupUrl);

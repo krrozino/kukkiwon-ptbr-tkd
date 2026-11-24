@@ -12,8 +12,10 @@ export type TorsoTermEntry = Readonly<{
   korean?: Readonly<{
     romanization: string;
     hangul?: string;
+    hangulProvenance?: 'manual_compound' | 'linguistic_reference';
     sourceNote?: string;
   }>;
+  linguisticReference?: LibraryReference;
   extraReference?: LibraryReference;
 }>;
 
@@ -60,9 +62,10 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Momtong',
         hangul: '몸통',
-        sourceNote: 'Romanização no §10 inglês; grafia Hangul conferida no léxico coreano e lotes do projeto.',
+        hangulProvenance: 'linguistic_reference',
+        sourceNote: 'O §10 inglês registra apenas a romanização Momtong; a grafia 몸통 segue correspondência linguística (norma revisada NIKL), pendente de conferência em edição coreana.',
       },
-      extraReference: torsoRomanizationReference,
+      linguisticReference: torsoRomanizationReference,
     },
     {
       kind: 'contextual_reference',
@@ -72,6 +75,7 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Gaseum',
         hangul: '가슴',
+        hangulProvenance: 'manual_compound',
       },
     },
   ],
@@ -84,8 +88,10 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Myeongchi',
         hangul: '명치',
-        sourceNote: 'Romanizado como myeongchi no §10 inglês; Hangul lexical conferido e sujeito à conferência em edição coreana.',
+        hangulProvenance: 'linguistic_reference',
+        sourceNote: 'O §10 inglês registra apenas a romanização myeongchi; a grafia 명치 segue correspondência linguística (norma revisada NIKL), pendente de conferência em edição coreana.',
       },
+      linguisticReference: torsoRomanizationReference,
       extraReference: pdfReference('§8 Junbi-jase > Gibon-junbi / Gyeorugi-junbi', 41),
     },
   ],
@@ -98,8 +104,10 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Arae',
         hangul: '아래',
-        sourceNote: 'Romanização no §10 inglês; Hangul 아래 conferido no glossário de alturas do projeto.',
+        hangulProvenance: 'linguistic_reference',
+        sourceNote: 'O §10 inglês registra apenas a romanização Arae; a grafia 아래 segue correspondência linguística (norma revisada NIKL), pendente de conferência em edição coreana.',
       },
+      linguisticReference: torsoRomanizationReference,
       extraReference: pdfReference('§8 Junbi-jase > Gibon-junbi / Bojumeok-junbi (Danjeon)', 41),
     },
   ],
@@ -112,6 +120,7 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Deung',
         hangul: '등',
+        hangulProvenance: 'manual_compound',
       },
       extraReference: pdfReference('§11 > Gyeokpa > Deung-balgo-ap-chagi-se-dangye (p. 78 e índice p. 85)', 78),
     },
@@ -125,6 +134,7 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
       korean: {
         romanization: 'Heori',
         hangul: '허리',
+        hangulProvenance: 'manual_compound',
       },
       extraReference: pdfReference('§8 Junbi-jase > Dujumeok-heori-junbi (p. 40 e índice p. 85)', 40),
     },
@@ -133,20 +143,20 @@ const torsoEntries: Readonly<Partial<Record<string, readonly TorsoTermEntry[]>>>
 
 const torsoLinks: Readonly<Partial<Record<string, readonly TorsoLibraryLink[]>>> = {
   'torso-chest': [
-    { href: '/biblioteca/kibon-dongjak/an-makgi', label: 'Estudar defesa média (An-makgi) na Biblioteca' },
-    { href: '/fundamentos/alturas-e-direcoes', label: 'Consultar alturas Momtong e Arae nos Fundamentos' },
+    { href: '/biblioteca/kibon-dongjak/an-makgi', label: 'Estudar An-makgi (defesa de fora para dentro na altura média) na Biblioteca' },
+    { href: '/fundamentos/alturas-e-direcoes', label: 'Consultar guia de alturas e direções nos Fundamentos' },
   ],
   'torso-solar-plexus': [
-    { href: '/biblioteca/kibon-dongjak/jeocheo-jireugi', label: 'Consultar socos no eixo médio (Jireugi) na Biblioteca' },
-    { href: '/biblioteca/kibon-dongjak/kibon-alturas-direcoes', label: 'Ver guia de alturas na Biblioteca' },
+    { href: '/biblioteca/kibon-dongjak/jeocheo-jireugi', label: 'Consultar família de socos (Jeocheo-jireugi / Jireugi) na Biblioteca' },
+    { href: '/biblioteca/kibon-dongjak/kibon-alturas-direcoes', label: 'Ver alturas e direções no Kibon Dongjak' },
   ],
   'torso-abdomen': [
-    { href: '/biblioteca/kibon-dongjak/gibon-junbi', label: 'Consultar postura Gibon-junbi (Danjeon) na Biblioteca' },
-    { href: '/biblioteca/kibon-dongjak/naeryeo-makgi', label: 'Estudar defesa baixa (Naeryeo-makgi) na Biblioteca' },
+    { href: '/biblioteca/kibon-dongjak/gibon-junbi', label: 'Consultar postura básica de preparação (Gibon-junbi) na Biblioteca' },
+    { href: '/biblioteca/kibon-dongjak/naeryeo-makgi', label: 'Estudar defesa descendente na seção inferior (Naeryeo-makgi) na Biblioteca' },
   ],
   'torso-lumbar': [
-    { href: '/biblioteca/kibon-dongjak/tongmilgi-bojumeok-junbi', label: 'Consultar posturas de preparação (Dujumeok-heori-junbi)' },
-    { href: '/acervo#dujumeok-heori-junbi', label: 'Ver registro Dujumeok-heori-junbi no Acervo' },
+    { href: '/biblioteca/kibon-dongjak/tongmilgi-bojumeok-junbi', label: 'Consultar posturas especiais de preparação (inclui Dujumeok-heori-junbi)' },
+    { href: '/acervo#dujumeok-heori-junbi', label: 'Ver registro provisório Dujumeok-heori-junbi no Acervo' },
   ],
 };
 

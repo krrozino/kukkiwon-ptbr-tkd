@@ -1,5 +1,5 @@
 import type { BodyRegion } from '../../lib/catalog-api';
-import { getLegsEntry, legsDocumentReview } from '../../lib/public-legs';
+import { getLegsEntry, legsDocumentReview, type LegsEntry } from '../../lib/public-legs';
 import { AtlasIllustrativeCredit, AtlasReviewStamp, AtlasSourceCitation, AtlasViewNotice } from './AtlasInspectionEvidence';
 import type { View } from './BodyMap';
 
@@ -11,10 +11,42 @@ const eyebrows = {
   illustrative_only: 'Região anatômica ilustrativa',
 } as const;
 
+function legsSourceLabels(slug: string, provenance?: LegsEntry['hangulProvenance']) {
+  if (provenance === 'manual_direct') {
+    return {
+      primary: 'Superfície, sentido e Hangul (manual Kukkiwon)',
+      extra: 'Uso em técnicas (manual Kukkiwon)',
+    };
+  }
+  if (provenance === 'manual_compound') {
+    if (slug === 'legs-knee-back') {
+      return {
+        primary: 'Termo e Hangul em expressão composta (manual Kukkiwon)',
+        extra: 'Referência em base (manual Kukkiwon)',
+      };
+    }
+    return {
+      primary: 'Alvo na edição inglesa (manual Kukkiwon)',
+      extra: 'Termo e Hangul em expressão composta (manual Kukkiwon)',
+    };
+  }
+  if (provenance === 'linguistic_reference') {
+    return {
+      primary: 'Área, sentido e romanização (manual Kukkiwon)',
+      extra: 'Uso contextual (manual Kukkiwon)',
+    };
+  }
+  return {
+    primary: 'Menção descritiva (manual Kukkiwon)',
+    extra: 'Referência complementar (manual Kukkiwon)',
+  };
+}
+
 export default function PublicLegsRegionInspector({ region, view }: Readonly<{ region: BodyRegion; view: View }>) {
   const entry = getLegsEntry(region.slug);
   if (!entry) return null;
   const isSurface = entry.classification === 'surface';
+  const labels = legsSourceLabels(region.slug, entry.hangulProvenance);
   return <article className="hand-term-card">
     <AtlasViewNotice regionView={region.detail_view} view={view} labels={viewLabels} />
     <p className="surface-panel-eyebrow">{eyebrows[entry.classification]}</p>
@@ -32,8 +64,11 @@ export default function PublicLegsRegionInspector({ region, view }: Readonly<{ r
       <details className="hand-term-sources">
         <summary>Fontes de {region.name_pt.toLocaleLowerCase('pt-BR')}</summary>
         <ul className="fine-print">
-          <li><b>Referência principal</b> · <AtlasSourceCitation reference={entry.reference} /></li>
-          {entry.extraReference && <li><b>Uso e contexto</b> · <AtlasSourceCitation reference={entry.extraReference} /></li>}
+          <li><b>{labels.primary}</b> · <AtlasSourceCitation reference={entry.reference} /></li>
+          {entry.linguisticReference && (
+            <li><b>Correspondência linguística de Hangul (norma NIKL)</b> · <AtlasSourceCitation reference={entry.linguisticReference} /></li>
+          )}
+          {entry.extraReference && <li><b>{labels.extra}</b> · <AtlasSourceCitation reference={entry.extraReference} /></li>}
         </ul>
       </details>
     )}

@@ -44,6 +44,13 @@ describe('atlas público de tronco e pernas/tornozelo', () => {
       for (const entry of entries) {
         expect(safeReferenceUrl(entry.reference.url)).toBe(true);
         expect(entry.reference.locator.trim().length).toBeGreaterThan(3);
+        if (entry.korean?.hangul) {
+          expect(entry.korean.hangulProvenance).toBeDefined();
+        }
+        if (entry.linguisticReference) {
+          expect(safeReferenceUrl(entry.linguisticReference.url)).toBe(true);
+          expect(entry.linguisticReference.locator.trim().length).toBeGreaterThan(3);
+        }
         if (entry.extraReference) {
           expect(safeReferenceUrl(entry.extraReference.url)).toBe(true);
           expect(entry.extraReference.locator.trim().length).toBeGreaterThan(3);
@@ -63,6 +70,13 @@ describe('atlas público de tronco e pernas/tornozelo', () => {
       if (entry?.reference) {
         expect(safeReferenceUrl(entry.reference.url)).toBe(true);
         expect(entry.reference.locator.trim().length).toBeGreaterThan(3);
+      }
+      if (entry?.hangul) {
+        expect(entry.hangulProvenance).toBeDefined();
+      }
+      if (entry?.linguisticReference) {
+        expect(safeReferenceUrl(entry.linguisticReference.url)).toBe(true);
+        expect(entry.linguisticReference.locator.trim().length).toBeGreaterThan(3);
       }
       if (entry?.extraReference) {
         expect(safeReferenceUrl(entry.extraReference.url)).toBe(true);

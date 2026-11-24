@@ -249,7 +249,7 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
     { href: "/biblioteca/kibon-dongjak/kibon-alturas-direcoes", label: "Consultar alturas e direções na Biblioteca →" },
   ],
   torso: [
-    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções (Olgul, Momtong, Arae) →" },
+    { href: "/fundamentos/alturas-e-direcoes", label: "Estudar alturas e direções nos Fundamentos →" },
     { href: "/biblioteca/kibon-dongjak", label: "Consultar defesas e ataques de tronco em Kibon Dongjak →" },
   ],
 };

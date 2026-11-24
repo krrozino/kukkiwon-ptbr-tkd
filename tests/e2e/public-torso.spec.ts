@@ -56,7 +56,7 @@ test('tronco persiste seleção na URL, avisa vista oposta e retorna da Bibliote
 
   await figure.locator('[data-legend-zone="torso-chest"]').click();
   const chestUrl = page.url();
-  await inspector.getByRole('link', { name: /Estudar defesa média/ }).click();
+  await inspector.getByRole('link', { name: /Estudar An-makgi/ }).click();
   await expect(page).toHaveURL(/\/biblioteca\/kibon-dongjak\/an-makgi\/?$/);
   await page.goBack();
   await expect(page).toHaveURL(chestUrl);
