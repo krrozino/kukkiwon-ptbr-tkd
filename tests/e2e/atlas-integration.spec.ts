@@ -105,6 +105,18 @@ test('mão, pé e braço coexistem no Atlas e preservam a navegação com a Bibl
   await expect(figure.locator('[data-region="arms-elbow"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(figure.getByRole('button', { name: 'Vista posterior' })).toHaveAttribute('aria-pressed', 'true');
 
+  await zoomArea('Tronco');
+  await figure.getByRole('button', { name: 'Vista anterior', exact: true }).click();
+  await chooseZone(figure.locator('[data-legend-zone="torso-solar-plexus"]'));
+  await expect(inspector).toContainText('Myeongchi');
+  await expect(inspector).toContainText('명치');
+
+  await zoomArea('Pernas');
+  await chooseZone(figure.locator('[data-legend-zone="legs-knee"]'));
+  await expect(inspector).toContainText('무릎');
+  await chooseZone(figure.locator('[data-legend-zone="legs-ankle"]'));
+  await expect(inspector).toContainText('발목');
+
   await zoomArea('Mãos');
   await figure.getByRole('button', { name: 'Palma', exact: true }).click();
   await expect(figure.locator('[data-legend-zone="sonnal"]')).toBeVisible();

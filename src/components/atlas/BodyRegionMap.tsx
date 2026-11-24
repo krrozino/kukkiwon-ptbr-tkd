@@ -1,7 +1,7 @@
 import {useEffect,useId,useRef,useState,type CSSProperties,type ReactNode} from 'react';
 import type {BodyRegion} from '../../lib/catalog-api';
 import type {Area,View} from './BodyMap';
-import BodyIllustration,{bodySilhouettePath,HeadFeatureOverlay,headSilhouetteParts} from './BodyIllustration';
+import BodyIllustration,{BodyAreaFeatureOverlay,bodySilhouettePath,headSilhouetteParts} from './BodyIllustration';
 import {areaViewBoxes,zonesFor,type AtlasZone} from './zones';
 import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
@@ -12,7 +12,7 @@ type Props={
   renderInspection?:(region:BodyRegion)=>ReactNode;
 };
 export default function BodyRegionMap({area,view,regions,selected,onSelect,renderInspection}:Props){
-  const zones=zonesFor(area,view),clip=useId().replace(/:/g,'')+'-body';
+  const zones=zonesFor(area,view),baseId=useId().replace(/:/g,''),clip=baseId+'-body',frameClip=baseId+'-frame';
   const inspectorId=clip+'-inspector';
   const [visual,setVisual]=useState<string|null>(null),[hover,setHover]=useState<string|null>(null);
   const [side,setSide]=useState(false);const canvas=useRef<HTMLDivElement>(null);
@@ -46,8 +46,9 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect,rende
           {/* Separate paths keep the head and neck overlap inside the silhouette. */}
           {area==='head'?headSilhouetteParts(view).map(path=><path key={path} d={path}/>):<path d={bodySilhouettePath}/>}
         </clipPath>
+        {area==='legs'&&<clipPath id={frameClip}><rect x="72" y="234" width="116" height="194"/></clipPath>}
       </defs>
-      <BodyIllustration view={view}/>
+      <g clipPath={area==='legs'?`url(#${frameClip})`:undefined}><BodyIllustration view={view}/></g>
       <g clipPath={`url(#${clip})`}>
         {zones.map(zone=>{
           const zonePath=view==='back'&&zone.backPath?zone.backPath:zone.path;
@@ -67,7 +68,7 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect,rende
           <path d={zonePath} pointerEvents={renderInspection?'fill':undefined}/>
         </g>;})}
       </g>
-      {area==='head'&&<HeadFeatureOverlay view={view}/>}
+      <BodyAreaFeatureOverlay area={area} view={view}/>
     </svg>
     <section id={renderInspection?inspectorId:undefined} className="surface-inspector" aria-label="Detalhes da região selecionada">
       {focused||lastSelection?<div role={renderInspection&&record?undefined:'tooltip'} className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={lastSelection?.id??focused?.id}>

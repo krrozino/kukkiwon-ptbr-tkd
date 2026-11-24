@@ -68,7 +68,7 @@ test('pé abre fichas e fontes nas duas vistas sem consultar o catálogo remoto'
   expect(remoteRequests).toEqual([]);
 });
 
-test('o arco é ilustrativo e o tornozelo tem lacuna explícita no mapa', async ({ page, isMobile }) => {
+test('o arco é ilustrativo e o tornozelo abre o recorte em Pernas', async ({ page, isMobile }) => {
   await page.goto('/atlas?region=feet&zoom=1');
   const arch = page.locator('.detail-svg [data-region="illustration-foot-arch"]');
   const inspector = page.getByRole('region', { name: 'Detalhes da região selecionada' });
@@ -83,9 +83,13 @@ test('o arco é ilustrativo e o tornozelo tem lacuna explícita no mapa', async 
   await expect(inspector).toContainText('Ilustração original');
   await expect(inspector.locator('[lang="ko"], a[href*="kukkiwon.or.kr"], a[href^="/biblioteca/"]')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Tornozelo' })).toBeVisible();
-  await expect(page.getByText(/tornozelo ainda está sem recorte selecionável/i)).toBeVisible();
+  const ankleBridge = page.getByRole('link', { name: /Abrir Tornozelo no Atlas das pernas/ });
+  await expect(ankleBridge).toBeVisible();
   await page.reload();
   await expect(arch).toHaveAttribute('aria-pressed', 'true');
+  await ankleBridge.click();
+  await expect(page).toHaveURL(/region=legs-ankle/);
+  await expect(page.locator('.detail-svg [data-region="legs-ankle"]')).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('a seleção persiste ao trocar a vista, recarregar e voltar da Biblioteca', async ({ page, isMobile }) => {

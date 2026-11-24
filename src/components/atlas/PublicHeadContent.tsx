@@ -1,16 +1,10 @@
 import type { BodyRegion } from '../../lib/catalog-api';
-import type { LibraryReference } from '../../lib/library';
 import { getHeadTargets, headDocumentReview, headRomanizationReference } from '../../lib/public-head';
-import { AtlasDocumentLink, AtlasViewNotice } from './AtlasInspectionEvidence';
+import { AtlasIllustrativeCredit, AtlasReviewStamp, AtlasSourceCitation, AtlasViewNotice } from './AtlasInspectionEvidence';
 import type { View } from './BodyMap';
 import { zoneCopy } from './zone-copy';
 
 const viewLabels = { front: 'anterior', back: 'posterior' };
-
-function SourceLink({ reference }: Readonly<{ reference: LibraryReference }>) {
-  const { institution, title, edition, locator } = reference;
-  return <AtlasDocumentLink reference={reference}>{`${institution} · ${title} (${edition}) · ${locator}`}</AtlasDocumentLink>;
-}
 
 export default function PublicHeadRegionInspector({ region, view }: Readonly<{ region: BodyRegion; view: View }>) {
   const targets = getHeadTargets(region.slug);
@@ -33,14 +27,14 @@ export default function PublicHeadRegionInspector({ region, view }: Readonly<{ r
         <details className="hand-term-sources">
           <summary>Fontes de {namePt.toLocaleLowerCase('pt-BR')}</summary>
           <ul className="fine-print">
-            <li><b>{spelling && !spelling.revisedRomanization ? 'Área, sentido e romanização' : 'Área e sentido'}</b> · <SourceLink reference={targetReference} /></li>
-            {spelling && <li><b>Hangul e sentido da palavra</b> · <SourceLink reference={spelling.dictionary} /></li>}
-            {spelling?.revisedRomanization && <li><b>Norma de romanização</b> · <SourceLink reference={headRomanizationReference} /></li>}
+            <li><b>{spelling && !spelling.revisedRomanization ? 'Área, sentido e romanização' : 'Área e sentido'}</b> · <AtlasSourceCitation reference={targetReference} /></li>
+            {spelling && <li><b>Hangul e sentido da palavra</b> · <AtlasSourceCitation reference={spelling.dictionary} /></li>}
+            {spelling?.revisedRomanization && <li><b>Norma de romanização</b> · <AtlasSourceCitation reference={headRomanizationReference} /></li>}
           </ul>
         </details>
       </section>
     ))}
-    {targets && <small>Conferência documental em <time dateTime={headDocumentReview.checkedOn}>23/11/2026</time>.</small>}
-    <small>Ilustração original — Taekwondo para Todos</small>
+    {targets && <AtlasReviewStamp date={headDocumentReview.checkedOn} />}
+    <AtlasIllustrativeCredit />
   </article>;
 }
