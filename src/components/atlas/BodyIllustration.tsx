@@ -26,7 +26,7 @@ export function HeadFeatureOverlay({view}:{view:View}) {
     </g>
   );
 }
-export function BodyAreaFeatureOverlay({area,view}:{area:Area;view:View}) {
+export function BodyAreaFeatureOverlay({area,view}:Readonly<{area:Area;view:View}>) {
   if (area === "head") return <HeadFeatureOverlay view={view}/>;
   if (area === "torso") {
     return (

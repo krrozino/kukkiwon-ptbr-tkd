@@ -17,8 +17,30 @@ const body=(area:Area,id:string,view:AtlasZone['view'],path:string,anchor:[numbe
 
 // Espelhar geometria em torno do eixo x=130 preserva simetria bilateral nas malhas do corpo.
 function bilateralPath(left: string) {
-  const right = left.replace(/(\d+(?:\.\d+)?) (\d+(?:\.\d+)?)/g, (_, x, y) => `${260 - Number(x)} ${y}`);
-  return `${left} ${right}`;
+  const tokens = left.trim().split(' ');
+  const mirrored: string[] = [];
+  let i = 0;
+  while (i < tokens.length) {
+    const token = tokens[i];
+    if (!token) { i += 1; continue; }
+    if (token === 'Z' || token === 'z') {
+      mirrored.push(token);
+      i += 1;
+      continue;
+    }
+    const code = token.charCodeAt(0);
+    const hasCmd = (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    if (hasCmd && token.length === 1) {
+      mirrored.push(token);
+      i += 1;
+      continue;
+    }
+    const prefix = hasCmd ? token[0] : '';
+    const xStr = hasCmd ? token.slice(1) : token;
+    mirrored.push(`${prefix}${260 - Number(xStr)}`, tokens[i + 1]);
+    i += 2;
+  }
+  return `${left} ${mirrored.join(' ')}`;
 }
 const elbowTop = 'M49 169 C64 177 79 178 94 172';
 const forearmTop = 'M45 195 C57 202 73 202 84 197';

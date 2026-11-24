@@ -254,6 +254,14 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
   ],
 };
 
+function renderBodyRegionInspector(area: Area, region: BodyRegion, view: View): ReactNode {
+  if (area === "arms") return <PublicArmRegionInspector region={region} />;
+  if (area === "head") return <PublicHeadRegionInspector region={region} view={view} />;
+  if (area === "torso") return <PublicTorsoRegionInspector region={region} view={view} />;
+  if (area === "legs") return <PublicLegsRegionInspector region={region} view={view} />;
+  return null;
+}
+
 export default function Atlas() {
   const [location, setLocation] = useState<Location>(initial),
     [ready, setReady] = useState(false);
@@ -459,13 +467,11 @@ export default function Atlas() {
   };
   const area = areas.find((a) => a.id === location.area)!;
   const preview = areas.find((a) => a.id === (hovered || location.area))!;
-  const bodyInspectors: Partial<Record<Area, (region: BodyRegion) => ReactNode>> = {
-    arms: (region) => <PublicArmRegionInspector region={region} />,
-    head: (region) => <PublicHeadRegionInspector region={region} view={location.view} />,
-    torso: (region) => <PublicTorsoRegionInspector region={region} view={location.view} />,
-    legs: (region) => <PublicLegsRegionInspector region={region} view={location.view} />,
-  };
-  const renderBodyInspection = bodyInspectors[location.area];
+  const hasCuratedBodyInspector =
+    location.area === "arms" || location.area === "head" || location.area === "torso" || location.area === "legs";
+  const renderBodyInspection = hasCuratedBodyInspector
+    ? (region: BodyRegion) => renderBodyRegionInspector(location.area, region, location.view)
+    : undefined;
   let renderDetailInspection: ((region: BodyRegion) => ReactNode) | undefined;
   if (curatedFoot) renderDetailInspection = (region) => <PublicFootRegionInspector region={region} view={location.detailView} />;
   else if (curatedHand) renderDetailInspection = (region) => <PublicHandRegionInspector regionSlug={region.slug} />;
