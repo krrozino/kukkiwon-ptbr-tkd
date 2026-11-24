@@ -1,23 +1,38 @@
 const outlineParts = [
-  'M117 83 L115 102 Q130 112 145 102 L143 83 Z',
+  'M116 74 Q117 91 114 104 Q130 114 146 104 Q143 91 144 74 Z',
   'M106 47 Q102 31 116 24 Q130 16 145 25 Q159 34 155 53 L153 72 Q148 88 131 93 Q114 89 109 74 Z',
-  'M96 111 Q85 115 77 127 L61 150 L45 213 L39 262 L58 270 L78 210 L93 174 L96 229 Q130 240 164 229 L167 174 L183 210 L202 270 L221 262 L215 213 L199 150 L183 127 Q175 115 164 111 L146 103 Q130 115 114 103 Z',
+  'M96 111 Q85 115 77 127 L61 150 L45 213 L39 262 L58 270 L78 210 L93 174 L96 229 Q130 240 164 229 L167 174 L183 210 L202 270 L221 262 L215 213 L199 150 L183 127 Q175 115 164 111 Q155 107 146 103 Q130 114 114 103 Q105 107 96 111 Z',
   'M91 239 Q129 248 169 239 Q181 270 175 311 L176 394 L143 396 Q137 346 129 296 Q120 349 115 396 L83 394 L83 311 Q81 269 91 239 Z',
   'M40 262 Q38 273 34 284 L28 299 Q28 311 34 313 Q36 321 41 321 Q46 326 50 320 Q56 322 60 314 L63 295 L58 267 Z',
   'M220 262 Q222 273 226 284 L232 299 Q232 311 226 313 Q224 321 219 321 Q214 326 210 320 Q204 322 200 314 L197 295 L202 267 Z',
   'M84 395 L115 395 L115 421 Q110 431 108 440 Q92 452 66 450 L64 440 Q66 425 78 413 Z',
   'M145 395 L176 395 L182 413 Q194 425 196 440 L194 450 Q168 452 152 440 Q148 431 145 421 Z',
 ] as const;
+const backHeadPart = 'M106 47 Q102 31 116 24 Q130 16 145 25 Q159 34 155 53 L152 72 Q130 81 109 72 Z';
 export { outlineParts as bodySilhouetteParts };
 export const bodySilhouettePath = outlineParts.join(" ");
 import type {View} from "./BodyMap";
+export function headSilhouetteParts(view: View) {
+  return view === "front" ? outlineParts : ([outlineParts[0], backHeadPart, ...outlineParts.slice(2)] as const);
+}
+export function HeadFeatureOverlay({view}:{view:View}) {
+  return (
+    <g aria-hidden="true" className="body-illustration head-feature-overlay">
+      {view==="front" ? (
+        <path className="figure-face-overlay" d="M115 54 Q121 51 125 54 M136 54 Q142 51 146 54 M130 57 L127 67 Q130 71 133 67 M122 77 Q130 81 138 77"/>
+      ) : (
+        <path className="figure-hair-lines-overlay" d="M115 46 Q130 49 145 46 M130 47 L130 65 M118 74 Q130 78 142 74"/>
+      )}
+    </g>
+  );
+}
 export default function BodyIllustration({view}:{view:View}) {
   return (
       <g role="img" aria-label={"Corpo humano — vista "+(view==="front"?"anterior":"posterior")}
         className="body-illustration">
         {/* Figura corporal original em posição neutra, com dobok e articulações proporcionais. */}
         <path className="figure-neck" d={outlineParts[0]}/>
-        <path className="figure-skin" d={outlineParts[1]}/>
+        <path className="figure-skin" d={view==="front"?outlineParts[1]:backHeadPart}/>
         <path className="figure-ear" d="M106 55 Q99 51 101 61 Q103 69 109 67 M155 55 Q162 51 159 62 Q157 68 152 67"/>
         {view==="front"?<>
           <path className="figure-hair" d="M105 53 Q99 28 110 22 Q127 9 143 20 Q157 21 156 51 Q150 45 148 32 Q133 37 117 30 Q111 40 105 53 Z"/>
@@ -25,8 +40,8 @@ export default function BodyIllustration({view}:{view:View}) {
             <path d="M115 54 Q121 51 125 54 M136 54 Q142 51 146 54 M130 57 L127 67 Q130 71 133 67 M122 77 Q130 81 138 77"/>
           </g>
         </>:<>
-          <path className="figure-hair" d="M104 54 Q97 29 112 20 Q134 10 148 24 Q160 31 155 57 L150 75 Q130 83 111 75 Z"/>
-          <path className="figure-hair-lines" d="M115 46 Q130 49 145 46 M130 47 L130 66"/>
+          <path className="figure-hair" d="M104 54 Q97 29 112 20 Q134 10 148 24 Q160 31 155 57 L150 73 Q130 81 111 73 Z"/>
+          <path className="figure-hair-lines" d="M115 46 Q130 49 145 46 M130 47 L130 65 M118 74 Q130 78 142 74"/>
         </>}
         {/* Dobok: mangas articuladas, casaco sobreposto, faixa e calças de tecido. */}
         <path className="figure-gi" d={outlineParts[2]}/>

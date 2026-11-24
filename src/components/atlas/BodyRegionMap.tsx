@@ -1,7 +1,7 @@
 import {useEffect,useId,useRef,useState,type CSSProperties,type ReactNode} from 'react';
 import type {BodyRegion} from '../../lib/catalog-api';
 import type {Area,View} from './BodyMap';
-import BodyIllustration,{bodySilhouetteParts,bodySilhouettePath} from './BodyIllustration';
+import BodyIllustration,{bodySilhouettePath,HeadFeatureOverlay,headSilhouetteParts} from './BodyIllustration';
 import {areaViewBoxes,zonesFor,type AtlasZone} from './zones';
 import {zoneCopy} from './zone-copy';
 import {useTermDetail} from '../TermContext';
@@ -44,12 +44,15 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect,rende
         <linearGradient id="dobok-shadow"><stop stopColor="#f7faf9"/><stop offset="1" stopColor="#d9e3e2"/></linearGradient>
         <clipPath id={clip}>
           {/* Separate paths keep the head and neck overlap inside the silhouette. */}
-          {area==='head'?bodySilhouetteParts.map(path=><path key={path} d={path}/>):<path d={bodySilhouettePath}/>}
+          {area==='head'?headSilhouetteParts(view).map(path=><path key={path} d={path}/>):<path d={bodySilhouettePath}/>}
         </clipPath>
       </defs>
       <BodyIllustration view={view}/>
       <g clipPath={`url(#${clip})`}>
-        {zones.map(zone=><g key={zone.id} data-region={zone.id} data-anchor-x={zone.anchor[0]} data-anchor-y={zone.anchor[1]} role="button" tabIndex={0}
+        {zones.map(zone=>{
+          const zonePath=view==='back'&&zone.backPath?zone.backPath:zone.path;
+          const [anchorX,anchorY]=view==='back'&&zone.backAnchor?zone.backAnchor:zone.anchor;
+          return <g key={zone.id} data-region={zone.id} data-anchor-x={anchorX} data-anchor-y={anchorY} role="button" tabIndex={0}
           aria-label={label(zone)} aria-pressed={active===zone.id}
           aria-controls={renderInspection?inspectorId:undefined}
           className={'surface-cutout '+(active===zone.id?'selected':'')}
@@ -61,9 +64,10 @@ export default function BodyRegionMap({area,view,regions,selected,onSelect,rende
           onFocus={()=>{if(!active)setHover(zone.id);else setHover(null);}}
           onBlur={()=>setHover(null)} onClick={()=>choose(zone)}
           onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(zone);}}}>
-          <path d={zone.path} pointerEvents={renderInspection?'fill':undefined}/>
-        </g>)}
+          <path d={zonePath} pointerEvents={renderInspection?'fill':undefined}/>
+        </g>;})}
       </g>
+      {area==='head'&&<HeadFeatureOverlay view={view}/>}
     </svg>
     <section id={renderInspection?inspectorId:undefined} className="surface-inspector" aria-label="Detalhes da região selecionada">
       {focused||lastSelection?<div role={renderInspection&&record?undefined:'tooltip'} className={'surface-tooltip'+(record?'':' surface-tooltip-compact')} key={lastSelection?.id??focused?.id}>

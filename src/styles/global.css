@@ -357,6 +357,12 @@ input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#258c8b;m
 .body-detail[data-atlas-area="head"] .surface-inspector{height:auto}
 .body-detail[data-atlas-area="head"] .surface-tooltip,
 .body-detail[data-atlas-area="head"] .surface-placeholder{height:auto;min-height:inherit;max-height:none;overflow:visible}
+.body-detail[data-atlas-area="head"] .surface-cutout path{fill-opacity:.36}
+.body-detail[data-atlas-area="head"] .surface-cutout:hover path,
+.body-detail[data-atlas-area="head"] .surface-cutout:focus-visible path{fill-opacity:.52}
+.body-detail[data-atlas-area="head"] .surface-cutout.selected path{fill-opacity:.58;stroke-width:1.1}
+.body-illustration .figure-face-overlay{fill:none;stroke:#4c3a32;stroke-width:1.05;opacity:.92}
+.body-illustration .figure-hair-lines-overlay{fill:none;stroke:#9eb0be;stroke-width:.9;opacity:.72}
 
 [data-theme="dark"] .detail-svg .anatomy-outline{filter:drop-shadow(0 1.3px 2px #050d1799)}
 [data-theme="dark"] .detail-svg .anatomy-edge{stroke:#5d7285}

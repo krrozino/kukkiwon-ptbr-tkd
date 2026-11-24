@@ -127,3 +127,72 @@ test('a ficha persiste fora da vista, na URL e no retorno da Biblioteca', async 
   await expect(inspector.getByRole('status')).toBeEmpty();
   expect(requests).toEqual([]);
 });
+
+test('geometria de cabeça e pescoço respeita têmporas, nuca, silhueta e legibilidade facial', async ({ page, isMobile }) => {
+  await page.route('**/rest/v1/**', route => route.abort());
+  await page.goto('/atlas?region=head-face&zoom=1');
+  const svg = page.locator('.body-detail .detail-svg');
+  await expect(svg.locator('.figure-face-overlay')).toBeVisible();
+
+  for (const view of ['Vista anterior', 'Vista posterior'] as const) {
+    await page.getByRole('button', { name: view, exact: true }).click();
+    await svg.scrollIntoViewIfNeeded();
+    const metrics = await svg.evaluate((node) => {
+      const el = node as SVGSVGElement;
+      const clipPaths = [...el.querySelectorAll<SVGPathElement>('clipPath path')];
+      const zones = [...el.querySelectorAll<SVGGElement>('.surface-cutout')];
+      const paths = zones.map(z => z.querySelector<SVGPathElement>('path')!);
+      const matrix = el.getScreenCTM()!;
+      const vb = el.viewBox.baseVal;
+      const anchorsValid = zones.every((z, i) => {
+        const pt = new DOMPoint(Number(z.getAttribute('data-anchor-x')), Number(z.getAttribute('data-anchor-y')));
+        return paths[i].isPointInFill(pt) && clipPaths.some(cp => cp.isPointInFill(pt));
+      });
+      let overlaps = 0;
+      for (let x = vb.x + 0.371; x < vb.x + vb.width; x += 0.75) {
+        for (let y = vb.y + 0.277; y < vb.y + vb.height; y += 0.75) {
+          const pt = new DOMPoint(x, y);
+          if (!clipPaths.some(cp => cp.isPointInFill(pt))) continue;
+          const fills = paths.filter(p => p.isPointInFill(pt));
+          if (fills.length > 1) {
+            const neighbors = [
+              new DOMPoint(x - 0.02, y), new DOMPoint(x + 0.02, y),
+              new DOMPoint(x, y - 0.02), new DOMPoint(x, y + 0.02),
+            ];
+            if (neighbors.every(n => fills.every(p => p.isPointInFill(n)))) overlaps++;
+          }
+        }
+      }
+      const box = (id: string) => {
+        const p = el.querySelector<SVGPathElement>(`[data-region="${id}"] path`);
+        if (!p) return null;
+        const b = p.getBBox();
+        return { x: b.x, y: b.y, width: b.width, height: b.height };
+      };
+      const outsideScreen = new DOMPoint(94, 16).matrixTransform(matrix);
+      return {
+        anchorsValid,
+        overlaps,
+        temples: box('head-temples'),
+        occiput: box('head-occiput'),
+        neck: box('head-neck'),
+        outsidePoint: { x: outsideScreen.x, y: outsideScreen.y },
+      };
+    });
+
+    expect(metrics.anchorsValid).toBe(true);
+    expect(metrics.overlaps).toBe(0);
+    if (view === 'Vista anterior') {
+      expect(metrics.temples).not.toBeNull();
+      expect(metrics.temples!.y + metrics.temples!.height).toBeLessThanOrEqual(60);
+      if (isMobile) await page.touchscreen.tap(metrics.outsidePoint.x, metrics.outsidePoint.y);
+      else await page.mouse.click(metrics.outsidePoint.x, metrics.outsidePoint.y);
+      await expect(svg.locator('[data-region="head-face"]')).toHaveAttribute('aria-pressed', 'true');
+    } else {
+      expect(metrics.occiput).not.toBeNull();
+      expect(metrics.neck).not.toBeNull();
+      expect(metrics.occiput!.y + metrics.occiput!.height).toBeLessThanOrEqual(metrics.neck!.y + 3);
+      expect(metrics.occiput!.y + metrics.occiput!.height).toBeLessThan(metrics.neck!.y + metrics.neck!.height - 20);
+    }
+  }
+});

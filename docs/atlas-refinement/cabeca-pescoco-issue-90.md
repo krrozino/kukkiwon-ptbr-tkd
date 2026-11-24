@@ -4,7 +4,7 @@ Conferência documental em 23/11/2026. Os seis recortes ilustrativos, seus IDs e
 
 ## Evidência por recorte
 
-A referência técnica é o §10 de *Introductory remarks*, p. 10 do PDF da edição inglesa de 2012. As traduções PT-BR abaixo foram feitas para o projeto. O manual separa o grupo de áreas gerais da lista de alvos detalhados. [Kukkiwon, *Taekwondo Technical Terminology*, §10](https://research.kukkiwon.or.kr/homepage/boardMedia/11621#page=10)
+A referência técnica é o §10 de *Introductory remarks*, p. 10 do PDF da edição inglesa (2011/2012). As traduções PT-BR abaixo foram feitas para o projeto. O manual separa o grupo de áreas gerais da lista de alvos detalhados. [Kukkiwon, *Taekwondo Technical Terminology*, §10](https://research.kukkiwon.or.kr/homepage/boardMedia/11621#page=10)
 
 | Recorte e vista | Classificação, significado e localização na fonte | Grafia e romanização |
 | --- | --- | --- |
@@ -23,7 +23,17 @@ As propostas de `content/glossary/review.json` foram consultadas para cotejo. A 
 
 A prévia em `/atlas?region=head&zoom=1` oferece seleção por desenho e legenda. O link direto abre a vista do recorte quando ela não foi especificada. A troca de vista preserva a ficha e anuncia a vista onde o recorte fica. O botão Voltar do navegador restaura a seleção ao retornar da Biblioteca e dos Fundamentos.
 
-O refinamento anatômico de proporções e transições fica com Antigravity depois da entrega funcional. As capturas documentam a interface e os estados das duas vistas para essa revisão.
+## Refinamento anatômico, visual e qualidade
 
-- [Capturas desktop](./cabeca-pescoco-issue-90-desktop.jpg)
-- [Capturas mobile](./cabeca-pescoco-issue-90-mobile.jpg)
+O refinamento visual preservou os seis IDs, as descrições ilustrativas, os termos documentados (`Eolgul`, `Injung`, `Teok`, `Mok`), as fontes por campo e o comportamento de URL/histórico:
+
+- **Face, testa, têmporas e queixo:** contornos orgânicos acompanhando a linha do cabelo na testa, têmporas restritas à região temporal lateral, curva contínua de bochechas e mandíbula e preservação da máscara de seleção no queixo.
+- **Vista posterior e pescoço:** separação visual entre `head-occiput` (região posterior da cabeça/nuca superior) e `head-neck` (pescoço posterior via `backPath`), remoção do contorno de queixo na silhueta posterior (`headSilhouetteParts`) e suavização da transição pescoço–gola–ombros.
+- **Legibilidade facial:** sobreposição dos traços de olhos, nariz e boca (`HeadFeatureOverlay`) acima dos preenchimentos nos temas claro e escuro.
+- **Consistência bibliográfica e SonarCloud:** referência em `src/lib/public-head.ts` alinhada à edição `2011/2012` do manual; os três apontamentos da PR #91 em `src/components/Atlas.tsx` (`typescript:S3776` em `resolveStaticAtlasLocation` e 2x `typescript:S3358` em ternários aninhados do painel lateral) foram resolvidos com extração de helpers (`parseView`, `CatalogAreaLinks`, `AtlasCatalogSidebar`).
+
+- [Capturas desktop (antes · 980a37e)](./cabeca-pescoco-issue-90-desktop.jpg)
+- [Capturas mobile (antes · 980a37e)](./cabeca-pescoco-issue-90-mobile.jpg)
+- [Capturas desktop (depois)](./cabeca-pescoco-issue-90-depois-desktop.jpg)
+- [Capturas mobile (depois)](./cabeca-pescoco-issue-90-depois-mobile.jpg)
+- [Comparativo antes/depois](./cabeca-pescoco-issue-90-comparativo.jpg)

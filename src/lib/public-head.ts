@@ -25,7 +25,7 @@ export const headDocumentReview = {
 const targetList = 'Introductory remarks §10, p. 10 do PDF';
 function targetReference(list: 'Target areas' | 'Detailed Target', entry: string): LibraryReference {
   const reference = kukkiwonTerminologyReference(`${targetList} · ${list} · ${entry}`);
-  return { ...reference, edition: 'ed. inglesa de 2012', url: `${reference.url}#page=10` };
+  return { ...reference, url: `${reference.url}#page=10` };
 }
 
 function dictionaryReference(entry: string, word: number, sense: string, language: 'eng' | 'kor' = 'eng'): LibraryReference {
