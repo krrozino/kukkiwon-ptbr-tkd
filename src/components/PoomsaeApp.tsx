@@ -224,6 +224,7 @@ function PoomsaeDossierPanel({
             <p className="fine-print">
               Consulta em <time dateTime={poomsaeCountSource.accessedOn}>26/11/2026</time>. A contagem segue a tabela citada.
             </p>
+            <a className="inline-link" href="/biblioteca/iron/iron-convencoes-de-contagem">Como ler etapas, ações e quadros →</a>
           </div>
         )}
         <div>

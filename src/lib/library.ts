@@ -214,8 +214,8 @@ const poomsaeItems: LibraryItem[] = allPoomsaeGuides.map((guide) => ({
     'Síntese didática independente fundamentada no artigo institucional da Kukkiwon. A associação a faixas depende do currículo de cada escola e a sequência passo a passo permanece separada até revisão documental de cada movimento.',
   relatedLibrarySlugs:
     guide.kind === 'taegeuk'
-      ? ['sonnal', 'jumeok', guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : 'koryo']
-      : ['sonnal', 'ageumson', guide.slug === 'koryo' ? 'keumgang' : 'koryo'],
+      ? ['iron-leitura-de-poomsae', 'iron-convencoes-de-contagem', guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : 'koryo']
+      : ['iron-evolucao-poomsae', 'iron-convencoes-de-contagem', guide.slug === 'koryo' ? 'keumgang' : 'koryo'],
   term: {
     slug: guide.slug,
     name:
@@ -564,7 +564,7 @@ function normalize(text: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLocaleLowerCase('pt-BR')
-    .replace(/[-_]/g, ' ');
+    .replace(/[-_‐‑–—]/g, ' ');
 }
 
 export function searchLibrary(

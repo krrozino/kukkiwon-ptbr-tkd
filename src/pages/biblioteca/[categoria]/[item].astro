@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import FavoriteButton from '../../../components/FavoriteButton';
+import GlossaryKnowledgeLinks from '../../../components/GlossaryKnowledgeLinks';
 import { PoomsaeLineDiagram, SchoolBeltStatus, TrigramDiagram } from '../../../components/poomsae/PoomsaeVisuals';
 import { getPoomsaeGuide } from '../../../data/poomsae-guide';
 import { multiFingerCareNotes } from '../../../data/sonkisul-finger-guide';
@@ -132,6 +133,8 @@ const suggestedItems = (
             )}
           </section>
         ))}
+
+        <GlossaryKnowledgeLinks slug={item.slug} />
 
         {item.studyPoints && item.studyPoints.length > 0 && (
           <section class="reading-section">
