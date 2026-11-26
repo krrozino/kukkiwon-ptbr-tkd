@@ -12,6 +12,13 @@ Projeto **independente, comunitário, público, gratuito e sem fins lucrativos**
 4. Preferir **1 Issue → 1 branch → 1 objetivo → 1 PR**; convenções `feat/`, `fix/`, `docs/`, `chore/`, `test/`, etc. PRs pequenas e commits convencionais.
 5. Definir STOP CONDITIONS e evidências antes de executar. Usar `npm ci --ignore-scripts`, `npm run content:check`, `npm run research:audit`, `npm run sources:audit`, `npm run check`, `npm test`, `npm run build`, testes Playwright relevantes. Reportar **executado**, **não executado** e **falhou** com precisão.
 
+## Armazenamento e isolamento neste projeto
+
+- Manter um checkout principal e, por padrão, uma única worktree adicional ativa. Reutilizar uma worktree limpa quando houver disponibilidade e confirmar a responsabilidade por ela. Registrar a necessidade e a duração de exceções.
+- Instalar dependências somente no ambiente ativo. Reutilizar caches compatíveis com o sistema, a versão do Node e o lockfile, mantendo a instalação de cada trabalho isolada.
+- Antes de aposentar um ambiente, conferir o status, commits fora do remoto, arquivos ignorados e evidências únicas. Preservar o histórico em referência remota autorizada ou em backup Git verificável. Arquivar evidências privadas fora de branches públicas.
+- Medir o espaço antes de limpar. Priorizar dependências e artefatos regeneráveis, após conferir seus caminhos e dependências de outros trabalhos. A exclusão de worktrees e dados requer autorização específica do mantenedor.
+
 ## Fronteiras inegociáveis
 
 - **Merge ≠ deploy ≠ publicação editorial.** Deploy oficial somente via workflow manual, CI de push verde no SHA exato e autorização específica. Nenhum agente faz deploy, migração Supabase, alteração de RLS/Rules, gravação de produção, criação de revisores ou publicação de técnica sem aprovação humana separada.
