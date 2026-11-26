@@ -14,6 +14,19 @@ O ambiente desta operação é Linux. O [inventário anterior do Atlas](atlas-re
 
 `codex/poomsae-conferencia-documental@6a10385` não está entre as referências remotas nem foi encontrado no clone ou na API de commits. A equivalência textual ainda precisa ser conferida a partir do Windows. Preservar essa worktree e seus arquivos ignorados antes de qualquer ação de limpeza.
 
+## PRs anteriores
+
+| PR | Evidência e decisão |
+| --- | --- |
+| #67, #70 | A navegação de visitante, a Biblioteca e os currículos seguem a implementação mais recente das #77 e #81. A #70 depende da #69 e tem contratos de interface anteriores à integração. Candidatas a encerramento manual após conferir os heads preservados. |
+| #69 | O blob `ccb74667f02e97d64c9c9bb50c7a12d371e735ef`, em `e58d80b:content/research/gemini-library-candidates.json`, contém oito candidatos, incluindo seis registros Sebon e dois Palgwae. Útil para localizar referências em revisão. Conservar o head original com o material, pois os passos, aliases e pronúncias exigem cotejo por campo e parte das sequências depende da escola. |
+| #71 | Recuperados CLI, testes e documentação para a conferência de um JSON isolado. A reconciliação já existente serve quando o pacote original completo está disponível. A saída opcional usa a proteção existente e exige arquivo novo fora da worktree. |
+| #74 | As sete áreas e fichas atuais vieram pelas #77 e #81. A nota exclusiva descreve o recorte antigo de 48 itens e documenta a origem dos candidatos da #69. Preservada no head `8f174ec`. Candidata a encerramento manual. |
+| #75 | Os intervalos por escola estão no código atual, inclusive em `c0949a1`. A nota exclusiva de `6d0784d` descreve os presets de sua própria branch. Candidata a encerramento manual, mantendo a nota histórica no head original. |
+| #80 | O head `c0949a1` é ancestral da `main` pelo merge da #81. Candidata a encerramento manual. |
+| #82–#85 | Pilotos encadeados, consolidação do Taegeuk 1 e pesquisa do Taegeuk 2. Integrar por escopo na candidata. Preservar heads, PRs e artefatos de pesquisa locais. |
+| #26, #28, #89 | Abertas. Atualizações de Actions, TypeScript e npm seguem revisão independente. |
+
 ## Próxima ação
 
-Conferir diferenças das PRs históricas em relação à base atual e preservar o material único de pesquisa. Em seguida, portar a #85 e o trabalho exclusivo de #83 e #84, verificando o isolamento do laboratório.
+Portar a #85 e o trabalho exclusivo das #83 e #84. Verificar o isolamento do laboratório nas rotas e no pacote público.
