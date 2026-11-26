@@ -18,6 +18,7 @@ import {
   taegeukForms,
   type PoomsaeFormGuide,
 } from '../data/poomsae-guide';
+import { getPoomsaeCounts, poomsaeCountSource } from '../data/poomsae-counts';
 import { PoomsaeLineDiagram, SchoolBeltStatus, TrigramDiagram } from './poomsae/PoomsaeVisuals';
 
 export function PoomsaeSequence({ form, steps }: { form: PoomsaeForm; steps: PoomsaeStep[] }) {
@@ -146,6 +147,7 @@ function PoomsaeDossierPanel({
   const index = allPoomsaeGuides.findIndex((item) => item.slug === guide.slug);
   const prev = index > 0 ? allPoomsaeGuides[index - 1] : null;
   const next = index >= 0 && index < allPoomsaeGuides.length - 1 ? allPoomsaeGuides[index + 1] : null;
+  const counts = getPoomsaeCounts(guide);
 
   return (
     <section className="card poomsae-dossier" aria-label="Dossiê de estudo da forma" id="dossie-poomsae">
@@ -212,6 +214,18 @@ function PoomsaeDossierPanel({
       <SchoolBeltStatus slug={guide.slug} formName={guide.name} />
 
       <div className="poomsae-dossier-relations">
+        {counts && (
+          <div>
+            <strong>Contagem documental</strong>
+            <p>{counts.stages} etapas (품) · {counts.actions} ações (동작수)</p>
+            <a className="inline-link" href={poomsaeCountSource.url} target="_blank" rel="noopener noreferrer">
+              {poomsaeCountSource.institution} · {poomsaeCountSource.locator} ↗
+            </a>
+            <p className="fine-print">
+              Consulta em <time dateTime={poomsaeCountSource.accessedOn}>26/11/2026</time>. A contagem segue a tabela citada.
+            </p>
+          </div>
+        )}
         <div>
           <strong>Postura de preparação relacionada (consulta provisória):</strong>{' '}
           <a className="inline-link" href={`/acervo#${guide.relatedAcervoJunbi.slug}`}>
