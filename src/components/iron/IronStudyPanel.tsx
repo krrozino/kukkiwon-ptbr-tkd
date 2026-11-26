@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ironQuizQuestions, type IronLevel } from '../../data/iron-guide';
+import { ironEntries, ironQuizQuestions, type IronLevel } from '../../data/iron-guide';
 
 const QUIZ_STORAGE_KEY = 'tkd:iron-quiz:v1';
 
@@ -8,7 +8,7 @@ const LEVEL_INFO: Record<
   { label: string; badge: string; audience: string }
 > = {
   all: {
-    label: 'Todos os níveis (12 temas)',
+    label: `Todos os níveis (${ironEntries.length} temas)`,
     badge: 'Visão completa',
     audience: 'Percorra toda a trilha teórica do iniciante ao pesquisador.',
   },

@@ -7,10 +7,52 @@ import {
   libraryItemHref,
   searchLibrary,
   type LibraryCategoryId,
+  type LibraryItem,
   type LibrarySortMode,
 } from '../../lib/library';
 
 const validSorts = new Set<LibrarySortMode>(['default', 'az', 'hangul', 'atlas']);
+
+function LibraryEntries({ items, showKind = false }: { items: readonly LibraryItem[]; showKind?: boolean }) {
+  return (
+    <ul className="library-entry-list">
+      {items.map(({ slug, term, kindLabel }) => (
+        <li className="library-entry" key={slug}>
+          <a href={libraryItemHref(slug)!}>
+            <strong>{term.romanization || term.name}</strong>
+            {term.hangul && <span lang="ko">{term.hangul}</span>}
+          </a>
+          <p>{term.romanization && term.name}{showKind && <small>{kindLabel}</small>}</p>
+          {atlasHref(slug) && <span className="entry-atlas">Atlas</span>}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LibraryGroups({ items, showArea }: { items: readonly LibraryItem[]; showArea: boolean }) {
+  return libraryCategories.map((category) => {
+    const collection = items.filter((item) => item.categoryId === category.id);
+    if (!collection.length) return null;
+    const groups = Map.groupBy(collection, (item) => item.kindLabel);
+    return (
+      <section className="library-collection" key={category.id} aria-label={category.label}>
+        {showArea && <h3>{category.label}</h3>}
+        {[...groups].map(([label, group]) => (
+          <section className="library-group" key={label} aria-label={label}>
+            {showArea ? <h4>{label}</h4> : <h2>{label}</h2>}
+            {category.id === 'iron' ? [...Map.groupBy(group, (item) => item.topic ?? 'Panorama')].map(([topic, entries]) => (
+              <div className="library-topic" key={topic}>
+                {showArea ? <h5>{topic}</h5> : <h3>{topic}</h3>}
+                <LibraryEntries items={entries} />
+              </div>
+            )) : <LibraryEntries items={group} />}
+          </section>
+        ))}
+      </section>
+    );
+  });
+}
 
 export default function LibraryExplorer({ categoryId }: { categoryId?: LibraryCategoryId }) {
   const [query, setQuery] = useState('');
@@ -159,33 +201,10 @@ export default function LibraryExplorer({ categoryId }: { categoryId?: LibraryCa
 
       {items.length ? (
         <div className="library-results">
-          {items.map((item) => {
-            const { slug, term, kindLabel } = item;
-            const category = getLibraryCategory(item.categoryId);
-            return (
-              <article className="library-entry" key={slug}>
-                <div className="entry-meta">
-                  <span>{kindLabel}</span>
-                  {atlasHref(slug) && <span className="entry-atlas">Atlas ↗</span>}
-                </div>
-                <div className="entry-title">
-                  <h3>
-                    <a href={libraryItemHref(slug)!}>{term.romanization || term.name}</a>
-                  </h3>
-                  {term.hangul && <span lang="ko">{term.hangul}</span>}
-                </div>
-                <p>{term.name}</p>
-                <span className="entry-footer">
-                  {category ? `${category.label} · ${category.title}` : item.categoryId}{' '}
-                  <span aria-hidden="true">↗</span>
-                </span>
-              </article>
-            );
-          })}
+          {sortBy === 'default' ? <LibraryGroups items={items} showArea={!categoryId} /> : <LibraryEntries items={items} showKind />}
         </div>
       ) : (
         <div className="library-empty">
-          <span className="eyebrow">Continue explorando</span>
           <h3>Nenhuma ficha encontrada</h3>
           <p>Tente outro nome ou escolha outra área. Você também pode consultar os materiais de estudo desta coleção.</p>
           <div className="actions">
