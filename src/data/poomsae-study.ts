@@ -1,3 +1,11 @@
+import type {
+  PoomsaeStudy as StudyModel,
+  StudyFrame,
+  StudyMovement as MovementModel,
+} from './poomsae-study-model';
+
+export type { StudyFrame, StudyLink, StudyReference, StudyTerm } from './poomsae-study-model';
+
 export type StudyDirection = 'ga' | 'na' | 'da1' | 'ra1' | 'da2' | 'ra2' | 'da3' | 'ra3';
 
 const initialHeadings = {
@@ -25,30 +33,8 @@ export function studyDirectionLabel(direction: StudyDirection) {
   return heading + ' (' + label + ')';
 }
 
-export type StudyLink = { label: string; href: string };
-export type StudyTerm = { label: string; href: string | null; hangul?: string };
-
-export type StudyReference = {
-  institution: string;
-  title: string;
-  url: string;
-  locator: string;
-  page?: number;
-  edition?: string;
-  sourceCheckedAt?: string;
-};
-
-export type StudyFrame = {
-  id: string;
-  label: string;
-  hangul?: string;
-  romanization?: string;
-  kind?: string;
-  executor?: string;
-  reference: StudyReference;
-  additionalReferences?: readonly StudyReference[];
-  link?: StudyLink;
-};
+export type StudyMovement = MovementModel<StudyDirection>;
+export type PoomsaeStudy = StudyModel<StudyDirection>;
 
 const body = '/biblioteca/kibon-dongjak/';
 const ready = { label: 'Gibon-junbi', href: body + 'gibon-junbi' };
@@ -84,67 +70,6 @@ function frame(id: string, page: number, technique: keyof typeof techniques, exe
     reference: { institution, title, url, page, locator: 'quadro ' + id },
   };
 }
-
-export type StudyMovement = {
-  number: number;
-  title: string;
-  direction: StudyDirection;
-  displacement?: string;
-  description?: string | null;
-  base?: StudyTerm;
-  baseSide?: 'Esquerda' | 'Direita';
-  leadFoot?: 'Esquerdo' | 'Direito';
-  initialPosition?: string;
-  bodyOrientation?: string;
-  rotation?: string;
-  finalPosition?: string;
-  kihap?: boolean;
-  frames: readonly StudyFrame[];
-  references?: readonly StudyReference[];
-  transitionPending?: boolean;
-  discrepancy?: { note?: string; variants: readonly { summary: string; reference: StudyReference }[] };
-  reviewPoints?: readonly string[];
-};
-
-type StudyBoundary = {
-  title: string;
-  direction: StudyDirection;
-  position?: StudyDirection;
-  displacement?: string;
-  base: StudyTerm;
-  stance?: StudyTerm;
-  citation: { page: number; locator: string };
-};
-
-export type PoomsaeStudy = {
-  slug: string;
-  hangul: string;
-  meaning: string;
-  identityUrl: string;
-  identityLocator: string;
-  trigramHangul: string;
-  family?: string;
-  romanization?: string;
-  references?: readonly StudyReference[];
-  demonstration?: {
-    description: string;
-    recording: StudyLink;
-    lesson: StudyLink & { credit: string };
-    embed: { url: string; title: string };
-  };
-  movements: readonly StudyMovement[];
-  readingNote: string;
-  source: {
-    institution: string;
-    title: string;
-    edition: string;
-    url: string;
-    sourceCheckedAt: string;
-    reviewState: string;
-  };
-  start: StudyBoundary;
-  finish: StudyBoundary;
-};
 
 export const taegeukOneStudy = {
   slug: 'taegeuk-1-jang',
