@@ -18,10 +18,10 @@ function LibraryEntries({ items, showKind = false }: { items: readonly LibraryIt
     <ul className="library-entry-list">
       {items.map(({ slug, term, kindLabel }) => (
         <li className="library-entry" key={slug}>
-          <a href={libraryItemHref(slug)!}>
-            <strong>{term.romanization || term.name}</strong>
+          <div className="library-entry-name">
+            <a href={libraryItemHref(slug)!}><strong>{term.romanization || term.name}</strong></a>
             {term.hangul && <span lang="ko">{term.hangul}</span>}
-          </a>
+          </div>
           <p>{term.romanization && term.name}{showKind && <small>{kindLabel}</small>}</p>
           {atlasHref(slug) && <span className="entry-atlas">Atlas</span>}
         </li>
