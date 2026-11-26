@@ -139,6 +139,7 @@ export function loadExistingInventory(root = ROOT) {
     ['poomsae', 'src/data/poomsae-guide.ts'],
     ['matchuo-kyorugi', 'src/data/matchuo-kyorugi-guide.ts'],
     ['iron', 'src/data/iron-guide.ts'],
+    ['iron', 'src/data/iron-context.ts'],
   ];
   for (const [categoryId, relPath] of guideFiles) {
     const src = readFileSync(join(root, relPath), 'utf8');
