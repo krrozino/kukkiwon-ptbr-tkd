@@ -1,5 +1,18 @@
 import { expect, test } from '@playwright/test';
 
+test('restaura o movimento ao voltar da ficha da base', async ({ page }) => {
+  await page.goto('/poomsae/taegeuk-1-jang?movimento=5');
+  const movement = page.getByRole('region', { name: 'Movimento selecionado' });
+  await expect(movement.getByRole('status')).toHaveText('Movimento 5 de 18');
+  await expect(page.locator('#galeria [data-selected=true]')).toHaveText('Frente (Ga)');
+  await movement.getByRole('link', { name: 'Apgubi' }).click();
+  await expect(page).toHaveURL(/\/biblioteca\/kibon-dongjak\/apgubi$/);
+  await page.goBack();
+  await expect(movement.getByRole('status')).toHaveText('Movimento 5 de 18');
+  await page.keyboard.press('ArrowLeft');
+  await expect(page).toHaveURL(/\?movimento=4$/);
+});
+
 test('percorre as 18 etapas e confere os campos documentais', async ({ page }) => {
   await page.goto('/poomsae/taegeuk-1-jang');
   await expect(page.getByText('18 etapas numeradas · 20 ações')).toBeVisible();

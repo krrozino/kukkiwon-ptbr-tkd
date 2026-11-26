@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import { SchoolBeltStatus, TrigramDiagram } from '../../components/poomsae/PoomsaeVisuals';
 import VisualSequence from '../../components/poomsae/VisualSequence';
-import TaegeukCourseDiagram from '../../components/poomsae/TaegeukCourseDiagram.astro';
 import { taegeukForms } from '../../data/poomsae-guide';
 import { loadPoomsaePreviews } from '../../lib/poomsae-preview';
 import '../../styles/poomsae-study.css';
@@ -65,28 +64,7 @@ const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(n
       <a class="inline-link" href={`/biblioteca/poomsae/${study.slug}`}>Ficha da forma na Biblioteca →</a>
     </div>
 
-    <VisualSequence study={study} client:load />
-
-    <section class="study-section" id="galeria" aria-labelledby="study-gallery-title">
-      <h2 id="study-gallery-title">Galeria de estudo</h2>
-      <div class="study-gallery">
-        <TaegeukCourseDiagram movements={study.movements} />
-        <div class="study-gallery-panel study-gallery-symbol">
-          <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
-          <div>
-            <strong>Trigrama {guide.trigram.romanization}</strong>
-            <p>{guide.trigram.polaritySummary}</p>
-            <p class="fine-print">Esquema original · Taekwondo para Todos</p>
-          </div>
-        </div>
-      </div>
-      <p class="muted">
-        As lâminas de referência mostram as posturas fotografadas de cada movimento. A numeração dos quadros acompanha a sequência acima.
-      </p>
-      <a class="inline-link" href={source.url + '#page=' + firstPage} target="_blank" rel="noopener noreferrer">
-        Consultar imagens da Kukkiwon na referência (pp. {firstPage}–{lastPage}) ↗
-      </a>
-    </section>
+    <VisualSequence study={study} guide={guide} client:load />
 
     {demonstration && (
       <section class="study-section study-media" id="demonstracao" aria-labelledby="study-video-title">

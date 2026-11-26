@@ -8,6 +8,9 @@ import {
   type StudyReference,
   type StudyTerm,
 } from '../../data/poomsae-study';
+import type { TaegeukFormGuide } from '../../data/poomsae-guide';
+import { TrigramDiagram } from './PoomsaeVisuals';
+import TaegeukCourseDiagram from './TaegeukCourseDiagram';
 
 function MovementSource({
   citation,
@@ -160,26 +163,44 @@ function MovementActions({ movement }: { movement: StudyMovement }) {
   );
 }
 
-export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
+type StudyMode = 'overview' | 'steps' | 'review';
+
+export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; guide: TaegeukFormGuide }) {
   const id = useId();
   const heading = useRef<HTMLHeadingElement>(null);
-  const [mode, setMode] = useState<'overview' | 'steps' | 'review'>('overview');
+  const [mode, setMode] = useState<StudyMode>('overview');
   const [index, setIndex] = useState(0);
   const { movements } = study;
   const active = movements[index];
   const actionCount = movements.reduce((total, movement) => total + movement.frames.length, 0);
 
   useEffect(() => {
+    function restoreMovement() {
+      const number = Number(new URLSearchParams(location.search).get('movimento'));
+      const position = movements.findIndex((movement) => movement.number === number);
+      setMode(position < 0 ? 'overview' : 'steps');
+      setIndex(Math.max(position, 0));
+    }
+    restoreMovement();
+    window.addEventListener('popstate', restoreMovement);
+    return () => window.removeEventListener('popstate', restoreMovement);
+  }, [movements]);
+
+  useEffect(() => {
     if (mode === 'steps') heading.current?.focus();
   }, [mode, index]);
 
-  function selectMovement(next: number) {
+  function selectMode(nextMode: StudyMode, next = index) {
+    const url = new URL(location.href);
+    if (nextMode === 'steps') url.searchParams.set('movimento', String(movements[next].number));
+    else url.searchParams.delete('movimento');
+    if (url.href !== location.href) history.replaceState(history.state, '', url);
+    setMode(nextMode);
     setIndex(next);
-    setMode('steps');
   }
 
   function moveBy(offset: number) {
-    setIndex((current) => Math.max(0, Math.min(current + offset, movements.length - 1)));
+    selectMode('steps', Math.max(0, Math.min(index + offset, movements.length - 1)));
   }
 
   function handleKeys(event: KeyboardEvent<HTMLElement>) {
@@ -191,6 +212,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
   }
 
   return (
+    <>
     <section className="study-section" id="sequencia" aria-labelledby={id + '-sequence'}>
       <div className="study-section-heading">
         <div>
@@ -200,13 +222,13 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
           <p className="muted">As setas seguem a orientação inicial de quem pratica, mesmo após os giros. Na preparação, a pessoa começa em Na e olha para Ga (frente).</p>
         </div>
         <div className="study-mode" role="group" aria-label="Modo de estudo">
-          <button type="button" aria-pressed={mode === 'overview'} onClick={() => setMode('overview')}>
+          <button type="button" aria-pressed={mode === 'overview'} onClick={() => selectMode('overview')}>
             Visão geral
           </button>
-          <button type="button" aria-pressed={mode === 'steps'} onClick={() => setMode('steps')}>
+          <button type="button" aria-pressed={mode === 'steps'} onClick={() => selectMode('steps')}>
             Passo a passo
           </button>
-          <button type="button" aria-pressed={mode === 'review'} onClick={() => setMode('review')}>
+          <button type="button" aria-pressed={mode === 'review'} onClick={() => selectMode('review')}>
             Ficha de revisão
           </button>
         </div>
@@ -224,7 +246,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                   <button
                     type="button"
                     aria-label={`Movimento ${movement.number}: ${movement.title}`}
-                    onClick={() => selectMovement(position)}
+                    onClick={() => selectMode('steps', position)}
                   >
                     <span className="study-number">{String(movement.number).padStart(2, '0')}</span>
                     <span className="study-move-title">{movement.title}</span>
@@ -270,7 +292,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                   type="button"
                   aria-label={`Ir para movimento ${movement.number}`}
                   aria-current={position === index ? 'step' : undefined}
-                  onClick={() => setIndex(position)}
+                  onClick={() => selectMode('steps', position)}
                 >
                   {movement.number}
                 </button>
@@ -300,7 +322,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                     <button
                       type="button"
                       className="study-review-jump"
-                      onClick={() => selectMovement(position)}
+                      onClick={() => selectMode('steps', position)}
                     >
                       Estudar passo {movement.number}
                     </button>
@@ -325,5 +347,23 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
         </section>
       )}
     </section>
+    <section className="study-section" id="galeria" aria-labelledby={id + '-gallery'}>
+      <h2 id={id + '-gallery'}>Galeria de estudo</h2>
+      <div className="study-gallery">
+        <TaegeukCourseDiagram movements={movements} active={mode === 'steps' ? active : undefined} />
+        <div className="study-gallery-panel study-gallery-symbol">
+          <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
+          <div>
+            <strong>Trigrama {guide.trigram.romanization}</strong>
+            <p>{guide.trigram.polaritySummary}</p>
+            <p className="fine-print">Esquema original · Taekwondo para Todos</p>
+          </div>
+        </div>
+      </div>
+      <a className="inline-link" href={study.source.url + '#page=' + study.start.citation.page} target="_blank" rel="noopener noreferrer">
+        Consultar as lâminas de referência (pp. {study.start.citation.page}–{study.finish.citation.page}) ↗
+      </a>
+    </section>
+    </>
   );
 }

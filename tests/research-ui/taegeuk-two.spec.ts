@@ -64,7 +64,9 @@ for (const scheme of ['light', 'dark'] as const) {
       if (count === 2) await expect(movement.getByText('Base final', { exact: true })).toBeVisible();
       for (const frame of await frames.all()) {
         await expect(frame.locator('[lang="ko"]')).toBeVisible();
-        await expect(frame.getByRole('link', { name: /Education Media Center/ })).toHaveAttribute('href', /#page=\d+$/);
+        const sources = frame.getByRole('link', { name: /Education Media Center/ });
+        await expect(sources.first()).toBeVisible();
+        for (const source of await sources.all()) await expect(source).toHaveAttribute('href', /#page=\d+$/);
       }
       for (const href of await movement.locator('a[href^="/biblioteca/"]').evaluateAll(
         (anchors) => anchors.map((node) => node.getAttribute('href')!),
