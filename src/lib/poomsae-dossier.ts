@@ -13,9 +13,10 @@ const source = z.object({
   url: httpsUrl, sourceCheckedAt: z.iso.date(), locator: text.optional(),
 });
 const evidence = z.object({ sourceId: text, page: page.optional(), locator: text });
-const boundary = z.object({ title: text, direction, position: direction.optional(), posture: term, base: term.optional(), citation });
+const boundary = z.object({ title: text, direction, position: direction.optional(), posture: term, base: term.optional(), displacement: text.optional(), citation });
 const frame = z.object({
   frame: text, techniqueId: text, label: text, hangul: text.optional(), romanizationSource: text.optional(),
+  kind: text.optional(), executor: text.optional(),
   evidence: z.array(evidence).min(1),
 });
 
@@ -41,6 +42,7 @@ const dossierSchema = z.object({
   discrepancies: z.array(discrepancy),
   movements: z.array(z.object({
     number: page, title: text, direction, description: text.nullable().optional(), base: term.optional(),
+    displacement: text.optional(), kihap: z.boolean().optional(),
     lead: z.enum(['Esquerda', 'Direita']).optional(), citation, actions: z.array(frame).min(1),
     evidence: z.array(evidence).default([]),
   })).min(1),
@@ -77,8 +79,8 @@ export function parseTaegeukTwoDossier(
     return { label, hangul, href: links?.term(termId) ?? null };
   }
 
-  function point({ title, direction, position, posture, base, citation }: z.infer<typeof boundary>) {
-    return { title, direction, position, base: studyTerm(posture), stance: base && studyTerm(base), citation };
+  function point({ title, direction, position, posture, base, displacement, citation }: z.infer<typeof boundary>) {
+    return { title, direction, position, displacement, base: studyTerm(posture), stance: base && studyTerm(base), citation };
   }
 
   return {
@@ -141,6 +143,7 @@ export function parseTaegeukTwoDossier(
           if (!photo) throw new Error('Quadro sem página da fonte principal.');
           return {
             id: action.frame, label: action.label, hangul: action.hangul, romanization: action.romanizationSource,
+            kind: action.kind, executor: action.executor,
             reference: photo, additionalReferences: references.filter((entry) => entry !== photo),
             link: links?.technique(action.techniqueId),
           };
