@@ -34,16 +34,19 @@ export type StudyReference = {
   url: string;
   locator: string;
   page?: number;
+  edition?: string;
+  sourceCheckedAt?: string;
 };
 
 export type StudyFrame = {
   id: string;
   label: string;
   hangul?: string;
-  romanization: string;
-  kind: 'Ataque' | 'Defesa';
-  executor: string;
+  romanization?: string;
+  kind?: string;
+  executor?: string;
   reference: StudyReference;
+  additionalReferences?: readonly StudyReference[];
   link?: StudyLink;
 };
 
@@ -86,21 +89,30 @@ export type StudyMovement = {
   number: number;
   title: string;
   direction: StudyDirection;
-  displacement: string;
-  description: string;
-  base: StudyTerm;
-  baseSide: 'Esquerda' | 'Direita';
-  leadFoot: 'Esquerdo' | 'Direito';
+  displacement?: string;
+  description?: string | null;
+  base?: StudyTerm;
+  baseSide?: 'Esquerda' | 'Direita';
+  leadFoot?: 'Esquerdo' | 'Direito';
+  initialPosition?: string;
+  bodyOrientation?: string;
+  rotation?: string;
+  finalPosition?: string;
+  kihap?: boolean;
   frames: readonly StudyFrame[];
   references?: readonly StudyReference[];
+  transitionPending?: boolean;
+  discrepancy?: { note?: string; variants: readonly { summary: string; reference: StudyReference }[] };
+  reviewPoints?: readonly string[];
 };
 
 type StudyBoundary = {
   title: string;
   direction: StudyDirection;
-  position: StudyDirection;
+  position?: StudyDirection;
   displacement?: string;
   base: StudyTerm;
+  stance?: StudyTerm;
   citation: { page: number; locator: string };
 };
 
@@ -111,6 +123,9 @@ export type PoomsaeStudy = {
   identityUrl: string;
   identityLocator: string;
   trigramHangul: string;
+  family?: string;
+  romanization?: string;
+  references?: readonly StudyReference[];
   demonstration?: {
     description: string;
     recording: StudyLink;
@@ -133,6 +148,7 @@ export type PoomsaeStudy = {
 
 export const taegeukOneStudy = {
   slug: 'taegeuk-1-jang',
+  family: 'Taegeuk',
   identityLocator: 'Board 37, nº 980',
   trigramHangul: '건',
   demonstration: {
@@ -289,7 +305,7 @@ export const taegeukOneStudy = {
       references: [{ ...studySource, page: 63, locator: 'quadro 17, vista lateral' }],
     },
     {
-      number: 18, title: 'Soco médio com kihap', direction: 'na',
+      number: 18, title: 'Soco médio com kihap', direction: 'na', kihap: true,
       description: 'Momtong-bandae-jireugi com kihap encerra a contagem, antes do retorno à preparação.',
       displacement: 'Avança o pé direito em direção a Na.',
       base: long, baseSide: 'Direita', leadFoot: 'Direito',

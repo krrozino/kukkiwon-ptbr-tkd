@@ -117,6 +117,16 @@ const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(n
         {source.institution} · <cite>{source.title}</cite> · {source.edition}, pp. {firstPage}–{lastPage}.
         Consulta documental em <time datetime={source.sourceCheckedAt}>{checkedAt}</time>.
       </p>
+      {study.references?.length ? (
+        <ul class="study-references">
+          {study.references.map((reference) => (
+            <li>
+              <a class="inline-link" href={reference.url} target="_blank" rel="noopener noreferrer">{reference.title} ↗</a>
+              <span> · {reference.institution} · {reference.locator}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <p>Adaptação didática em português para leitura da forma. Revisão docente pendente.</p>
     </footer>
   </article>

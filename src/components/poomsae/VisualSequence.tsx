@@ -55,7 +55,8 @@ function StudyBoundary({ label, boundary, source }: {
         <strong>{boundary.title}</strong>
       </div>
       <span><TermLink term={boundary.base} /></span>
-      <span>Posição {studyDirections[boundary.position].label} · voltado para {studyDirectionLabel(boundary.direction)}</span>
+      {boundary.stance && <span>Base · <TermLink term={boundary.stance} /></span>}
+      <span>{boundary.position && <>Posição {studyDirections[boundary.position].label} · </>}Orientação {studyDirectionLabel(boundary.direction)}</span>
       {boundary.displacement && <span>{boundary.displacement}</span>}
       <MovementSource source={source} citation={boundary.citation} />
     </div>
@@ -94,26 +95,41 @@ function MovementFacts({ movement }: { movement: StudyMovement }) {
         </div>
         <div>
           <dt>Deslocamento dos pés</dt>
-          <dd>{movement.displacement}</dd>
+          <dd>{movement.transitionPending ? 'Deslocamento em revisão docente' : movement.displacement ?? 'Lacuna documental'}</dd>
         </div>
+        {movement.initialPosition && <div><dt>Posição inicial</dt><dd>{movement.initialPosition}</dd></div>}
+        {movement.bodyOrientation && <div><dt>Orientação corporal</dt><dd>{movement.bodyOrientation}</dd></div>}
+        {movement.rotation && <div><dt>Rotação</dt><dd>{movement.rotation}</dd></div>}
       </dl>
       <div>
         <strong>Posição final</strong>
+        {movement.finalPosition && <p>{movement.finalPosition}</p>}
         <dl className="study-step-facts">
           <div>
-            <dt>Base</dt>
-            <dd><TermLink term={movement.base} /></dd>
+            <dt>{movement.frames.length > 1 ? 'Base final' : 'Base'}</dt>
+            <dd>{movement.base ? <TermLink term={movement.base} /> : 'Lacuna documental'}</dd>
           </div>
-          <div>
+          {movement.baseSide && <div>
             <dt>Lado da base</dt>
             <dd>{movement.baseSide}</dd>
-          </div>
-          <div>
+          </div>}
+          {movement.leadFoot && <div>
             <dt>Pé da frente</dt>
             <dd>{movement.leadFoot}</dd>
-          </div>
+          </div>}
         </dl>
       </div>
+      {movement.discrepancy && (
+        <div className="study-review-points">
+          <strong>Divergência entre fontes</strong>
+          {movement.discrepancy.note && <p>{movement.discrepancy.note}</p>}
+          <ul>
+            {movement.discrepancy.variants.map(({ summary, reference }) => (
+              <li key={`${reference.url}:${reference.locator}`}>{summary} <ReferenceLink reference={reference} /></li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 }
@@ -122,20 +138,21 @@ function MovementActions({ movement }: { movement: StudyMovement }) {
   return (
     <>
       <ol className="study-frames" aria-label="Ações da etapa">
-        {movement.frames.map(({ id, label, kind, executor, hangul, romanization, reference, link }) => (
+        {movement.frames.map(({ id, label, kind, executor, hangul, romanization, reference, additionalReferences, link }) => (
           <li key={id}>
-            <strong>Quadro {id} · {kind} · {label}</strong>
-            <span>{romanization}{hangul && <> · <span lang="ko">{hangul}</span></>}</span>
-            <span>Membro executante · <span>{executor}</span></span>
+            <strong>Quadro {id} · {kind && `${kind} · `}{label}</strong>
+            {(romanization || hangul) && <span>{romanization}{hangul && <>{romanization && ' · '}<span lang="ko">{hangul}</span></>}</span>}
+            {executor && <span>Membro executante · <span>{executor}</span></span>}
             {link && <a className="inline-link" href={link.href}>{link.label}</a>}
             <ReferenceLink reference={reference} />
+            {additionalReferences?.map((entry) => <ReferenceLink key={`${entry.url}:${entry.locator}`} reference={entry} />)}
           </li>
         ))}
       </ol>
       {movement.references?.length ? (
-        <ul className="study-references" aria-label="Referências complementares da etapa">
+        <ul className="study-references" aria-label="Referências da etapa">
           {movement.references.map((reference) => (
-            <li key={reference.locator}><ReferenceLink reference={reference} /></li>
+            <li key={`${reference.url}:${reference.locator}`}><ReferenceLink reference={reference} /></li>
           ))}
         </ul>
       ) : null}
@@ -230,7 +247,7 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
             <div>
               <p className="eyebrow" role="status">Movimento {active.number} de {movements.length}</p>
               <h3 ref={heading} tabIndex={-1}>{active.title}</h3>
-              <p>{active.description}</p>
+              {active.description && <p>{active.description}</p>}
               <MovementFacts movement={active} />
               <MovementActions movement={active} />
             </div>
@@ -289,14 +306,16 @@ export default function VisualSequence({ study }: { study: PoomsaeStudy }) {
                     </button>
                   </div>
 
-                  <p>{movement.description}</p>
+                  {movement.description && <p>{movement.description}</p>}
                   <MovementFacts movement={movement} />
                   <MovementActions movement={movement} />
                   <div className="study-review-points">
                     <strong>Pontos para confirmação docente</strong>
                     <ul>
-                      <li>Conferir a lateralidade na imagem do quadro e a leitura do deslocamento na legenda.</li>
-                      {movement.frames.length > 1 && <li>Conferir a transição do chute ao apoio e ao soco.</li>}
+                      {(movement.reviewPoints ?? [
+                        'Conferir a lateralidade na imagem do quadro e a leitura do deslocamento na legenda.',
+                        ...(movement.frames.length > 1 ? ['Conferir a transição entre os quadros.'] : []),
+                      ]).map((point) => <li key={point}>{point}</li>)}
                     </ul>
                   </div>
                 </li>
