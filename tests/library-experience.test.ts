@@ -9,6 +9,7 @@ import {
   libraryItemHref,
   atlasHref,
 } from '../src/lib/library';
+import { ironEntries, ironQuizQuestions } from '../src/data/iron-guide';
 import { allPoomsaeGuides, danForms, getPoomsaeGuide, taegeukForms } from '../src/data/poomsae-guide';
 import { fingerAnatomyGuides, multiFingerCareNotes } from '../src/data/sonkisul-finger-guide';
 import { findSchoolGradesForPoomsae } from '../src/components/poomsae/PoomsaeVisuals';
@@ -133,4 +134,21 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     }
     expect(multiFingerCareNotes.gawisonkkeut).toMatch(/pendentes de confirmação documental/);
   });
+});
+
+
+it('vincula as questões do Iron a opções distintas, uma ficha e um localizador', () => {
+  const ids = new Set<string>();
+  for (const question of ironQuizQuestions) {
+    expect(ids.has(question.id), question.id).toBe(false);
+    ids.add(question.id);
+    expect(new Set(question.options).size, question.id).toBe(question.options.length);
+    expect(question.options[question.correctIndex], question.id).toBeTruthy();
+    const entry = ironEntries.find(({ slug }) => slug === question.relatedSlug);
+    expect(entry?.references.map(({ reference }) => reference)).toContainEqual(question.reference);
+    expect(question.reference.url, question.id).toMatch(/^https:/);
+    expect(question.reference.locator, question.id).toBeTruthy();
+    expect(entry?.topic, question.id).toBe(question.topic);
+  }
+  expect(ids.size).toBe(60);
 });

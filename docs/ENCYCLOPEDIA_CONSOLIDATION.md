@@ -15,6 +15,8 @@
 
 - Fase 15: Iron passa de 35 para 49 fichas com 28 seções referenciadas adicionais. As fichas cobrem Gyeokpa, regulamentos por edição, leitura de bases, Poomsae, terminologia, formação e fontes históricas. Gyeokpa usa o apêndice do manual e o regulamento histórico do Hanmadang 2024 para classificar formatos e materiais sob supervisão.
 
+- Fase 16: 60 perguntas do Iron com ficha e localizador. A revisão combina nível e assunto, pagina grupos de seis itens e permite retomar os erros, corrigir respostas e reiniciar o progresso salvo neste navegador. As seis perguntas anteriores conservam os IDs e a ordem das alternativas.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |

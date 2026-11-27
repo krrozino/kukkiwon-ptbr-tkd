@@ -40,16 +40,26 @@ test('busca tem filtros, vazio útil e histórico reproduzível', async ({ page 
 
 test('Iron filtra níveis teóricos e valida revisão rápida com fonte', async ({ page }) => {
   await page.goto('/biblioteca/iron');
-  await expect(page.locator('.library-results a')).toHaveCount(35);
+  await expect(page.locator('.library-results a')).toHaveCount(49);
   await page.getByRole('button', { name: 'Básico (Iniciante)' }).click();
-  await expect(page.locator('.library-results a')).toHaveCount(12);
+  await expect(page.locator('.library-results a')).toHaveCount(16);
   const quiz = page.getByRole('region', { name: 'Revisão rápida de compreensão teórica' });
+  await quiz.getByLabel('Assunto das questões').selectOption('História e instituições');
+  await quiz.getByRole('button', { name: /Comitê Olímpico Internacional diretamente/ }).click();
+  await expect(quiz.getByText('Releia com atenção:')).toBeVisible();
+  await quiz.getByRole('button', { name: 'Revisar erros' }).click();
+  await expect(quiz.locator('.iron-quiz-card')).toHaveCount(1);
   await quiz.getByRole('button', { name: 'Kukkiwon', exact: true }).click();
   await expect(quiz.getByText('Correto:')).toBeVisible();
   await expect(quiz.getByRole('link', { name: /Abrir ficha de referência/ })).toHaveAttribute(
-    'href',
-    '/biblioteca/iron/iron-instituicoes-kukkiwon-wt-cbtkd',
+    'href', '/biblioteca/iron/iron-instituicoes-kukkiwon-wt-cbtkd',
   );
+  await expect(quiz.getByRole('link', { name: /^Kukkiwon ·/ })).toHaveAttribute('href', /^https:/);
+  await page.reload();
+  await expect(quiz.getByRole('button', { name: 'Kukkiwon', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await quiz.getByRole('button', { name: 'Reiniciar revisão' }).click();
+  await expect(quiz.getByRole('button', { name: 'Kukkiwon', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await expect(quiz.getByRole('button', { name: 'Revisar erros' })).toBeDisabled();
 });
 
 test('professor vincula a biblioteca ao currículo local e o aluno reabre a ficha', async ({ page }) => {
