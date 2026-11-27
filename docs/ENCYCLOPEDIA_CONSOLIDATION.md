@@ -1,5 +1,13 @@
 # Consolidação da enciclopédia V2
 
+## Operação Intensiva II
+
+- Candidata empilhada: `codex/enciclopedia-expansao-v3`, base `c61c9bfa4ba9e0eb6b1ed7a75e7dcad388b5cb2f`. PR #93 permanece em Draft sobre `main@3229e058`, mergeável, com validate obrigatório, SonarCloud e Vercel verdes. O parecer de coordenação autoriza a avaliação funcional pelo mantenedor. A integração ainda depende de autorização específica.
+- Worktree Linux reaproveitada: `/workspace/work/kukkiwon-ptbr-tkd`. Preflight limpo e dependências existentes. Medição inicial: 581 MiB no checkout, incluindo 500 MiB em dependências e 37 MiB em `review-output`. Navegadores Playwright: 681 MiB fora do checkout. Os comandos da seção Ambiente Windows continuam válidos para verificação local.
+- #77 e #81 estão integradas. A tabela anterior conserva as decisões para #67, #69, #70, #71, #74, #75, #80 e #82–#85. As notas históricas exclusivas de #74 e #75 permanecem em seus respectivos heads. O blob Gemini da #69 contém oito candidatos. A #93 contém triagem e reconciliação Argon em CLIs distintas.
+- A reconferência Linux do Taegeuk 2 continua em `review-output/taegeuk-2-jang.reconferencia.json`. A cópia original da #83 e `6a10385` seguem pendentes de verificação no Windows. Nenhuma cópia local foi substituída.
+- Próxima fase: generalizar o parser e o leitor privado, mantendo compatibilidade com o dossiê v1 e com a rota de desenvolvimento da #93. Questões relacionadas: #45, #50, #65, #68 e #78.
+
 ## Checkpoint de 26/11/2026
 
 - Base confirmada no GitHub: `main@3229e058c482628ec356f901a17639b383a28d81`. A #92 já está integrada. Na base, `validate` e Vercel passaram e SonarCloud registrou falha.
