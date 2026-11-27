@@ -1,4 +1,5 @@
 import type { LibraryReference } from '../lib/library';
+import { ironContextEntries } from './iron-context';
 
 export type IronLevel = 'basico' | 'intermediario' | 'avancado';
 
@@ -9,6 +10,8 @@ export type IronEntry = {
   level: IronLevel;
   levelLabel: 'Iron · Básico' | 'Iron · Intermediário' | 'Iron · Avançado';
   summary: string;
+  topic?: string;
+  sections?: readonly { title: string; text: string; reference: LibraryReference }[];
   keyTakeaways: readonly string[];
   variants: readonly string[];
   moduleHref?: string;
@@ -114,6 +117,7 @@ export const ironEntries: readonly IronEntry[] = [
   // NÍVEL BÁSICO
   {
     slug: 'iron-significado-taekwondo',
+    topic: 'Cultura e prática',
     title: 'Significado e finalidade do Taekwondo',
     subtitle: 'Arte marcial de mãos e pés livres, autodefesa e amadurecimento humano',
     level: 'basico',
@@ -136,6 +140,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-espirito-cortesia-dojang',
+    topic: 'Cultura e prática',
     title: 'Espírito do Taekwondo e etiqueta no Dojang',
     subtitle: 'Autossuperação (Geukgi), humanitarismo (Hongik) e virtudes da prática',
     level: 'basico',
@@ -153,6 +158,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-graduacoes-gup-dan',
+    topic: 'Graduação e aprendizagem',
     title: 'Graduações Gup e Dan e autonomia das escolas',
     subtitle: 'Por que as faixas coloridas variam entre escolas e os graus Dan são unificados',
     level: 'basico',
@@ -175,6 +181,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-alturas-direcoes-estrutura',
+    topic: 'Fundamentos técnicos',
     title: 'Alturas, direções e anatomia na leitura técnica',
     subtitle: 'Como distinguir alvo, trajetória, parte do corpo e família de movimento',
     level: 'basico',
@@ -196,6 +203,7 @@ export const ironEntries: readonly IronEntry[] = [
   // NÍVEL INTERMEDIÁRIO
   {
     slug: 'iron-historia-pos-1945',
+    topic: 'História e instituições',
     title: 'História moderna documentada (1945–1985)',
     subtitle: 'Cinco Kwans, unificação associativa, fundação da Kukkiwon (1972) e expansão mundial',
     level: 'intermediario',
@@ -213,6 +221,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-instituicoes-kukkiwon-wt-cbtkd',
+    topic: 'História e instituições',
     title: 'Kukkiwon, World Taekwondo e federações nacionais',
     subtitle: 'Diferença entre referência técnico-marcial, regra esportiva e administração nacional',
     level: 'intermediario',
@@ -236,6 +245,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-evolucao-poomsae',
+    topic: 'Poomsae',
     title: 'Evolução e estrutura das coleções de Poomsae',
     subtitle: 'Das formas associativas dos anos 1960 aos oito Taegeuk e nove formas Dan',
     level: 'intermediario',
@@ -258,6 +268,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-morfologia-terminologia',
+    topic: 'Fontes e terminologia',
     title: 'Estrutura dos nomes técnicos em coreano',
     subtitle: 'Composição por parte do corpo, direção/modo e família de ação',
     level: 'intermediario',
@@ -282,6 +293,7 @@ export const ironEntries: readonly IronEntry[] = [
   // NÍVEL AVANÇADO
   {
     slug: 'iron-historiografia-tradicao-fontes',
+    topic: 'História e instituições',
     title: 'Historiografia: raízes culturais vs institucionalização moderna',
     subtitle: 'Como ler Subak, Taekkyeon e o pós-1945 com rigor histórico',
     level: 'avancado',
@@ -298,10 +310,11 @@ export const ironEntries: readonly IronEntry[] = [
       { field: 'historical', reference: kukkiwonHistoryRef },
       { field: 'context', reference: kukkiwonSpiritRef },
     ],
-    relatedLibrarySlugs: ['iron-historia-pos-1945', 'iron-fontes-primarias-secundarias', 'taekkyeon'.replace('taekkyeon', 'koryo')],
+    relatedLibrarySlugs: ['iron-historia-pos-1945', 'iron-fontes-primarias-secundarias', 'iron-kwans-e-unificacao'],
   },
   {
     slug: 'iron-fontes-primarias-secundarias',
+    topic: 'Fontes e terminologia',
     title: 'Fontes primárias, revisões editoriais e critérios de citação',
     subtitle: 'Como avaliar livros da Kukkiwon, artigos científicos e glossários da internet',
     level: 'avancado',
@@ -325,6 +338,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-padronizacao-romanizacao',
+    topic: 'Fontes e terminologia',
     title: 'Padronização terminológica e sistemas de romanização',
     subtitle: 'Por que coexistem grafias como Dollyo/Dollyeo, Yop/Yeop e Kyorugi/Gyeorugi',
     level: 'avancado',
@@ -345,6 +359,7 @@ export const ironEntries: readonly IronEntry[] = [
   },
   {
     slug: 'iron-evolucao-esportiva-marcial',
+    topic: 'Modalidades e regulamentos',
     title: 'Arte marcial integral e especialização esportiva',
     subtitle: 'Como o repertório do Board 56 se relaciona com o Kyorugi olímpico moderno',
     level: 'avancado',
@@ -365,6 +380,7 @@ export const ironEntries: readonly IronEntry[] = [
     ],
     relatedLibrarySlugs: ['ppaegi-kkeokgi-aplicacoes', 'iron-instituicoes-kukkiwon-wt-cbtkd', 'matchuo-kyorugi-fundamentos'],
   },
+  ...ironContextEntries,
 ];
 
 function quizQuestion(

@@ -12,6 +12,7 @@ export type LibraryReference = {
   edition: string;
   url: string;
   locator: string;
+  checkedOn?: string;
 };
 
 export type LibraryTerm = {
@@ -175,6 +176,8 @@ export type LibraryItem = {
     label: string;
   };
   studyPoints?: readonly string[];
+  topic?: string;
+  articleSections?: readonly { title: string; text: string; reference: LibraryReference }[];
   scopeNotice?: string;
   poomsaeSlug?: string;
   relatedLibrarySlugs?: readonly string[];
@@ -211,8 +214,8 @@ const poomsaeItems: LibraryItem[] = allPoomsaeGuides.map((guide) => ({
     'Síntese didática independente fundamentada no artigo institucional da Kukkiwon. A associação a faixas depende do currículo de cada escola e a sequência passo a passo permanece separada até revisão documental de cada movimento.',
   relatedLibrarySlugs:
     guide.kind === 'taegeuk'
-      ? ['sonnal', 'jumeok', guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : 'koryo']
-      : ['sonnal', 'ageumson', guide.slug === 'koryo' ? 'keumgang' : 'koryo'],
+      ? ['iron-leitura-de-poomsae', 'iron-convencoes-de-contagem', guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : 'koryo']
+      : ['iron-evolucao-poomsae', 'iron-convencoes-de-contagem', guide.slug === 'koryo' ? 'keumgang' : 'koryo'],
   term: {
     slug: guide.slug,
     name:
@@ -403,6 +406,8 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
       ? { href: entry.moduleHref, label: entry.moduleLabel }
       : { href: '/fontes', label: 'Consultar fontes e critérios do projeto' },
   studyPoints: entry.keyTakeaways,
+  topic: entry.topic,
+  articleSections: entry.sections,
   scopeNotice:
     'Síntese teórica e histórica em português brasileiro fundamentada nas fontes institucionais citadas abaixo; distingue documentação verificada de tradições próprias de cada escola.',
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
@@ -413,7 +418,7 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
     romanization: entry.title,
     pronunciation: null,
     description: entry.summary,
-    meanings: [
+    meanings: entry.sections?.length ? [] : [
       {
         kind: entry.level === 'avancado' ? 'historical' : 'symbolic',
         language: 'pt-BR',
@@ -422,7 +427,7 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
       },
     ],
     variants: entry.variants.map((value) => ({ value })),
-    related: entry.references.map((row) => ({
+    related: entry.sections?.length ? [] : entry.references.map((row) => ({
       name: `${row.reference.institution}: ${row.reference.title}`,
       reference: row.reference,
     })),
@@ -559,7 +564,7 @@ function normalize(text: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLocaleLowerCase('pt-BR')
-    .replace(/[-_]/g, ' ');
+    .replace(/[-_‐‑–—]/g, ' ');
 }
 
 export function searchLibrary(
@@ -585,7 +590,9 @@ export function searchLibrary(
         term.pronunciation,
         term.description,
         item.kindLabel,
+        item.topic,
         ...(item.studyPoints || []),
+        ...(item.articleSections?.map((section) => section.title + ' ' + section.text) ?? []),
         ...term.meanings.map((meaning) => meaning.value),
         ...term.variants.map((variant) => variant.value),
       ]

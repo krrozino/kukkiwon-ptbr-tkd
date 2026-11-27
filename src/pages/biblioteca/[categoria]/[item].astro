@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import FavoriteButton from '../../../components/FavoriteButton';
+import GlossaryKnowledgeLinks from '../../../components/GlossaryKnowledgeLinks';
 import { PoomsaeLineDiagram, SchoolBeltStatus, TrigramDiagram } from '../../../components/poomsae/PoomsaeVisuals';
 import { getPoomsaeGuide } from '../../../data/poomsae-guide';
 import { multiFingerCareNotes } from '../../../data/sonkisul-finger-guide';
@@ -121,6 +122,20 @@ const suggestedItems = (
           {fingerCareNote && <p class="field-origin">{fingerCareNote}</p>}
         </section>
 
+        {item.articleSections?.map(({ title, text, reference }) => (
+          <section class="reading-section">
+            <h2>{title}</h2>
+            <p>{text}</p>
+            {safeReferenceUrl(reference.url) && (
+              <a class="claim-source" href={reference.url} target="_blank" rel="noopener noreferrer">
+                {reference.institution} · {reference.locator} ↗
+              </a>
+            )}
+          </section>
+        ))}
+
+        <GlossaryKnowledgeLinks slug={item.slug} />
+
         {item.studyPoints && item.studyPoints.length > 0 && (
           <section class="reading-section">
             <h2>Pontos de atenção para o estudo</h2>
@@ -134,10 +149,7 @@ const suggestedItems = (
 
         {referencedByItems.length > 0 && (
           <section class="reading-section">
-            <h2>Técnicas e formas que utilizam ou relacionam este item</h2>
-            <p class="muted">
-              Navegue diretamente para fundamentos, chutes, formas ou tópicos da enciclopédia conectados a {title}.
-            </p>
+            <h2>Fichas que citam este conteúdo</h2>
             <ul class="related-list">
               {referencedByItems.map((linked) => (
                 <li>
@@ -241,6 +253,7 @@ const suggestedItems = (
                 </a>
                 <span>
                   {row.reference.edition} · {row.reference.locator}
+                  {row.reference.checkedOn && <> · Consultado em <time datetime={row.reference.checkedOn}>{row.reference.checkedOn.split('-').reverse().join('/')}</time></>}
                 </span>
               </li>
             ))}

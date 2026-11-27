@@ -1,11 +1,21 @@
 import {useGlossary,type GlossaryExpression} from '../lib/glossary';
-import {glossaryLinksForTerm,hasCheckedSource} from '../lib/published-knowledge';
+import {approvedGlossaryItem,glossaryLinksForTerm,hasCheckedSource} from '../lib/published-knowledge';
+import {libraryItemHref} from '../lib/library';
 import {useTermDetail} from '../lib/use-term-detail';
 
 export function GlossaryTechniqueLink({expression}:{expression:GlossaryExpression}) {
-  const {detail}=useTermDetail(expression.review.status==='approved'?expression.technicalSlug:null);
-  if(!detail||detail.term.publication_status!=='published'||!detail.sources.some(hasCheckedSource))return null;
-  return <p><a href={'/tecnica?slug='+encodeURIComponent(detail.term.slug)}>Consultar ficha técnica e fontes →</a></p>;
+  const slug = approvedGlossaryItem(expression) ? expression.technicalSlug : null;
+  const { detail } = useTermDetail(slug);
+  const libraryHref = slug ? libraryItemHref(slug) : null;
+  const published = detail?.term.publication_status === 'published' && detail.sources.some(hasCheckedSource);
+  if (!libraryHref && !published) return null;
+
+  return (
+    <div className="actions">
+      {libraryHref && <a href={libraryHref}>Abrir ficha na Biblioteca →</a>}
+      {published && <a href={'/tecnica?slug=' + encodeURIComponent(detail.term.slug)}>Consultar ficha técnica e fontes →</a>}
+    </div>
+  );
 }
 
 export default function GlossaryKnowledgeLinks({slug}:{slug:string}) {

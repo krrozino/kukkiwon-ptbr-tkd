@@ -33,7 +33,7 @@ export function hasCheckedSource(source: unknown): source is TermSource {
     safeReferenceUrl(document.official_url);
 }
 
-function approvedGlossaryItem(item: GlossaryWord | GlossaryExpression): boolean {
+export function approvedGlossaryItem(item: GlossaryWord | GlossaryExpression): boolean {
   const review = item.review;
   return Boolean(review.status === 'approved' && review.translationBy?.trim() &&
     review.technicalBy?.trim() && review.approvedBy?.trim() && review.approvedAt &&

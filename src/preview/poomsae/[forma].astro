@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SchoolBeltStatus, TrigramDiagram } from '../../components/poomsae/PoomsaeVisuals';
+import VisualSequence from '../../components/poomsae/VisualSequence';
+import { taegeukForms } from '../../data/poomsae-guide';
+import { loadPoomsaePreviews } from '../../lib/poomsae-preview';
+import '../../styles/poomsae-study.css';
+
+export async function getStaticPaths() {
+  const studies = await loadPoomsaePreviews();
+  return studies.flatMap((study) => {
+    const guide = taegeukForms.find((form) => form.slug === study.slug);
+    return guide ? [{ params: { forma: study.slug }, props: { guide, study } }] : [];
+  });
+}
+
+const { guide, study } = Astro.props;
+const title = guide.name;
+const { source, demonstration } = study;
+const firstPage = study.start.citation.page;
+const lastPage = study.finish.citation.page;
+const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date(source.sourceCheckedAt));
+---
+
+<Base title={`${title} — Estudo de Poomsae`}>
+  <article class="shell section poomsae-study">
+    <nav class="breadcrumbs" aria-label="Caminho da página">
+      <a href="/poomsae">Poomsae</a>
+      <span aria-hidden="true">/</span>
+      <span>{title}</span>
+    </nav>
+
+    <header class="study-hero">
+      <div>
+        <p class="eyebrow">Prévia de estudo · {source.reviewState}</p>
+        <h1>{title}</h1>
+        <p class="lead">{study.meaning}</p>
+        <p class="study-hangul" lang="ko">{study.hangul}</p>
+        <a class="claim-source" href={study.identityUrl} target="_blank" rel="noopener noreferrer">
+          Kukkiwon · identidade em coreano ({study.identityLocator}) ↗
+        </a>
+        <nav class="study-local-nav" aria-label="Nesta forma">
+          <a class="button" href="#sequencia">Estudar movimentos ↓</a>
+          {demonstration ? (
+            <a class="button button-outline" href="#demonstracao">Ver demonstração ↓</a>
+          ) : (
+            <a class="button button-outline" href="#referencias">Consultar referências ↓</a>
+          )}
+        </nav>
+      </div>
+      <aside class="study-symbol" aria-label="Simbolismo">
+        <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
+        <h2>{guide.trigram.romanization} <span lang="ko">{study.trigramHangul}</span></h2>
+        <p class="study-symbol-meaning">{guide.trigram.symbolPt}</p>
+        <p>{guide.philosophySummary}</p>
+        <a class="claim-source" href={guide.evidence.url} target="_blank" rel="noopener noreferrer">
+          Kukkiwon · {guide.evidence.locator} ↗
+        </a>
+      </aside>
+    </header>
+
+    <div class="study-context">
+      <SchoolBeltStatus slug={study.slug} formName={title} client:load />
+      <a class="inline-link" href={`/biblioteca/poomsae/${study.slug}`}>Ficha da forma na Biblioteca →</a>
+    </div>
+
+    <VisualSequence study={study} guide={guide} client:load />
+
+    {demonstration && (
+      <section class="study-section study-media" id="demonstracao" aria-labelledby="study-video-title">
+        <div>
+          <h2 id="study-video-title">Demonstração em vídeo</h2>
+          <p>{demonstration.description}</p>
+          <p>
+            <a class="inline-link" href={demonstration.recording.href} target="_blank" rel="noopener noreferrer">
+              {demonstration.recording.label} ↗
+            </a>
+          </p>
+          <p>
+            <a class="inline-link" href={demonstration.lesson.href} target="_blank" rel="noopener noreferrer">
+              {demonstration.lesson.label} ↗
+            </a>
+            <span class="fine-print"> · {demonstration.lesson.credit}</span>
+          </p>
+        </div>
+        <div class="study-player" data-poomsae-player data-embed-url={demonstration.embed.url} data-video-title={demonstration.embed.title}>
+          <button class="button" type="button" data-poomsae-play hidden>Carregar demonstração do YouTube</button>
+        </div>
+      </section>
+    )}
+
+    <footer class="study-footer" id="referencias">
+      <strong>Fonte da sequência</strong>
+      <p>
+        {source.institution} · <cite>{source.title}</cite> · {source.edition}, pp. {firstPage}–{lastPage}.
+        Consulta documental em <time datetime={source.sourceCheckedAt}>{checkedAt}</time>.
+      </p>
+      {study.references?.length ? (
+        <ul class="study-references">
+          {study.references.map((reference) => (
+            <li>
+              <a class="inline-link" href={reference.url} target="_blank" rel="noopener noreferrer">{reference.title} ↗</a>
+              <span> · {reference.institution} · {reference.locator}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <p>Adaptação didática em português para leitura da forma. Revisão docente pendente.</p>
+    </footer>
+  </article>
+</Base>
+
+<script>
+  for (const player of document.querySelectorAll<HTMLElement>('[data-poomsae-player]')) {
+    const play = player.querySelector<HTMLButtonElement>('[data-poomsae-play]');
+    const { embedUrl, videoTitle } = player.dataset;
+    if (!play || !embedUrl || !videoTitle) continue;
+
+    play.hidden = false;
+    play.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = embedUrl;
+      frame.title = videoTitle;
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.replaceChildren(frame);
+      frame.focus();
+    }, { once: true });
+  }
+</script>

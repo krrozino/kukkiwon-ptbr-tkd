@@ -96,10 +96,10 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
   });
 
   it('organiza Iron em três níveis progressivos e Kibon Dongjak em famílias com Hangul verificado', () => {
-    expect(searchLibrary('', 'iron')).toHaveLength(12);
-    expect(searchLibrary('', 'iron', false, 'Iron · Básico')).toHaveLength(4);
-    expect(searchLibrary('', 'iron', false, 'Iron · Intermediário')).toHaveLength(4);
-    expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(4);
+    expect(searchLibrary('', 'iron')).toHaveLength(35);
+    expect(searchLibrary('', 'iron', false, 'Iron · Básico')).toHaveLength(12);
+    expect(searchLibrary('', 'iron', false, 'Iron · Intermediário')).toHaveLength(14);
+    expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(9);
 
     const kibon = searchLibrary('', 'kibon-dongjak');
     expect(kibon).toHaveLength(18);
@@ -112,7 +112,7 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     for (const cat of libraryCategories) {
       expect(searchLibrary('', cat.id).length, cat.id).toBeGreaterThan(0);
     }
-    expect(libraryItems).toHaveLength(105);
+    expect(libraryItems).toHaveLength(128);
     expect(searchLibrary('', 'balkisul', false, 'Superfícies do pé')).toHaveLength(8);
     expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(12);
     expect(searchLibrary('', 'balkisul', true)).toHaveLength(8);
