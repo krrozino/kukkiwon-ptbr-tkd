@@ -11,6 +11,7 @@ const handSignatures = [
 
 const poomsaeSignatures = [
   'Ficha de revisão docente',
+  'Sentinela privada de teste Poomsae 8427',
   'Após o chute, apoia o pé direito à frente, em direção a Da 3.',
 ];
 

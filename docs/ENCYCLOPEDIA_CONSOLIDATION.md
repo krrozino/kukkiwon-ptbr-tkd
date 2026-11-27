@@ -9,6 +9,8 @@
 - Fases 3–4: modelo v2 compartilhado com percurso Ga/Na/Da/Ra ou códigos textuais próprios, fontes por campo, transições e cobertura parcial. `POOMSAE_RESEARCH_DIR` lê um diretório privado de JSONs e `POOMSAE_RESEARCH_FILE` continua a aceitar o v1. O exportador reutiliza a leitura e interrompe a gravação se houver entrada incompatível. A reconferência Linux do Taegeuk 2 foi exportada com as duas leituras da etapa 14. O Taegeuk 1 usa a mesma grade e posição inicial do piloto. Validação direcionada de esquema e tipos aprovada.
 - Fases 5–6: conferência dos seis Taegeuk restantes, trechos iniciais de Koryo e Keumgang e localização das sete formas Dan restantes. O material de estudo fica em `review-output/op2-dossiers/`. Ver cobertura, convenções e pendências abaixo. Questões relacionadas: #45, #50, #65, #68 e #78.
 
+- Fases 7–8: índice local agrupado por família, indicação de cobertura, foco e etapa persistente. Os cenários sintéticos percorrem Taegeuk e Dan em dois tamanhos e temas. A execução com a reconferência privada preservou as 18 etapas, 23 ações e a divergência da etapa 14. O teste de build fornece os JSONs sintéticos no ambiente e verifica 404 nas 17 rotas.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
