@@ -96,6 +96,8 @@ describe('dados locais da prévia Taegeuk 2', () => {
     const study = parseLocalPoomsaeStudy(withPunch);
     expect(study.movements[0].frames[0].link?.href).toBe('/acervo?categoria=soco');
     withPunch.movements[0].actions[0].techniqueId = 'arae-makgi';
+    expect(parseLocalPoomsaeStudy(withPunch).movements[0].frames[0].link?.href).toBe('/biblioteca/kibon-dongjak/arae-makgi');
+    withPunch.movements[0].actions[0].techniqueId = 'sonnal-arae-makgi';
     expect(parseLocalPoomsaeStudy(withPunch).movements[0].frames[0].link).toBeUndefined();
   });
 

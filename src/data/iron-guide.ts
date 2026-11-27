@@ -1,5 +1,6 @@
 import type { LibraryReference } from '../lib/library';
 import { ironContextEntries } from './iron-context';
+import { wtCompetitionRulesUrl } from './kyorugi-guide';
 
 export type IronLevel = 'basico' | 'intermediario' | 'avancado';
 
@@ -92,8 +93,8 @@ const kukkiwon2022CollectionRef: LibraryReference = {
 const wtRulesRef: LibraryReference = {
   institution: 'World Taekwondo',
   title: 'Competition Rules and Interpretation',
-  edition: 'Vigência 01/01/2026',
-  url: 'https://www.taekwondo.dk/files/Dokumenter/Statisk/Dommer/Regler/Competition%20Rules%20and%20Interpretation%201%20januar%202026.pdf',
+  edition: 'Vigência inicial em 01/06/2026',
+  url: wtCompetitionRulesUrl,
   locator: 'Regras internacionais de competição de Kyorugi',
 };
 

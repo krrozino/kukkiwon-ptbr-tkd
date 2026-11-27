@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const forms = [
   ...Array.from({ length: 8 }, (_, i) => 'taegeuk-' + (i + 1) + '-jang'),
-  'koryo', 'keumgang', 'taebaek', 'pyongwon', 'sipjin', 'jitae', 'cheonkwon', 'hansu', 'ilyeo',
+  'koryo', 'keumgang', 'taebaek', 'pyongwon', 'shipjin', 'jitae', 'chonkwon', 'hansu', 'ilyeo',
 ];
 
 test('as rotas privadas de Poomsae permanecem fora do site público', async ({ page, request }) => {

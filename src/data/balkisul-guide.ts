@@ -6,7 +6,7 @@ export type BalkisulEntry = {
   slug: string;
   romanization: string;
   hangul: string;
-  pronunciationPt: string;
+  pronunciationPt: string | null;
   subtitlePt: string;
   kindLabel: 'Superfícies do pé' | 'Família de chutes (Chagi)';
   atlasZone?:
@@ -18,7 +18,7 @@ export type BalkisulEntry = {
     | 'balnaldeung'
     | 'dwichuk'
     | 'dwikkumchi';
-  acervoSlug: string;
+  acervoSlug?: string;
   summary: string;
   studyPoints: readonly string[];
   variants: readonly string[];
@@ -54,7 +54,7 @@ export const balkisulEntries: readonly BalkisulEntry[] = [
   ...cards.kicks.map(({ locator, acervoSlug, ...card }): BalkisulEntry => ({
     ...card,
     kindLabel: 'Família de chutes (Chagi)',
-    acervoSlug: acervoSlug ?? card.slug,
+    acervoSlug: acervoSlug === null ? undefined : acervoSlug ?? card.slug,
     references: [
       { field: 'hangul', reference: kukkiwonTerminologyReference(locator) },
       { field: 'context', reference: chagiReference },

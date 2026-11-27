@@ -500,6 +500,123 @@
       ],
       "acervoSlug": "narae-chagi",
       "locator": "§1 Chagi > Narae-chagi / Ttwieo-chagi / Gawi-chagi / Pyojeok-chagi / Bada-chagi"
+    },
+    {
+      "slug": "bada-chagi",
+      "romanization": "Bada-chagi",
+      "hangul": "받아차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chute de resposta",
+      "summary": "O verbete classifica o chute pelo momento da resposta em relação à ação anterior. A denominação descreve uma função no intercâmbio esportivo.",
+      "studyPoints": [
+        "Separe o momento da resposta da trajetória do chute.",
+        "Confira o contexto de competição no regulamento do evento."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Bada-chagi, p. 13 do PDF",
+      "acervoSlug": "bada-chagi",
+      "relatedLibrarySlugs": [
+        "dollyeo-chagi",
+        "iron-evolucao-esportiva-marcial"
+      ]
+    },
+    {
+      "slug": "pyojeok-chagi",
+      "romanization": "Pyojeok-chagi",
+      "hangul": "표적차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chute a uma referência de forma",
+      "summary": "O manual descreve uma referência formada pela mão em Poomsae. A referência participa da identificação da técnica nos quadros do Taegeuk 7.",
+      "studyPoints": [
+        "Compare a referência de forma com o uso da palavra Pyojeok em Chigi.",
+        "Leia o quadro do chute e a base final como informações distintas."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Pyojeok-chagi, p. 21 do PDF",
+      "acervoSlug": "pyojeok-chagi",
+      "relatedLibrarySlugs": [
+        "an-chagi",
+        "taegeuk-7-jang"
+      ]
+    },
+    {
+      "slug": "geodeup-yeop-chagi",
+      "romanization": "Geodeup-yeop-chagi",
+      "hangul": "거듭 옆차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chute lateral repetido",
+      "summary": "O manual lista a repetição lateral no mesmo apoio como variante da família Geodeup. O início de Koryo mostra dois quadros com a mesma perna.",
+      "studyPoints": [
+        "Diferencie repetição com a mesma perna de alternância em Narae.",
+        "Consulte o trecho de Koryo para a localização na forma."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Geodeup-chagi > Geodeup-yeop-chagi, p. 17 do PDF",
+      "acervoSlug": null,
+      "relatedLibrarySlugs": [
+        "yeop-chagi",
+        "narae-ttwieo-gawi-chagi",
+        "koryo"
+      ]
+    },
+    {
+      "slug": "ttwieo-ap-chagi",
+      "romanization": "Ttwieo-ap-chagi",
+      "hangul": "뛰어 앞차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chute frontal em salto",
+      "summary": "O manual cita a variante de Ap-chagi em salto no verbete do chute frontal. O termo indica a execução aérea junto da trajetória frontal.",
+      "studyPoints": [
+        "Separe o tipo de deslocamento da direção da ação.",
+        "No Taegeuk 8, confira os quadros que precedem e seguem a ação em salto."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Ap-chagi > Ttwieo-ap-chagi, p. 13 do PDF",
+      "acervoSlug": null,
+      "relatedLibrarySlugs": [
+        "ap-chagi",
+        "narae-ttwieo-gawi-chagi",
+        "taegeuk-8-jang"
+      ]
+    },
+    {
+      "slug": "gawi-chagi",
+      "romanization": "Gawi-chagi",
+      "hangul": "가위차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chute em tesoura",
+      "summary": "A edição identifica uma composição simultânea de chutes na família Chagi. O nome Gawi remete à tesoura e também aparece em outros verbetes.",
+      "studyPoints": [
+        "Compare a simultaneidade com a alternância de Narae.",
+        "Em buscas, conserve o núcleo Chagi para distinguir de Gawi-makgi."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Gawi-chagi, p. 16 do PDF",
+      "acervoSlug": "gawi-chagi",
+      "relatedLibrarySlugs": [
+        "gawi-makgi",
+        "narae-ttwieo-gawi-chagi"
+      ]
+    },
+    {
+      "slug": "narae-chagi",
+      "romanization": "Narae-chagi",
+      "hangul": "나래차기",
+      "pronunciationPt": null,
+      "subtitlePt": "Chutes circulares alternados",
+      "summary": "O manual descreve chutes circulares alternados em uma ação aérea. Narae aparece como verbete separado de Ttwieo e Gawi.",
+      "studyPoints": [
+        "Distingua alternância, salto e configuração em tesoura ao comparar os verbetes.",
+        "Consulte Dollyeo para entender a família circular mencionada na definição."
+      ],
+      "variants": [],
+      "locator": "§1 Chagi > Narae-chagi, p. 21 do PDF",
+      "acervoSlug": "narae-chagi",
+      "relatedLibrarySlugs": [
+        "dollyeo-chagi",
+        "ttwieo-ap-chagi",
+        "gawi-chagi"
+      ]
     }
   ]
 }

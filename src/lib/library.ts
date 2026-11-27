@@ -360,13 +360,13 @@ const matchuoItems: LibraryItem[] = matchuoEntries.map((entry) => ({
           note: 'Registros provisórios da família técnica na base Kukkiwon 2011/2012.',
         }
       : undefined,
-  moduleLink: {
-    href: '/kyorugi#combinado',
-    label: 'Abrir guia e organizador de combate combinado',
-  },
+  moduleLink: entry.kindLabel === 'Kyorugi esportivo'
+    ? { href: '/kyorugi#competicao', label: 'Consultar as referências de competição' }
+    : { href: '/kyorugi#combinado', label: 'Abrir guia e organizador de combate combinado' },
   studyPoints: entry.pedagogicalFocus,
-  scopeNotice:
-    'Síntese pedagógica independente. As famílias marciais (Makgi, Jireugi, Chigi, Chagi, Pihagi, Ppaegi, Kkeokgi, Neomgigi, Nakbeop) são documentadas pela Kukkiwon (Board 56), enquanto a numeração de Sebon, Dubon, Hanbon e Anjoa pertence ao currículo de cada escola.',
+  scopeNotice: entry.kindLabel === 'Kyorugi esportivo'
+    ? 'Consulta didática com referência à edição identificada. O regulamento e o boletim do evento determinam a regra aplicável.'
+    : 'Síntese pedagógica independente. As famílias marciais são documentadas pela Kukkiwon no Board 56. A numeração de Sebon, Dubon, Hanbon e Anjoa pertence ao currículo de cada escola.',
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
   term: {
     slug: entry.slug,
@@ -441,7 +441,7 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
 type MovementCard = (typeof kibonEntries)[number] | (typeof balkisulEntries)[number];
 
 const movementScopeNotice =
-  'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.';
+  'As fontes registram Hangul e romanização. As explicações e os pontos de estudo são adaptações didáticas do projeto. Ficha de consulta provisória com revisão humana pendente.';
 
 function movementAcervoLink(slug: string, romanization: string) {
   return {
@@ -481,7 +481,7 @@ function movementTerm(entry: MovementCard): LibraryTerm {
 
 const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
   slug: entry.slug,
-  categoryId: 'kibon-dongjak',
+  categoryId: entry.libraryArea ?? 'kibon-dongjak',
   kindLabel: entry.kindLabel,
   illustrativeBodyArea: {
     region: entry.atlasRegion,
@@ -492,7 +492,9 @@ const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
   moduleLink:
     entry.moduleHref && entry.moduleLabel
       ? { href: entry.moduleHref, label: entry.moduleLabel }
-      : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
+      : entry.libraryArea === 'sonkisul'
+        ? { href: '/atlas?region=hands&zoom=1', label: 'Explorar as superfícies da mão no Atlas' }
+        : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
   studyPoints: entry.studyPoints,
   scopeNotice: movementScopeNotice,
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
@@ -511,7 +513,7 @@ const balkisulItems: LibraryItem[] = balkisulEntries.map((entry) => ({
         label: 'Pernas, joelho (Mureup) e superfícies do pé',
         note: 'Ligação ilustrativa para explorar os segmentos dos membros inferiores e abrir o detalhe dos pés no Atlas.',
       },
-  acervoLink: movementAcervoLink(entry.acervoSlug, entry.romanization),
+  acervoLink: entry.acervoSlug ? movementAcervoLink(entry.acervoSlug, entry.romanization) : undefined,
   moduleLink: entry.atlasZone
     ? { href: `/atlas?region=${entry.atlasZone}&zoom=1`, label: 'Localizar superfície no Atlas do pé' }
     : { href: '/kyorugi', label: 'Explorar guia de Kyorugi e família Chagi' },

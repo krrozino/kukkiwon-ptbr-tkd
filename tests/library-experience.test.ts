@@ -89,7 +89,7 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(searchLibrary('Palgwae', 'poomsae')).toEqual([]);
 
     const matchuo = searchLibrary('', 'matchuo-kyorugi');
-    expect(matchuo).toHaveLength(6);
+    expect(matchuo).toHaveLength(8);
     expect(searchLibrary('Sebon', 'matchuo-kyorugi').map((item) => item.slug)).toContain('sebon-kyorugi');
     expect(searchLibrary('Anjoa', 'matchuo-kyorugi').map((item) => item.slug)).toContain('anjoa-kyorugi');
     expect(libraryItemHref('sebon-kyorugi')).toBe('/biblioteca/matchuo-kyorugi/sebon-kyorugi');
@@ -102,7 +102,7 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(9);
 
     const kibon = searchLibrary('', 'kibon-dongjak');
-    expect(kibon).toHaveLength(18);
+    expect(kibon).toHaveLength(40);
     expect(searchLibrary('앞굽이', 'kibon-dongjak').map((item) => item.slug)).toEqual(['apgubi']);
     expect(searchLibrary('Arae-makgi', 'kibon-dongjak').map((item) => item.slug)).toContain('naeryeo-makgi');
     expect(getLibraryItem('apgubi')?.acervoLink?.href).toBe('/acervo#apgubi');
@@ -112,9 +112,9 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     for (const cat of libraryCategories) {
       expect(searchLibrary('', cat.id).length, cat.id).toBeGreaterThan(0);
     }
-    expect(libraryItems).toHaveLength(128);
+    expect(libraryItems).toHaveLength(161);
     expect(searchLibrary('', 'balkisul', false, 'Superfícies do pé')).toHaveLength(8);
-    expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(12);
+    expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(18);
     expect(searchLibrary('', 'balkisul', true)).toHaveLength(8);
 
     const usingApchuk = getItemsReferencingSlug('apchuk').map((item) => item.slug);

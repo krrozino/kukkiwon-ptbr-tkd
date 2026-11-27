@@ -265,7 +265,7 @@ const suggestedItems = (
       </div>
 
       <aside class="term-sidebar" aria-label="Continue seu estudo">
-        {item.categoryId === 'sonkisul' ? (
+        {item.categoryId === 'sonkisul' && !item.illustrativeBodyArea ? (
           <div class="study-card">
             <p class="eyebrow">Da palavra à região</p>
             <h2>Explore no Atlas</h2>

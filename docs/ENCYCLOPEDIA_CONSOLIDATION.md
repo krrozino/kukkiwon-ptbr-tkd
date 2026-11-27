@@ -11,6 +11,8 @@
 
 - Fases 7–8: índice local agrupado por família, indicação de cobertura, foco e etapa persistente. Os cenários sintéticos percorrem Taegeuk e Dan em dois tamanhos e temas. A execução com a reconferência privada preservou as 18 etapas, 23 ações e a divergência da etapa 14. O teste de build fornece os JSONs sintéticos no ambiente e verifica 404 nas 17 rotas.
 
+- Fases 9–14: 33 fichas adicionais em Kibon Dongjak (22), Sonkisul (3), Balkisul (6) e Matchuo Kyorugi (2). A edição inglesa de terminologia de 2011 com prefácio de 2012 foi cotejada por verbete. As famílias e variantes mantêm identidades distintas. A ficha de Kyorugi aponta para a edição WT com vigência inicial em 01/06/2026. A ficha de Matchuo orienta o registro por escola. O aprofundamento de Gyeokpa entra nas fichas do Iron.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
