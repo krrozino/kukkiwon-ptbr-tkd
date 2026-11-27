@@ -1,16 +1,14 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
-import {
-  studyDirectionLabel,
-  studyDirections,
-  type PoomsaeStudy,
-  type StudyDirection,
-  type StudyMovement,
-  type StudyReference,
-  type StudyTerm,
-} from '../../data/poomsae-study';
-import type { TaegeukFormGuide } from '../../data/poomsae-guide';
-import { TrigramDiagram } from './PoomsaeVisuals';
+import { describeStudyDirection } from '../../data/poomsae-study';
+import type {
+  PoomsaeStudy as StudyModel, StudyCourse, StudyMovement as MovementModel, StudyReference, StudyTerm,
+} from '../../data/poomsae-study-model';
+import type { PoomsaeFormGuide } from '../../data/poomsae-guide';
+import { PoomsaeLineDiagram, TrigramDiagram } from './PoomsaeVisuals';
 import TaegeukCourseDiagram from './TaegeukCourseDiagram';
+
+type PoomsaeStudy = StudyModel<string>;
+type StudyMovement = MovementModel<string>;
 
 function MovementSource({
   citation,
@@ -46,9 +44,10 @@ function TermLink({ term }: { term: StudyTerm }) {
   );
 }
 
-function StudyBoundary({ label, boundary, source }: {
+function StudyBoundary({ label, boundary, source, course }: {
   label: string;
   boundary: PoomsaeStudy['start'];
+  course?: StudyCourse;
   source: PoomsaeStudy['source'];
 }) {
   return (
@@ -59,18 +58,17 @@ function StudyBoundary({ label, boundary, source }: {
       </div>
       <span><TermLink term={boundary.base} /></span>
       {boundary.stance && <span>Base · <TermLink term={boundary.stance} /></span>}
-      <span>{boundary.position && <>Posição {studyDirections[boundary.position].label} · </>}Orientação {studyDirectionLabel(boundary.direction)}</span>
+      <span>{boundary.position && <>Posição {describeStudyDirection(course, boundary.position).label} · </>}Orientação {describeStudyDirection(course, boundary.direction).label}</span>
       {boundary.displacement && <span>{boundary.displacement}</span>}
       <MovementSource source={source} citation={boundary.citation} />
     </div>
   );
 }
 
-function DirectionMarker({ direction }: { direction: StudyDirection }) {
-  const { angle } = studyDirections[direction];
+function DirectionMarker({ angle, label }: { angle: number; label: string }) {
 
   return (
-    <svg viewBox="0 0 176 108" role="img" aria-label={studyDirectionLabel(direction) + ' na orientação inicial'}>
+    <svg viewBox="0 0 176 108" role="img" aria-label={label + ' na orientação inicial'}>
       <path d="M13 54H163 M88 12V96" stroke="currentColor" strokeDasharray="3 5" opacity=".45" />
       <circle cx="88" cy="54" r="40" fill="none" stroke="currentColor" opacity=".35" />
       <circle cx="88" cy="54" r="5" fill="currentColor" />
@@ -87,14 +85,14 @@ function DirectionMarker({ direction }: { direction: StudyDirection }) {
   );
 }
 
-function MovementFacts({ movement }: { movement: StudyMovement }) {
-  const direction = studyDirections[movement.direction];
+function MovementFacts({ movement, course }: { movement: StudyMovement; course?: StudyCourse }) {
+  const direction = describeStudyDirection(course, movement.direction);
   return (
     <>
       <dl className="study-step-facts">
         <div>
-          <dt>Direção no diagrama</dt>
-          <dd><span aria-hidden="true">{direction.arrow} </span>{studyDirectionLabel(movement.direction)}</dd>
+          <dt>{course?.kind === 'text' ? 'Direção na fonte' : 'Direção no diagrama'}</dt>
+          <dd><span aria-hidden="true">{direction.arrow} </span>{direction.label}</dd>
         </div>
         <div>
           <dt>Deslocamento dos pés</dt>
@@ -102,6 +100,7 @@ function MovementFacts({ movement }: { movement: StudyMovement }) {
         </div>
         {movement.initialPosition && <div><dt>Posição inicial</dt><dd>{movement.initialPosition}</dd></div>}
         {movement.bodyOrientation && <div><dt>Orientação corporal</dt><dd>{movement.bodyOrientation}</dd></div>}
+        {movement.kihap && <div><dt>Kihap</dt><dd>Documentado na etapa</dd></div>}
         {movement.rotation && <div><dt>Rotação</dt><dd>{movement.rotation}</dd></div>}
       </dl>
       <div>
@@ -122,17 +121,31 @@ function MovementFacts({ movement }: { movement: StudyMovement }) {
           </div>}
         </dl>
       </div>
-      {movement.discrepancy && (
-        <div className="study-review-points">
+      {movement.transitions?.length ? (
+        <ul className="study-references" aria-label="Transições documentadas">
+          {movement.transitions.map(({ description, reference }) => (
+            <li key={description}>{description} <ReferenceLink reference={reference} /></li>
+          ))}
+        </ul>
+      ) : null}
+      {movement.fieldReferences?.length ? (
+        <ul className="study-references" aria-label="Fontes por campo">
+          {movement.fieldReferences.map(({ field, reference }) => (
+            <li key={field}>{field} · <ReferenceLink reference={reference} /></li>
+          ))}
+        </ul>
+      ) : null}
+      {movement.discrepancies?.map(({ field, note, variants }) => (
+        <div className="study-review-points" key={field}>
           <strong>Divergência entre fontes</strong>
-          {movement.discrepancy.note && <p>{movement.discrepancy.note}</p>}
-          <ul>
-            {movement.discrepancy.variants.map(({ summary, reference }) => (
+          {note && <p>{note}</p>}
+          {variants.length > 0 && (
+            <ul>{variants.map(({ summary, reference }) => (
               <li key={`${reference.url}:${reference.locator}`}>{summary} <ReferenceLink reference={reference} /></li>
-            ))}
-          </ul>
+            ))}</ul>
+          )}
         </div>
-      )}
+      ))}
     </>
   );
 }
@@ -165,13 +178,15 @@ function MovementActions({ movement }: { movement: StudyMovement }) {
 
 type StudyMode = 'overview' | 'steps' | 'review';
 
-export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; guide: TaegeukFormGuide }) {
+export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; guide: PoomsaeFormGuide }) {
   const id = useId();
   const heading = useRef<HTMLHeadingElement>(null);
   const [mode, setMode] = useState<StudyMode>('overview');
   const [index, setIndex] = useState(0);
-  const { movements } = study;
+  const { movements, course } = study;
   const active = movements[index];
+  const direction = describeStudyDirection(course, active.direction);
+  const taegeukGrid = guide.kind === 'taegeuk' && course?.kind !== 'text';
   const actionCount = movements.reduce((total, movement) => total + movement.frames.length, 0);
 
   useEffect(() => {
@@ -217,9 +232,9 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
       <div className="study-section-heading">
         <div>
           <h2 id={id + '-sequence'}>Sequência de movimentos</h2>
-          <p className="study-count">{movements.length} etapas numeradas · {actionCount} ações</p>
+          <p className="study-count">{movements.length} etapas numeradas · {actionCount} {study.countUnit === 'frames' ? 'quadros de referência' : 'ações'}</p>
           <p className="muted">{study.readingNote}</p>
-          <p className="muted">As setas seguem a orientação inicial de quem pratica, mesmo após os giros. Na preparação, a pessoa começa em Na e olha para Ga (frente).</p>
+          {taegeukGrid && <p className="muted">As setas seguem a orientação inicial de quem pratica, mesmo após os giros. Na preparação, a pessoa começa em Na e olha para Ga (frente).</p>}
         </div>
         <div className="study-mode" role="group" aria-label="Modo de estudo">
           <button type="button" aria-pressed={mode === 'overview'} onClick={() => selectMode('overview')}>
@@ -236,10 +251,10 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
 
       {mode === 'overview' ? (
         <>
-          <StudyBoundary label="Início" boundary={study.start} source={study.source} />
+          <StudyBoundary label="Início" boundary={study.start} source={study.source} course={course} />
           <ol className="study-movements">
             {movements.map((movement, position) => {
-              const orientation = studyDirections[movement.direction];
+              const orientation = describeStudyDirection(course, movement.direction);
               const frameCount = movement.frames.length;
               return (
                 <li key={movement.number}>
@@ -251,7 +266,7 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
                     <span className="study-number">{String(movement.number).padStart(2, '0')}</span>
                     <span className="study-move-title">{movement.title}</span>
                     <span className="study-orientation">
-                      <span aria-hidden="true">{orientation.arrow}</span> {studyDirectionLabel(movement.direction)}
+                      <span aria-hidden="true">{orientation.arrow}</span> {orientation.label}
                       {frameCount > 1 && (
                         <> · <span>{frameCount} quadros</span></>
                       )}
@@ -261,7 +276,8 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
               );
             })}
           </ol>
-          <StudyBoundary label="Fim" boundary={study.finish} source={study.source} />
+          <StudyBoundary label="Fim" boundary={study.finish} source={study.source} course={course} />
+          {study.closure && <StudyBoundary label="Encerramento" boundary={study.closure} source={study.source} course={course} />}
         </>
       ) : mode === 'steps' ? (
         <section className="study-step" aria-label="Movimento selecionado" onKeyDown={handleKeys}>
@@ -270,14 +286,17 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
               <p className="eyebrow" role="status">Movimento {active.number} de {movements.length}</p>
               <h3 ref={heading} tabIndex={-1}>{active.title}</h3>
               {active.description && <p>{active.description}</p>}
-              <MovementFacts movement={active} />
+              <MovementFacts movement={active} course={course} />
               <MovementActions movement={active} />
             </div>
-            <figure className="study-direction">
-              <DirectionMarker direction={active.direction} />
-              <figcaption>{studyDirectionLabel(active.direction)} · orientação inicial</figcaption>
-            </figure>
+            {direction.angle !== undefined && (
+              <figure className="study-direction">
+                <DirectionMarker angle={direction.angle} label={direction.label} />
+                <figcaption>{direction.label} · orientação inicial</figcaption>
+              </figure>
+            )}
           </div>
+          <progress aria-label="Progresso na sequência" value={index + 1} max={movements.length} />
           <div className="study-step-controls">
             <button type="button" disabled={index === 0} onClick={() => moveBy(-1)}>
               <span aria-hidden="true">← </span>Anterior
@@ -303,8 +322,9 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
       ) : (
         <section className="study-review" aria-label="Ficha de revisão docente">
           <div className="study-review-boundaries">
-            <StudyBoundary label="Início" boundary={study.start} source={study.source} />
-            <StudyBoundary label="Fim" boundary={study.finish} source={study.source} />
+            <StudyBoundary label="Início" boundary={study.start} source={study.source} course={course} />
+            <StudyBoundary label="Fim" boundary={study.finish} source={study.source} course={course} />
+            {study.closure && <StudyBoundary label="Encerramento" boundary={study.closure} source={study.source} course={course} />}
           </div>
           <ol className="study-review-list">
             {movements.map((movement, position) => {
@@ -329,7 +349,7 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
                   </div>
 
                   {movement.description && <p>{movement.description}</p>}
-                  <MovementFacts movement={movement} />
+                  <MovementFacts movement={movement} course={course} />
                   <MovementActions movement={movement} />
                   <div className="study-review-points">
                     <strong>Pontos para confirmação docente</strong>
@@ -350,7 +370,8 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
     <section className="study-section" id="galeria" aria-labelledby={id + '-gallery'}>
       <h2 id={id + '-gallery'}>Galeria de estudo</h2>
       <div className="study-gallery">
-        <TaegeukCourseDiagram movements={movements} active={mode === 'steps' ? active : undefined} />
+        {taegeukGrid && <TaegeukCourseDiagram movements={movements} active={mode === 'steps' ? active : undefined} />}
+        {guide.kind === 'taegeuk' ? (
         <div className="study-gallery-panel study-gallery-symbol">
           <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
           <div>
@@ -359,6 +380,12 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
             <p className="fine-print">Esquema original · Taekwondo para Todos</p>
           </div>
         </div>
+        ) : guide.poomsaeLine && (
+          <figure className="study-gallery-panel">
+            <PoomsaeLineDiagram {...guide.poomsaeLine} label={guide.name} />
+            <figcaption>{guide.poomsaeLine.meaningPt}</figcaption>
+          </figure>
+        )}
       </div>
       <a className="inline-link" href={study.source.url + '#page=' + study.start.citation.page} target="_blank" rel="noopener noreferrer">
         Consultar as lâminas de referência (pp. {study.start.citation.page}–{study.finish.citation.page}) ↗

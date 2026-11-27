@@ -183,6 +183,187 @@
         "hangul": "§15 Seogi > Beom-seogi",
         "terminology": "§15 Seogi > Hakdari-seogi / Kkoa-seogi"
       }
+    },
+    {
+      "slug": "beom-seogi",
+      "romanization": "Beom-seogi",
+      "hangul": "범서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base do tigre",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "Base apresentada no §15 com predomínio do apoio posterior e contato anterior leve. Em um quadro de forma, registre juntos o nome da base e o lado declarado pela fonte.",
+      "studyPoints": [
+        "Compare a distribuição do apoio com Dwitgubi.",
+        "No Taegeuk 7, acompanhe a base final antes e depois dos chutes do trecho inicial."
+      ],
+      "variants": [],
+      "acervoSlug": "beom-seogi",
+      "evidence": {
+        "hangul": "§15 Seogi > Beom-seogi, p. 61 do PDF",
+        "romanization": "§15 Seogi > Beom-seogi, p. 61 do PDF",
+        "context": "§15 Seogi > Beom-seogi, p. 61 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "dwitgubi",
+        "taegeuk-7-jang",
+        "taegeuk-8-jang"
+      ]
+    },
+    {
+      "slug": "hakdari-seogi",
+      "romanization": "Hakdari-seogi",
+      "hangul": "학다리서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base da garça",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "Base unipodal descrita pelo manual. O nome da base indica o arranjo dos apoios e pode aparecer junto de ações diferentes.",
+      "studyPoints": [
+        "Diferencie o lado de apoio do lado da ação de braço.",
+        "Consulte a ficha de Keumgang para localizar o contexto desta base."
+      ],
+      "variants": [],
+      "acervoSlug": "hakdari-seogi",
+      "evidence": {
+        "hangul": "§15 Seogi > Hakdari-seogi, p. 63 do PDF",
+        "romanization": "§15 Seogi > Hakdari-seogi, p. 63 do PDF",
+        "context": "§15 Seogi > Hakdari-seogi, p. 63 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "keumgang",
+        "geumgang-makgi"
+      ]
+    },
+    {
+      "slug": "kkoa-seogi",
+      "romanization": "Kkoa-seogi",
+      "hangul": "꼬아서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Família de bases cruzadas",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "Família de bases com pernas cruzadas. O manual nomeia separadamente o cruzamento à frente e atrás do pé de apoio.",
+      "studyPoints": [
+        "Verifique a posição do pé que se move em relação ao pé de apoio.",
+        "Use o localizador da variante para revisar quadros de transição."
+      ],
+      "variants": [],
+      "acervoSlug": "kkoa-seogi",
+      "evidence": {
+        "hangul": "§15 Seogi > Kkoa-seogi, p. 63 do PDF",
+        "romanization": "§15 Seogi > Kkoa-seogi, p. 63 do PDF",
+        "context": "§15 Seogi > Kkoa-seogi, p. 63 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "ap-kkoa-seogi",
+        "dwi-kkoa-seogi"
+      ]
+    },
+    {
+      "slug": "ap-kkoa-seogi",
+      "romanization": "Ap-kkoa-seogi",
+      "hangul": "앞 꼬아서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base cruzada à frente",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "Variante de Kkoa-seogi em que o pé em movimento passa à frente do apoio. A indicação Ap qualifica a posição desse pé.",
+      "studyPoints": [
+        "Confira o prefixo Ap no nome da variante.",
+        "No Taegeuk 8, diferencie o quadro de passagem e a base final da etapa."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§15 Seogi > Kkoa-seogi > uso Ap-kkoa-seogi, p. 64 do PDF",
+        "romanization": "§15 Seogi > Kkoa-seogi > uso Ap-kkoa-seogi, p. 64 do PDF",
+        "context": "§15 Seogi > Kkoa-seogi > uso Ap-kkoa-seogi, p. 64 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "kkoa-seogi",
+        "dwi-kkoa-seogi",
+        "taegeuk-8-jang"
+      ]
+    },
+    {
+      "slug": "dwi-kkoa-seogi",
+      "romanization": "Dwi-kkoa-seogi",
+      "hangul": "뒤 꼬아서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base cruzada atrás",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "Variante de Kkoa-seogi em que o pé em movimento passa atrás do apoio. A edição distingue as duas configurações dentro da mesma família.",
+      "studyPoints": [
+        "Confira o prefixo Dwi no nome da variante.",
+        "Reconheça a base final nas etapas compostas dos Taegeuk 5 e 7."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§15 Seogi > Kkoa-seogi > uso Dwi-kkoa-seogi, p. 64 do PDF",
+        "romanization": "§15 Seogi > Kkoa-seogi > uso Dwi-kkoa-seogi, p. 64 do PDF",
+        "context": "§15 Seogi > Kkoa-seogi > uso Dwi-kkoa-seogi, p. 64 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "kkoa-seogi",
+        "ap-kkoa-seogi",
+        "taegeuk-5-jang",
+        "taegeuk-7-jang"
+      ]
+    },
+    {
+      "slug": "moa-seogi",
+      "romanization": "Moa-seogi",
+      "hangul": "모아서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base com os pés juntos",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "O manual distingue Moa-seogi pelo contato dos pés juntos. A posição das mãos é um campo diferente na descrição de uma preparação.",
+      "studyPoints": [
+        "Identifique a base dos pés antes de comparar posturas de mãos.",
+        "Compare com a base paralela do mesmo capítulo."
+      ],
+      "variants": [],
+      "acervoSlug": "moa-seogi",
+      "evidence": {
+        "hangul": "§15 Seogi > Moa-seogi, p. 64 do PDF",
+        "romanization": "§15 Seogi > Moa-seogi, p. 64 do PDF",
+        "context": "§15 Seogi > Moa-seogi, p. 64 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "narani-seogi",
+        "gyeopson-junbi",
+        "taegeuk-7-jang"
+      ]
+    },
+    {
+      "slug": "narani-seogi",
+      "romanization": "Narani-seogi",
+      "hangul": "나란히서기",
+      "pronunciationPt": null,
+      "subtitlePt": "Base paralela",
+      "atlasRegion": "legs",
+      "atlasLabel": "Pernas e apoios",
+      "summary": "O manual descreve os pés em posição paralela, com separação entre eles. Em uma forma, a base pode aparecer no início ou como posição intermediária.",
+      "studyPoints": [
+        "Compare Moa-seogi e Narani-seogi pelo arranjo dos pés.",
+        "No Taegeuk 6, observe a base que acompanha a defesa de abertura."
+      ],
+      "variants": [],
+      "acervoSlug": "narani-seogi",
+      "evidence": {
+        "hangul": "§15 Seogi > Narani-seogi, p. 65 do PDF",
+        "romanization": "§15 Seogi > Narani-seogi, p. 65 do PDF",
+        "context": "§15 Seogi > Narani-seogi, p. 65 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "moa-seogi",
+        "hechyeo-makgi",
+        "taegeuk-6-jang"
+      ]
     }
   ],
   "readyPostures": [
@@ -217,34 +398,104 @@
     },
     {
       "slug": "tongmilgi-bojumeok-junbi",
-      "romanization": "Bojumeok-junbi",
-      "hangul": "보주먹준비",
-      "pronunciationPt": "bô-dju-mók-djun-bi",
-      "subtitlePt": "Posturas especiais de preparação (Bojumeok, Tongmilgi, Dujumeok-heori e Gyeopson)",
+      "romanization": "Preparações especiais",
+      "hangul": null,
+      "pronunciationPt": null,
+      "subtitlePt": "Índice de posturas documentadas em Junbi-jase",
       "atlasRegion": "hands",
       "atlasLabel": "Envolvimento do punho e configurações simétricas de mãos",
-      "summary": "Além da preparação básica, a terminologia da Kukkiwon registra posturas específicas de abertura: Bojumeok-junbi (보주먹준비, mão envolvendo o punho, presente em Taegeuk 7 e Ilyeo), Tongmilgi-junbi (통밀기준비, presente em Koryo), Dujumeok-heori-junbi (두주먹허리준비) e Gyeopson-junbi (겹손준비).",
+      "summary": "O manual da Kukkiwon reúne Bojumeok-junbi, Tongmilgi-junbi, Dujumeok-heori-junbi e Gyeopson-junbi na seção de preparações. Cada postura tem seu próprio verbete.",
       "studyPoints": [
-        "Respeitar a altura exata das mãos (diante do queixo, peito, plexo ou cintura) exigida pela forma específica.",
-        "Executar o movimento em ritmo respiratório contínuo e solene.",
-        "Consultar no Acervo cada uma das cinco posturas documentadas em §8 Junbi-jase."
+        "Use as fichas individuais para comparar a posição das mãos e a base.",
+        "Consulte a fonte da forma para confirmar qual preparação ela descreve."
       ],
-      "variants": [
-        "Bojumeok-junbi (보주먹준비)",
-        "Tongmilgi-junbi (통밀기준비)",
-        "Dujumeok-heori-junbi (두주먹허리준비)",
-        "Gyeopson-junbi (겹손준비)"
-      ],
+      "variants": [],
       "relatedLibrarySlugs": [
-        "taegeuk-7-jang",
-        "koryo",
-        "ilyeo"
+        "bojumeok-junbi",
+        "tongmilgi-junbi",
+        "gyeopson-junbi",
+        "gibon-junbi"
       ],
+      "acervoSlug": null,
+      "evidence": {
+        "context": "§8 Junbi-jase, pp. 40–42 do PDF"
+      }
+    },
+    {
+      "slug": "tongmilgi-junbi",
+      "romanization": "Tongmilgi-junbi",
+      "hangul": "통밀기준비",
+      "pronunciationPt": null,
+      "subtitlePt": "Preparação Tongmilgi",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "O manual lista Tongmilgi-junbi entre as posturas de preparação. Nas lâminas consultadas de Koryo, a denominação também aparece no quadro de retorno.",
+      "studyPoints": [
+        "Mantenha preparação e retorno fora da contagem numerada.",
+        "Consulte a ficha contextual de Koryo para situar a postura."
+      ],
+      "variants": [],
+      "acervoSlug": "tongmilgi-junbi",
+      "evidence": {
+        "hangul": "§8 Junbi-jase > Tongmilgi-junbi, p. 41 do PDF",
+        "romanization": "§8 Junbi-jase > Tongmilgi-junbi, p. 41 do PDF",
+        "context": "§8 Junbi-jase > Tongmilgi-junbi, p. 41 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "koryo",
+        "gibon-junbi"
+      ]
+    },
+    {
+      "slug": "bojumeok-junbi",
+      "romanization": "Bojumeok-junbi",
+      "hangul": "보주먹준비",
+      "pronunciationPt": null,
+      "subtitlePt": "Preparação com punho envolvido",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "O verbete descreve uma postura de preparação com o punho envolvido pela outra mão. A denominação combina a configuração Bojumeok e a função Junbi.",
+      "studyPoints": [
+        "Distinga a configuração isolada da postura de preparação.",
+        "Confirme o nome da preparação no documento da forma estudada."
+      ],
+      "variants": [],
       "acervoSlug": "bojumeok-junbi",
       "evidence": {
-        "hangul": "§8 Junbi-jase > Bojumeok-junbi",
-        "terminology": "§8 Junbi-jase > Tongmilgi-junbi / Gyeopson-junbi"
-      }
+        "hangul": "§8 Junbi-jase > Bojumeok-junbi, p. 40 do PDF",
+        "romanization": "§8 Junbi-jase > Bojumeok-junbi, p. 40 do PDF",
+        "context": "§8 Junbi-jase > Bojumeok-junbi, p. 40 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "sonnal",
+        "tongmilgi-junbi"
+      ]
+    },
+    {
+      "slug": "gyeopson-junbi",
+      "romanization": "Gyeopson-junbi",
+      "hangul": "겹손준비",
+      "pronunciationPt": null,
+      "subtitlePt": "Preparação com mãos sobrepostas",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "O manual registra Gyeopson-junbi como postura com mãos sobrepostas. O termo se refere à preparação inteira e complementa a indicação de base.",
+      "studyPoints": [
+        "Consulte a preparação de Pyongwon ou Hansu junto da ficha da forma.",
+        "Separe a disposição das mãos do nome da base de sustentação."
+      ],
+      "variants": [],
+      "acervoSlug": "gyeopson-junbi",
+      "evidence": {
+        "hangul": "§8 Junbi-jase > Gyeopson-junbi, p. 41 do PDF",
+        "romanization": "§8 Junbi-jase > Gyeopson-junbi, p. 41 do PDF",
+        "context": "§8 Junbi-jase > Gyeopson-junbi, p. 41 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "moa-seogi",
+        "pyongwon",
+        "hansu"
+      ]
     }
   ],
   "blocks": [
@@ -402,6 +653,234 @@
         "terminology": "§10 Makgi > An-makgi > Sonnal-an-makgi (página 43 do PDF)",
         "context": 1365
       }
+    },
+    {
+      "slug": "gawi-makgi",
+      "romanization": "Gawi-makgi",
+      "hangul": "가위막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa em tesoura",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O nome identifica duas ações de defesa combinadas em configuração de tesoura.",
+      "studyPoints": [
+        "Compare os quadros de uma etapa repetida no Taegeuk 7.",
+        "Mantenha as ações de braços e a base como campos distintos."
+      ],
+      "variants": [],
+      "acervoSlug": "gawi-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Gawi-makgi, p. 47 do PDF",
+        "romanization": "§10 Makgi > Gawi-makgi, p. 47 do PDF",
+        "context": "§10 Makgi > Gawi-makgi, p. 47 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "taegeuk-7-jang",
+        "eotgeoreo-makgi"
+      ]
+    },
+    {
+      "slug": "geodeureo-makgi",
+      "romanization": "Geodeureo-makgi",
+      "hangul": "거들어막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa com assistência",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O título da família identifica a assistência de um braço à ação de defesa. O manual enumera variantes com alturas e superfícies diferentes.",
+      "studyPoints": [
+        "Procure a superfície e a altura no restante do nome.",
+        "Localize as variantes no verbete do manual e compare com o Taegeuk 8."
+      ],
+      "variants": [],
+      "acervoSlug": "geodeureo-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Geodeureo-makgi, p. 48 do PDF",
+        "romanization": "§10 Makgi > Geodeureo-makgi, p. 48 do PDF",
+        "context": "§10 Makgi > Geodeureo-makgi, p. 48 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "taegeuk-8-jang",
+        "sonnal-makgi-familia"
+      ]
+    },
+    {
+      "slug": "hechyeo-makgi",
+      "romanization": "Hecheo-makgi",
+      "hangul": "헤쳐막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa de abertura",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O verbete indica a abertura simultânea. A altura e a superfície aparecem nos nomes das variantes descritas como usos da família.",
+      "studyPoints": [
+        "Distinga a família de um quadro associado a determinada base.",
+        "Compare referências das formas Taegeuk 6 e 7."
+      ],
+      "variants": [],
+      "acervoSlug": "hecheo-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Hecheo-makgi, p. 49 do PDF",
+        "romanization": "§10 Makgi > Hecheo-makgi, p. 49 do PDF",
+        "context": "§10 Makgi > Hecheo-makgi, p. 49 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "taegeuk-6-jang",
+        "taegeuk-7-jang"
+      ]
+    },
+    {
+      "slug": "eotgeoreo-makgi",
+      "romanization": "Eotgeoreo-makgi",
+      "hangul": "엇걸어막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa cruzada",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O manual classifica a defesa pela configuração em que os braços se cruzam. A edição apresenta as alturas e superfícies no nível da variante.",
+      "studyPoints": [
+        "Confira a altura indicada pela legenda do quadro.",
+        "Compare a configuração com Gawi-makgi, que tem verbete próprio."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§10 Makgi > Eotgeoreo-makgi, p. 49 do PDF",
+        "romanization": "§10 Makgi > Eotgeoreo-makgi, p. 49 do PDF",
+        "context": "§10 Makgi > Eotgeoreo-makgi, p. 49 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "gawi-makgi",
+        "taegeuk-7-jang"
+      ]
+    },
+    {
+      "slug": "nulleo-makgi",
+      "romanization": "Nulleo-makgi",
+      "hangul": "눌러막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa por pressão descendente",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "A categoria identifica a pressão para baixo. Batangson, Sonnal e Bakkatpalmok aparecem como exemplos de superfície na edição.",
+      "studyPoints": [
+        "Leia a superfície e o modo de ação como componentes diferentes do nome.",
+        "No Taegeuk 4, confira o quadro em que a legenda reúne a defesa e uma estocada vertical."
+      ],
+      "variants": [],
+      "acervoSlug": "nulleo-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Nulleo-makgi, p. 51 do PDF",
+        "romanization": "§10 Makgi > Nulleo-makgi, p. 51 do PDF",
+        "context": "§10 Makgi > Nulleo-makgi, p. 51 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "batangson",
+        "sewo-jjireugi",
+        "taegeuk-4-jang"
+      ]
+    },
+    {
+      "slug": "santeul-makgi",
+      "romanization": "Santeul-makgi",
+      "hangul": "산틀막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa de configuração de montanha",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O manual nomeia a família pela configuração de montanha dos braços. Oesanteul possui um verbete próprio na mesma seção.",
+      "studyPoints": [
+        "Em Keumgang, distinga a defesa da figura 山 usada para descrever o percurso.",
+        "Compare o nome e a configuração com Oesanteul."
+      ],
+      "variants": [],
+      "acervoSlug": "santeul-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Santeul-makgi, p. 52 do PDF",
+        "romanization": "§10 Makgi > Santeul-makgi, p. 52 do PDF",
+        "context": "§10 Makgi > Santeul-makgi, p. 52 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "keumgang",
+        "oesanteul-makgi"
+      ]
+    },
+    {
+      "slug": "oesanteul-makgi",
+      "romanization": "Oesanteul-makgi",
+      "hangul": "외산틀막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa de configuração de montanha simples",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "A edição registra uma configuração própria na seção Makgi. A identidade é distinta de Santeul-makgi.",
+      "studyPoints": [
+        "Localize a classificação pelo nome completo.",
+        "No Taegeuk 8, confira separadamente a mudança de linha e o quadro de defesa."
+      ],
+      "variants": [],
+      "acervoSlug": "oesanteul-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Oesanteul-makgi, p. 51 do PDF",
+        "romanization": "§10 Makgi > Oesanteul-makgi, p. 51 do PDF",
+        "context": "§10 Makgi > Oesanteul-makgi, p. 51 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "santeul-makgi",
+        "taegeuk-8-jang"
+      ]
+    },
+    {
+      "slug": "geumgang-makgi",
+      "romanization": "Geumgang-makgi",
+      "hangul": "금강막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa de configuração Geumgang",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O verbete reúne uma composição de defesas em alturas diferentes. Keumgang também é o nome de uma forma Dan.",
+      "studyPoints": [
+        "Distinga o verbete de defesa do nome da forma.",
+        "Leia a base de apoio no mesmo quadro em que a fonte descreve a defesa."
+      ],
+      "variants": [],
+      "acervoSlug": "geumgang-makgi",
+      "evidence": {
+        "hangul": "§10 Makgi > Geumgang-makgi, p. 49 do PDF",
+        "romanization": "§10 Makgi > Geumgang-makgi, p. 49 do PDF",
+        "context": "§10 Makgi > Geumgang-makgi, p. 49 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "keumgang",
+        "hakdari-seogi"
+      ]
+    },
+    {
+      "slug": "arae-makgi",
+      "romanization": "Arae-makgi",
+      "hangul": "아래막기",
+      "pronunciationPt": null,
+      "subtitlePt": "Defesa baixa com antebraço externo",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O manual registra Arae-makgi como nome equivalente de (Bakkatpalmok) naeryeo-makgi. Essa equivalência depende da superfície indicada no verbete.",
+      "studyPoints": [
+        "Identifique Arae como altura e Naeryeo como direção descendente.",
+        "Use a variante específica nos quadros que empregam esta denominação."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§10 Makgi > Naeryeo-makgi > (Bakkatpalmok) naeryeo-makgi [Arae-makgi], p. 50 do PDF",
+        "romanization": "§10 Makgi > Naeryeo-makgi > (Bakkatpalmok) naeryeo-makgi [Arae-makgi], p. 50 do PDF",
+        "context": "§10 Makgi > Naeryeo-makgi > (Bakkatpalmok) naeryeo-makgi [Arae-makgi], p. 50 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "naeryeo-makgi",
+        "kibon-alturas-direcoes",
+        "taegeuk-1-jang",
+        "taegeuk-3-jang"
+      ]
     }
   ],
   "punchesAndThrusts": [
@@ -410,30 +889,24 @@
       "romanization": "Jeocheo-jireugi",
       "hangul": "젖혀지르기",
       "pronunciationPt": "djó-tchió-dji-rư-gui",
-      "subtitlePt": "Família de socos (Jireugi): soco direto padrão, vertical, lateral e ascendente",
+      "subtitlePt": "Soco com o punho em posição supinada",
       "atlasRegion": "hands",
       "atlasLabel": "Punho fechado (Jumeok) alinhado aos nós do indicador e médio",
-      "summary": "A família Jireugi (Board 56 / artigo 1366 e §5 Jireugi) abrange os ataques lineares e curvos executados com o punho fechado (Jumeok). Inclui o soco direto com rotação final pronada, bem como variações documentadas pela Kukkiwon como Jeocheo-jireugi (젖혀지르기, palma voltada para cima em curta distância), Sewo-jiruegi (세워지르기, punho vertical), Yeop-jireugi (옆지르기, lateral) e Chi-jireugi (치지르기, ascendente).",
+      "summary": "A Kukkiwon registra Jeocheo-jireugi como um verbete da família Jireugi. O modificador Jeocheo caracteriza a posição do punho.",
       "studyPoints": [
-        "Concentrar o contato nos dois primeiros nós metacarpofalângicos (indicador e médio) mantendo o punho reto com o rádio/ulna.",
-        "Tracionar vigorosamente o punho oposto à cintura (reação complementar) no exato instante da extensão.",
-        "Adaptar a altura do alvo entre Momtong (plexo solar) e Olgul (filtro labial/queixo) sem elevar o ombro."
+        "Compare o núcleo Jireugi com os nomes de outras ações de mão.",
+        "No Taegeuk 7, confira o quadro em que a legenda registra dois punhos."
       ],
-      "variants": [
-        "Momtong-jireugi",
-        "Olgul-jireugi",
-        "Baro-jireugi / Bandae-jireugi",
-        "Sewo-jiruegi (세워지르기)",
-        "Yeop-jireugi (옆지르기)"
-      ],
+      "variants": [],
       "relatedLibrarySlugs": [
         "jumeok",
-        "seun-jumeok",
-        "juchum-seogi"
+        "yeop-jireugi",
+        "chetdari-jireugi",
+        "taegeuk-7-jang"
       ],
       "evidence": {
-        "context": 1366,
-        "hangul": "§5 Jireugi > Jeocheo-jireugi / Sewo-jiruegi / Yeop-jireugi"
+        "hangul": "§5 Jireugi > Jeocheo-jireugi",
+        "context": "§5 Jireugi > Jeocheo-jireugi"
       }
     },
     {
@@ -464,6 +937,56 @@
       "evidence": {
         "hangul": "§6 Jjireugi > Sewo-jjireugi / Eopeo-jjireugi"
       }
+    },
+    {
+      "slug": "yeop-jireugi",
+      "romanization": "Yeop-jireugi",
+      "hangul": "옆지르기",
+      "pronunciationPt": null,
+      "subtitlePt": "Soco lateral",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "Yeop identifica a direção lateral da família Jireugi. O Taegeuk 7 inclui essa direção na legenda da etapa final numerada.",
+      "studyPoints": [
+        "Compare o nome da direção e a base no mesmo quadro.",
+        "Reconheça o núcleo Jireugi para distinguir esta ação de outras que usam Yeop."
+      ],
+      "variants": [],
+      "acervoSlug": "yeop-jireugi",
+      "evidence": {
+        "hangul": "§5 Jireugi > Yeop-jireugi, p. 36 do PDF",
+        "romanization": "§5 Jireugi > Yeop-jireugi, p. 36 do PDF",
+        "context": "§5 Jireugi > Yeop-jireugi, p. 36 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "taegeuk-7-jang",
+        "juchum-seogi"
+      ]
+    },
+    {
+      "slug": "chetdari-jireugi",
+      "romanization": "Chetdari-jireugi",
+      "hangul": "쳇다리지르기",
+      "pronunciationPt": null,
+      "subtitlePt": "Soco duplo Chetdari",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O verbete da família Jireugi registra uma composição de dois punhos com posições distintas. A denominação tem sua própria entrada no manual.",
+      "studyPoints": [
+        "Use o verbete para diferenciar a composição de um par de socos sucessivos.",
+        "Separe a ação da base nomeada na legenda de uma forma."
+      ],
+      "variants": [],
+      "acervoSlug": "chetdari-jireugi",
+      "evidence": {
+        "hangul": "§5 Jireugi > Chetdari-jireugi, p. 33 do PDF",
+        "romanization": "§5 Jireugi > Chetdari-jireugi, p. 33 do PDF",
+        "context": "§5 Jireugi > Chetdari-jireugi, p. 33 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "jeocheo-jireugi",
+        "taegeuk-7-jang"
+      ]
     }
   ],
   "strikes": [
@@ -530,6 +1053,112 @@
         "terminology": "Appendix > Applicable Parts of the Body > Palgup / Mureup",
         "context": 1367
       }
+    },
+    {
+      "slug": "palgup-dollyeo-chigi",
+      "romanization": "Palgup-dollyeo-chigi",
+      "hangul": "팔굽 돌려치기",
+      "pronunciationPt": null,
+      "subtitlePt": "Golpe circular com cotovelo",
+      "atlasRegion": "arms",
+      "atlasLabel": "Braços e antebraços",
+      "summary": "O manual lista esta variante de Dollyeo-chigi com o cotovelo. Palgup identifica a superfície e Dollyeo caracteriza a ação circular.",
+      "studyPoints": [
+        "Compare a superfície com a de Ap-chigi ou Pyojeok-chigi em seus verbetes.",
+        "Localize a variante nos Taegeuk 5 e 8."
+      ],
+      "variants": [],
+      "acervoSlug": "palgup-dollyeo-chigi",
+      "evidence": {
+        "hangul": "§2 Chigi > Dollyeo-chigi > Palgup-dollyeo-chigi, p. 25 do PDF",
+        "romanization": "§2 Chigi > Dollyeo-chigi > Palgup-dollyeo-chigi, p. 25 do PDF",
+        "context": "§2 Chigi > Dollyeo-chigi > Palgup-dollyeo-chigi, p. 25 do PDF"
+      },
+      "relatedLibrarySlugs": [
+        "palgup-mureup-chigi",
+        "taegeuk-5-jang",
+        "taegeuk-8-jang"
+      ]
+    },
+    {
+      "slug": "mejumeok-naeryeo-chigi",
+      "romanization": "Mejumeok-naeryeo-chigi",
+      "hangul": "메주먹 내려치기",
+      "pronunciationPt": null,
+      "subtitlePt": "Golpe descendente com a lateral do punho",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "A edição registra a superfície do punho fechado e a direção descendente no nome da variante. O Taegeuk 5 documenta a ação em dois quadros simples.",
+      "studyPoints": [
+        "Leia a superfície no início do nome da variante.",
+        "Confirme a base e o lado no quadro da forma consultada."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§2 Chigi > Naeryeo-chigi, p. 27 do PDF · uso Mejumeok-naeryeo-chigi",
+        "romanization": "§2 Chigi > Naeryeo-chigi, p. 27 do PDF · uso Mejumeok-naeryeo-chigi",
+        "context": "§2 Chigi > Naeryeo-chigi, p. 27 do PDF · uso Mejumeok-naeryeo-chigi"
+      },
+      "relatedLibrarySlugs": [
+        "mejumeok",
+        "taegeuk-5-jang"
+      ],
+      "libraryArea": "sonkisul"
+    },
+    {
+      "slug": "sonnal-bakkat-chigi",
+      "romanization": "Sonnal-bakkat-chigi",
+      "hangul": "손날 바깥치기",
+      "pronunciationPt": null,
+      "subtitlePt": "Golpe externo com a borda da mão",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "A edição inclui Sonnal na lista de usos da família de golpes externos. O termo especifica tanto a borda da mão quanto a direção da ação.",
+      "studyPoints": [
+        "Leia a superfície no início do nome da variante.",
+        "Confirme a base e o lado no quadro da forma consultada."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§2 Chigi > Bakkat-chigi, p. 24 do PDF · uso Sonnal-bakkat-chigi",
+        "romanization": "§2 Chigi > Bakkat-chigi, p. 24 do PDF · uso Sonnal-bakkat-chigi",
+        "context": "§2 Chigi > Bakkat-chigi, p. 24 do PDF · uso Sonnal-bakkat-chigi"
+      },
+      "relatedLibrarySlugs": [
+        "sonnal",
+        "sonnal-an-chigi",
+        "koryo"
+      ],
+      "libraryArea": "sonkisul"
+    },
+    {
+      "slug": "deungjumeok-ap-chigi",
+      "romanization": "Deungjumeok-ap-chigi",
+      "hangul": "등주먹 앞치기",
+      "pronunciationPt": null,
+      "subtitlePt": "Golpe frontal com o dorso do punho",
+      "atlasRegion": "hands",
+      "atlasLabel": "Mão e superfícies técnicas",
+      "summary": "A edição lista o dorso do punho como superfície da variante frontal. A ação aparece em quadros dos Taegeuk 4 e 5.",
+      "studyPoints": [
+        "Leia a superfície no início do nome da variante.",
+        "Confirme a base e o lado no quadro da forma consultada."
+      ],
+      "variants": [],
+      "acervoSlug": null,
+      "evidence": {
+        "hangul": "§2 Chigi > Ap-chigi, p. 24 do PDF · uso Deungjumeok-ap-chigi",
+        "romanization": "§2 Chigi > Ap-chigi, p. 24 do PDF · uso Deungjumeok-ap-chigi",
+        "context": "§2 Chigi > Ap-chigi, p. 24 do PDF · uso Deungjumeok-ap-chigi"
+      },
+      "relatedLibrarySlugs": [
+        "deungjumeok",
+        "taegeuk-4-jang",
+        "taegeuk-5-jang"
+      ],
+      "libraryArea": "sonkisul"
     }
   ],
   "levelsAndDirections": [

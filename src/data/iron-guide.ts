@@ -1,5 +1,7 @@
 import type { LibraryReference } from '../lib/library';
 import { ironContextEntries } from './iron-context';
+import { wtCompetitionRulesUrl } from './kyorugi-guide';
+import quizCards from './iron-quiz-cards.json';
 
 export type IronLevel = 'basico' | 'intermediario' | 'avancado';
 
@@ -31,6 +33,8 @@ export type IronQuizQuestion = {
   correctIndex: number;
   explanation: string;
   relatedSlug: string;
+  topic: string;
+  reference: LibraryReference;
 };
 
 const kukkiwonMeaningRef: LibraryReference = {
@@ -92,8 +96,8 @@ const kukkiwon2022CollectionRef: LibraryReference = {
 const wtRulesRef: LibraryReference = {
   institution: 'World Taekwondo',
   title: 'Competition Rules and Interpretation',
-  edition: 'Vigência 01/01/2026',
-  url: 'https://www.taekwondo.dk/files/Dokumenter/Statisk/Dommer/Regler/Competition%20Rules%20and%20Interpretation%201%20januar%202026.pdf',
+  edition: 'Vigência inicial em 01/06/2026',
+  url: wtCompetitionRulesUrl,
   locator: 'Regras internacionais de competição de Kyorugi',
 };
 
@@ -383,6 +387,8 @@ export const ironEntries: readonly IronEntry[] = [
   ...ironContextEntries,
 ];
 
+const ironBySlug = new Map(ironEntries.map((entry) => [entry.slug, entry]));
+
 function quizQuestion(
   id: string,
   level: IronLevel,
@@ -391,8 +397,12 @@ function quizQuestion(
   options: readonly string[],
   correctIndex: number,
   explanation: string,
+  sourceIndex = 0,
 ): IronQuizQuestion {
-  return { id, level, relatedSlug, question, options, correctIndex, explanation };
+  const entry = ironBySlug.get(relatedSlug);
+  const reference = entry?.references[sourceIndex]?.reference;
+  if (!entry?.topic || !reference) throw new Error(`Questão de Iron sem ficha ou fonte: ${id}`);
+  return { id, level, relatedSlug, question, options, correctIndex, explanation, topic: entry.topic, reference };
 }
 
 export const ironQuizQuestions: readonly IronQuizQuestion[] = [
@@ -456,4 +466,9 @@ export const ironQuizQuestions: readonly IronQuizQuestion[] = [
     0,
     'A Kukkiwon distingue antecedentes culturais antigos/modernos (Subak, Taekkyeon) da organização moderna iniciada com os Cinco Kwans (1946–1960), unificação (1961–1970) e Kukkiwon (1972).',
   ),
+  ...quizCards.map(({ id, relatedSlug, question, options, correctIndex, explanation, sourceIndex }) => {
+    const level = ironBySlug.get(relatedSlug)?.level;
+    if (!level) throw new Error(`Questão de Iron sem nível: ${id}`);
+    return quizQuestion(id, level, relatedSlug, question, options, correctIndex, explanation, sourceIndex);
+  }),
 ];

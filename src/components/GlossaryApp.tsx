@@ -2,9 +2,24 @@ import {useState} from 'react';
 import {glossaryReviewMode,normalizeGlossary,useGlossary,matchesGlossaryExpression} from '../lib/glossary';
 import KoreanExpression from './KoreanExpression';
 import {GlossaryTechniqueLink} from './GlossaryKnowledgeLinks';
+const kindLabels = {
+ height: 'Alturas',
+ direction: 'Direções',
+ anatomy: 'Anatomia',
+ action: 'Ações',
+ surface: 'Superfícies e configurações',
+ command: 'Comandos',
+ number: 'Números',
+ pedagogy: 'Termos de estudo',
+} as const;
+
 export default function GlossaryApp({fundamentals=false}:{fundamentals?:boolean}){
  const data=useGlossary(),[query,setQuery]=useState(''),needle=normalizeGlossary(query);
- const words=data.words.filter(w=>[w.romanization,w.hangul,w.meaning_pt,...w.aliases].some(v=>normalizeGlossary(v).includes(needle)));
+ const [kind, setKind] = useState('');
+ const availableKinds = Object.entries(kindLabels).filter(([key]) => data.words.some(word => word.kind === key));
+ const words=data.words.filter(w=>(!kind || w.kind === kind) && [w.romanization,w.hangul,w.meaning_pt,...w.aliases].some(v=>normalizeGlossary(v).includes(needle)));
+ const expressions = data.expressions.filter(expression => matchesGlossaryExpression(expression, data, needle) &&
+   (!kind || expression.segments.some(segment => data.words.some(word => word.id === segment.wordId && word.kind === kind))));
  return <div className="glossary-app">
   {glossaryReviewMode&&<aside className="glossary-review-banner" data-review-batch={data.batchId}>Prévia local de conteúdo em revisão</aside>}
   {fundamentals?<>
@@ -16,14 +31,21 @@ export default function GlossaryApp({fundamentals=false}:{fundamentals?:boolean}
   </>:<>
    <label className="field glossary-search">Buscar palavra ou expressão<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Busque em português, coreano ou romanização"/></label>
    {data.words.length===0?<div className="empty"><h2>Uma palavra de cada vez</h2><p>Os termos do glossário morfológico serão disponibilizados após conferência individual das fontes. Enquanto isso, consulte mais de cem fichas já publicadas em português, coreano e romanização na Biblioteca.</p><div className="actions"><a className="inline-link" href="/biblioteca">Buscar nas 7 áreas da Biblioteca →</a><a className="inline-link" href="/biblioteca/iron/iron-morfologia-terminologia">Como ler nomes técnicos em coreano →</a><a className="inline-link" href="/fundamentos/alturas-e-direcoes">Conhecer os fundamentos →</a></div></div>:<>
+    <label className="field glossary-search">
+      Classe da palavra
+      <select value={kind} onChange={event => setKind(event.target.value)}>
+        <option value="">Todas as classes</option>
+        {availableKinds.map(([value, label]) => <option value={value} key={value}>{label}</option>)}
+      </select>
+    </label>
     <p className="fine-print" role="status">{words.length} palavras encontradas</p><div className="glossary-grid">{words.map(w=><article key={w.id} id={'palavra-'+w.id} className="card glossary-card" data-word-card={w.id}>
      <h2><KoreanExpression wordId={w.id}/></h2><p className="hangul"><KoreanExpression wordId={w.id} script="hangul"/></p><p>{w.meaning_pt}</p>
      {w.aliases.length>0&&<small className="fine-print">Também encontrado na busca: {w.aliases.join(', ')}</small>}
-     {data.expressions.some(expression=>expression.segments.some(segment=>segment.wordId===w.id))&&<p>Nas expressões: {data.expressions.filter(expression=>expression.segments.some(segment=>segment.wordId===w.id)).map((expression,index)=><span key={expression.id}>{index>0?' · ':''}<a href={'#expressao-'+expression.id} onClick={()=>setQuery('')}>{expression.romanization}</a></span>)}</p>}
+     {data.expressions.some(expression=>expression.segments.some(segment=>segment.wordId===w.id))&&<p>Nas expressões: {data.expressions.filter(expression=>expression.segments.some(segment=>segment.wordId===w.id)).map((expression,index)=><span key={expression.id}>{index>0?' · ':''}<a href={'#expressao-'+expression.id} onClick={()=>{setQuery('');setKind('');}}>{expression.romanization}</a></span>)}</p>}
     </article>)}</div>
    </>}
   </>}
-  {data.expressions.length>0&&<section className="section-inner"><p className="tag">Palavra e contexto</p><h2>Entenda o nome completo</h2><div className="glossary-grid">{data.expressions.filter(e=>matchesGlossaryExpression(e,data,needle)).map(e=><article key={e.id} id={'expressao-'+e.id} className="card">
+  {expressions.length>0&&<section className="section-inner"><p className="tag">Palavra e contexto</p><h2>Entenda o nome completo</h2><div className="glossary-grid">{expressions.map(e=><article key={e.id} id={'expressao-'+e.id} className="card">
    <h3><KoreanExpression expressionId={e.id}/></h3><p className="hangul"><KoreanExpression expressionId={e.id} script="hangul"/></p><p>{e.translation_pt}</p>
    <GlossaryTechniqueLink expression={e}/>
   </article>)}</div></section>}

@@ -1,5 +1,11 @@
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import danFixture from './fixtures/poomsae/koryo.json';
+import taegeukFixture from './fixtures/poomsae/taegeuk-2.json';
+import { readLocalPoomsaeDossiers } from '../src/lib/poomsae-local-files';
 import { describe, expect, it, vi } from 'vitest';
-import { loadPoomsaePreviews, parseTaegeukTwoStudy } from '../src/lib/poomsae-preview';
+import { loadPoomsaePreviews, parseLocalPoomsaeStudy } from '../src/lib/poomsae-preview';
 
 const source = {
   id: 'unit-fixture',
@@ -69,7 +75,7 @@ describe('dados locais da prévia Taegeuk 2', () => {
     }
   });
   it('agrupa os quadros em sua etapa e mantém base final, fontes e posições em revisão', () => {
-    const study = parseTaegeukTwoStudy(dossier());
+    const study = parseLocalPoomsaeStudy(dossier());
     expect(study.movements.flatMap(({ frames }) => frames)).toHaveLength(3);
     expect(study.movements).toHaveLength(2);
     expect(study.start.base.href).toBe('/biblioteca/kibon-dongjak/gibon-junbi');
@@ -78,8 +84,8 @@ describe('dados locais da prévia Taegeuk 2', () => {
     expect(last.leadFoot).toBe('Direito');
     expect(last.baseSide).toBeUndefined();
     expect(last.transitionPending).toBe(true);
-    expect(last.discrepancy?.variants).toHaveLength(2);
-    expect(last.discrepancy?.note).toBe('Conferir deslocamento no vídeo oficial.');
+    expect(last.discrepancies?.[0].variants).toHaveLength(2);
+    expect(last.discrepancies?.[0].note).toBe('Conferir deslocamento no vídeo oficial.');
     expect(last.reviewPoints?.length).toBeGreaterThan(0);
     expect(last.frames?.map(({ id, reference }) => [id, reference.page])).toEqual([['2-1', 3], ['2-2', 4]]);
   });
@@ -87,30 +93,72 @@ describe('dados locais da prévia Taegeuk 2', () => {
   it('liga o soco à família no Acervo e evita equivalências aproximadas', () => {
     const withPunch = dossier();
     withPunch.movements[0].actions[0].techniqueId = 'momtong-bandae-jireugi';
-    const study = parseTaegeukTwoStudy(withPunch);
+    const study = parseLocalPoomsaeStudy(withPunch);
     expect(study.movements[0].frames[0].link?.href).toBe('/acervo?categoria=soco');
     withPunch.movements[0].actions[0].techniqueId = 'arae-makgi';
-    expect(parseTaegeukTwoStudy(withPunch).movements[0].frames[0].link).toBeUndefined();
+    expect(parseLocalPoomsaeStudy(withPunch).movements[0].frames[0].link?.href).toBe('/biblioteca/kibon-dongjak/arae-makgi');
+    withPunch.movements[0].actions[0].techniqueId = 'sonnal-arae-makgi';
+    expect(parseLocalPoomsaeStudy(withPunch).movements[0].frames[0].link).toBeUndefined();
   });
 
   it('rejeita contagens e rótulos incompatíveis', () => {
     const inconsistent = dossier();
     inconsistent.counts.actions += 1;
-    expect(() => parseTaegeukTwoStudy(inconsistent)).toThrow();
+    expect(() => parseLocalPoomsaeStudy(inconsistent)).toThrow();
     const incorrectFrame = dossier();
     incorrectFrame.movements[1].actions[1].frame = '3-2';
-    expect(() => parseTaegeukTwoStudy(incorrectFrame)).toThrow();
+    expect(() => parseLocalPoomsaeStudy(incorrectFrame)).toThrow();
   });
 
   it('rejeita URL insegura, fonte ausente e autorização incompatível', () => {
     const unsafe = dossier();
     unsafe.identityUrl = 'javascript:void(0)';
-    expect(() => parseTaegeukTwoStudy(unsafe)).toThrow();
+    expect(() => parseLocalPoomsaeStudy(unsafe)).toThrow();
     const missing = dossier();
     missing.movements[1].actions[1].evidence[0].sourceId = 'ausente';
-    expect(() => parseTaegeukTwoStudy(missing)).toThrow();
+    expect(() => parseLocalPoomsaeStudy(missing)).toThrow();
     const published = dossier();
     published.review.publicationApproved = true;
-    expect(() => parseTaegeukTwoStudy(published)).toThrow();
+    expect(() => parseLocalPoomsaeStudy(published)).toThrow();
+  });
+});
+
+
+describe('dossiês locais com referenciais distintos', () => {
+  it('mantém curso Dan, evidência por campo e transições por quadro', () => {
+    const study = parseLocalPoomsaeStudy(danFixture);
+    expect(study).toMatchObject({ family: 'Dan', synthetic: true, coverage: 'partial', course: danFixture.course });
+    expect(study.movements[1].fieldReferences?.[0].reference.page).toBe(3);
+    expect(study.movements[1].transitions?.[0].reference.page).toBe(4);
+  });
+
+  it('rejeita forma incompatível, curso incorreto e dados incompletos', () => {
+    expect(() => parseLocalPoomsaeStudy({ ...taegeukFixture, slug: 'koryo' })).toThrow(/Identidade/);
+    expect(() => parseLocalPoomsaeStudy({ ...danFixture, course: { kind: 'taegeuk' } })).toThrow(/exclusivo/);
+    expect(() => parseLocalPoomsaeStudy({ ...danFixture, course: { kind: 'text', directions: {} } })).toThrow(/Direção/);
+    expect(() => parseLocalPoomsaeStudy({ ...danFixture, start: undefined })).toThrow();
+    expect(() => parseLocalPoomsaeStudy({ ...danFixture, finish: { ...danFixture.finish, citation: { page: 0, locator: '' } } })).toThrow();
+    expect(() => parseLocalPoomsaeStudy({ ...danFixture, movements: [...danFixture.movements].reverse() })).toThrow(/ordem/);
+  });
+
+  it('carrega mais de uma forma e isola arquivos ausentes, inválidos e duplicados', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'poomsae-dossiers-'));
+    const warn = vi.fn();
+    try {
+      await writeFile(join(directory, '1-taegeuk.json'), JSON.stringify(taegeukFixture));
+      await writeFile(join(directory, '2-quebrado.json'), '{');
+      await writeFile(join(directory, '3-dan.json'), JSON.stringify(danFixture));
+      await writeFile(join(directory, '4-repetido.json'), JSON.stringify(danFixture));
+      const studies = await readLocalPoomsaeDossiers(parseLocalPoomsaeStudy, {
+        file: join(directory, 'ausente.json'), directory, warn,
+      });
+      expect(studies.map(({ slug }) => slug)).toEqual(['taegeuk-2-jang', 'koryo']);
+      expect(warn).toHaveBeenCalledTimes(3);
+      await expect(readLocalPoomsaeDossiers(parseLocalPoomsaeStudy, {
+        file: '', directory: '', warn,
+      })).resolves.toEqual([]);
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 });

@@ -1,6 +1,64 @@
 # Consolidação da enciclopédia V2
 
-## Checkpoint de 26/11/2026
+## Operação Intensiva II
+
+- Candidata: `codex/enciclopedia-expansao-v3` sobre `main@b971f0a8b6e799ae148897031d5d8282d679882f`. A operação começou empilhada sobre `c61c9bf` da #93. O mantenedor integrou a #93 por squash às 21h31 de 26/11. A árvore resultante é idêntica à do HEAD validado da #93. O histórico da expansão foi reaplicado sobre a nova base antes do primeiro envio. O check obrigatório `validate` passou na nova main. A análise SonarCloud desse SHA na main registrou falha. [#93](https://github.com/krrozino/kukkiwon-ptbr-tkd/pull/93) · [CI da main](https://github.com/krrozino/kukkiwon-ptbr-tkd/actions/runs/45917245205).
+- Worktree Linux reaproveitada: `/workspace/work/kukkiwon-ptbr-tkd`. Preflight limpo e dependências existentes. Medição inicial: 581 MiB no checkout, incluindo 500 MiB em dependências e 37 MiB em `review-output`. Navegadores Playwright: 681 MiB fora do checkout. Os comandos da seção Ambiente Windows continuam válidos para verificação local.
+- #77 e #81 estão integradas. A tabela anterior conserva as decisões para #67, #69, #70, #71, #74, #75, #80 e #82–#85. As notas históricas exclusivas de #74 e #75 permanecem em seus respectivos heads. O blob Gemini da #69 contém oito candidatos. A #93 contém triagem e reconciliação Argon em CLIs distintas.
+- A reconferência Linux do Taegeuk 2 continua em `review-output/taegeuk-2-jang.reconferencia.json`. A cópia original da #83 e `6a10385` seguem pendentes de verificação no Windows. Nenhuma cópia local foi substituída.
+- Fases 3–4: modelo v2 compartilhado com percurso Ga/Na/Da/Ra ou códigos textuais próprios, fontes por campo, transições e cobertura parcial. `POOMSAE_RESEARCH_DIR` lê um diretório privado de JSONs e `POOMSAE_RESEARCH_FILE` continua a aceitar o v1. O exportador reutiliza a leitura e interrompe a gravação se houver entrada incompatível. A reconferência Linux do Taegeuk 2 foi exportada com as duas leituras da etapa 14. O Taegeuk 1 usa a mesma grade e posição inicial do piloto. Validação direcionada de esquema e tipos aprovada.
+- Fases 5–6: conferência dos seis Taegeuk restantes, trecho inicial de Koryo, as 27 etapas numeradas de Keumgang e a localização das sete formas Dan restantes. O material de estudo fica em `review-output/op2-dossiers/`. Ver cobertura, convenções e pendências abaixo. Questões relacionadas: #45, #50, #65, #68 e #78.
+
+- Fases 7–8: índice local agrupado por família, indicação de cobertura, foco e etapa persistente. Os cenários sintéticos percorrem Taegeuk e Dan em dois tamanhos e temas. A execução com a reconferência privada preservou as 18 etapas, 23 ações e a divergência da etapa 14. O teste de build fornece os JSONs sintéticos no ambiente e verifica 404 nas 17 rotas.
+
+- Fases 9–14: 33 fichas adicionais em Kibon Dongjak (22), Sonkisul (3), Balkisul (6) e Matchuo Kyorugi (2). A edição inglesa de terminologia de 2011 com prefácio de 2012 foi cotejada por verbete. As famílias e variantes mantêm identidades distintas. A ficha de Kyorugi aponta para a edição WT com vigência inicial em 01/06/2026. A ficha de Matchuo orienta o registro por escola. O aprofundamento de Gyeokpa entra nas fichas do Iron.
+
+- Fase 15: Iron passa de 35 para 49 fichas com 28 seções referenciadas adicionais. As fichas cobrem Gyeokpa, regulamentos por edição, leitura de bases, Poomsae, terminologia, formação e fontes históricas. Gyeokpa usa o apêndice do manual e o regulamento histórico do Hanmadang 2024 para classificar formatos e materiais sob supervisão.
+
+- Fase 16: 60 perguntas do Iron com ficha e localizador. A revisão combina nível e assunto, pagina grupos de seis itens e permite retomar os erros, corrigir respostas e reiniciar o progresso salvo neste navegador. As seis perguntas anteriores conservam os IDs e a ordem das alternativas.
+
+- Fase 17: 47 palavras e 13 expressões no Glossário em revisão (32 palavras e 10 expressões novas). As fontes distinguem verbetes e exemplos do KR-DICT, nomes da Kukkiwon e comandos conforme a edição da WT. A pronúncia didática e a revisão de tradução seguem pendentes. A lista aprovada continua vazia.
+
+- Fase 18: navegação entre recortes próximos no Atlas, incluindo rosto e crânio, vistas do tronco, bordas do antebraço, vistas do joelho, tornozelo e pé. O Atlas usa as geometrias anteriores e mantém os links públicos da mão. Novas vistas laterais e alterações de contorno exigem avaliação visual específica.
+
+- Fases 19–20: a Biblioteca consulta nomes coreanos das 17 formas no Board 37, relaciona técnicas e bases com as formas e identifica remissões de família, variante e superfície. O estudo de Koryo usa um esquema autoral da linha 士, citada no artigo 988. A busca inclui área, assunto e região, aceita variações de espaçamento e grafias compostas. A checagem encontrou uma remissão antiga para `seun-jumeok`. A ficha Jeocheo-jireugi agora aponta para o punho e para verbetes efetivamente disponíveis.
+
+- Fases 21–24: checagem dos slugs e referências, revisão do nome acessível da ficha publicada e validação responsiva. A primeira rodada de interface identificou nove falhas, incluindo mudanças de altura no Atlas móvel, título recém-segmentado em glossário e uma expectativa de contagem de Matchuo. A bateria dirigida com as correções passou em 18 cenários.
+- Fases 25–26: uma worktree ativa no Linux. Medição durante a validação: 579 MiB no checkout, 502 MiB em dependências e 38 MiB em evidências privadas. A pilha de navegadores ocupa 681 MiB fora do checkout. Preservar o diretório ignorado de dossiês, a reconferência do Taegeuk 2 e as evidências até a conferência Windows. A estimativa de recuperação no Windows depende do inventário atualizado e da autorização de limpeza.
+
+### Cobertura documental da expansão
+
+| Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
+| --- | ---: | --- | --- | --- |
+| Taegeuk 1 | 18/20 | 18 etapas e 20 ações | pp. 53–64 | Conferência docente das direções e transições corrigidas |
+| Taegeuk 2 | 18/23 | 18 etapas e 23 ações | pp. 66–81 | Comparar original da #83 e as duas leituras da etapa 14 |
+| Taegeuk 3 | 20/34 | 20 etapas e 34 quadros | pp. 83–105 | Confirmar os membros executantes que a legenda deixa implícitos |
+| Taegeuk 4 | 20/29 | 20 etapas e 29 quadros | pp. 107–126 | Conferir direção nas etapas 7–8 e a ação adicional nas legendas de 2 e 4 |
+| Taegeuk 5 | 20/32 | 20 etapas e 32 quadros | pp. 128–149 | Etapa 15 indica Ra 2 em coreano e Ra 1 em inglês. Conferir também a etapa 18 e a origem da outra contagem de 33 |
+| Taegeuk 6 | 19/31 | 19 etapas e 31 quadros | pp. 151–167 | Conferir as mudanças de direção dentro das etapas 6 e 12 |
+| Taegeuk 7 | 25/33 | 25 etapas e 37 quadros | pp. 169–190 | Conciliar quatro quadros adicionais na convenção visual e conferir fases preparatórias |
+| Taegeuk 8 | 27/38 | 27 etapas e 40 quadros | pp. 192–215 | Conciliar dois quadros adicionais, conferir as etapas 3 e 19 e cotejar as legendas da etapa 6 |
+| Koryo | 30/45 | Trecho inicial de 13 etapas e 23 quadros | pp. 218–249 | Completar o cotejo a partir da etapa 14 e vincular a linha 士 ao referencial do documento |
+| Keumgang | 27/35 | 27 etapas e 31 quadros disponíveis | pp. 251–267 | Distinguir a convenção de ações da Daegu dos quadros EMC. Conferir a ordem das fotos da etapa 10 e a existência de outro quadro para a etapa 26 |
+| Taebaek | 26/38 | Ficha contextual e fonte localizada | pp. 269–293 | Cotejar sequência |
+| Pyongwon | 21/25 | Ficha contextual e fonte localizada | pp. 295–312 | Cotejar sequência |
+| Sipjin | 28/31 | Ficha contextual e fonte localizada | pp. 314–342 | Cotejar sequência |
+| Jitae | 28/37 | Ficha contextual e fonte localizada | pp. 344–364 | Cotejar sequência |
+| Cheonkwon | 26/27 | Ficha contextual e fonte localizada | pp. 366–392 | Cotejar sequência |
+| Hansu | 27/34 | Ficha contextual e fonte localizada | pp. 394–412 | Cotejar sequência |
+| Ilyeo | 23/27 | Ficha contextual e fonte localizada | pp. 414–428 | Cotejar sequência |
+
+Todos os estudos detalhados permanecem em revisão docente e linguística. A cobertura registra quadros numerados únicos. Preparação, retorno e vistas alternativas ficam fora da contagem. Os quadros compostos podem incluir fases preparatórias. A coluna Daegu registra a convenção de ações independente. A reprodução v20 é uma compilação de Edgardo Alberto Leiva, com lâminas identificadas como Kukkiwon Education Media Center. A confirmação direta do volume de 2022 ainda falta. [Reprodução v20](https://www.santafemarcial.com.ar/taekwondo/tkd-vocabulario-completo-v20.pdf) · [Índice coreano Kukkiwon](https://kukkiwon.or.kr/base/board/list?boardManagementNo=37&menuLevel=3&menuNo=62) · [Tabela Daegu](https://daegutkd.net/taekwondo/skill.php).
+
+Com os JSONs no diretório ignorado, use o comando abaixo no checkout Linux. Para exportar a revisão, use as mesmas variáveis e execute `node scripts/export-poomsae-review.mjs`. O arquivo de saída permanece em `review-output/revisao-docente-taegeuk-1-e-2.md` por compatibilidade e inclui todos os dossiês fornecidos.
+
+```sh
+POOMSAE_RESEARCH_FILE=review-output/taegeuk-2-jang.reconferencia.json \
+POOMSAE_RESEARCH_DIR=review-output/op2-dossiers \
+npm run dev -- --host 127.0.0.1
+```
+
+## Checkpoint de origem da PR #93 · 26/11/2026
 
 - Base confirmada no GitHub: `main@3229e058c482628ec356f901a17639b383a28d81`. A #92 já está integrada. Na base, `validate` e Vercel passaram e SonarCloud registrou falha.
 - Candidata: `codex/enciclopedia-consolidacao-v2`, em um clone isolado em `/workspace/work/kukkiwon-ptbr-tkd`. O `HEAD` e a lista de commits são obtidos com `git rev-parse HEAD` e `git log --oneline origin/main..HEAD`.
@@ -66,7 +124,7 @@ Com a medição atualizada e autorização específica, `git -C $principal workt
 | #82–#85 | Pilotos encadeados, consolidação do Taegeuk 1 e pesquisa do Taegeuk 2. Integrar por escopo na candidata. Preservar heads, PRs e artefatos de pesquisa locais. |
 | #26, #28, #89 | Abertas. Atualizações de Actions, TypeScript e npm seguem revisão independente. |
 
-## Cobertura de Poomsae
+## Cobertura de Poomsae na PR #93
 
 | Forma | Etapas / ações na tabela Daegu | Material localizado e estado na candidata |
 | --- | --- | --- |
@@ -89,7 +147,7 @@ Formas Dan com ficha contextual e contagem registrada em Daegu: Koryo (30/45), K
 
 Execute `npm run dev -- --host 127.0.0.1` para consultar o Taegeuk 1. Para o Taegeuk 2 use o dossiê original da #83 com a variável de processo `POOMSAE_RESEARCH_FILE`. O comando `node scripts/export-poomsae-review.mjs` usa a mesma variável e gera a ficha em `review-output`. Nesta sessão a conferência independente foi armazenada em `review-output/taegeuk-2-jang.reconferencia.json`, dentro da worktree Linux. A cópia original do Windows preserva eventuais campos ou anotações adicionais. As duas rotas de estudo só são registradas no comando Astro de desenvolvimento.
 
-## Biblioteca, Iron e Glossário
+## Biblioteca, Iron e Glossário na PR #93
 
 - Biblioteca com 128 fichas em sete áreas. As 105 fichas preexistentes conservam slugs. A listagem agrupa áreas e famílias, com ordenações alternativas e busca persistente. Matchuo Kyorugi abriga Sebon, Dubon, Hanbon e Anjoa como práticas de escola. Palgwae mantém a coleção histórica.
 - Iron com 35 fichas, incluindo 23 novas com fontes por seção. Os três níveis permanecem e os assuntos agrupam as fichas. O bloco teórico cobre história no Brasil, instituições, etiqueta, certificação, Poomsae, equipamentos, preparação física geral e segurança.
@@ -97,4 +155,4 @@ Execute `npm run dev -- --host 127.0.0.1` para consultar o Taegeuk 1. Para o Tae
 
 ## Próxima ação
 
-Validar o HEAD da #93 e abrir a prévia pública para revisar os fluxos de Biblioteca, Iron e Poomsae. Para a revisão de execução e nomenclatura, abrir a ficha docente local e conferir a divergência de deslocamento do Taegeuk 2 antes de qualquer decisão editorial.
+Revisar os fluxos de Biblioteca, Iron e Poomsae na candidata da expansão. O professor pode usar a ficha local para conferir as divergências do Taegeuk 2, 5 e 8, as unidades de contagem do Taegeuk 7, 8 e Keumgang e terminar o cotejo de Koryo. A integração depende de aprovação específica do mantenedor depois da CI, e a publicação editorial depende de revisão técnica e linguística.

@@ -7,8 +7,10 @@ import {
   libraryItems,
   searchLibrary,
   libraryItemHref,
+  libraryRelationshipLabel,
   atlasHref,
 } from '../src/lib/library';
+import { ironEntries, ironQuizQuestions } from '../src/data/iron-guide';
 import { allPoomsaeGuides, danForms, getPoomsaeGuide, taegeukForms } from '../src/data/poomsae-guide';
 import { fingerAnatomyGuides, multiFingerCareNotes } from '../src/data/sonkisul-finger-guide';
 import { findSchoolGradesForPoomsae } from '../src/components/poomsae/PoomsaeVisuals';
@@ -59,7 +61,9 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     const keumgang = getPoomsaeGuide('keumgang');
     const koryo = getPoomsaeGuide('koryo');
     expect(keumgang?.kind === 'dan' ? keumgang.poomsaeLine?.character : null).toBe('山');
-    expect(koryo?.kind === 'dan' ? koryo.poomsaeLine : undefined).toBeNull();
+    expect(koryo?.kind === 'dan' ? koryo.poomsaeLine?.character : null).toBe('士');
+    expect(searchLibrary('태극 5장', 'poomsae').map(({ slug }) => slug)).toEqual(['taegeuk-5-jang']);
+    expect(searchLibrary('yeopchagi', 'balkisul').map(({ slug }) => slug)).toContain('yeop-chagi');
   });
 
   it('associa a forma às graduações configuradas no currículo local sem impor regra universal', () => {
@@ -89,20 +93,20 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     expect(searchLibrary('Palgwae', 'poomsae')).toEqual([]);
 
     const matchuo = searchLibrary('', 'matchuo-kyorugi');
-    expect(matchuo).toHaveLength(6);
+    expect(matchuo).toHaveLength(8);
     expect(searchLibrary('Sebon', 'matchuo-kyorugi').map((item) => item.slug)).toContain('sebon-kyorugi');
     expect(searchLibrary('Anjoa', 'matchuo-kyorugi').map((item) => item.slug)).toContain('anjoa-kyorugi');
     expect(libraryItemHref('sebon-kyorugi')).toBe('/biblioteca/matchuo-kyorugi/sebon-kyorugi');
   });
 
   it('organiza Iron em três níveis progressivos e Kibon Dongjak em famílias com Hangul verificado', () => {
-    expect(searchLibrary('', 'iron')).toHaveLength(35);
-    expect(searchLibrary('', 'iron', false, 'Iron · Básico')).toHaveLength(12);
-    expect(searchLibrary('', 'iron', false, 'Iron · Intermediário')).toHaveLength(14);
-    expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(9);
+    expect(searchLibrary('', 'iron')).toHaveLength(49);
+    expect(searchLibrary('', 'iron', false, 'Iron · Básico')).toHaveLength(16);
+    expect(searchLibrary('', 'iron', false, 'Iron · Intermediário')).toHaveLength(19);
+    expect(searchLibrary('', 'iron', false, 'Iron · Avançado')).toHaveLength(14);
 
     const kibon = searchLibrary('', 'kibon-dongjak');
-    expect(kibon).toHaveLength(18);
+    expect(kibon).toHaveLength(40);
     expect(searchLibrary('앞굽이', 'kibon-dongjak').map((item) => item.slug)).toEqual(['apgubi']);
     expect(searchLibrary('Arae-makgi', 'kibon-dongjak').map((item) => item.slug)).toContain('naeryeo-makgi');
     expect(getLibraryItem('apgubi')?.acervoLink?.href).toBe('/acervo#apgubi');
@@ -112,9 +116,9 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     for (const cat of libraryCategories) {
       expect(searchLibrary('', cat.id).length, cat.id).toBeGreaterThan(0);
     }
-    expect(libraryItems).toHaveLength(128);
+    expect(libraryItems).toHaveLength(175);
     expect(searchLibrary('', 'balkisul', false, 'Superfícies do pé')).toHaveLength(8);
-    expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(12);
+    expect(searchLibrary('', 'balkisul', false, 'Família de chutes (Chagi)')).toHaveLength(18);
     expect(searchLibrary('', 'balkisul', true)).toHaveLength(8);
 
     const usingApchuk = getItemsReferencingSlug('apchuk').map((item) => item.slug);
@@ -133,4 +137,33 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     }
     expect(multiFingerCareNotes.gawisonkkeut).toMatch(/pendentes de confirmação documental/);
   });
+});
+
+
+it('vincula as questões do Iron a opções distintas, uma ficha e um localizador', () => {
+  const ids = new Set<string>();
+  for (const question of ironQuizQuestions) {
+    expect(ids.has(question.id), question.id).toBe(false);
+    ids.add(question.id);
+    expect(new Set(question.options).size, question.id).toBe(question.options.length);
+    expect(question.options[question.correctIndex], question.id).toBeTruthy();
+    const entry = ironEntries.find(({ slug }) => slug === question.relatedSlug);
+    expect(entry?.references.map(({ reference }) => reference)).toContainEqual(question.reference);
+    expect(question.reference.url, question.id).toMatch(/^https:/);
+    expect(question.reference.locator, question.id).toBeTruthy();
+    expect(entry?.topic, question.id).toBe(question.topic);
+  }
+  expect(ids.size).toBe(60);
+});
+
+
+it('resolve remissões explícitas e distingue famílias, variantes e superfícies', () => {
+  const unresolved = libraryItems.flatMap((item) => (item.relatedLibrarySlugs ?? [])
+    .filter((slug) => !getLibraryItem(slug) || slug === item.slug)
+    .map((slug) => `${item.slug} → ${slug}`));
+  expect(unresolved).toEqual([]);
+  expect(libraryRelationshipLabel('ap-kkoa-seogi', 'kkoa-seogi')).toBe('Família técnica');
+  expect(libraryRelationshipLabel('kkoa-seogi', 'dwi-kkoa-seogi')).toBe('Variante documentada');
+  expect(libraryRelationshipLabel('sonnal-bakkat-chigi', 'sonnal')).toBe('Superfície executante');
+  expect(libraryRelationshipLabel('koryo', 'geodeup-yeop-chagi')).toBe('Referência da forma');
 });

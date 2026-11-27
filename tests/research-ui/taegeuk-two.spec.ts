@@ -3,19 +3,18 @@ import { expect, test } from '@playwright/test';
 test('a disponibilidade local do segundo piloto acompanha a presença do dossiê', async ({ page, request }) => {
   await page.goto('/poomsae');
   await expect(page.getByRole('link', { name: 'Estudar Taegeuk 1 Jang' })).toBeVisible();
-  const configured = Boolean(process.env.POOMSAE_RESEARCH_FILE);
+  const route = await request.get('/poomsae/taegeuk-2-jang');
   const link = page.getByRole('link', { name: 'Estudar Taegeuk 2 Jang' });
-  if (configured) {
-    await expect(link).toBeVisible();
-  } else {
+  if (!process.env.POOMSAE_RESEARCH_DIR || process.env.POOMSAE_RESEARCH_FILE) expect(route.status()).toBe(200);
+  if (route.ok()) await expect(link).toBeVisible();
+  else {
+    expect(route.status()).toBe(404);
     await expect(link).toHaveCount(0);
-    expect((await request.get('/poomsae/taegeuk-2-jang')).status()).toBe(404);
   }
 });
 
 for (const scheme of ['light', 'dark'] as const) {
   test('estuda o Taegeuk 2 no tema ' + scheme, async ({ page, request }, testInfo) => {
-    test.skip(!process.env.POOMSAE_RESEARCH_FILE, 'O dossiê editorial fica no ambiente local.');
     const width = testInfo.project.name === 'mobile' ? 375 : 1440;
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ colorScheme: scheme });
@@ -35,12 +34,42 @@ for (const scheme of ['light', 'dark'] as const) {
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto('/poomsae');
-    await page.getByRole('link', { name: 'Estudar Taegeuk 2 Jang' }).click();
+    const link = page.getByRole('link', { name: 'Estudar Taegeuk 2 Jang' });
+    if (!process.env.POOMSAE_RESEARCH_FILE && process.env.POOMSAE_RESEARCH_DIR && !(await link.count())) {
+      expect((await request.get('/poomsae/taegeuk-2-jang')).status()).toBe(404);
+      return;
+    }
+    await link.click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', scheme);
     await expect(page.getByRole('heading', { name: 'Taegeuk 2 Jang', exact: true })).toBeVisible();
     await expect(page.getByText('태극 2장', { exact: true })).toBeVisible();
     await expect(page.getByText(/Faixa da escola de teste/)).toBeVisible();
     await expect(page.getByRole('img', { name: /Na e Ga formam o eixo central/ })).toBeVisible();
+    if (!process.env.POOMSAE_RESEARCH_FILE && !process.env.POOMSAE_RESEARCH_DIR) {
+      await expect(page.getByText(/Dados sintéticos de teste/)).toBeVisible();
+      await expect(page.getByText(/Cobertura parcial/)).toBeVisible();
+      await page.getByRole('button', { name: 'Passo a passo' }).click();
+      const movement = page.getByRole('region', { name: 'Movimento selecionado' });
+      await expect(movement.getByRole('status')).toHaveText('Movimento 1 de 2');
+      await movement.getByRole('button', { name: 'Próximo' }).click();
+      await expect(movement.getByRole('status')).toHaveText('Movimento 2 de 2');
+      await expect(movement.getByRole('list', { name: 'Ações da etapa' }).getByRole('listitem')).toHaveCount(2);
+      await expect(movement.getByRole('list', { name: 'Transições documentadas' })).toContainText('Transição sintética entre quadros');
+      await expect(movement.getByText('Documentado na etapa')).toBeVisible();
+      await expect(movement.getByRole('button', { name: 'Próximo' })).toBeDisabled();
+      await expect(page).toHaveURL(/movimento=2/);
+      await page.reload();
+      await expect(movement.getByRole('status')).toHaveText('Movimento 2 de 2');
+      await page.getByRole('button', { name: 'Ficha de revisão' }).click();
+      await expect(page.getByRole('region', { name: 'Ficha de revisão docente' }).locator('.study-review-card')).toHaveCount(2);
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      expect(errors).toEqual([]);
+      await page.goto('/poomsae/koryo?movimento=1');
+      await expect(page.getByText(/Dados sintéticos de teste/)).toBeVisible();
+      await expect(page.getByRole('img', { name: /Na e Ga formam o eixo central/ })).toHaveCount(0);
+      await expect(page.getByRole('region', { name: 'Movimento selecionado' })).toContainText('Marco lateral de teste');
+      return;
+    }
     await expect(page.getByRole('heading', { name: 'Tae 태' })).toBeVisible();
     await expect(page.getByText('18 etapas numeradas · 23 ações')).toBeVisible();
     await expect(page.getByText('Retorno à preparação', { exact: true })).toBeVisible();

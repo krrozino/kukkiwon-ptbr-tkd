@@ -21,6 +21,7 @@ export type KibonEntry = {
   studyPoints: readonly string[];
   variants: readonly string[];
   acervoSlug?: string;
+  libraryArea?: 'sonkisul';
   moduleHref?: string;
   moduleLabel?: string;
   references: readonly {
@@ -45,12 +46,14 @@ const sparringReferences: Partial<Record<number, LibraryReference>> = {
   1367: kukkiwonSparringReference(1367, 'Chigi'),
 };
 type EvidenceField = KibonEntry['references'][number]['field'];
-type Card = Omit<KibonEntry, 'kindLabel' | 'atlasRegion' | 'references'> & {
+type Card = Omit<KibonEntry, 'kindLabel' | 'atlasRegion' | 'references' | 'acervoSlug' | 'libraryArea'> & {
+  acervoSlug?: string | null;
+  libraryArea?: string;
   atlasRegion: string;
   evidence: Partial<Record<EvidenceField, string | number>>;
 };
 
-function toKibonEntry({ atlasRegion, acervoSlug, evidence, ...card }: Card, kindLabel: KibonEntry['kindLabel']): KibonEntry {
+function toKibonEntry({ atlasRegion, acervoSlug, libraryArea, evidence, ...card }: Card, kindLabel: KibonEntry['kindLabel']): KibonEntry {
   const region = atlasRegions.find((candidate) => candidate === atlasRegion);
   if (!region) throw new Error(`Região inválida em ${card.slug}: ${atlasRegion}`);
   const references = (Object.entries(evidence) as [EvidenceField, string | number][]).map(([field, locator]) => {
@@ -62,7 +65,8 @@ function toKibonEntry({ atlasRegion, acervoSlug, evidence, ...card }: Card, kind
     ...card,
     kindLabel,
     atlasRegion: region,
-    ...(kindLabel !== 'Alturas e direções' ? { acervoSlug: acervoSlug ?? card.slug } : {}),
+    ...(libraryArea === 'sonkisul' ? { libraryArea } : {}),
+    ...(kindLabel !== 'Alturas e direções' && acervoSlug !== null ? { acervoSlug: acervoSlug ?? card.slug } : {}),
     references,
   };
 }

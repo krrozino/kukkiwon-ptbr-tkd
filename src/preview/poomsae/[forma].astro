@@ -2,14 +2,14 @@
 import Base from '../../layouts/Base.astro';
 import { SchoolBeltStatus, TrigramDiagram } from '../../components/poomsae/PoomsaeVisuals';
 import VisualSequence from '../../components/poomsae/VisualSequence';
-import { taegeukForms } from '../../data/poomsae-guide';
+import { getPoomsaeGuide } from '../../data/poomsae-guide';
 import { loadPoomsaePreviews } from '../../lib/poomsae-preview';
 import '../../styles/poomsae-study.css';
 
 export async function getStaticPaths() {
   const studies = await loadPoomsaePreviews();
   return studies.flatMap((study) => {
-    const guide = taegeukForms.find((form) => form.slug === study.slug);
+    const guide = getPoomsaeGuide(study.slug);
     return guide ? [{ params: { forma: study.slug }, props: { guide, study } }] : [];
   });
 }
@@ -32,7 +32,8 @@ const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(n
 
     <header class="study-hero">
       <div>
-        <p class="eyebrow">Prévia de estudo · {source.reviewState}</p>
+        <p class="eyebrow">Prévia de estudo · {source.reviewState}{study.coverage === 'partial' && ' · Cobertura parcial'}</p>
+        {study.synthetic && <p>Dados sintéticos de teste para verificar o leitor.</p>}
         <h1>{title}</h1>
         <p class="lead">{study.meaning}</p>
         <p class="study-hangul" lang="ko">{study.hangul}</p>
@@ -48,7 +49,7 @@ const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(n
           )}
         </nav>
       </div>
-      <aside class="study-symbol" aria-label="Simbolismo">
+      {guide.kind === 'taegeuk' && <aside class="study-symbol" aria-label="Simbolismo">
         <TrigramDiagram bars={guide.trigram.bars} label={guide.trigram.romanization} compact />
         <h2>{guide.trigram.romanization} <span lang="ko">{study.trigramHangul}</span></h2>
         <p class="study-symbol-meaning">{guide.trigram.symbolPt}</p>
@@ -56,7 +57,7 @@ const checkedAt = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(n
         <a class="claim-source" href={guide.evidence.url} target="_blank" rel="noopener noreferrer">
           Kukkiwon · {guide.evidence.locator} ↗
         </a>
-      </aside>
+      </aside>}
     </header>
 
     <div class="study-context">

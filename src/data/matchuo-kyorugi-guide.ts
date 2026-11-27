@@ -1,5 +1,6 @@
 import type { LibraryReference } from '../lib/library';
 import { kukkiwonSparringReference } from './movement-sources';
+import { wtCompetitionRulesUrl } from './kyorugi-guide';
 
 export type MatchuoEntry = {
   slug: string;
@@ -229,6 +230,52 @@ export const matchuoEntries: readonly MatchuoEntry[] = [
       { field: 'context', reference: kukkiwonSparringReference(1373, 'Nakbeop') },
     ],
     relatedLibrarySlugs: ['matchuo-kyorugi-fundamentos', 'ageumson', 'sonnal'],
+  },
+  {
+    slug: 'kyorugi-competicao-2026',
+    title: 'Como consultar regras de Kyorugi',
+    subtitle: 'Regulamento internacional e boletim do evento',
+    kindLabel: 'Kyorugi esportivo',
+    atlasRegion: 'torso',
+    atlasLabel: 'Tronco e equipamento esportivo',
+    summary: 'A edição da World Taekwondo com vigência inicial em junho de 2026 organiza as condições de participação, equipamentos, pontuação, condutas e procedimento da luta em artigos próprios. O boletim local identifica o regulamento aplicável à categoria.',
+    pedagogicalFocus: [
+      'Registre edição e data do regulamento junto à consulta.',
+      'Compare o artigo de participação e equipamento com a convocação do torneio.',
+      'Anote o artigo e leve dúvidas de interpretação à equipe de arbitragem do evento.',
+    ],
+    variants: ['Regra de Kyorugi', 'Regulamento de luta', 'Arbitragem esportiva'],
+    references: [{
+      field: 'context',
+      reference: {
+        title: 'Competition Rules & Interpretation',
+        institution: 'World Taekwondo',
+        edition: 'Vigência inicial em 01/06/2026',
+        url: wtCompetitionRulesUrl,
+        locator: 'Arts. 4 e 10 · participação, equipamento e procedimento',
+      },
+    }],
+    relatedLibrarySlugs: ['iron-equipamento-competicao-kyorugi', 'iron-instituicoes-kukkiwon-wt-cbtkd', 'matchuo-kyorugi-fundamentos'],
+  },
+  {
+    slug: 'matchuo-registro-escola',
+    title: 'Registro de combate combinado por escola',
+    subtitle: 'Nomes, intervalos e objetivos no currículo da turma',
+    kindLabel: 'Conceito e método',
+    atlasRegion: 'arms',
+    atlasLabel: 'Coordenação de braços e antebraços',
+    summary: 'O regulamento histórico da CBTKD cita Matcho Kyorugui como item prático. O currículo da escola é a referência para o nome local, os números e os requisitos de uma turma.',
+    pedagogicalFocus: [
+      'Registre escola, graduação, número de etapas e objetivo pedagógico na ficha de currículo.',
+      'Use as observações do professor para guardar adaptações e critérios de acompanhamento.',
+      'Identifique a data e o localizador de cada exemplo usado na aula.',
+    ],
+    variants: ['Combate combinado por escola', 'Registro de sequência', 'Currículo Matchuo'],
+    references: [
+      { field: 'historical', reference: cbtkdHistoricalExamRef },
+      { field: 'context', reference: kukkiwonCurriculumRef },
+    ],
+    relatedLibrarySlugs: ['matchuo-kyorugi-fundamentos', 'sebon-kyorugi', 'iron-curriculo-na-pratica'],
   },
 ];
 

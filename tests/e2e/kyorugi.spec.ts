@@ -37,7 +37,8 @@ test("Palgwae permanece separado dos Taegeuk e Matchuo Kyorugi organiza interval
   await expect(page.getByRole("link", { name: /Comparar com Taegeuk 1 Jang/ }).first()).toBeVisible();
 
   await page.goto("/biblioteca/matchuo-kyorugi");
-  await expect(page.locator(".library-results a")).toHaveCount(6);
+  await expect(page.locator(".library-results a")).toHaveCount(8);
+  await expect(page.getByRole("link", { name: "Como consultar regras de Kyorugi", exact: true })).toBeVisible();
   const organizer = page.getByRole("region", { name: "Organizador de sequências da sua escola" });
   await organizer.getByRole("button", { name: "Preencher Sebon 1 a 5" }).click();
   await organizer.getByRole("button", { name: "Registrar intervalo no caderno" }).click();

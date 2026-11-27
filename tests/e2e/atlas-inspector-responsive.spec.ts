@@ -38,3 +38,16 @@ for (const width of [375,1280]) {
     expect(dims.horizontalOverflow).toBe(false);
   });
 }
+
+test('compara as vistas anterior e posterior do joelho com links persistentes', async ({ page }) => {
+  await page.goto('/atlas?region=mureup&zoom=1');
+  const regions = page.getByRole('navigation', { name: 'Comparar recortes anatômicos' });
+  const posterior = regions.getByRole('link', { name: 'Dobra posterior do joelho' });
+  await posterior.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/region=legs-knee-back/);
+  await expect(page.locator('[data-legend-zone="legs-knee-back"]')).toHaveAttribute('aria-pressed', 'true');
+  await regions.getByRole('link', { name: 'Joelho na vista anterior' }).click();
+  await expect(page).toHaveURL(/region=mureup/);
+  await expect(page.locator('[data-legend-zone="legs-knee"]')).toHaveAttribute('aria-pressed', 'true');
+});

@@ -13,6 +13,7 @@ import {
   allPoomsaeGuides,
   danForms,
   getPoomsaeGuide,
+  getPoomsaeKoreanIdentity,
   kukkiwonPoomsaeSource,
   kukkiwonTaegeukVideosNotice,
   taegeukForms,
@@ -148,6 +149,7 @@ function PoomsaeDossierPanel({
   const prev = index > 0 ? allPoomsaeGuides[index - 1] : null;
   const next = index >= 0 && index < allPoomsaeGuides.length - 1 ? allPoomsaeGuides[index + 1] : null;
   const counts = getPoomsaeCounts(guide);
+  const identity = getPoomsaeKoreanIdentity(guide);
 
   return (
     <section className="card poomsae-dossier" aria-label="Dossiê de estudo da forma" id="dossie-poomsae">
@@ -159,6 +161,7 @@ function PoomsaeDossierPanel({
               : `Série Yudanja (Dan) · ${guide.order} de 9`}
           </p>
           <h2>{guide.name}</h2>
+          <a className="inline-link" href={identity.url} target="_blank" rel="noopener noreferrer" lang="ko">{identity.hangul}</a>
           <p className="lead">
             {guide.kind === 'taegeuk' ? `${guide.trigram.symbolPt} — ${guide.note}` : guide.theme}
           </p>

@@ -69,7 +69,7 @@ export default function FichaTecnica() {
           aprovadas.
         </p>
       )}
-      <h1><KoreanExpression expressionId={term.slug} fallback={term.romanization} publishedTerm={term}/></h1>
+      <h1 aria-label={term.romanization}><KoreanExpression expressionId={term.slug} fallback={term.romanization} publishedTerm={term}/></h1>
       <FavoriteButton slug={term.slug} title={term.romanization} />
       {term.hangul && (
         <p lang="ko" className="hangul">

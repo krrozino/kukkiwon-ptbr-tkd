@@ -1,5 +1,5 @@
 import { handTerms, getHandRegionForTerm } from './public-hand';
-import { allPoomsaeGuides } from '../data/poomsae-guide';
+import { allPoomsaeGuides, getPoomsaeKoreanIdentity } from '../data/poomsae-guide';
 import { palgwaeEntries } from '../data/palgwae-guide';
 import { matchuoEntries } from '../data/matchuo-kyorugi-guide';
 import { ironEntries } from '../data/iron-guide';
@@ -190,110 +190,152 @@ const sonkisulItems: LibraryItem[] = handTerms.map((term) => ({
   term,
 }));
 
-const poomsaeItems: LibraryItem[] = allPoomsaeGuides.map((guide) => ({
-  slug: guide.slug,
-  categoryId: 'poomsae',
-  kindLabel: guide.kind === 'taegeuk' ? 'Forma Taegeuk' : 'Forma Yudanja (Dan)',
-  poomsaeSlug: guide.slug,
-  illustrativeBodyArea: {
-    region: guide.bodyCorrespondence.atlasRegion,
-    label: guide.bodyCorrespondence.label,
-    note: guide.bodyCorrespondence.summary,
-  },
-  acervoLink: {
-    href: `/acervo#${guide.relatedAcervoJunbi.slug}`,
-    label: `Postura ${guide.relatedAcervoJunbi.romanization} no Acervo`,
-    note: guide.relatedAcervoJunbi.note,
-  },
-  moduleLink: {
-    href: `/poomsae?forma=${guide.slug}#dossie-poomsae`,
-    label: 'Abrir no painel interativo de Poomsae',
-  },
-  studyPoints: guide.practiceFocus,
-  scopeNotice:
-    'Síntese didática independente fundamentada no artigo institucional da Kukkiwon. A associação a faixas depende do currículo de cada escola e a sequência passo a passo permanece separada até revisão documental de cada movimento.',
-  relatedLibrarySlugs:
-    guide.kind === 'taegeuk'
-      ? ['iron-leitura-de-poomsae', 'iron-convencoes-de-contagem', guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : 'koryo']
-      : ['iron-evolucao-poomsae', 'iron-convencoes-de-contagem', guide.slug === 'koryo' ? 'keumgang' : 'koryo'],
-  term: {
+const formReferences: Readonly<Partial<Record<string, readonly string[]>>> = {
+  'taegeuk-1-jang': ['arae-makgi', 'gibon-junbi'],
+  'taegeuk-2-jang': ['ap-chagi', 'apgubi'],
+  'taegeuk-3-jang': ['arae-makgi', 'ap-seogi'],
+  'taegeuk-4-jang': ['nulleo-makgi', 'sewo-jjireugi'],
+  'taegeuk-5-jang': ['mejumeok-naeryeo-chigi', 'dwi-kkoa-seogi'],
+  'taegeuk-6-jang': ['narani-seogi', 'dollyeo-chagi'],
+  'taegeuk-7-jang': ['beom-seogi', 'gawi-makgi'],
+  'taegeuk-8-jang': ['ttwieo-ap-chagi', 'ap-kkoa-seogi'],
+  koryo: ['tongmilgi-junbi', 'geodeup-yeop-chagi'],
+  keumgang: ['hakdari-seogi', 'geumgang-makgi'],
+  pyongwon: ['gyeopson-junbi'],
+  hansu: ['gyeopson-junbi'],
+  ilyeo: ['gyeopson-junbi'],
+};
+
+const poomsaeItems: LibraryItem[] = allPoomsaeGuides.map((guide) => {
+  const identity = getPoomsaeKoreanIdentity(guide);
+  return {
     slug: guide.slug,
-    name:
-      guide.kind === 'taegeuk'
-        ? `Forma ${guide.number} da série Taegeuk · Símbolo: ${guide.symbol} (${guide.trigram.romanization})`
-        : `Forma de graduação Dan · ${guide.theme}`,
-    hangul: null,
-    romanization: guide.name,
-    pronunciation: null,
-    description: `${guide.philosophySummary} ${
-      guide.kind === 'taegeuk'
-        ? guide.trigram.polaritySummary
-        : guide.poomsaeLine
-          ? guide.poomsaeLine.meaningPt
-          : ''
-    }`.trim(),
-    meanings: [
-      {
-        kind: 'symbolic',
-        language: 'pt-BR',
-        value:
-          guide.kind === 'taegeuk'
-            ? `Trigrama ${guide.trigram.romanization}: ${guide.trigram.symbolPt}`
-            : guide.poomsaeLine
-              ? `${guide.theme} · Linha documentada: ${guide.poomsaeLine.character}`
-              : guide.theme,
-        reference: {
-          title: guide.evidence.document,
-          institution: guide.evidence.institution,
-          edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
-          url: guide.evidence.url,
-          locator: guide.evidence.locator,
-        },
-      },
+    categoryId: 'poomsae',
+    kindLabel: guide.kind === 'taegeuk' ? 'Forma Taegeuk' : 'Forma Yudanja (Dan)',
+    poomsaeSlug: guide.slug,
+    illustrativeBodyArea: {
+      region: guide.bodyCorrespondence.atlasRegion,
+      label: guide.bodyCorrespondence.label,
+      note: guide.bodyCorrespondence.summary,
+    },
+    acervoLink: {
+      href: `/acervo#${guide.relatedAcervoJunbi.slug}`,
+      label: `Postura ${guide.relatedAcervoJunbi.romanization} no Acervo`,
+      note: guide.relatedAcervoJunbi.note,
+    },
+    moduleLink: {
+      href: `/poomsae?forma=${guide.slug}#dossie-poomsae`,
+      label: 'Abrir no painel interativo de Poomsae',
+    },
+    studyPoints: guide.practiceFocus,
+    scopeNotice:
+      'Síntese didática independente fundamentada no artigo institucional da Kukkiwon. A associação a faixas depende do currículo de cada escola e a sequência passo a passo permanece separada até revisão documental de cada movimento.',
+    relatedLibrarySlugs: [
+      ...(formReferences[guide.slug] ?? []),
+      'kibon-alturas-direcoes',
+      'iron-leitura-de-poomsae',
+      'iron-convencoes-de-contagem',
+      guide.kind === 'taegeuk' && guide.number < 8 ? `taegeuk-${guide.number + 1}-jang` : guide.slug === 'koryo' ? 'keumgang' : 'koryo',
     ],
-    variants:
-      guide.kind === 'taegeuk'
-        ? [
-            { value: `Taegeuk ${guide.number}` },
-            { value: `Trigrama ${guide.trigram.romanization}` },
-          ]
-        : [],
-    related: [
-      {
-        name: `${guide.relatedAcervoJunbi.romanization} (postura de preparação relacionada)`,
-        reference: {
-          title: 'Taekwondo Technical Terminology',
-          institution: 'Kukkiwon',
-          edition: '2011/2012',
-          url: 'https://research.kukkiwon.or.kr/homepage/boardMedia/11621',
-          locator: `§8 Junbi-jase > ${guide.relatedAcervoJunbi.romanization}`,
+    term: {
+      slug: guide.slug,
+      name:
+        guide.kind === 'taegeuk'
+          ? `Forma ${guide.number} da série Taegeuk · Símbolo: ${guide.symbol} (${guide.trigram.romanization})`
+          : `Forma de graduação Dan · ${guide.theme}`,
+      hangul: identity.hangul,
+      romanization: guide.name,
+      pronunciation: null,
+      description: `${guide.philosophySummary} ${
+        guide.kind === 'taegeuk'
+          ? guide.trigram.polaritySummary
+          : guide.poomsaeLine
+            ? guide.poomsaeLine.meaningPt
+            : ''
+      }`.trim(),
+      meanings: [
+        {
+          kind: 'symbolic',
+          language: 'pt-BR',
+          value:
+            guide.kind === 'taegeuk'
+              ? `Trigrama ${guide.trigram.romanization}: ${guide.trigram.symbolPt}`
+              : guide.poomsaeLine
+                ? `${guide.theme} · Linha documentada: ${guide.poomsaeLine.character}`
+                : guide.theme,
+          reference: {
+            title: guide.evidence.document,
+            institution: guide.evidence.institution,
+            edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
+            url: guide.evidence.url,
+            locator: guide.evidence.locator,
+          },
         },
-      },
-    ],
-    evidence: [
-      {
-        field: 'romanization',
-        reference: {
-          title: guide.evidence.document,
-          institution: guide.evidence.institution,
-          edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
-          url: guide.evidence.url,
-          locator: guide.evidence.locator,
+      ],
+      variants:
+        guide.kind === 'taegeuk'
+          ? [
+              { value: `Taegeuk ${guide.number}` },
+              { value: `Trigrama ${guide.trigram.romanization}` },
+            ]
+          : [],
+      related: [
+        {
+          name: `${guide.relatedAcervoJunbi.romanization} (postura de preparação relacionada)`,
+          reference: {
+            title: 'Taekwondo Technical Terminology',
+            institution: 'Kukkiwon',
+            edition: '2011/2012',
+            url: 'https://research.kukkiwon.or.kr/homepage/boardMedia/11621',
+            locator: `§8 Junbi-jase > ${guide.relatedAcervoJunbi.romanization}`,
+          },
         },
-      },
-      {
-        field: 'context',
-        reference: {
-          title: guide.evidence.document,
-          institution: guide.evidence.institution,
-          edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
-          url: guide.evidence.url,
-          locator: `${guide.evidence.locator} (simbolismo e foco corporal)`,
+      ],
+      evidence: [
+        {
+          field: 'hangul',
+          reference: {
+            title: 'Índice coreano de Poomsae',
+            institution: 'Kukkiwon',
+            edition: 'Portal institucional · Board 37',
+            url: identity.url,
+            locator: `Verbete ${identity.hangul}`,
+          },
         },
-      },
-    ],
-  },
-}));
+        ...(guide.slug === 'koryo' ? [{
+          field: 'context',
+          reference: {
+            title: 'Koryo',
+            institution: 'Kukkiwon',
+            edition: 'Portal institucional · Board 37',
+            url: identity.url,
+            locator: 'Artigo 988 · linha 士',
+          },
+        }] : []),
+        {
+          field: 'romanization',
+          reference: {
+            title: guide.evidence.document,
+            institution: guide.evidence.institution,
+            edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
+            url: guide.evidence.url,
+            locator: guide.evidence.locator,
+          },
+        },
+        {
+          field: 'context',
+          reference: {
+            title: guide.evidence.document,
+            institution: guide.evidence.institution,
+            edition: `Consulta ${guide.evidence.sourceCheckedAt}`,
+            url: guide.evidence.url,
+            locator: `${guide.evidence.locator} (simbolismo e foco corporal)`,
+          },
+        },
+      ],
+    },
+  };
+});
 
 const palgwaeItems: LibraryItem[] = palgwaeEntries.map((entry) => ({
   slug: entry.slug,
@@ -360,13 +402,13 @@ const matchuoItems: LibraryItem[] = matchuoEntries.map((entry) => ({
           note: 'Registros provisórios da família técnica na base Kukkiwon 2011/2012.',
         }
       : undefined,
-  moduleLink: {
-    href: '/kyorugi#combinado',
-    label: 'Abrir guia e organizador de combate combinado',
-  },
+  moduleLink: entry.kindLabel === 'Kyorugi esportivo'
+    ? { href: '/kyorugi#competicao', label: 'Consultar as referências de competição' }
+    : { href: '/kyorugi#combinado', label: 'Abrir guia e organizador de combate combinado' },
   studyPoints: entry.pedagogicalFocus,
-  scopeNotice:
-    'Síntese pedagógica independente. As famílias marciais (Makgi, Jireugi, Chigi, Chagi, Pihagi, Ppaegi, Kkeokgi, Neomgigi, Nakbeop) são documentadas pela Kukkiwon (Board 56), enquanto a numeração de Sebon, Dubon, Hanbon e Anjoa pertence ao currículo de cada escola.',
+  scopeNotice: entry.kindLabel === 'Kyorugi esportivo'
+    ? 'Consulta didática com referência à edição identificada. O regulamento e o boletim do evento determinam a regra aplicável.'
+    : 'Síntese pedagógica independente. As famílias marciais são documentadas pela Kukkiwon no Board 56. A numeração de Sebon, Dubon, Hanbon e Anjoa pertence ao currículo de cada escola.',
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
   term: {
     slug: entry.slug,
@@ -441,7 +483,7 @@ const ironItems: LibraryItem[] = ironEntries.map((entry) => ({
 type MovementCard = (typeof kibonEntries)[number] | (typeof balkisulEntries)[number];
 
 const movementScopeNotice =
-  'Hangul e romanização conferidos nos registros institucionais da Kukkiwon; explicação, pronúncia aproximada e pontos de estudo são adaptações didáticas independentes do projeto.';
+  'As fontes registram Hangul e romanização. As explicações e os pontos de estudo são adaptações didáticas do projeto. Ficha de consulta provisória com revisão humana pendente.';
 
 function movementAcervoLink(slug: string, romanization: string) {
   return {
@@ -481,7 +523,7 @@ function movementTerm(entry: MovementCard): LibraryTerm {
 
 const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
   slug: entry.slug,
-  categoryId: 'kibon-dongjak',
+  categoryId: entry.libraryArea ?? 'kibon-dongjak',
   kindLabel: entry.kindLabel,
   illustrativeBodyArea: {
     region: entry.atlasRegion,
@@ -492,7 +534,9 @@ const kibonItems: LibraryItem[] = kibonEntries.map((entry) => ({
   moduleLink:
     entry.moduleHref && entry.moduleLabel
       ? { href: entry.moduleHref, label: entry.moduleLabel }
-      : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
+      : entry.libraryArea === 'sonkisul'
+        ? { href: '/atlas?region=hands&zoom=1', label: 'Explorar as superfícies da mão no Atlas' }
+        : { href: '/fundamentos/alturas-e-direcoes', label: 'Estudar alturas e direções' },
   studyPoints: entry.studyPoints,
   scopeNotice: movementScopeNotice,
   relatedLibrarySlugs: entry.relatedLibrarySlugs,
@@ -511,7 +555,7 @@ const balkisulItems: LibraryItem[] = balkisulEntries.map((entry) => ({
         label: 'Pernas, joelho (Mureup) e superfícies do pé',
         note: 'Ligação ilustrativa para explorar os segmentos dos membros inferiores e abrir o detalhe dos pés no Atlas.',
       },
-  acervoLink: movementAcervoLink(entry.acervoSlug, entry.romanization),
+  acervoLink: entry.acervoSlug ? movementAcervoLink(entry.acervoSlug, entry.romanization) : undefined,
   moduleLink: entry.atlasZone
     ? { href: `/atlas?region=${entry.atlasZone}&zoom=1`, label: 'Localizar superfície no Atlas do pé' }
     : { href: '/kyorugi', label: 'Explorar guia de Kyorugi e família Chagi' },
@@ -534,6 +578,23 @@ export const libraryItems: LibraryItem[] = [
 
 export const getLibraryItem = (slug: string) => libraryItems.find((item) => item.slug === slug);
 export const getLibraryCategory = (id: string) => libraryCategories.find((category) => category.id === id);
+
+export function libraryRelationshipLabel(origin: string, destination: string): string | undefined {
+  if (formReferences[origin]?.includes(destination)) return 'Referência da forma';
+  if (formReferences[destination]?.includes(origin)) return 'Forma relacionada';
+  if (destination === 'kkoa-seogi' && ['ap-kkoa-seogi', 'dwi-kkoa-seogi'].includes(origin)) return 'Família técnica';
+  if (origin === 'kkoa-seogi' && ['ap-kkoa-seogi', 'dwi-kkoa-seogi'].includes(destination)) return 'Variante documentada';
+
+  const surfaces: Readonly<Partial<Record<string, string>>> = {
+    'mejumeok-naeryeo-chigi': 'mejumeok',
+    'sonnal-bakkat-chigi': 'sonnal',
+    'sonnal-an-chigi': 'sonnal',
+    'deungjumeok-ap-chigi': 'deungjumeok',
+  };
+  if (surfaces[origin] === destination) return 'Superfície executante';
+  if (surfaces[destination] === origin) return 'Técnica relacionada';
+  return undefined;
+}
 
 export function getItemsReferencingSlug(slug: string): LibraryItem[] {
   return libraryItems.filter(
@@ -564,7 +625,8 @@ function normalize(text: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLocaleLowerCase('pt-BR')
-    .replace(/[-_‐‑–—]/g, ' ');
+    .replace(/[-_‐‑–—]/g, ' ')
+    .replace(/\s+/g, ' ');
 }
 
 export function searchLibrary(
@@ -581,24 +643,23 @@ export function searchLibrary(
     if (kindFilter && item.kindLabel !== kindFilter) return false;
     if (!words.length) return true;
     const { term } = item;
-    const text = normalize(
-      [
-        term.slug,
-        term.name,
-        term.romanization,
-        term.hangul,
-        term.pronunciation,
-        term.description,
-        item.kindLabel,
-        item.topic,
-        ...(item.studyPoints || []),
-        ...(item.articleSections?.map((section) => section.title + ' ' + section.text) ?? []),
-        ...term.meanings.map((meaning) => meaning.value),
-        ...term.variants.map((variant) => variant.value),
-      ]
-        .filter(Boolean)
-        .join(' '),
-    );
+    const labelFields = [term.slug, term.name, term.romanization, term.hangul, term.pronunciation, ...term.variants.map(({ value }) => value)];
+    if (words.length === 1 && words[0].length >= 4 && labelFields.some((label) =>
+      label && normalize(label).replace(/\s+/g, '') === words[0],
+    )) return true;
+    const category = getLibraryCategory(item.categoryId);
+    const text = normalize([
+      ...labelFields,
+      category?.label,
+      category?.title,
+      item.illustrativeBodyArea?.label,
+      term.description,
+      item.kindLabel,
+      item.topic,
+      ...(item.studyPoints || []),
+      ...(item.articleSections?.map((section) => section.title + ' ' + section.text) ?? []),
+      ...term.meanings.map((meaning) => meaning.value),
+    ].filter(Boolean).join(' '));
     return words.every((word) => text.includes(word));
   });
 

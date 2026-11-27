@@ -235,6 +235,8 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .term-heading { display: flex; align-items: center; justify-content: space-between; gap: 36px; border-bottom: 1px solid var(--line); padding-bottom: 40px; }
 .term-heading h1 { font-size: clamp(3rem, 5vw, 5rem); margin: 0 0 12px; }
 .term-heading .lead { margin: 0; }
+.term-identity { display: grid; gap: 8px; min-width: 0; }
+.reading-links a small { display: block; margin-top: 2px; }
 .term-korean { background: var(--green-soft); padding: 26px 36px; min-width: 210px; text-align: center; border-radius: 10px; display: grid; gap: 6px; color: var(--green); }
 .term-korean > span { font-size: 3.5rem; line-height: 1.4; }
 .term-korean small { font-size: .68rem; color: var(--muted); }
@@ -452,6 +454,10 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .iron-levels-box p, .iron-quiz-head p { margin: 0; color: var(--muted); max-width: 70ch; }
 .iron-quiz-head { display: flex; justify-content: space-between; align-items: start; gap: 18px; flex-wrap: wrap; }
 .iron-quiz-score { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: .84rem; color: var(--ink); }
+.iron-quiz-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.iron-quiz-filters label { display: grid; gap: 4px; min-width: min(100%, 240px); }
+.iron-quiz-filters select { max-width: 100%; min-height: 44px; border: 1px solid var(--line); color: var(--ink); background: var(--surface); padding: 0 8px; }
+.iron-quiz-filters[aria-label] { align-items: center; justify-content: center; }
 .iron-quiz-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .iron-quiz-card { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .iron-quiz-card h3 { margin: 0; font-size: 1.02rem; line-height: 1.45; }

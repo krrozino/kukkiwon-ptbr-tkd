@@ -41,6 +41,7 @@ export function TrigramDiagram({
 }
 
 const linePaths: Record<PoomsaeLineKind, readonly string[]> = {
+  sa: ['M16 21 H60', 'M38 10 V43', 'M22 43 H54'],
   san: ['M38 10 V44', 'M14 22 V44 H62 V22'],
   gong: ['M16 14 H60', 'M38 14 V42', 'M14 42 H62'],
   ship: ['M38 10 V46', 'M14 28 H62'],

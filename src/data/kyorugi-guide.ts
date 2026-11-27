@@ -33,14 +33,17 @@ export const martialFamilies = familyResearch.map(family => ({
   },
 }));
 
+export const wtCompetitionRulesUrl =
+  "https://www.taekwondo.dk/files/Dokumenter/Statisk/Dommer/Regler/Competition%20Rules%20and%20Interpretation%20from%2001.06.2026.pdf";
+
 export const competitionReferences = [
   {
     id:"wt",
     name:"World Taekwondo",
     label:"Regras internacionais de competição",
     description:"As regras esportivas de Kyorugi tratam de pontuação, condutas, arbitragem e condições de competição. Consultar sempre a edição aplicável ao evento.",
-    source:"https://www.taekwondo.dk/files/Dokumenter/Statisk/Dommer/Regler/Competition%20Rules%20and%20Interpretation%201%20januar%202026.pdf",
-    notice:"Regras WT em vigor desde 01/01/2026; PDF em inglês hospedado por federação nacional. Conferir normas e atualizações do evento."
+    source:wtCompetitionRulesUrl,
+    notice:"Edição da WT com vigência inicial em 01/06/2026, hospedada pela federação dinamarquesa. Confira a edição indicada pelo evento."
   },
   {
     id:"cbtkd",

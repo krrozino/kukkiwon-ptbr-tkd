@@ -1,0 +1,704 @@
+[
+  {
+    "id": "q-sentido-do",
+    "relatedSlug": "iron-significado-taekwondo",
+    "sourceIndex": 0,
+    "question": "Na explicação pedagógica da Kukkiwon, qual elemento se refere ao caminho de conduta e aperfeiçoamento?",
+    "options": [
+      "Kwon",
+      "Tae",
+      "Do"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do designa o caminho. Tae e Kwon remetem às técnicas de pés e mãos."
+  },
+  {
+    "id": "q-cortesia",
+    "relatedSlug": "iron-espirito-cortesia-dojang",
+    "sourceIndex": 0,
+    "question": "Qual virtude registrada na ficha corresponde à cortesia?",
+    "options": [
+      "Bongsa",
+      "Innae",
+      "Yeui"
+    ],
+    "correctIndex": 2,
+    "explanation": "Yeui significa cortesia. Innae indica perseverança e Bongsa, serviço solidário."
+  },
+  {
+    "id": "q-geukgi",
+    "relatedSlug": "iron-autocontrole-convivencia",
+    "sourceIndex": 0,
+    "question": "Qual plano de aula concretiza Geukgi?",
+    "options": [
+      "Comparar apenas o resultado dos colegas",
+      "Repetir sem observar a correção",
+      "Escolher um objetivo observável e retomar com atenção à correção"
+    ],
+    "correctIndex": 2,
+    "explanation": "A ficha associa Geukgi à superação de dificuldades com atenção a um objetivo de prática."
+  },
+  {
+    "id": "q-hongik",
+    "relatedSlug": "iron-autocontrole-convivencia",
+    "sourceIndex": 1,
+    "question": "Qual decisão aplica Hongik durante a prática em dupla?",
+    "options": [
+      "Combinar o objetivo e respeitar a intensidade indicada",
+      "Definir a intensidade em função do mais experiente",
+      "Aumentar a intensidade sempre que alguém hesitar"
+    ],
+    "correctIndex": 0,
+    "explanation": "Hongik amplia o foco para a responsabilidade com quem treina junto."
+  },
+  {
+    "id": "q-uniforme",
+    "relatedSlug": "iron-uniforme-etiqueta",
+    "sourceIndex": 1,
+    "question": "Antes de usar o dobok habitual em um torneio, qual documento ajuda a conferir os requisitos?",
+    "options": [
+      "Uma lista de uniformes de outra turma",
+      "O currículo de graduações da escola",
+      "O regulamento e o boletim do torneio"
+    ],
+    "correctIndex": 2,
+    "explanation": "O evento pode exigir especificações próprias. A ficha cita o artigo sobre uniforme do Poomsae competitivo."
+  },
+  {
+    "id": "q-atlas-e-altura",
+    "relatedSlug": "iron-alturas-direcoes-estrutura",
+    "sourceIndex": 0,
+    "question": "Em uma ficha, que tipo de dado registra Momtong?",
+    "options": [
+      "A direção da ação",
+      "A superfície executante",
+      "A referência média"
+    ],
+    "correctIndex": 2,
+    "explanation": "Momtong indica a faixa média. A ficha distingue altura, trajetória, anatomia e família de movimento."
+  },
+  {
+    "id": "q-curso-gen008",
+    "relatedSlug": "iron-curriculo-na-pratica",
+    "sourceIndex": 0,
+    "question": "Como usar um guia curricular universitário para planejar o estudo em outra escola?",
+    "options": [
+      "Identificando público, duração e objetivo do guia",
+      "Copiando seus requisitos de graduação",
+      "Tratando o material como regra internacional"
+    ],
+    "correctIndex": 0,
+    "explanation": "O guia GEN008 é um exemplo de planejamento no seu contexto universitário."
+  },
+  {
+    "id": "q-gup-escola",
+    "relatedSlug": "iron-curriculo-na-pratica",
+    "sourceIndex": 1,
+    "question": "A escola usa requisito interno e referência externa. Como guardá-los no currículo?",
+    "options": [
+      "Fundir tudo em um requisito genérico",
+      "Registrar o alcance e a origem de cada requisito",
+      "Manter somente o requisito externo"
+    ],
+    "correctIndex": 1,
+    "explanation": "A ficha separa avaliação interna, certificação e material complementar."
+  },
+  {
+    "id": "q-preparacao-tabela",
+    "relatedSlug": "iron-leitura-de-poomsae",
+    "sourceIndex": 0,
+    "question": "Ao começar a conferir uma passagem em um guia de Poomsae, o que localizar primeiro?",
+    "options": [
+      "A contagem de outra edição",
+      "A técnica mais difícil da forma",
+      "A preparação e o número da passagem"
+    ],
+    "correctIndex": 2,
+    "explanation": "Esses localizadores permitem comparar a passagem com o desenho e a tabela do mesmo guia."
+  },
+  {
+    "id": "q-posicao-e-olhar",
+    "relatedSlug": "iron-leitura-de-poomsae",
+    "sourceIndex": 1,
+    "question": "O praticante desloca-se para uma linha e olha para outra. Como registrar?",
+    "options": [
+      "Em campos próprios para posição e olhar",
+      "Só pela direção do olhar",
+      "Só pela base final"
+    ],
+    "correctIndex": 0,
+    "explanation": "A leitura documentada distingue posição, direção do olhar e base."
+  },
+  {
+    "id": "q-impacto-acao",
+    "relatedSlug": "iron-seguranca-impacto",
+    "sourceIndex": 0,
+    "question": "Qual é a primeira medida em aula diante de suspeita de concussão após um impacto?",
+    "options": [
+      "Completar a série e observar no intervalo",
+      "Diminuir a intensidade do exercício",
+      "Interromper a prática e avisar o responsável"
+    ],
+    "correctIndex": 2,
+    "explanation": "Os CDC recomendam retirar a pessoa da atividade e encaminhá-la para avaliação."
+  },
+  {
+    "id": "q-impacto-retorno",
+    "relatedSlug": "iron-seguranca-impacto",
+    "sourceIndex": 1,
+    "question": "Quem orienta a decisão de voltar ao esporte após suspeita de concussão?",
+    "options": [
+      "O árbitro da competição anterior",
+      "O profissional de saúde",
+      "A dupla de treino"
+    ],
+    "correctIndex": 1,
+    "explanation": "O retorno segue orientação do profissional de saúde."
+  },
+  {
+    "id": "q-kwans-organizacao",
+    "relatedSlug": "iron-kwans-e-unificacao",
+    "sourceIndex": 0,
+    "question": "Qual distinção ajuda a ler a história moderna da modalidade?",
+    "options": [
+      "Volume de formas e volume de demonstração",
+      "Sigla da federação e pontuação eletrônica",
+      "Surgimento das escolas e coordenação nacional posterior"
+    ],
+    "correctIndex": 2,
+    "explanation": "Os Kwans surgem no período posterior à libertação. A coordenação nacional é tratada em etapa posterior."
+  },
+  {
+    "id": "q-abertura-seul",
+    "relatedSlug": "iron-kukkiwon-1972",
+    "sourceIndex": 0,
+    "question": "Que marco a apresentação institucional da Kukkiwon situa em 1972?",
+    "options": [
+      "A abertura da instituição em Seul",
+      "A publicação da coleção de cinco volumes",
+      "A primeira edição olímpica com medalhas"
+    ],
+    "correctIndex": 0,
+    "explanation": "A ficha atribui a informação sobre a abertura à apresentação oficial da Kukkiwon."
+  },
+  {
+    "id": "q-wt-siglas",
+    "relatedSlug": "iron-origem-world-taekwondo",
+    "sourceIndex": 0,
+    "question": "Como registrar WTF em um documento histórico da federação?",
+    "options": [
+      "Conservar a sigla original e indicar a data",
+      "Tratá-la como órgão certificador de Dan",
+      "Trocá-la pela sigla atual sem nota"
+    ],
+    "correctIndex": 0,
+    "explanation": "WTF e WT aparecem em épocas diferentes na história da federação."
+  },
+  {
+    "id": "q-olimpico-medalhas",
+    "relatedSlug": "iron-taekwondo-olimpico",
+    "sourceIndex": 0,
+    "question": "Qual edição marcou a entrada do Taekwondo no programa olímpico de medalhas, segundo a ficha do COI?",
+    "options": [
+      "Barcelona 1992",
+      "Sydney 2000",
+      "Seul 1988"
+    ],
+    "correctIndex": 1,
+    "explanation": "Seul e Barcelona tiveram demonstrações. Sydney 2000 marcou o programa de medalhas."
+  },
+  {
+    "id": "q-olimpico-peso",
+    "relatedSlug": "iron-taekwondo-olimpico",
+    "sourceIndex": 1,
+    "question": "Como a documentação do COI organiza as provas olímpicas descritas na ficha?",
+    "options": [
+      "Pela ordem dos Kwans",
+      "Por séries Taegeuk",
+      "Por categorias de peso"
+    ],
+    "correctIndex": 2,
+    "explanation": "Há categorias de peso no recorte olímpico. As competições de formas têm documentos próprios."
+  },
+  {
+    "id": "q-certificado-registro",
+    "relatedSlug": "iron-certificacao-poom-dan",
+    "sourceIndex": 0,
+    "question": "O que o certificado registra no processo de promoção Poom e Dan?",
+    "options": [
+      "A inscrição no próximo campeonato",
+      "A presença em curso de examinador",
+      "A graduação concedida"
+    ],
+    "correctIndex": 2,
+    "explanation": "O exame avalia a formação. A certificação registra o grau concedido."
+  },
+  {
+    "id": "q-wta-programa",
+    "relatedSlug": "iron-formacao-instrutores",
+    "sourceIndex": 1,
+    "question": "Ao conferir se um curso da WTA se destina à formação de examinadores, o que verificar?",
+    "options": [
+      "Cor de faixa na foto de divulgação",
+      "Data do último campeonato associado",
+      "Finalidade, instituição e pré-requisitos do programa"
+    ],
+    "correctIndex": 2,
+    "explanation": "O catálogo apresenta objetivos e condições próprios para os diferentes cursos."
+  },
+  {
+    "id": "q-gyeokpa-volume",
+    "relatedSlug": "iron-gyeokpa-demonstracao",
+    "sourceIndex": 0,
+    "question": "Qual volume do conjunto Kukkiwon de 2022 reúne quebra e demonstração?",
+    "options": [
+      "Volume 2",
+      "Volume 5",
+      "Volume 3"
+    ],
+    "correctIndex": 1,
+    "explanation": "O anúncio reserva o volume 5 a Gyeokpa e demonstração."
+  },
+  {
+    "id": "q-reconhecido-livre",
+    "relatedSlug": "iron-poomsae-reconhecido-livre",
+    "sourceIndex": 0,
+    "question": "Na modalidade mista descrita pelas regras de setembro de 2024, qual é a ordem das apresentações?",
+    "options": [
+      "Livre e depois reconhecida",
+      "Reconhecida e depois livre",
+      "Duas apresentações livres"
+    ],
+    "correctIndex": 1,
+    "explanation": "A ficha localiza essa ordem no artigo 5 da edição consultada."
+  },
+  {
+    "id": "q-precisao-equilibrio",
+    "relatedSlug": "iron-precisao-e-apresentacao",
+    "sourceIndex": 0,
+    "question": "Na regra de Poomsae reconhecido citada na ficha, a qual parcela pertence o equilíbrio?",
+    "options": [
+      "Apresentação",
+      "Precisão",
+      "Inscrição"
+    ],
+    "correctIndex": 1,
+    "explanation": "A precisão reúne movimentos básicos, detalhes da forma e equilíbrio."
+  },
+  {
+    "id": "q-apresentacao-ritmo",
+    "relatedSlug": "iron-precisao-e-apresentacao",
+    "sourceIndex": 0,
+    "question": "O ritmo pertence a qual parcela na mesma regra de Poomsae reconhecido?",
+    "options": [
+      "Apresentação",
+      "Precisão",
+      "Equipamento"
+    ],
+    "correctIndex": 0,
+    "explanation": "A avaliação da apresentação inclui ritmo, velocidade, força e expressão de energia."
+  },
+  {
+    "id": "q-taegeuk2-unidades",
+    "relatedSlug": "iron-convencoes-de-contagem",
+    "sourceIndex": 0,
+    "question": "Como a ficha interpreta as duas contagens de Daegu para o Taegeuk 2?",
+    "options": [
+      "23 etapas e 18 ações",
+      "18 etapas e 23 ações",
+      "18 etapas, incluindo o retorno"
+    ],
+    "correctIndex": 1,
+    "explanation": "As colunas são lidas separadamente. Uma etapa pode agrupar mais de uma ação."
+  },
+  {
+    "id": "q-vista-alternativa",
+    "relatedSlug": "iron-convencoes-de-contagem",
+    "sourceIndex": 1,
+    "question": "Uma fonte mostra uma vista lateral da mesma ação. Como incluí-la na ficha?",
+    "options": [
+      "Como referência complementar à ação já registrada",
+      "Como substituição do número original",
+      "Como uma etapa nova por padrão"
+    ],
+    "correctIndex": 0,
+    "explanation": "A vista pode documentar a mesma ação de outro ângulo. Registre seu localizador complementar."
+  },
+  {
+    "id": "q-perspectiva-diagrama",
+    "relatedSlug": "iron-perspectiva-no-percurso",
+    "sourceIndex": 0,
+    "question": "Dois materiais parecem mostrar o percurso espelhado. O que conferir antes de comparar esquerda e direita?",
+    "options": [
+      "A cor da faixa nos quadros",
+      "A aparência do trigrama",
+      "A posição e a direção do olhar na preparação"
+    ],
+    "correctIndex": 2,
+    "explanation": "O referencial inicial permite interpretar esquerda e direita na perspectiva de quem pratica."
+  },
+  {
+    "id": "q-colecao-edicao",
+    "relatedSlug": "iron-colecao-kukkiwon-2022",
+    "sourceIndex": 0,
+    "question": "Quais marcos o anúncio distingue para os materiais didáticos?",
+    "options": [
+      "Manual de 1987, suplemento de 2005 e coleção revisada de 2022",
+      "Suplemento em 1987 e primeira edição em 2022",
+      "Primeira edição em 2005, suplemento em 2022"
+    ],
+    "correctIndex": 0,
+    "explanation": "O ano e o tipo de edição ajudam a localizar material que tem títulos semelhantes."
+  },
+  {
+    "id": "q-colecao-abreviada",
+    "relatedSlug": "iron-colecao-kukkiwon-2022",
+    "sourceIndex": 1,
+    "question": "Uma página citada na edição integral não coincide com a da abreviada. Como registrar?",
+    "options": [
+      "Indicando qual exemplar, idioma e página foram consultados",
+      "Eliminando o tipo de edição",
+      "Reaproveitando o localizador da integral"
+    ],
+    "correctIndex": 0,
+    "explanation": "As versões têm recortes e escolhas gráficas próprias."
+  },
+  {
+    "id": "q-brasil-sao-paulo",
+    "relatedSlug": "iron-taekwondo-no-brasil",
+    "sourceIndex": 0,
+    "question": "Qual marco o material didático de Goiânia associa à difusão inicial no Brasil?",
+    "options": [
+      "A chegada de Sang Min Cho a São Paulo por volta de 1970",
+      "A fundação da Kukkiwon em Seul",
+      "O começo dos Joguinhos em Santa Catarina"
+    ],
+    "correctIndex": 0,
+    "explanation": "A informação é atribuída ao material didático de Goiânia e se refere à chegada relatada ao país."
+  },
+  {
+    "id": "q-regional-brasil",
+    "relatedSlug": "iron-registro-historico-brasil",
+    "sourceIndex": 1,
+    "question": "O que a notícia da Fesporte documenta diretamente?",
+    "options": [
+      "A cronologia completa de todas as escolas",
+      "A entrada da modalidade em um evento estadual",
+      "A inscrição olímpica de um atleta"
+    ],
+    "correctIndex": 1,
+    "explanation": "A notícia descreve o ingresso nos Joguinhos Abertos de Santa Catarina."
+  },
+  {
+    "id": "q-oms-preparo",
+    "relatedSlug": "iron-preparacao-fisica-geral",
+    "sourceIndex": 0,
+    "question": "Qual é o alcance da orientação geral da OMS citada para preparação física?",
+    "options": [
+      "Recomendações de atividade física por grupos populacionais",
+      "Uma sequência oficial de aquecimento para Poomsae",
+      "Um teste de graduação de faixa"
+    ],
+    "correctIndex": 0,
+    "explanation": "A fonte oferece orientações gerais de atividade física e comportamento sedentário."
+  },
+  {
+    "id": "q-transicao-bases",
+    "relatedSlug": "iron-bases-e-equilibrio",
+    "sourceIndex": 1,
+    "question": "Como anotar melhor uma mudança de base entre dois quadros?",
+    "options": [
+      "Pela contagem total da forma",
+      "Registrando o que mudou nos apoios, na posição e no olhar",
+      "Apenas pelo nome da segunda técnica"
+    ],
+    "correctIndex": 1,
+    "explanation": "A tabela referenciada usa campos próprios e permite descrever a transição entre quadros consecutivos."
+  },
+  {
+    "id": "q-equipamento-edicao",
+    "relatedSlug": "iron-equipamento-competicao-kyorugi",
+    "sourceIndex": 0,
+    "question": "Qual parte da edição WT de setembro de 2024 é ponto de partida para consultar uniforme e proteção?",
+    "options": [
+      "Artigo 4",
+      "Artigo 10",
+      "Apêndice de Poomsae"
+    ],
+    "correctIndex": 0,
+    "explanation": "O artigo 4 reúne exigências de participação e equipamento na edição citada."
+  },
+  {
+    "id": "q-registro-divergencia",
+    "relatedSlug": "iron-registro-de-revisao",
+    "sourceIndex": 1,
+    "question": "Como registrar duas descrições incompatíveis de uma mesma etapa?",
+    "options": [
+      "Guardar os localizadores e indicar qual campo está em dúvida",
+      "Somar as duas descrições em uma nova técnica",
+      "Guardar só a descrição mais recente sem comparar"
+    ],
+    "correctIndex": 0,
+    "explanation": "A revisão docente precisa do campo específico e da referência de cada versão."
+  },
+  {
+    "id": "q-gyeokpa-criativa",
+    "relatedSlug": "iron-gyeokpa-classificacao",
+    "sourceIndex": 0,
+    "question": "O que identifica a quebra criativa na classificação citada?",
+    "options": [
+      "A composição inédita",
+      "A idade do demonstrador",
+      "Qualquer demonstração feita com salto"
+    ],
+    "correctIndex": 0,
+    "explanation": "A composição é o critério que dá nome à categoria descrita no apêndice."
+  },
+  {
+    "id": "q-gyeokpa-materiais",
+    "relatedSlug": "iron-gyeokpa-materiais",
+    "sourceIndex": 0,
+    "question": "Que material consultar para confirmar placas e suportes permitidos em um Hanmadang específico?",
+    "options": [
+      "A nomenclatura das superfícies da mão",
+      "O regulamento daquela edição e prova",
+      "Uma lista de formas Dan"
+    ],
+    "correctIndex": 1,
+    "explanation": "A equipe deve conferir as especificações da edição do evento junto à organização."
+  },
+  {
+    "id": "q-kyorugi-vigencia",
+    "relatedSlug": "iron-ler-regra-de-kyorugi",
+    "sourceIndex": 0,
+    "question": "Ao abrir a edição de junho de 2026, onde verificar o início da vigência?",
+    "options": [
+      "Na descrição de um equipamento",
+      "Na capa do regulamento",
+      "Na legenda de um vídeo"
+    ],
+    "correctIndex": 1,
+    "explanation": "A data de vigência está na capa e deve acompanhar a referência."
+  },
+  {
+    "id": "q-kyorugi-procedimento",
+    "relatedSlug": "iron-ler-regra-de-kyorugi",
+    "sourceIndex": 1,
+    "question": "Qual artigo da edição indicada descreve o procedimento da luta?",
+    "options": [
+      "Artigo 1",
+      "Artigo 10",
+      "Artigo 4"
+    ],
+    "correctIndex": 1,
+    "explanation": "O artigo 10 trata do procedimento. A participação é tratada no artigo 4."
+  },
+  {
+    "id": "q-batangson-na-expressao",
+    "relatedSlug": "iron-glossario-e-ficha",
+    "sourceIndex": 0,
+    "question": "Em Batangson-an-makgi, o que Batangson identifica?",
+    "options": [
+      "O nome da família de defesa",
+      "A superfície da mão",
+      "A direção para dentro"
+    ],
+    "correctIndex": 1,
+    "explanation": "A ficha cita a variante do verbete An-makgi que usa Batangson."
+  },
+  {
+    "id": "q-arae-referencia",
+    "relatedSlug": "iron-glossario-e-ficha",
+    "sourceIndex": 1,
+    "question": "A qual uso o manual associa explicitamente Arae-makgi?",
+    "options": [
+      "A toda defesa com faca da mão",
+      "A toda técnica na altura baixa",
+      "À defesa descendente com Bakkatpalmok"
+    ],
+    "correctIndex": 2,
+    "explanation": "A ficha registra a equivalência com a defesa descendente de antebraço externo."
+  },
+  {
+    "id": "q-base-unipodal",
+    "relatedSlug": "iron-comparacao-de-bases",
+    "sourceIndex": 1,
+    "question": "Qual destas bases é classificada como unipodal na ficha?",
+    "options": [
+      "Hakdari-seogi",
+      "Beom-seogi",
+      "Dwitgubi"
+    ],
+    "correctIndex": 0,
+    "explanation": "Hakdari-seogi recebe um verbete de base sobre um apoio."
+  },
+  {
+    "id": "q-junbi-nomes",
+    "relatedSlug": "iron-preparacao-nas-formas",
+    "sourceIndex": 0,
+    "question": "Onde consultar a identidade de Tongmilgi-junbi e Gyeopson-junbi no manual de terminologia?",
+    "options": [
+      "No apêndice de quebras",
+      "Na seção Junbi-jase",
+      "Em uma tabela de categorias de peso"
+    ],
+    "correctIndex": 1,
+    "explanation": "A seção de preparações contém verbetes próprios para essas posturas."
+  },
+  {
+    "id": "q-nomes-indice",
+    "relatedSlug": "iron-indice-coreano-poomsae",
+    "sourceIndex": 0,
+    "question": "Para conferir o Hangul de uma forma, por onde a ficha orienta começar?",
+    "options": [
+      "Pela tradução de um adjetivo que descreve a forma",
+      "Pelo título no índice coreano da Kukkiwon",
+      "Pela transcrição fonética em português"
+    ],
+    "correctIndex": 1,
+    "explanation": "O verbete em coreano fornece um localizador para a identidade da forma."
+  },
+  {
+    "id": "q-referencia-idioma",
+    "relatedSlug": "iron-edicao-e-localizador",
+    "sourceIndex": 0,
+    "question": "O que registrar ao comparar versões em coreano e inglês do manual revisado?",
+    "options": [
+      "Apenas a capa do exemplar",
+      "Apenas o título geral",
+      "Idioma, volume, edição e localizador"
+    ],
+    "correctIndex": 2,
+    "explanation": "A ficha descreve dados que permitem a outro leitor reencontrar a passagem."
+  },
+  {
+    "id": "q-identidade-ri",
+    "relatedSlug": "iron-forma-linha-e-simbolo",
+    "sourceIndex": 0,
+    "question": "Que associação a ficha localiza no artigo coreano do Taegeuk 3?",
+    "options": [
+      "Gam, a água",
+      "Jin, o trovão",
+      "Ri, o fogo"
+    ],
+    "correctIndex": 2,
+    "explanation": "O artigo trata da identidade simbólica de Ri. A leitura do percurso usa outro conjunto de informações."
+  },
+  {
+    "id": "q-acordo-parceiro",
+    "relatedSlug": "iron-pratica-cooperativa",
+    "sourceIndex": 0,
+    "question": "Qual acordo deve ser feito com a dupla antes do exercício?",
+    "options": [
+      "Quem vai escolher outra graduação",
+      "Papéis, objetivo e sinal de pausa",
+      "Como substituir o currículo da turma"
+    ],
+    "correctIndex": 1,
+    "explanation": "A cortesia e o controle no treino incluem acordos observáveis com as pessoas que praticam."
+  },
+  {
+    "id": "q-registro-e-curso",
+    "relatedSlug": "iron-emissao-e-formacao",
+    "sourceIndex": 1,
+    "question": "Um documento confirma formação de instrutor. Onde consultar o objetivo e os requisitos do curso?",
+    "options": [
+      "Na tabela de contagem de Daegu",
+      "Na ordem dos Poomsae Dan",
+      "No catálogo da World Taekwondo Academy"
+    ],
+    "correctIndex": 2,
+    "explanation": "O catálogo WTA descreve os cursos e suas finalidades. A promoção de grau é registrada em fonte própria."
+  },
+  {
+    "id": "q-regulamento-versao",
+    "relatedSlug": "iron-mudancas-na-competicao",
+    "sourceIndex": 1,
+    "question": "Uma ficha cita regra de 2024 para explicar um evento de 2026. Como proceder?",
+    "options": [
+      "Usar a data antiga para toda a temporada",
+      "Ocultar a data citada",
+      "Conservar o localizador histórico e consultar a edição aplicável"
+    ],
+    "correctIndex": 2,
+    "explanation": "A data e o artigo permitem identificar diferenças entre o registro histórico e a regra do evento."
+  },
+  {
+    "id": "q-contagem-convencao",
+    "relatedSlug": "iron-ler-uma-tabela-de-formas",
+    "sourceIndex": 0,
+    "question": "Duas fontes apresentam números diferentes para uma forma. Qual é a primeira comparação?",
+    "options": [
+      "Usar o total maior como padrão",
+      "Verificar a unidade contada em cada fonte",
+      "Montar uma média entre os totais"
+    ],
+    "correctIndex": 1,
+    "explanation": "A mesma etapa pode ter ações e quadros em contagens distintas. A unidade precisa acompanhar a referência."
+  },
+  {
+    "id": "q-fonte-sem-pagina",
+    "relatedSlug": "iron-fontes-primarias-secundarias",
+    "sourceIndex": 0,
+    "question": "Qual referência permite repetir a conferência de um termo em um manual?",
+    "options": [
+      "O exemplar identificado com página ou seção",
+      "Uma lembrança de aula",
+      "Uma postagem sem referência"
+    ],
+    "correctIndex": 0,
+    "explanation": "Uma edição identificada e um localizador permitem conferir o verbete diretamente."
+  },
+  {
+    "id": "q-cronologia-fontes",
+    "relatedSlug": "iron-historiografia-tradicao-fontes",
+    "sourceIndex": 0,
+    "question": "Como a ficha orienta a leitura de Taekkyeon e outros antecedentes?",
+    "options": [
+      "Como referências culturais com documentação própria",
+      "Como marcos da mesma federação moderna",
+      "Como instruções de arbitragem"
+    ],
+    "correctIndex": 0,
+    "explanation": "A ficha distingue antecedentes culturais de marcos organizacionais modernos."
+  },
+  {
+    "id": "q-grad-gup",
+    "relatedSlug": "iron-graduacoes-gup-dan",
+    "sourceIndex": 1,
+    "question": "Qual ferramenta registra exigências diferentes entre turmas e escolas?",
+    "options": [
+      "O índice olímpico",
+      "A lista geral de superfícies do Atlas",
+      "O currículo da escola"
+    ],
+    "correctIndex": 2,
+    "explanation": "As exigências de Gup devem acompanhar o currículo real da escola."
+  },
+  {
+    "id": "q-distincao-esporte",
+    "relatedSlug": "iron-evolucao-esportiva-marcial",
+    "sourceIndex": 1,
+    "question": "Qual fonte consultar para responder a uma dúvida de arbitragem atual?",
+    "options": [
+      "A regra aplicável ao evento esportivo",
+      "Uma lista de nomes de chutes",
+      "Um guia introdutório de artes marciais"
+    ],
+    "correctIndex": 0,
+    "explanation": "As condições de competição são definidas pelo regulamento aplicável."
+  },
+  {
+    "id": "q-ensino-modalidades",
+    "relatedSlug": "iron-finalidades-do-treino",
+    "sourceIndex": 0,
+    "question": "Na organização dos volumes anunciada em 2022, onde começar uma consulta sobre formas?",
+    "options": [
+      "No volume de Poomsae",
+      "No volume de quebra e demonstração",
+      "No volume de competição"
+    ],
+    "correctIndex": 0,
+    "explanation": "A coleção diferencia o volume de formas dos de competição e demonstração."
+  }
+]
