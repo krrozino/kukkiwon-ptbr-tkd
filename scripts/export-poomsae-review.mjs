@@ -25,7 +25,7 @@ function renderStudy(study, title) {
     ...(study.coverage === 'partial' ? ['', 'Cobertura parcial.'] : []),
     '',
     `- [${study.hangul} · ${study.identityLocator}](${study.identityUrl})`,
-    `- ${study.movements.length} movimentos numerados e ${actions} ações. ${study.readingNote}`,
+    `- ${study.movements.length} movimentos numerados e ${actions} ${study.countUnit === 'frames' ? 'quadros de referência' : 'ações'}. ${study.readingNote}`,
     `- ${study.source.title} · ${study.source.edition} · consulta de ${study.source.sourceCheckedAt}`,
   ];
   for (const [label, point] of [['Preparação', study.start], ['Retorno', study.finish], ['Encerramento', study.closure]]) {
@@ -55,10 +55,10 @@ function renderStudy(study, title) {
       lines.push(`- Quadro ${frame.id} · ${labels.join(' · ')} · ${references.join(' · ')}`);
     }
     for (const reference of movement.references ?? []) lines.push('- ' + cite(reference));
-    for (const { summary, reference } of movement.discrepancy?.variants ?? []) {
-      lines.push(`- Divergência · ${summary} · ${cite(reference)}`);
+    for (const { note, variants } of movement.discrepancies ?? []) {
+      if (note) lines.push('- Divergência · ' + note);
+      for (const { summary, reference } of variants) lines.push(`- ${summary} · ${cite(reference)}`);
     }
-    if (movement.discrepancy?.note) lines.push('- ' + movement.discrepancy.note);
     lines.push(...(movement.reviewPoints ?? ['Conferir execução, lateralidade e nomenclatura nas referências.'])
       .map((point) => '- [ ] ' + point));
   }

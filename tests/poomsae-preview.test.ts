@@ -84,8 +84,8 @@ describe('dados locais da prévia Taegeuk 2', () => {
     expect(last.leadFoot).toBe('Direito');
     expect(last.baseSide).toBeUndefined();
     expect(last.transitionPending).toBe(true);
-    expect(last.discrepancy?.variants).toHaveLength(2);
-    expect(last.discrepancy?.note).toBe('Conferir deslocamento no vídeo oficial.');
+    expect(last.discrepancies?.[0].variants).toHaveLength(2);
+    expect(last.discrepancies?.[0].note).toBe('Conferir deslocamento no vídeo oficial.');
     expect(last.reviewPoints?.length).toBeGreaterThan(0);
     expect(last.frames?.map(({ id, reference }) => [id, reference.page])).toEqual([['2-1', 3], ['2-2', 4]]);
   });

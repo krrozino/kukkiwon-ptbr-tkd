@@ -7,7 +7,39 @@
 - #77 e #81 estão integradas. A tabela anterior conserva as decisões para #67, #69, #70, #71, #74, #75, #80 e #82–#85. As notas históricas exclusivas de #74 e #75 permanecem em seus respectivos heads. O blob Gemini da #69 contém oito candidatos. A #93 contém triagem e reconciliação Argon em CLIs distintas.
 - A reconferência Linux do Taegeuk 2 continua em `review-output/taegeuk-2-jang.reconferencia.json`. A cópia original da #83 e `6a10385` seguem pendentes de verificação no Windows. Nenhuma cópia local foi substituída.
 - Fases 3–4: modelo v2 compartilhado com percurso Ga/Na/Da/Ra ou códigos textuais próprios, fontes por campo, transições e cobertura parcial. `POOMSAE_RESEARCH_DIR` lê um diretório privado de JSONs e `POOMSAE_RESEARCH_FILE` continua a aceitar o v1. O exportador reutiliza a leitura e interrompe a gravação se houver entrada incompatível. A reconferência Linux do Taegeuk 2 foi exportada com as duas leituras da etapa 14. O Taegeuk 1 usa a mesma grade e posição inicial do piloto. Validação direcionada de esquema e tipos aprovada.
-- Próximas fases: conferir quadros e localizadores dos Taegeuk 3–8 e das formas Dan. Questões relacionadas: #45, #50, #65, #68 e #78.
+- Fases 5–6: conferência dos seis Taegeuk restantes, trechos iniciais de Koryo e Keumgang e localização das sete formas Dan restantes. O material de estudo fica em `review-output/op2-dossiers/`. Ver cobertura, convenções e pendências abaixo. Questões relacionadas: #45, #50, #65, #68 e #78.
+
+### Cobertura documental da expansão
+
+| Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
+| --- | ---: | --- | --- | --- |
+| Taegeuk 1 | 18/20 | 18 etapas e 20 ações | pp. 53–64 | Conferência docente das direções e transições corrigidas |
+| Taegeuk 2 | 18/23 | 18 etapas e 23 ações | pp. 66–81 | Comparar original da #83 e as duas leituras da etapa 14 |
+| Taegeuk 3 | 20/34 | 20 etapas e 34 quadros | pp. 83–105 | Confirmar os membros executantes que a legenda deixa implícitos |
+| Taegeuk 4 | 20/29 | 20 etapas e 29 quadros | pp. 107–126 | Conferir direção nas etapas 7–8 e a ação adicional nas legendas de 2 e 4 |
+| Taegeuk 5 | 20/32 | 20 etapas e 32 quadros | pp. 128–149 | Etapa 15 indica Ra 2 em coreano e Ra 1 em inglês. Conferir também a etapa 18 e a origem da outra contagem de 33 |
+| Taegeuk 6 | 19/31 | 19 etapas e 31 quadros | pp. 151–167 | Conferir as mudanças de direção dentro das etapas 6 e 12 |
+| Taegeuk 7 | 25/33 | 25 etapas e 37 quadros | pp. 169–190 | Conciliar quatro quadros adicionais na convenção visual e conferir fases preparatórias |
+| Taegeuk 8 | 27/38 | 27 etapas e 40 quadros | pp. 192–215 | Conciliar dois quadros adicionais e conferir a decomposição das etapas 3 e 19 |
+| Koryo | 30/45 | Trecho inicial de 5 etapas e 7 quadros | pp. 218–249 | Completar a leitura do percurso e a sequência |
+| Keumgang | 27/35 | Trecho inicial de 7 etapas e 7 quadros | pp. 251–267 | Completar o cotejo com o percurso 山 |
+| Taebaek | 26/38 | Ficha contextual e fonte localizada | pp. 269–293 | Cotejar sequência |
+| Pyongwon | 21/25 | Ficha contextual e fonte localizada | pp. 295–312 | Cotejar sequência |
+| Sipjin | 28/31 | Ficha contextual e fonte localizada | pp. 314–342 | Cotejar sequência |
+| Jitae | 28/37 | Ficha contextual e fonte localizada | pp. 344–364 | Cotejar sequência |
+| Cheonkwon | 26/27 | Ficha contextual e fonte localizada | pp. 366–392 | Cotejar sequência |
+| Hansu | 27/34 | Ficha contextual e fonte localizada | pp. 394–412 | Cotejar sequência |
+| Ilyeo | 23/27 | Ficha contextual e fonte localizada | pp. 414–428 | Cotejar sequência |
+
+Todos os estudos detalhados permanecem em revisão docente e linguística. A cobertura registra quadros numerados únicos. Preparação, retorno e vistas alternativas ficam fora da contagem. Os quadros compostos podem incluir fases preparatórias. A coluna Daegu registra a convenção de ações independente. A reprodução v20 é uma compilação de Edgardo Alberto Leiva, com lâminas identificadas como Kukkiwon Education Media Center. A confirmação direta do volume de 2022 ainda falta. [Reprodução v20](https://www.santafemarcial.com.ar/taekwondo/tkd-vocabulario-completo-v20.pdf) · [Índice coreano Kukkiwon](https://kukkiwon.or.kr/base/board/list?boardManagementNo=37&menuLevel=3&menuNo=62) · [Tabela Daegu](https://daegutkd.net/taekwondo/skill.php).
+
+Com os JSONs no diretório ignorado, use o comando abaixo no checkout Linux. Para exportar a revisão, use as mesmas variáveis e execute `node scripts/export-poomsae-review.mjs`. O arquivo de saída permanece em `review-output/revisao-docente-taegeuk-1-e-2.md` por compatibilidade e inclui todos os dossiês fornecidos.
+
+```sh
+POOMSAE_RESEARCH_FILE=review-output/taegeuk-2-jang.reconferencia.json \
+POOMSAE_RESEARCH_DIR=review-output/op2-dossiers \
+npm run dev -- --host 127.0.0.1
+```
 
 ## Checkpoint de 26/11/2026
 

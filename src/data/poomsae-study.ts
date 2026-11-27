@@ -35,6 +35,7 @@ export function studyDirectionLabel(direction: StudyDirection) {
 }
 
 export function describeStudyDirection(course: StudyCourse | undefined, direction: string) {
+  if (!direction) return { label: 'Lacuna documental', arrow: '', angle: undefined };
   if (course?.kind === 'text') return { label: course.directions[direction] ?? direction, arrow: '', angle: undefined };
   if (!Object.hasOwn(studyDirections, direction)) return { label: direction, arrow: '', angle: undefined };
   const code = direction as StudyDirection;

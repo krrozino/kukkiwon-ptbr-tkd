@@ -135,17 +135,17 @@ function MovementFacts({ movement, course }: { movement: StudyMovement; course?:
           ))}
         </ul>
       ) : null}
-      {movement.discrepancy && (
-        <div className="study-review-points">
+      {movement.discrepancies?.map(({ field, note, variants }) => (
+        <div className="study-review-points" key={field}>
           <strong>Divergência entre fontes</strong>
-          {movement.discrepancy.note && <p>{movement.discrepancy.note}</p>}
-          <ul>
-            {movement.discrepancy.variants.map(({ summary, reference }) => (
+          {note && <p>{note}</p>}
+          {variants.length > 0 && (
+            <ul>{variants.map(({ summary, reference }) => (
               <li key={`${reference.url}:${reference.locator}`}>{summary} <ReferenceLink reference={reference} /></li>
-            ))}
-          </ul>
+            ))}</ul>
+          )}
         </div>
-      )}
+      ))}
     </>
   );
 }
@@ -232,7 +232,7 @@ export default function VisualSequence({ study, guide }: { study: PoomsaeStudy; 
       <div className="study-section-heading">
         <div>
           <h2 id={id + '-sequence'}>Sequência de movimentos</h2>
-          <p className="study-count">{movements.length} etapas numeradas · {actionCount} ações</p>
+          <p className="study-count">{movements.length} etapas numeradas · {actionCount} {study.countUnit === 'frames' ? 'quadros de referência' : 'ações'}</p>
           <p className="muted">{study.readingNote}</p>
           {taegeukGrid && <p className="muted">As setas seguem a orientação inicial de quem pratica, mesmo após os giros. Na preparação, a pessoa começa em Na e olha para Ga (frente).</p>}
         </div>

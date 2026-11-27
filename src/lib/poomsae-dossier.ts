@@ -41,7 +41,7 @@ const dossierBase = z.object({
   finish: boundary,
   discrepancies: z.array(discrepancy),
   movements: z.array(z.object({
-    number: page, title: text, direction, description: text.nullable().optional(), base: term.optional(),
+    number: page, title: text, direction: direction.optional(), description: text.nullable().optional(), base: term.optional(),
     displacement: text.optional(), kihap: z.boolean().optional(),
     baseSide: z.enum(['Esquerda', 'Direita']).optional(),
     initialPosition: text.optional(), finalPosition: text.optional(),
@@ -67,6 +67,7 @@ const dossierSchema = z.discriminatedUnion('schemaVersion', [
     ]),
     closure: boundary.optional(),
     coverage: z.enum(['partial', 'complete']),
+    countUnit: z.enum(['actions', 'frames']).default('actions'),
     synthetic: z.literal(true).optional(),
   }),
 ]);
@@ -86,10 +87,10 @@ export function parsePoomsaeDossier(
   if (family === 'Dan' && course.kind === 'taegeuk') throw new Error('Este percurso é exclusivo da família Taegeuk.');
   const directions = course.kind === 'taegeuk' ? studyDirections : course.directions;
   const boundaries = [dossier.start, dossier.finish, ...(modern?.closure ? [modern.closure] : [])];
-  const codes = [...movements.map((point) => point.direction), ...boundaries.flatMap((point) =>
+  const codes = [...movements.flatMap((point) => point.direction ? [point.direction] : []), ...boundaries.flatMap((point) =>
     point.position ? [point.direction, point.position] : [point.direction],
   )];
-  if (codes.some((code) => !Object.hasOwn(directions, code))) throw new Error('Direção fora da convenção do dossiê.');
+  if ((!modern && movements.some((point) => !point.direction)) || codes.some((code) => !Object.hasOwn(directions, code))) throw new Error('Direção fora da convenção do dossiê.');
   if (counts.numberedMovements !== movements.length ||
       counts.actions !== movements.reduce((total, movement) => total + movement.actions.length, 0)) {
     throw new Error('As contagens declaradas divergem da sequência do dossiê.');
@@ -120,6 +121,7 @@ export function parsePoomsaeDossier(
     slug: dossier.slug,
     family, course,
     coverage: modern?.coverage ?? 'complete',
+    countUnit: modern?.countUnit,
     synthetic: modern?.synthetic,
     hangul: dossier.hangul,
     meaning: dossier.meaning,
@@ -142,11 +144,16 @@ export function parsePoomsaeDossier(
       const { number } = movement;
       if (number !== index + 1) throw new Error('As etapas do dossiê devem estar em ordem consecutiva.');
 
-      const footDiscrepancy = dossier.discrepancies.find(({ path, status }) =>
-        path === `movements[number=${number}].footTransition` && status === 'pending_technical_review',
-      );
+      const prefix = `movements[number=${number}].`;
+      const discrepancies = dossier.discrepancies.filter(({ path, status }) =>
+        path.startsWith(prefix) && status === 'pending_technical_review',
+      ).map(({ path, note, variants }) => ({
+        field: path.slice(prefix.length), note,
+        variants: (variants ?? []).map(({ summary, evidence }) => ({ summary, reference: reference(evidence) })),
+      }));
+      const transitionPending = discrepancies.some(({ field }) => field === 'footTransition');
       const reviewPoints: string[] = [];
-      if (footDiscrepancy) {
+      if (transitionPending) {
         reviewPoints.push('Confirmar deslocamento dos pés na mudança de direção (divergência entre fontes).');
       }
       if (actions.length > 1) reviewPoints.push('Confirmar transições entre os quadros da etapa e a base final.');
@@ -157,16 +164,10 @@ export function parsePoomsaeDossier(
 
       return {
         ...movement,
+        direction: movement.direction ?? '',
         base: base && studyTerm(base),
         leadFoot: lead && (lead === 'Esquerda' ? 'Esquerdo' : 'Direito'),
-        transitionPending: Boolean(footDiscrepancy),
-        discrepancy: footDiscrepancy?.variants?.length ? {
-          note: footDiscrepancy.note,
-          variants: footDiscrepancy.variants.map((variant) => ({
-            summary: variant.summary,
-            reference: reference(variant.evidence),
-          })),
-        } : undefined,
+        transitionPending, discrepancies,
         reviewPoints,
         fieldReferences: fields?.map(({ field, evidence }) => ({ field, reference: reference(evidence) })),
         transitions: transitions?.map(({ description, evidence }) => ({ description, reference: reference(evidence) })),

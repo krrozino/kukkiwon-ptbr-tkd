@@ -49,7 +49,7 @@ export type StudyMovement<Direction extends string> = {
   frames: readonly StudyFrame[];
   references?: readonly StudyReference[];
   transitionPending?: boolean;
-  discrepancy?: { note?: string; variants: readonly { summary: string; reference: StudyReference }[] };
+  discrepancies?: readonly { field: string; note?: string; variants: readonly { summary: string; reference: StudyReference }[] }[];
   reviewPoints?: readonly string[];
   fieldReferences?: readonly { field: string; reference: StudyReference }[];
 };
@@ -75,6 +75,7 @@ export type PoomsaeStudy<Direction extends string> = {
   romanization?: string;
   course?: StudyCourse;
   coverage?: 'partial' | 'complete';
+  countUnit?: 'actions' | 'frames';
   synthetic?: boolean;
   context?: readonly { title: string; description: string; reference: StudyReference }[];
   references?: readonly StudyReference[];
