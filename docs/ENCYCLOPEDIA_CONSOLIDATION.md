@@ -19,6 +19,8 @@
 
 - Fase 17: 47 palavras e 13 expressões no Glossário em revisão (32 palavras e 10 expressões novas). As fontes distinguem verbetes e exemplos do KR-DICT, nomes da Kukkiwon e comandos conforme a edição da WT. A pronúncia didática e a revisão de tradução seguem pendentes. A lista aprovada continua vazia.
 
+- Fase 18: navegação entre recortes próximos no Atlas, incluindo rosto e crânio, vistas do tronco, bordas do antebraço, vistas do joelho, tornozelo e pé. O Atlas usa as geometrias anteriores e mantém os links públicos da mão. Novas vistas laterais e alterações de contorno exigem avaliação visual específica.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |

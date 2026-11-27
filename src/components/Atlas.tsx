@@ -13,6 +13,7 @@ import BodyRegionMap from "./atlas/BodyRegionMap";
 import TermContext from "./TermContext";
 import { surfaces } from "./atlas/surfaces";
 import { bodyZones } from "./atlas/zones";
+import { anatomicalNeighbors } from "./atlas/anatomical-neighbors";
 import AtlasRelations, {regionContextSlug} from './AtlasRelations';
 import { getHandRegion, getHandRegionForTerm, getHandTerm, getHandTermForRegion,
   handAtlasRegions, handRegionDescription } from '../lib/public-hand';
@@ -475,6 +476,7 @@ export default function Atlas() {
   let renderDetailInspection: ((region: BodyRegion) => ReactNode) | undefined;
   if (curatedFoot) renderDetailInspection = (region) => <PublicFootRegionInspector region={region} view={location.detailView} />;
   else if (curatedHand) renderDetailInspection = (region) => <PublicHandRegionInspector regionSlug={region.slug} />;
+  const neighbors = location.area !== "hands" && location.region ? anatomicalNeighbors[location.region] : undefined;
   return (
     <div
       className="atlas-layout"
@@ -672,6 +674,16 @@ export default function Atlas() {
             onPreview={setContextSlug}
           />
         )}
+        {neighbors?.length ? (
+          <nav className="atlas-library-bridge" aria-label="Comparar recortes anatômicos">
+            <h3>Regiões próximas</h3>
+            <ul className="related-list">
+              {neighbors.map(({ slug, label }) => (
+                <li key={slug}><a className="inline-link" href={`/atlas?region=${slug}&zoom=1`}>{label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
         {location.area !== "hands" && (
           <div className="atlas-library-bridge">
             <h3>Estudar na Biblioteca</h3>
