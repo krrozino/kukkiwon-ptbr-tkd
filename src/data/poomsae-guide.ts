@@ -44,7 +44,7 @@ export type TaegeukFormGuide = {
   };
 };
 
-export type PoomsaeLineKind = 'san' | 'gong' | 'ship' | 'o' | 'u' | 'su';
+export type PoomsaeLineKind = 'sa' | 'san' | 'gong' | 'ship' | 'o' | 'u' | 'su';
 
 export type DanFormGuide = {
   kind: 'dan';
@@ -414,7 +414,11 @@ export const danForms: readonly DanFormGuide[] = [
     theme: 'Tradição marcial e postura de quem estuda.',
     philosophySummary:
       'Koryo remete ao espírito Seonbae herdado de Goguryeo, Balhae e Koryo: firmeza marcial aliada à retidão ética e intelectual. Marca a entrada nas formas Yudanja (Dan), integrando corpo (Jeong), energia (Ki) e consciência (Shin).',
-    poomsaeLine: null,
+    poomsaeLine: {
+      character: '士',
+      kind: 'sa',
+      meaningPt: 'O artigo coreano 988 associa a linha 士 à figura de quem estuda (Seonbae). O esquema mostra a forma da linha.',
+    },
     bodyCorrespondence: {
       label: 'Integração entre corpo, energia e foco',
       atlasRegion: 'torso',
@@ -695,8 +699,8 @@ export const danForms: readonly DanFormGuide[] = [
       'Adaptação fluida entre defesa absorvente e resposta imediata.',
     ],
     relatedAcervoJunbi: {
-      slug: 'bojumeok-junbi',
-      romanization: 'Bojumeok-junbi',
+      slug: 'gyeopson-junbi',
+      romanization: 'Gyeopson-junbi',
       note: 'Preparação com punho coberto registrada no acervo provisório (Kukkiwon 2012, §8 Junbi-jase).',
     },
     evidence: {
@@ -729,9 +733,9 @@ export const danForms: readonly DanFormGuide[] = [
       'Execução natural em que atenção mental e ação corporal não se separam.',
     ],
     relatedAcervoJunbi: {
-      slug: 'bojumeok-junbi',
-      romanization: 'Bojumeok-junbi',
-      note: 'Preparação com punho coberto consultável no acervo provisório (Kukkiwon 2012, §8 Junbi-jase).',
+      slug: 'gyeopson-junbi',
+      romanization: 'Gyeopson-junbi',
+      note: 'Preparação com mãos sobrepostas nas lâminas EMC reproduzidas na p. 414 do v20. O termo tem verbete no §8 Junbi-jase.',
     },
     evidence: {
       institution: 'Kukkiwon',
@@ -750,4 +754,37 @@ export const allPoomsaeGuides: readonly PoomsaeFormGuide[] = [
 
 export function getPoomsaeGuide(slug: string): PoomsaeFormGuide | null {
   return allPoomsaeGuides.find((item) => item.slug === slug) ?? null;
+}
+
+
+const koreanFormNames: Readonly<Record<string, string>> = {
+  'taegeuk-1-jang': '태극 1장',
+  'taegeuk-2-jang': '태극 2장',
+  'taegeuk-3-jang': '태극 3장',
+  'taegeuk-4-jang': '태극 4장',
+  'taegeuk-5-jang': '태극 5장',
+  'taegeuk-6-jang': '태극 6장',
+  'taegeuk-7-jang': '태극 7장',
+  'taegeuk-8-jang': '태극 8장',
+  koryo: '고려',
+  keumgang: '금강',
+  taebaek: '태백',
+  pyongwon: '평원',
+  shipjin: '십진',
+  jitae: '지태',
+  chonkwon: '천권',
+  hansu: '한수',
+  ilyeo: '일여',
+};
+
+const kukkiwonKoreanIndex =
+  'https://www.kukkiwon.or.kr/base/board/list?boardManagementNo=37&menuLevel=3&menuNo=62';
+
+export function getPoomsaeKoreanIdentity(guide: PoomsaeFormGuide) {
+  return {
+    hangul: koreanFormNames[guide.slug],
+    url: guide.slug === 'koryo'
+      ? 'https://www.kukkiwon.or.kr/base/board/read?boardManagementNo=37&boardNo=988&menuLevel=3&menuNo=62'
+      : kukkiwonKoreanIndex + (guide.kind === 'taegeuk' && guide.number <= 6 ? '&page=2' : ''),
+  };
 }

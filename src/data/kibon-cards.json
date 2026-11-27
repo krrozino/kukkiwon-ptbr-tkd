@@ -398,33 +398,27 @@
     },
     {
       "slug": "tongmilgi-bojumeok-junbi",
-      "romanization": "Bojumeok-junbi",
-      "hangul": "보주먹준비",
-      "pronunciationPt": "bô-dju-mók-djun-bi",
-      "subtitlePt": "Posturas especiais de preparação (Bojumeok, Tongmilgi, Dujumeok-heori e Gyeopson)",
+      "romanization": "Preparações especiais",
+      "hangul": null,
+      "pronunciationPt": null,
+      "subtitlePt": "Índice de posturas documentadas em Junbi-jase",
       "atlasRegion": "hands",
       "atlasLabel": "Envolvimento do punho e configurações simétricas de mãos",
-      "summary": "Além da preparação básica, a terminologia da Kukkiwon registra posturas específicas de abertura: Bojumeok-junbi (보주먹준비, mão envolvendo o punho, presente em Taegeuk 7 e Ilyeo), Tongmilgi-junbi (통밀기준비, presente em Koryo), Dujumeok-heori-junbi (두주먹허리준비) e Gyeopson-junbi (겹손준비).",
+      "summary": "O manual da Kukkiwon reúne Bojumeok-junbi, Tongmilgi-junbi, Dujumeok-heori-junbi e Gyeopson-junbi na seção de preparações. Cada postura tem seu próprio verbete.",
       "studyPoints": [
-        "Respeitar a altura exata das mãos (diante do queixo, peito, plexo ou cintura) exigida pela forma específica.",
-        "Executar o movimento em ritmo respiratório contínuo e solene.",
-        "Consultar no Acervo cada uma das cinco posturas documentadas em §8 Junbi-jase."
+        "Use as fichas individuais para comparar a posição das mãos e a base.",
+        "Consulte a fonte da forma para confirmar qual preparação ela descreve."
       ],
-      "variants": [
-        "Bojumeok-junbi (보주먹준비)",
-        "Tongmilgi-junbi (통밀기준비)",
-        "Dujumeok-heori-junbi (두주먹허리준비)",
-        "Gyeopson-junbi (겹손준비)"
-      ],
+      "variants": [],
       "relatedLibrarySlugs": [
-        "taegeuk-7-jang",
-        "koryo",
-        "ilyeo"
+        "bojumeok-junbi",
+        "tongmilgi-junbi",
+        "gyeopson-junbi",
+        "gibon-junbi"
       ],
-      "acervoSlug": "bojumeok-junbi",
+      "acervoSlug": null,
       "evidence": {
-        "hangul": "§8 Junbi-jase > Bojumeok-junbi",
-        "terminology": "§8 Junbi-jase > Tongmilgi-junbi / Gyeopson-junbi"
+        "context": "§8 Junbi-jase, pp. 40–42 do PDF"
       }
     },
     {
@@ -895,30 +889,24 @@
       "romanization": "Jeocheo-jireugi",
       "hangul": "젖혀지르기",
       "pronunciationPt": "djó-tchió-dji-rư-gui",
-      "subtitlePt": "Família de socos (Jireugi): soco direto padrão, vertical, lateral e ascendente",
+      "subtitlePt": "Soco com o punho em posição supinada",
       "atlasRegion": "hands",
       "atlasLabel": "Punho fechado (Jumeok) alinhado aos nós do indicador e médio",
-      "summary": "A família Jireugi (Board 56 / artigo 1366 e §5 Jireugi) abrange os ataques lineares e curvos executados com o punho fechado (Jumeok). Inclui o soco direto com rotação final pronada, bem como variações documentadas pela Kukkiwon como Jeocheo-jireugi (젖혀지르기, palma voltada para cima em curta distância), Sewo-jiruegi (세워지르기, punho vertical), Yeop-jireugi (옆지르기, lateral) e Chi-jireugi (치지르기, ascendente).",
+      "summary": "A Kukkiwon registra Jeocheo-jireugi como um verbete da família Jireugi. O modificador Jeocheo caracteriza a posição do punho.",
       "studyPoints": [
-        "Concentrar o contato nos dois primeiros nós metacarpofalângicos (indicador e médio) mantendo o punho reto com o rádio/ulna.",
-        "Tracionar vigorosamente o punho oposto à cintura (reação complementar) no exato instante da extensão.",
-        "Adaptar a altura do alvo entre Momtong (plexo solar) e Olgul (filtro labial/queixo) sem elevar o ombro."
+        "Compare o núcleo Jireugi com os nomes de outras ações de mão.",
+        "No Taegeuk 7, confira o quadro em que a legenda registra dois punhos."
       ],
-      "variants": [
-        "Momtong-jireugi",
-        "Olgul-jireugi",
-        "Baro-jireugi / Bandae-jireugi",
-        "Sewo-jiruegi (세워지르기)",
-        "Yeop-jireugi (옆지르기)"
-      ],
+      "variants": [],
       "relatedLibrarySlugs": [
         "jumeok",
-        "seun-jumeok",
-        "juchum-seogi"
+        "yeop-jireugi",
+        "chetdari-jireugi",
+        "taegeuk-7-jang"
       ],
       "evidence": {
-        "context": 1366,
-        "hangul": "§5 Jireugi > Jeocheo-jireugi / Sewo-jiruegi / Yeop-jireugi"
+        "hangul": "§5 Jireugi > Jeocheo-jireugi",
+        "context": "§5 Jireugi > Jeocheo-jireugi"
       }
     },
     {

@@ -12,6 +12,7 @@ import {
   getLibraryItem,
   libraryItems,
   libraryItemHref,
+  libraryRelationshipLabel,
 } from '../../../lib/library';
 import { safeReferenceUrl } from '../../../lib/published-knowledge';
 
@@ -53,7 +54,7 @@ const suggestedItems = (
         .map((slug) => getLibraryItem(slug))
         .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry && entry.slug !== item.slug))
     : libraryItems.filter((other) => other.categoryId === item.categoryId && other.slug !== item.slug)
-).slice(0, 3);
+).slice(0, item.poomsaeSlug ? 5 : 3);
 ---
 <Base title={`${title} — Biblioteca de Taekwondo`}>
   <article class="shell section term-page">
@@ -71,24 +72,29 @@ const suggestedItems = (
         <h1>{title}</h1>
         <p class="lead">{term.name}</p>
       </div>
-      {term.hangul ? (
-        <div class="term-korean">
-          <span lang="ko">{term.hangul}</span>
-          <small>Escrita coreana</small>
+      {(term.hangul || poomsaeGuide) && (
+        <div class="term-identity">
+          {term.hangul && (
+            <div class="term-korean">
+              <span lang="ko">{term.hangul}</span>
+              <small>Escrita coreana</small>
+            </div>
+          )}
+          {poomsaeGuide?.kind === 'taegeuk' ? (
+            <div class="term-visual-badge">
+              <TrigramDiagram bars={poomsaeGuide.trigram.bars} label={`${poomsaeGuide.trigram.romanization} (${poomsaeGuide.symbol})`} />
+            </div>
+          ) : poomsaeGuide?.kind === 'dan' && poomsaeGuide.poomsaeLine ? (
+            <div class="term-visual-badge">
+              <PoomsaeLineDiagram
+                kind={poomsaeGuide.poomsaeLine.kind}
+                character={poomsaeGuide.poomsaeLine.character}
+                label={poomsaeGuide.name}
+              />
+            </div>
+          ) : null}
         </div>
-      ) : poomsaeGuide?.kind === 'taegeuk' ? (
-        <div class="term-visual-badge">
-          <TrigramDiagram bars={poomsaeGuide.trigram.bars} label={`${poomsaeGuide.trigram.romanization} (${poomsaeGuide.symbol})`} />
-        </div>
-      ) : poomsaeGuide?.kind === 'dan' && poomsaeGuide.poomsaeLine ? (
-        <div class="term-visual-badge">
-          <PoomsaeLineDiagram
-            kind={poomsaeGuide.poomsaeLine.kind}
-            character={poomsaeGuide.poomsaeLine.character}
-            label={poomsaeGuide.name}
-          />
-        </div>
-      ) : null}
+      )}
     </header>
 
     <nav class="term-quicklinks" aria-label="Nesta ficha">
@@ -156,7 +162,7 @@ const suggestedItems = (
                   <a class="inline-link" href={libraryItemHref(linked.slug)!}>
                     {linked.term.romanization || linked.term.name}
                   </a>{' '}
-                  <span class="muted">· {linked.kindLabel}</span>
+                  <span class="muted">· {libraryRelationshipLabel(linked.slug, item.slug) ?? linked.kindLabel}</span>
                 </li>
               ))}
             </ul>
@@ -319,9 +325,15 @@ const suggestedItems = (
         <p>Cada ficha conecta fundamentos, regiões do corpo e referências.</p>
       </div>
       <div class="reading-links">
-        {suggestedItems.map((other) => (
-          <a href={libraryItemHref(other.slug)!}>{other.term.romanization || other.term.name} →</a>
-        ))}
+        {suggestedItems.map((other) => {
+          const relation = libraryRelationshipLabel(item.slug, other.slug);
+          return (
+            <a href={libraryItemHref(other.slug)!}>
+              {other.term.romanization || other.term.name} →
+              {relation && <small>{relation}</small>}
+            </a>
+          );
+        })}
       </div>
     </aside>
   </article>

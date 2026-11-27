@@ -21,6 +21,8 @@
 
 - Fase 18: navegação entre recortes próximos no Atlas, incluindo rosto e crânio, vistas do tronco, bordas do antebraço, vistas do joelho, tornozelo e pé. O Atlas usa as geometrias anteriores e mantém os links públicos da mão. Novas vistas laterais e alterações de contorno exigem avaliação visual específica.
 
+- Fases 19–20: a Biblioteca consulta nomes coreanos das 17 formas no Board 37, relaciona técnicas e bases com as formas e identifica remissões de família, variante e superfície. O estudo de Koryo usa um esquema autoral da linha 士, citada no artigo 988. A busca inclui área, assunto e região, aceita variações de espaçamento e grafias compostas. A checagem encontrou uma remissão antiga para `seun-jumeok`. A ficha Jeocheo-jireugi agora aponta para o punho e para verbetes efetivamente disponíveis.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |

@@ -235,6 +235,8 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .term-heading { display: flex; align-items: center; justify-content: space-between; gap: 36px; border-bottom: 1px solid var(--line); padding-bottom: 40px; }
 .term-heading h1 { font-size: clamp(3rem, 5vw, 5rem); margin: 0 0 12px; }
 .term-heading .lead { margin: 0; }
+.term-identity { display: grid; gap: 8px; min-width: 0; }
+.reading-links a small { display: block; margin-top: 2px; }
 .term-korean { background: var(--green-soft); padding: 26px 36px; min-width: 210px; text-align: center; border-radius: 10px; display: grid; gap: 6px; color: var(--green); }
 .term-korean > span { font-size: 3.5rem; line-height: 1.4; }
 .term-korean small { font-size: .68rem; color: var(--muted); }

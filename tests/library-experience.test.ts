@@ -7,6 +7,7 @@ import {
   libraryItems,
   searchLibrary,
   libraryItemHref,
+  libraryRelationshipLabel,
   atlasHref,
 } from '../src/lib/library';
 import { ironEntries, ironQuizQuestions } from '../src/data/iron-guide';
@@ -60,7 +61,9 @@ describe('biblioteca reutiliza a identidade do Atlas e integra Poomsae com fonte
     const keumgang = getPoomsaeGuide('keumgang');
     const koryo = getPoomsaeGuide('koryo');
     expect(keumgang?.kind === 'dan' ? keumgang.poomsaeLine?.character : null).toBe('山');
-    expect(koryo?.kind === 'dan' ? koryo.poomsaeLine : undefined).toBeNull();
+    expect(koryo?.kind === 'dan' ? koryo.poomsaeLine?.character : null).toBe('士');
+    expect(searchLibrary('태극 5장', 'poomsae').map(({ slug }) => slug)).toEqual(['taegeuk-5-jang']);
+    expect(searchLibrary('yeopchagi', 'balkisul').map(({ slug }) => slug)).toContain('yeop-chagi');
   });
 
   it('associa a forma às graduações configuradas no currículo local sem impor regra universal', () => {
@@ -151,4 +154,16 @@ it('vincula as questões do Iron a opções distintas, uma ficha e um localizado
     expect(entry?.topic, question.id).toBe(question.topic);
   }
   expect(ids.size).toBe(60);
+});
+
+
+it('resolve remissões explícitas e distingue famílias, variantes e superfícies', () => {
+  const unresolved = libraryItems.flatMap((item) => (item.relatedLibrarySlugs ?? [])
+    .filter((slug) => !getLibraryItem(slug) || slug === item.slug)
+    .map((slug) => `${item.slug} → ${slug}`));
+  expect(unresolved).toEqual([]);
+  expect(libraryRelationshipLabel('ap-kkoa-seogi', 'kkoa-seogi')).toBe('Família técnica');
+  expect(libraryRelationshipLabel('kkoa-seogi', 'dwi-kkoa-seogi')).toBe('Variante documentada');
+  expect(libraryRelationshipLabel('sonnal-bakkat-chigi', 'sonnal')).toBe('Superfície executante');
+  expect(libraryRelationshipLabel('koryo', 'geodeup-yeop-chagi')).toBe('Referência da forma');
 });

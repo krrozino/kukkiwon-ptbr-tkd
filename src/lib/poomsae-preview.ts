@@ -6,11 +6,21 @@ import { readLocalPoomsaeDossiers } from './poomsae-local-files';
 
 declare const __POOMSAE_DEV_PREVIEW__: boolean;
 
+const techniqueFamilies: Readonly<Partial<Record<string, string>>> = {
+  'sonnal-makgi': 'sonnal-makgi-familia',
+  'sonnal-momtong-makgi': 'sonnal-makgi-familia',
+  'momtong-an-makgi': 'an-makgi',
+  'momtong-bakkat-makgi': 'bakkat-makgi',
+  'momtong-hechyeo-makgi': 'hechyeo-makgi',
+  'arae-hechyeo-makgi': 'hechyeo-makgi',
+};
+
 function techniqueLink(techniqueId: string): StudyLink | undefined {
   if (techniqueId === 'momtong-bandae-jireugi' || techniqueId === 'olgul-bandae-jireugi') {
     return { href: '/acervo?categoria=soco', label: 'Família Jireugi no Acervo' };
   }
-  const item = getLibraryItem(techniqueId);
+  const family = techniqueFamilies[techniqueId];
+  const item = getLibraryItem(family ?? techniqueId);
   if (!item) return undefined;
 
   const href = libraryItemHref(item.slug);
@@ -18,7 +28,7 @@ function techniqueLink(techniqueId: string): StudyLink | undefined {
 
   return {
     href,
-    label: item.term.romanization || item.term.name,
+    label: family ? `Família ${item.term.romanization || item.term.name}` : item.term.romanization || item.term.name,
   };
 }
 

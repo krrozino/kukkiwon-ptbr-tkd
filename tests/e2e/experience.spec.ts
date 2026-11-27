@@ -25,17 +25,20 @@ test('busca tem filtros, vazio útil e histórico reproduzível', async ({ page 
   await page.getByRole('button', { name: 'Limpar filtros' }).click();
   expect(await page.locator('.library-results a').count()).toBeGreaterThanOrEqual(40);
   await page.getByLabel('Área de estudo', { exact: true }).selectOption('sonkisul');
-  await expect(page.locator('.library-results a')).toHaveCount(23);
+  await expect(page.locator('.library-results a')).toHaveCount(26);
   await page.getByLabel('Área de estudo', { exact: true }).selectOption('poomsae');
   await expect(page.locator('.library-results a')).toHaveCount(17);
   await expect(page.getByRole('region', { name: 'Forma Taegeuk' }).getByRole('link')).toHaveCount(8);
   await page.getByRole('button', { name: 'Limpar filtros' }).click();
   await page.getByRole('searchbox', { name: 'Buscar na biblioteca', exact: true }).fill('손날');
-  await expect(page.locator('.library-results a')).toHaveCount(4);
+  const outsideStrike = page.getByRole('link', { name: 'Sonnal-bakkat-chigi', exact: true });
+  await expect(outsideStrike).toBeVisible();
+  const matchingCount = await page.locator('.library-results a').count();
   await page.reload();
-  await expect(page.locator('.library-results a')).toHaveCount(4);
+  await expect(page.locator('.library-results a')).toHaveCount(matchingCount);
   await page.getByLabel('Área de estudo', { exact: true }).selectOption('sonkisul');
-  await expect(page.locator('.library-results a')).toHaveCount(2);
+  await expect(outsideStrike).toBeVisible();
+  await expect(page.locator('.library-results a')).toHaveCount(3);
 });
 
 test('Iron filtra níveis teóricos e valida revisão rápida com fonte', async ({ page }) => {

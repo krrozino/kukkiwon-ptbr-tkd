@@ -30,18 +30,29 @@ function LibraryEntries({ items, showKind = false }: { items: readonly LibraryIt
   );
 }
 
+function groupItems(items: readonly LibraryItem[], key: (item: LibraryItem) => string) {
+  const groups = new Map<string, LibraryItem[]>();
+  for (const item of items) {
+    const name = key(item);
+    const group = groups.get(name);
+    if (group) group.push(item);
+    else groups.set(name, [item]);
+  }
+  return groups;
+}
+
 function LibraryGroups({ items, showArea }: { items: readonly LibraryItem[]; showArea: boolean }) {
   return libraryCategories.map((category) => {
     const collection = items.filter((item) => item.categoryId === category.id);
     if (!collection.length) return null;
-    const groups = Map.groupBy(collection, (item) => item.kindLabel);
+    const groups = groupItems(collection, (item) => item.kindLabel);
     return (
       <section className="library-collection" key={category.id} aria-label={category.label}>
         {showArea && <h3>{category.label}</h3>}
         {[...groups].map(([label, group]) => (
           <section className="library-group" key={label} aria-label={label}>
             {showArea ? <h4>{label}</h4> : <h2>{label}</h2>}
-            {category.id === 'iron' ? [...Map.groupBy(group, (item) => item.topic ?? 'Panorama')].map(([topic, entries]) => (
+            {category.id === 'iron' ? [...groupItems(group, (item) => item.topic ?? 'Panorama')].map(([topic, entries]) => (
               <div className="library-topic" key={topic}>
                 {showArea ? <h5>{topic}</h5> : <h3>{topic}</h3>}
                 <LibraryEntries items={entries} />
@@ -117,7 +128,7 @@ export default function LibraryExplorer({ categoryId }: { categoryId?: LibraryCa
             Buscar na biblioteca
             <input
               type="search"
-              placeholder="Nome, coreano, pronúncia, trigrama ou significado"
+              placeholder="Nome, Hangul, assunto ou região anatômica"
               maxLength={200}
               value={query}
               onChange={(event) => update(event.target.value, area, onlyAtlas)}
