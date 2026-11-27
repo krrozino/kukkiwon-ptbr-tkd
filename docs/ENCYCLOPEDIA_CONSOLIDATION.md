@@ -13,6 +13,8 @@
 
 - Fases 9–14: 33 fichas adicionais em Kibon Dongjak (22), Sonkisul (3), Balkisul (6) e Matchuo Kyorugi (2). A edição inglesa de terminologia de 2011 com prefácio de 2012 foi cotejada por verbete. As famílias e variantes mantêm identidades distintas. A ficha de Kyorugi aponta para a edição WT com vigência inicial em 01/06/2026. A ficha de Matchuo orienta o registro por escola. O aprofundamento de Gyeokpa entra nas fichas do Iron.
 
+- Fase 15: Iron passa de 35 para 49 fichas com 28 seções referenciadas adicionais. As fichas cobrem Gyeokpa, regulamentos por edição, leitura de bases, Poomsae, terminologia, formação e fontes históricas. Gyeokpa usa o apêndice do manual e o regulamento histórico do Hanmadang 2024 para classificar formatos e materiais sob supervisão.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
