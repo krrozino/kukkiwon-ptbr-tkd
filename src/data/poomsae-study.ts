@@ -1,5 +1,6 @@
 import type {
   PoomsaeStudy as StudyModel,
+  StudyCourse,
   StudyFrame,
   StudyMovement as MovementModel,
 } from './poomsae-study-model';
@@ -31,6 +32,13 @@ export const studyDirections = {
 export function studyDirectionLabel(direction: StudyDirection) {
   const { heading, label } = studyDirections[direction];
   return heading + ' (' + label + ')';
+}
+
+export function describeStudyDirection(course: StudyCourse | undefined, direction: string) {
+  if (course?.kind === 'text') return { label: course.directions[direction] ?? direction, arrow: '', angle: undefined };
+  if (!Object.hasOwn(studyDirections, direction)) return { label: direction, arrow: '', angle: undefined };
+  const code = direction as StudyDirection;
+  return { ...studyDirections[code], label: studyDirectionLabel(code) };
 }
 
 export type StudyMovement = MovementModel<StudyDirection>;

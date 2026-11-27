@@ -1,9 +1,11 @@
 import { Fragment } from 'react';
-import { studyDirectionLabel, studyDirections, type StudyDirection, type StudyMovement } from '../../data/poomsae-study';
+import { describeStudyDirection, studyDirectionLabel, studyDirections, type StudyDirection } from '../../data/poomsae-study';
+
+import type { StudyMovement } from '../../data/poomsae-study-model';
 
 interface Props {
-  movements: readonly StudyMovement[];
-  active?: StudyMovement;
+  movements: readonly StudyMovement<string>[];
+  active?: StudyMovement<string>;
 }
 
 const lines = [
@@ -54,7 +56,7 @@ export default function TaegeukCourseDiagram({ movements, active }: Props) {
       </svg>
       <figcaption>
         <strong>Linhas de deslocamento</strong>
-        {active && <span>Movimento {active.number} · {studyDirectionLabel(active.direction)}</span>}
+        {active && <span>Movimento {active.number} · {describeStudyDirection(undefined, active.direction).label}</span>}
         <span>Orientação inicial do praticante. A seta em Na indica para onde ele olha na preparação. Etapas no eixo central: {axialSteps}. Esquema autoral, sem escala.</span>
       </figcaption>
     </figure>

@@ -13,6 +13,11 @@ export type StudyReference = {
   year?: number;
 };
 
+export type StudyCourse = { kind: 'taegeuk' } | {
+  kind: 'text';
+  directions: Readonly<Record<string, string>>;
+};
+
 export type StudyFrame = {
   id: string;
   label: string;
@@ -46,6 +51,7 @@ export type StudyMovement<Direction extends string> = {
   transitionPending?: boolean;
   discrepancy?: { note?: string; variants: readonly { summary: string; reference: StudyReference }[] };
   reviewPoints?: readonly string[];
+  fieldReferences?: readonly { field: string; reference: StudyReference }[];
 };
 
 export type StudyBoundary<Direction extends string> = {
@@ -67,6 +73,9 @@ export type PoomsaeStudy<Direction extends string> = {
   trigramHangul?: string;
   family?: string;
   romanization?: string;
+  course?: StudyCourse;
+  coverage?: 'partial' | 'complete';
+  synthetic?: boolean;
   context?: readonly { title: string; description: string; reference: StudyReference }[];
   references?: readonly StudyReference[];
   demonstration?: {

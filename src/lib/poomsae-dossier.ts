@@ -1,11 +1,12 @@
 import { z } from 'astro/zod';
-import type { PoomsaeStudy, StudyLink, StudyReference } from '../data/poomsae-study';
+import type { PoomsaeStudy, StudyCourse, StudyLink, StudyReference } from '../data/poomsae-study-model';
+import { studyDirections } from '../data/poomsae-study.ts';
 import { safeReferenceUrl } from './published-knowledge.ts';
 
 const text = z.string().trim().min(1);
 const httpsUrl = text.refine(safeReferenceUrl);
 const page = z.number().int().positive();
-const direction = z.enum(['ga', 'na', 'da1', 'ra1', 'da2', 'ra2', 'da3', 'ra3']);
+const direction = z.string().regex(/^[a-z][a-z0-9-]{0,39}$/);
 const citation = z.object({ page, locator: text });
 const term = z.object({ termId: text, label: text, hangul: text.optional() });
 const source = z.object({
@@ -27,10 +28,9 @@ const discrepancy = z.object({
   variants: z.array(z.object({ summary: text, evidence })).optional(),
 });
 
-const dossierSchema = z.object({
-  schemaVersion: z.literal(1),
-  slug: z.literal('taegeuk-2-jang'),
-  hangul: z.literal('태극 2장'),
+const dossierBase = z.object({
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  hangul: text,
   meaning: text,
   identityUrl: httpsUrl,
   source,
@@ -43,20 +43,53 @@ const dossierSchema = z.object({
   movements: z.array(z.object({
     number: page, title: text, direction, description: text.nullable().optional(), base: term.optional(),
     displacement: text.optional(), kihap: z.boolean().optional(),
+    baseSide: z.enum(['Esquerda', 'Direita']).optional(),
+    initialPosition: text.optional(), finalPosition: text.optional(),
+    bodyOrientation: text.optional(), rotation: text.optional(),
+    fields: z.array(z.object({ field: text, evidence })).optional(),
+    transitions: z.array(z.object({ description: text, evidence })).optional(),
     lead: z.enum(['Esquerda', 'Direita']).optional(), citation, actions: z.array(frame).min(1),
     evidence: z.array(evidence).default([]),
   })).min(1),
 });
 
-export function parseTaegeukTwoDossier(
+const dossierSchema = z.discriminatedUnion('schemaVersion', [
+  dossierBase.extend({ schemaVersion: z.literal(1), slug: z.literal('taegeuk-2-jang'), hangul: z.literal('태극 2장') }),
+  dossierBase.extend({
+    schemaVersion: z.literal(2),
+    family: z.enum(['Taegeuk', 'Dan']),
+    identityLocator: text,
+    trigramHangul: text.optional(),
+    readingNote: text,
+    course: z.union([
+      z.object({ kind: z.literal('taegeuk') }),
+      z.object({ kind: z.literal('text'), directions: z.record(direction, text) }),
+    ]),
+    closure: boundary.optional(),
+    coverage: z.enum(['partial', 'complete']),
+    synthetic: z.literal(true).optional(),
+  }),
+]);
+
+export function parsePoomsaeDossier(
   input: unknown,
   links?: {
     term: (slug: string) => string | null;
     technique: (id: string) => StudyLink | undefined;
   },
-): PoomsaeStudy {
+): PoomsaeStudy<string> {
   const dossier = dossierSchema.parse(input);
   const { counts, movements } = dossier;
+  const modern = dossier.schemaVersion === 2 ? dossier : undefined;
+  const course: StudyCourse = modern?.course ?? { kind: 'taegeuk' };
+  const family = modern?.family ?? 'Taegeuk';
+  if (family === 'Dan' && course.kind === 'taegeuk') throw new Error('Este percurso é exclusivo da família Taegeuk.');
+  const directions = course.kind === 'taegeuk' ? studyDirections : course.directions;
+  const boundaries = [dossier.start, dossier.finish, ...(modern?.closure ? [modern.closure] : [])];
+  const codes = [...movements.map((point) => point.direction), ...boundaries.flatMap((point) =>
+    point.position ? [point.direction, point.position] : [point.direction],
+  )];
+  if (codes.some((code) => !Object.hasOwn(directions, code))) throw new Error('Direção fora da convenção do dossiê.');
   if (counts.numberedMovements !== movements.length ||
       counts.actions !== movements.reduce((total, movement) => total + movement.actions.length, 0)) {
     throw new Error('As contagens declaradas divergem da sequência do dossiê.');
@@ -85,13 +118,15 @@ export function parseTaegeukTwoDossier(
 
   return {
     slug: dossier.slug,
-    family: 'Taegeuk',
+    family, course,
+    coverage: modern?.coverage ?? 'complete',
+    synthetic: modern?.synthetic,
     hangul: dossier.hangul,
     meaning: dossier.meaning,
     identityUrl: dossier.identityUrl,
-    identityLocator: 'Board 37, nº 981',
-    trigramHangul: '태',
-    readingNote: 'Preparação e retorno ficam fora da contagem. Os quadros de uma etapa são estudados sob o mesmo número.',
+    identityLocator: modern?.identityLocator ?? 'Board 37, nº 981',
+    trigramHangul: modern ? modern.trigramHangul : '태',
+    readingNote: modern?.readingNote ?? 'Preparação e retorno ficam fora da contagem. Os quadros de uma etapa são estudados sob o mesmo número.',
     source: {
       institution: primary.institution, title: primary.title, url: primary.url,
       edition: primary.edition ?? 'Edição não identificada', sourceCheckedAt: primary.sourceCheckedAt,
@@ -102,7 +137,8 @@ export function parseTaegeukTwoDossier(
     ]),
     start: point(dossier.start),
     finish: point(dossier.finish),
-    movements: movements.map(({ actions, base, lead, evidence, citation, ...movement }, index) => {
+    closure: modern?.closure && point(modern.closure),
+    movements: movements.map(({ actions, base, lead, evidence, citation, fields, transitions, ...movement }, index) => {
       const { number } = movement;
       if (number !== index + 1) throw new Error('As etapas do dossiê devem estar em ordem consecutiva.');
 
@@ -113,10 +149,11 @@ export function parseTaegeukTwoDossier(
       if (footDiscrepancy) {
         reviewPoints.push('Confirmar deslocamento dos pés na mudança de direção (divergência entre fontes).');
       }
-      if (actions.length > 1) {
-        reviewPoints.push('Confirmar transição entre os dois quadros da etapa e base final.');
+      if (actions.length > 1) reviewPoints.push('Confirmar transições entre os quadros da etapa e a base final.');
+      reviewPoints.push('Conferir execução, lateralidade e nomenclatura com o professor.');
+      if (new Set(actions.map((action) => action.frame)).size !== actions.length) {
+        throw new Error('Quadros repetidos dentro da mesma etapa.');
       }
-      reviewPoints.push('Confirmar execução em referência audiovisual (vídeo oficial pendente no Taegeuk 2).');
 
       return {
         ...movement,
@@ -131,16 +168,18 @@ export function parseTaegeukTwoDossier(
           })),
         } : undefined,
         reviewPoints,
+        fieldReferences: fields?.map(({ field, evidence }) => ({ field, reference: reference(evidence) })),
+        transitions: transitions?.map(({ description, evidence }) => ({ description, reference: reference(evidence) })),
         references: [reference({ sourceId: primary.id, ...citation }), ...evidence.map(reference)]
           .filter((entry, position, all) => all.findIndex((candidate) =>
             candidate.url === entry.url && candidate.page === entry.page && candidate.locator === entry.locator,
           ) === position),
         frames: actions.map((action, frameIndex) => {
           const expected = actions.length === 1 ? String(number) : `${number}-${frameIndex + 1}`;
-          if (action.frame !== expected) throw new Error('O rótulo do quadro não corresponde à etapa.');
+          if (!modern && action.frame !== expected) throw new Error('O rótulo do quadro não corresponde à etapa.');
           const references = action.evidence.map(reference);
-          const photo = references.find((entry) => entry.url === primary.url && entry.page !== undefined);
-          if (!photo) throw new Error('Quadro sem página da fonte principal.');
+          const photo = references.find((entry) => entry.url === primary.url && (modern || entry.page !== undefined));
+          if (!photo) throw new Error('Quadro sem localizador da fonte principal.');
           return {
             id: action.frame, label: action.label, hangul: action.hangul, romanization: action.romanizationSource,
             kind: action.kind, executor: action.executor,

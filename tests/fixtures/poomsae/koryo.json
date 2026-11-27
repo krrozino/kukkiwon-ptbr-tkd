@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 2,
+  "slug": "koryo",
+  "family": "Dan",
+  "hangul": "고려",
+  "meaning": "Identidade sintética para teste da interface.",
+  "identityUrl": "https://example.test/identidade",
+  "identityLocator": "Verbete sintético",
+  "readingNote": "Somente dois passos de teste.",
+  "course": {
+    "kind": "text",
+    "directions": {
+      "origem": "Marco de origem de teste",
+      "lado": "Marco lateral de teste"
+    }
+  },
+  "coverage": "partial",
+  "synthetic": true,
+  "source": {
+    "id": "fixture",
+    "institution": "Referência sintética",
+    "title": "Sentinela privada de teste Poomsae 8427",
+    "edition": "Teste",
+    "url": "https://example.test/poomsae.pdf",
+    "sourceCheckedAt": "2026-11-26"
+  },
+  "sources": [
+    {
+      "id": "fixture",
+      "institution": "Referência sintética",
+      "title": "Sentinela privada de teste Poomsae 8427",
+      "edition": "Teste",
+      "url": "https://example.test/poomsae.pdf",
+      "sourceCheckedAt": "2026-11-26"
+    }
+  ],
+  "review": {
+    "distribution": "local-only",
+    "publicationApproved": false
+  },
+  "counts": {
+    "numberedMovements": 2,
+    "actions": 3,
+    "boundaryIncluded": false
+  },
+  "start": {
+    "title": "Preparação sintética",
+    "direction": "origem",
+    "posture": {
+      "termId": "gibon-junbi",
+      "label": "Preparação de teste"
+    },
+    "citation": {
+      "page": 1,
+      "locator": "Preparação sintética"
+    }
+  },
+  "finish": {
+    "title": "Retorno sintético",
+    "direction": "origem",
+    "posture": {
+      "termId": "gibon-junbi",
+      "label": "Preparação de teste"
+    },
+    "citation": {
+      "page": 5,
+      "locator": "Retorno sintético"
+    }
+  },
+  "discrepancies": [],
+  "movements": [
+    {
+      "number": 1,
+      "title": "Primeira etapa sintética",
+      "direction": "lado",
+      "citation": {
+        "page": 2,
+        "locator": "Quadro 1"
+      },
+      "actions": [
+        {
+          "frame": "1",
+          "techniqueId": "fixture-interno",
+          "label": "Ação sintética 1",
+          "evidence": [
+            {
+              "sourceId": "fixture",
+              "page": 2,
+              "locator": "Quadro sintético 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Etapa sintética composta",
+      "direction": "origem",
+      "citation": {
+        "page": 3,
+        "locator": "Quadros 2-1 e 2-2"
+      },
+      "actions": [
+        {
+          "frame": "2-1",
+          "techniqueId": "fixture-interno",
+          "label": "Ação sintética 2-1",
+          "evidence": [
+            {
+              "sourceId": "fixture",
+              "page": 3,
+              "locator": "Quadro sintético 2-1"
+            }
+          ]
+        },
+        {
+          "frame": "2-2",
+          "techniqueId": "fixture-interno",
+          "label": "Ação sintética 2-2",
+          "evidence": [
+            {
+              "sourceId": "fixture",
+              "page": 4,
+              "locator": "Quadro sintético 2-2"
+            }
+          ]
+        }
+      ],
+      "base": {
+        "termId": "apgubi",
+        "label": "Base final de teste"
+      },
+      "kihap": true,
+      "fields": [
+        {
+          "field": "Orientação",
+          "evidence": {
+            "sourceId": "fixture",
+            "page": 3,
+            "locator": "Marca sintética de orientação"
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "description": "Transição sintética entre quadros",
+          "evidence": {
+            "sourceId": "fixture",
+            "page": 4,
+            "locator": "Nota de transição"
+          }
+        }
+      ]
+    }
+  ]
+}
