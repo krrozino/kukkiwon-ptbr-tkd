@@ -2,7 +2,7 @@ import approved from '../../content/glossary/approved.json';
 import {useEffect,useState} from 'react';
 export type GlossarySource={institution:string;title:string;edition:string;url:string;locator:string;checkedAt:string|null};
 export type GlossaryReview={status:'draft'|'approved';translationBy:string|null;technicalBy:string|null;approvedBy:string|null;approvedAt:string|null;notes?:string};
-export type GlossaryWord={id:string;romanization:string;hangul:string;meaning_pt:string;context_pt:string;kind:'height'|'direction'|'anatomy'|'action'|'surface';aliases:string[];pronunciation_pt:string|null;sources:GlossarySource[];review:GlossaryReview};
+export type GlossaryWord={id:string;romanization:string;hangul:string;meaning_pt:string;context_pt:string;kind:'height'|'direction'|'anatomy'|'action'|'surface'|'command'|'number'|'pedagogy';aliases:string[];pronunciation_pt:string|null;sources:GlossarySource[];review:GlossaryReview};
 export type GlossaryExpression={id:string;romanization:string;hangul:string;translation_pt:string;context_pt:string;technicalSlug:string|null;segments:{wordId:string;romanization:string;hangul:string}[];sources:GlossarySource[];review:GlossaryReview};
 export type GlossaryData={version:number;batchId?:string;words:GlossaryWord[];expressions:GlossaryExpression[]};
 export const glossaryReviewMode=import.meta.env.PUBLIC_GLOSSARY_REVIEW==='true';

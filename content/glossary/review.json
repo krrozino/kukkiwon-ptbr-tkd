@@ -429,6 +429,912 @@
         "approvedAt": null,
         "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
       }
+    },
+    {
+      "id": "yeop",
+      "romanization": "Yeop",
+      "hangul": "옆",
+      "meaning_pt": "Lado, lateral",
+      "context_pt": "Indica direção lateral em nomes de ações como Yeop-chagi.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Introdução §6 · Direction, p. 7, e §1 · Yeop-chagi, p. 22 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "dollyeo",
+      "romanization": "Dollyeo",
+      "hangul": "돌려",
+      "meaning_pt": "Circular, em rotação",
+      "context_pt": "Modificador de ação em Dollyeo-chagi. A mesma forma aparece em verbetes de outras famílias.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Dollyeo-chagi, pp. 15–16 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "naeryeo",
+      "romanization": "Naeryeo",
+      "hangul": "내려",
+      "meaning_pt": "Para baixo",
+      "context_pt": "Indica a direção descendente em Naeryeo-makgi e em nomes de outras famílias.",
+      "kind": "direction",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§10 Makgi > Naeryeo-makgi, p. 50 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "ttwieo",
+      "romanization": "Ttwieo",
+      "hangul": "뛰어",
+      "meaning_pt": "Em salto",
+      "context_pt": "Modificador que aparece em variantes de chute com salto.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Ap-chagi > uso Ttwieo-ap-chagi, p. 13 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "chigi",
+      "romanization": "Chigi",
+      "hangul": "치기",
+      "meaning_pt": "Golpe",
+      "context_pt": "Núcleo de expressões da família Chigi. A superfície e a direção aparecem nos modificadores do nome.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§2 Chigi · título da família",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gawi",
+      "romanization": "Gawi",
+      "hangul": "가위",
+      "meaning_pt": "Tesoura",
+      "context_pt": "Designa uma configuração em nomes como Gawi-makgi e Gawi-chagi.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§10 Makgi > Gawi-makgi, p. 47 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "kkoa",
+      "romanization": "Kkoa",
+      "hangul": "꼬아",
+      "meaning_pt": "Cruzado",
+      "context_pt": "Modificador na família de bases cruzadas. Ap e Dwi especificam a posição do pé em transição.",
+      "kind": "action",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§15 Seogi > Kkoa-seogi, pp. 63–64 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gibon",
+      "romanization": "Gibon",
+      "hangul": "기본",
+      "meaning_pt": "Básico",
+      "context_pt": "Qualifica a preparação no termo Gibon-junbi.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§8 Junbi-jase > Gibon-junbi, p. 41 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gyeopson",
+      "romanization": "Gyeopson",
+      "hangul": "겹손",
+      "meaning_pt": "Mãos sobrepostas",
+      "context_pt": "Configuração mencionada no nome Gyeopson-junbi.",
+      "kind": "surface",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§8 Junbi-jase > Gyeopson-junbi, p. 41 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "pyojeok",
+      "romanization": "Pyojeok",
+      "hangul": "표적",
+      "meaning_pt": "Referência ou alvo",
+      "context_pt": "Em Pyojeok-chagi, identifica a referência construída para a forma.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Pyojeok-chagi, p. 21 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "sonnal",
+      "romanization": "Sonnal",
+      "hangul": "손날",
+      "meaning_pt": "Borda externa da mão",
+      "context_pt": "Termo de superfície. Pode compor nomes de golpe e de defesa.",
+      "kind": "surface",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice · Applicable Parts of the Body > Sonnal",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "batangson",
+      "romanization": "Batangson",
+      "hangul": "바탕손",
+      "meaning_pt": "Base da palma",
+      "context_pt": "Superfície descrita junto à base da mão no apêndice do manual.",
+      "kind": "surface",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice · Applicable Parts of the Body > Batangson",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "deungjumeok",
+      "romanization": "Deungjumeok",
+      "hangul": "등주먹",
+      "meaning_pt": "Dorso do punho fechado",
+      "context_pt": "A superfície aparece em variantes de Chigi.",
+      "kind": "surface",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice · Applicable Parts of the Body > Deungjumeok",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "palgup",
+      "romanization": "Palgup",
+      "hangul": "팔굽",
+      "meaning_pt": "Cotovelo",
+      "context_pt": "O apêndice registra o nome anatômico na relação de superfícies.",
+      "kind": "anatomy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice · Applicable Parts of the Body > Palgup",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "balnal",
+      "romanization": "Balnal",
+      "hangul": "발날",
+      "meaning_pt": "Borda externa do pé",
+      "context_pt": "O apêndice distingue Balnal de Balnaldeung.",
+      "kind": "surface",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice · Applicable Parts of the Body > Balnal",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "balmok",
+      "romanization": "Balmok",
+      "hangul": "발목",
+      "meaning_pt": "Tornozelo",
+      "context_pt": "O termo de articulação aparece em expressão composta.",
+      "kind": "anatomy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§12 Neomgigi > Balmok-georeo-neomgigi, p. 56 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gyeokpa",
+      "romanization": "Gyeokpa",
+      "hangul": "격파",
+      "meaning_pt": "Quebramento",
+      "context_pt": "Modalidade com apêndice próprio e denominações demonstrativas.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "Apêndice Gyeokpa, p. 76 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "dojang",
+      "romanization": "Dojang",
+      "hangul": "도장",
+      "meaning_pt": "Local de treino",
+      "context_pt": "O verbete de local de prática inclui exemplo com Taekwondo.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=58168",
+          "locator": "Verbete 도장 · exemplo 태권도 도장",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "annyeonghaseyo",
+      "romanization": "Annyeonghaseyo",
+      "hangul": "안녕하세요",
+      "meaning_pt": "Olá",
+      "context_pt": "Fórmula de saudação cortês em exemplo de diálogo do KR-DICT.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=72523",
+          "locator": "Verbete 안녕하다 · exemplo de saudação ao professor",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "il",
+      "romanization": "Il",
+      "hangul": "일",
+      "meaning_pt": "Um",
+      "context_pt": "Numeral sino-coreano. O verbete identifica a acepção numérica.",
+      "kind": "number",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=31523",
+          "locator": "Verbete 일 · acepção numérica 一",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "hana",
+      "romanization": "Hana",
+      "hangul": "하나",
+      "meaning_pt": "Um",
+      "context_pt": "Numeral da contagem nativa. O exemplo do dicionário mostra a sequência de um a três.",
+      "kind": "number",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=73812",
+          "locator": "Verbete 입장단 · primeira acepção, exemplo de contagem oral 하나, 둘, 셋",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "dul",
+      "romanization": "Dul",
+      "hangul": "둘",
+      "meaning_pt": "Dois",
+      "context_pt": "Numeral da contagem nativa. O exemplo do dicionário mostra a sequência de um a três.",
+      "kind": "number",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=73812",
+          "locator": "Verbete 입장단 · primeira acepção, exemplo de contagem oral 하나, 둘, 셋",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "set",
+      "romanization": "Set",
+      "hangul": "셋",
+      "meaning_pt": "Três",
+      "context_pt": "Numeral da contagem nativa. O exemplo do dicionário mostra a sequência de um a três.",
+      "kind": "number",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Instituto Nacional da Língua Coreana",
+          "title": "Dicionário Básico de Coreano",
+          "edition": "KR-DICT online",
+          "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=73812",
+          "locator": "Verbete 입장단 · primeira acepção, exemplo de contagem oral 하나, 둘, 셋",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "charyeo",
+      "romanization": "Cha-ryeot",
+      "hangul": "차려",
+      "meaning_pt": "Atenção",
+      "context_pt": "O texto coreano usa 차려 na ordem do coordenador. A versão inglesa do mesmo artigo traz Cha-ryeot.",
+      "kind": "command",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "World Taekwondo",
+          "title": "Poomsae Competition Rules and Interpretation",
+          "edition": "Vigência inicial em 30/09/2024",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Poomsae%20Competition%20Rules%20and%20Interpretation%20%28In%20force%20as%20of%20September%2030%202024%29.pdf",
+          "locator": "Art. 13, §4.2 · procedimento",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gyeongnye",
+      "romanization": "Kyeong-rye",
+      "hangul": "경례",
+      "meaning_pt": "Saudação",
+      "context_pt": "Comando de saudação previsto antes e ao fim da apresentação. A romanização segue a versão inglesa da regra.",
+      "kind": "command",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "World Taekwondo",
+          "title": "Poomsae Competition Rules and Interpretation",
+          "edition": "Vigência inicial em 30/09/2024",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Poomsae%20Competition%20Rules%20and%20Interpretation%20%28In%20force%20as%20of%20September%2030%202024%29.pdf",
+          "locator": "Art. 13, §4.2 · procedimento",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "junbi",
+      "romanization": "Junbi",
+      "hangul": "준비",
+      "meaning_pt": "Preparação",
+      "context_pt": "Junbi integra nomes de posturas. A edição inglesa do regulamento de Poomsae registra o comando Joon-bi.",
+      "kind": "command",
+      "aliases": [
+        "Joon-bi"
+      ],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§8 Junbi-jase · título da seção e nomes de posturas",
+          "checkedAt": null
+        },
+        {
+          "institution": "World Taekwondo",
+          "title": "Poomsae Competition Rules and Interpretation",
+          "edition": "Vigência inicial em 30/09/2024",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Poomsae%20Competition%20Rules%20and%20Interpretation%20%28In%20force%20as%20of%20September%2030%202024%29.pdf",
+          "locator": "Art. 13, §4.1 · procedimento",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "sijak",
+      "romanization": "Shi-jak",
+      "hangul": "시작",
+      "meaning_pt": "Começar",
+      "context_pt": "Comando de início da apresentação na edição de Poomsae citada. A grafia latina segue essa edição.",
+      "kind": "command",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "World Taekwondo",
+          "title": "Poomsae Competition Rules and Interpretation",
+          "edition": "Vigência inicial em 30/09/2024",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Poomsae%20Competition%20Rules%20and%20Interpretation%20%28In%20force%20as%20of%20September%2030%202024%29.pdf",
+          "locator": "Art. 13, §4.1 · procedimento",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "baro",
+      "romanization": "Ba-ro",
+      "hangul": "바로",
+      "meaning_pt": "Retorno após a forma",
+      "context_pt": "Comando que integra o procedimento de encerramento do Poomsae competitivo na edição identificada.",
+      "kind": "command",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "World Taekwondo",
+          "title": "Poomsae Competition Rules and Interpretation",
+          "edition": "Vigência inicial em 30/09/2024",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Poomsae%20Competition%20Rules%20and%20Interpretation%20%28In%20force%20as%20of%20September%2030%202024%29.pdf",
+          "locator": "Art. 13, §4.2 · procedimento",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "poomsae",
+      "romanization": "Poomsae",
+      "hangul": "품새",
+      "meaning_pt": "Forma",
+      "context_pt": "Nome da seção da Kukkiwon que reúne as formas Taegeuk e Dan.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Índice coreano de Poomsae",
+          "edition": "Portal institucional · Board 37",
+          "url": "https://www.kukkiwon.or.kr/base/board/list?boardManagementNo=37&menuLevel=3&menuNo=62",
+          "locator": "Título da coleção 품새",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Confirmar uso e pronúncia didática antes de publicar."
+      }
+    },
+    {
+      "id": "taegeuk",
+      "romanization": "Taegeuk",
+      "hangul": "태극",
+      "meaning_pt": "Nome da série Taegeuk",
+      "context_pt": "O título coreano da terceira forma contém o nome da família.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Índice coreano de Poomsae",
+          "edition": "Portal institucional · Board 37",
+          "url": "https://www.kukkiwon.or.kr/base/board/read?boardManagementNo=37&boardNo=982&menuLevel=3&menuNo=62",
+          "locator": "Artigo 982 · termo 태극",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Confirmar uso e pronúncia didática antes de publicar."
+      }
+    },
+    {
+      "id": "koryo",
+      "romanization": "Koryo",
+      "hangul": "고려",
+      "meaning_pt": "Nome da forma Koryo",
+      "context_pt": "A apresentação coreana associa a forma ao espírito Seonbae.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Índice coreano de Poomsae",
+          "edition": "Portal institucional · Board 37",
+          "url": "https://www.kukkiwon.or.kr/base/board/read?boardManagementNo=37&boardNo=988&menuLevel=3&menuNo=62",
+          "locator": "Artigo 988 · termo 고려",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Confirmar uso e pronúncia didática antes de publicar."
+      }
+    },
+    {
+      "id": "keumgang",
+      "romanization": "Keumgang",
+      "hangul": "금강",
+      "meaning_pt": "Nome da forma Keumgang",
+      "context_pt": "A apresentação coreana associa a forma à firmeza e à imagem da montanha.",
+      "kind": "pedagogy",
+      "aliases": [],
+      "pronunciation_pt": null,
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Índice coreano de Poomsae",
+          "edition": "Portal institucional · Board 37",
+          "url": "https://www.kukkiwon.or.kr/base/board/read?boardManagementNo=37&boardNo=989&menuLevel=3&menuNo=62",
+          "locator": "Artigo 989 · termo 금강",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Confirmar uso e pronúncia didática antes de publicar."
+      }
     }
   ],
   "expressions": [
@@ -544,6 +1450,391 @@
         "approvedBy": null,
         "approvedAt": null,
         "notes": "Proposta para aprovação do usuário e revisor técnico. Conferir Hangul, romanização e tradução antes de publicar; comparar fontes recentes quando disponíveis."
+      }
+    },
+    {
+      "id": "ap-chagi",
+      "romanization": "Ap-chagi",
+      "hangul": "앞차기",
+      "translation_pt": "Chute frontal",
+      "context_pt": "Direção frontal na família Chagi.",
+      "technicalSlug": "ap-chagi",
+      "segments": [
+        {
+          "wordId": "ap",
+          "romanization": "Ap",
+          "hangul": "앞"
+        },
+        {
+          "wordId": "chagi",
+          "romanization": "chagi",
+          "hangul": "차기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Ap-chagi, pp. 12–13 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "yeop-chagi",
+      "romanization": "Yeop-chagi",
+      "hangul": "옆차기",
+      "translation_pt": "Chute lateral",
+      "context_pt": "Direção lateral na família Chagi.",
+      "technicalSlug": "yeop-chagi",
+      "segments": [
+        {
+          "wordId": "yeop",
+          "romanization": "Yeop",
+          "hangul": "옆"
+        },
+        {
+          "wordId": "chagi",
+          "romanization": "chagi",
+          "hangul": "차기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Yeop-chagi, p. 22 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "dollyeo-chagi",
+      "romanization": "Dollyeo-chagi",
+      "hangul": "돌려차기",
+      "translation_pt": "Chute circular",
+      "context_pt": "Expressão da família Chagi com modificador de rotação.",
+      "technicalSlug": "dollyeo-chagi",
+      "segments": [
+        {
+          "wordId": "dollyeo",
+          "romanization": "Dollyeo",
+          "hangul": "돌려"
+        },
+        {
+          "wordId": "chagi",
+          "romanization": "chagi",
+          "hangul": "차기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Dollyeo-chagi, pp. 15–16 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "ttwieo-ap-chagi",
+      "romanization": "Ttwieo-ap-chagi",
+      "hangul": "뛰어앞차기",
+      "translation_pt": "Chute frontal em salto",
+      "context_pt": "A variante é apresentada como uso em Ap-chagi. Os espaços da edição foram normalizados para a composição no glossário.",
+      "technicalSlug": "ttwieo-ap-chagi",
+      "segments": [
+        {
+          "wordId": "ttwieo",
+          "romanization": "Ttwieo",
+          "hangul": "뛰어"
+        },
+        {
+          "wordId": "ap",
+          "romanization": "ap",
+          "hangul": "앞"
+        },
+        {
+          "wordId": "chagi",
+          "romanization": "chagi",
+          "hangul": "차기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Ap-chagi > Ttwieo-ap-chagi, p. 13 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "naeryeo-makgi",
+      "romanization": "Naeryeo-makgi",
+      "hangul": "내려막기",
+      "translation_pt": "Defesa descendente",
+      "context_pt": "A descrição da família distingue direção e superfície.",
+      "technicalSlug": "naeryeo-makgi",
+      "segments": [
+        {
+          "wordId": "naeryeo",
+          "romanization": "Naeryeo",
+          "hangul": "내려"
+        },
+        {
+          "wordId": "makgi",
+          "romanization": "makgi",
+          "hangul": "막기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§10 Makgi > Naeryeo-makgi, p. 50 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gawi-makgi",
+      "romanization": "Gawi-makgi",
+      "hangul": "가위막기",
+      "translation_pt": "Defesa em tesoura",
+      "context_pt": "A configuração em tesoura classifica a ação no verbete próprio.",
+      "technicalSlug": "gawi-makgi",
+      "segments": [
+        {
+          "wordId": "gawi",
+          "romanization": "Gawi",
+          "hangul": "가위"
+        },
+        {
+          "wordId": "makgi",
+          "romanization": "makgi",
+          "hangul": "막기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§10 Makgi > Gawi-makgi, p. 47 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "kkoa-seogi",
+      "romanization": "Kkoa-seogi",
+      "hangul": "꼬아서기",
+      "translation_pt": "Base cruzada",
+      "context_pt": "Nome da família. Ap e Dwi aparecem nos usos da seção.",
+      "technicalSlug": "kkoa-seogi",
+      "segments": [
+        {
+          "wordId": "kkoa",
+          "romanization": "Kkoa",
+          "hangul": "꼬아"
+        },
+        {
+          "wordId": "seogi",
+          "romanization": "seogi",
+          "hangul": "서기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§15 Seogi > Kkoa-seogi, pp. 63–64 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gibon-junbi",
+      "romanization": "Gibon-junbi",
+      "hangul": "기본준비",
+      "translation_pt": "Preparação básica",
+      "context_pt": "Expressão de preparação apresentada na seção Junbi-jase.",
+      "technicalSlug": "gibon-junbi",
+      "segments": [
+        {
+          "wordId": "gibon",
+          "romanization": "Gibon",
+          "hangul": "기본"
+        },
+        {
+          "wordId": "junbi",
+          "romanization": "junbi",
+          "hangul": "준비"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§8 Junbi-jase > Gibon-junbi, p. 41 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "gyeopson-junbi",
+      "romanization": "Gyeopson-junbi",
+      "hangul": "겹손준비",
+      "translation_pt": "Preparação com mãos sobrepostas",
+      "context_pt": "Expressão de preparação cujo nome descreve a posição relativa das mãos.",
+      "technicalSlug": "gyeopson-junbi",
+      "segments": [
+        {
+          "wordId": "gyeopson",
+          "romanization": "Gyeopson",
+          "hangul": "겹손"
+        },
+        {
+          "wordId": "junbi",
+          "romanization": "junbi",
+          "hangul": "준비"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§8 Junbi-jase > Gyeopson-junbi, p. 41 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
+      }
+    },
+    {
+      "id": "pyojeok-chagi",
+      "romanization": "Pyojeok-chagi",
+      "hangul": "표적차기",
+      "translation_pt": "Chute a uma referência de forma",
+      "context_pt": "O verbete documenta a referência usada no contexto de Poomsae.",
+      "technicalSlug": "pyojeok-chagi",
+      "segments": [
+        {
+          "wordId": "pyojeok",
+          "romanization": "Pyojeok",
+          "hangul": "표적"
+        },
+        {
+          "wordId": "chagi",
+          "romanization": "chagi",
+          "hangul": "차기"
+        }
+      ],
+      "sources": [
+        {
+          "institution": "Kukkiwon",
+          "title": "Taekwondo Technical Terminology",
+          "edition": "Edição inglesa 2011, prefácio 2012",
+          "url": "https://research.kukkiwon.or.kr/homepage/boardMedia/11621",
+          "locator": "§1 Chagi > Pyojeok-chagi, p. 21 do PDF",
+          "checkedAt": null
+        }
+      ],
+      "review": {
+        "status": "draft",
+        "translationBy": null,
+        "technicalBy": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Cotejo documental inicial. Confirmar a tradução e o uso com revisores. Pronúncia didática em aberto."
       }
     }
   ]

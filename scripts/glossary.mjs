@@ -12,11 +12,11 @@ export function validateGlossary(data,{requireApproval=true}={}){
   const id=item?.id||'(sem id)';
   if(!slug(item?.id)||ids.has(id))errors.push(id+': identificador inválido/duplicado');ids.add(id);
   for(const key of ['romanization','hangul','context_pt',kind==='word'?'meaning_pt':'translation_pt'])if(!text(item?.[key]))errors.push(id+': '+key+' obrigatório');
-  if(kind==='word'&&(!Array.isArray(item.aliases)||!item.aliases.every(text)||!['height','direction','anatomy','action','surface'].includes(item.kind)))errors.push(id+': classe ou aliases inválidos');
+  if(kind==='word'&&(!Array.isArray(item.aliases)||!item.aliases.every(text)||!['height','direction','anatomy','action','surface','command','number','pedagogy'].includes(item.kind)))errors.push(id+': classe ou aliases inválidos');
   if(!Array.isArray(item?.sources)||item.sources.length===0)errors.push(id+': fonte obrigatória');
   else for(const source of item.sources){
    if(!['institution','title','edition','locator'].every(k=>text(source?.[k])))errors.push(id+': referência incompleta');
-   try{const u=new URL(source.url);if(u.protocol!=='https:'||!(u.hostname==='kukkiwon.or.kr'||u.hostname.endsWith('.kukkiwon.or.kr')||u.hostname==='krdict.korean.go.kr'))throw Error();}
+   try{const u=new URL(source.url);if(u.protocol!=='https:'||!(u.hostname==='kukkiwon.or.kr'||u.hostname.endsWith('.kukkiwon.or.kr')||u.hostname==='krdict.korean.go.kr'||u.hostname==='www.worldtaekwondo.org'))throw Error();}
    catch{errors.push(id+': domínio de fonte não autorizado');}
    if(requireApproval&&!date(source?.checkedAt))errors.push(id+': fonte não conferida');
   }

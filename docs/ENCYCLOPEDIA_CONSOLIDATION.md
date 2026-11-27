@@ -17,6 +17,8 @@
 
 - Fase 16: 60 perguntas do Iron com ficha e localizador. A revisão combina nível e assunto, pagina grupos de seis itens e permite retomar os erros, corrigir respostas e reiniciar o progresso salvo neste navegador. As seis perguntas anteriores conservam os IDs e a ordem das alternativas.
 
+- Fase 17: 47 palavras e 13 expressões no Glossário em revisão (32 palavras e 10 expressões novas). As fontes distinguem verbetes e exemplos do KR-DICT, nomes da Kukkiwon e comandos conforme a edição da WT. A pronúncia didática e a revisão de tradução seguem pendentes. A lista aprovada continua vazia.
+
 ### Cobertura documental da expansão
 
 | Forma | Daegu etapas/ações | Cobertura no laboratório Linux | Reprodução EMC v20 | Pendência técnica |
