@@ -255,6 +255,21 @@ const areaStudyLinks: Record<Exclude<Area, "hands">, readonly { href: string; la
   ],
 };
 
+function AnatomicalConnections({ slug }: Readonly<{ slug: string }>) {
+  const neighbors = anatomicalNeighbors[slug];
+  if (!neighbors?.length) return null;
+  return (
+    <nav aria-label="Comparar recortes anatômicos">
+      <strong>Regiões próximas</strong>
+      <ul className="related-list">
+        {neighbors.map(({ slug, label }) => (
+          <li key={slug}><a className="inline-link" href={`/atlas?region=${slug}&zoom=1`}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 function renderBodyRegionInspector(area: Area, region: BodyRegion, view: View): ReactNode {
   if (area === "arms") return <PublicArmRegionInspector region={region} />;
   if (area === "head") return <PublicHeadRegionInspector region={region} view={view} />;
@@ -471,12 +486,21 @@ export default function Atlas() {
   const hasCuratedBodyInspector =
     location.area === "arms" || location.area === "head" || location.area === "torso" || location.area === "legs";
   const renderBodyInspection = hasCuratedBodyInspector
-    ? (region: BodyRegion) => renderBodyRegionInspector(location.area, region, location.view)
+    ? (region: BodyRegion) => (
+        <>
+          {renderBodyRegionInspector(location.area, region, location.view)}
+          <AnatomicalConnections slug={region.slug} />
+        </>
+      )
     : undefined;
   let renderDetailInspection: ((region: BodyRegion) => ReactNode) | undefined;
-  if (curatedFoot) renderDetailInspection = (region) => <PublicFootRegionInspector region={region} view={location.detailView} />;
+  if (curatedFoot) renderDetailInspection = (region) => (
+    <>
+      <PublicFootRegionInspector region={region} view={location.detailView} />
+      <AnatomicalConnections slug={region.slug} />
+    </>
+  );
   else if (curatedHand) renderDetailInspection = (region) => <PublicHandRegionInspector regionSlug={region.slug} />;
-  const neighbors = location.area !== "hands" && location.region ? anatomicalNeighbors[location.region] : undefined;
   return (
     <div
       className="atlas-layout"
@@ -674,16 +698,6 @@ export default function Atlas() {
             onPreview={setContextSlug}
           />
         )}
-        {neighbors?.length ? (
-          <nav className="atlas-library-bridge" aria-label="Comparar recortes anatômicos">
-            <h3>Regiões próximas</h3>
-            <ul className="related-list">
-              {neighbors.map(({ slug, label }) => (
-                <li key={slug}><a className="inline-link" href={`/atlas?region=${slug}&zoom=1`}>{label}</a></li>
-              ))}
-            </ul>
-          </nav>
-        ) : null}
         {location.area !== "hands" && (
           <div className="atlas-library-bridge">
             <h3>Estudar na Biblioteca</h3>
